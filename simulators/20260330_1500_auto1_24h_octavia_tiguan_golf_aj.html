@@ -1,0 +1,1951 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AUTO1 Aukce — Simulátor</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Barlow:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0D0F12;
+    --surface: #161A1F;
+    --surface2: #1E2329;
+    --border: #2A2F38;
+    --text: #E8EAF0;
+    --muted: #5A6272;
+    --accent: #E8A020;
+    --accent2: #F5C842;
+    --red: #E03535;
+    --green: #28A865;
+    --blue: #3A8EF0;
+    --font-display: 'Barlow Condensed', sans-serif;
+    --font-body: 'Barlow', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    min-height: 100vh;
+  }
+
+  /* TOP BAR */
+  .topbar {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .logo {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 20px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+  .logo span { color: var(--accent); }
+  .sim-badge {
+    background: rgba(232,160,32,.15);
+    border: 1px solid rgba(232,160,32,.3);
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    padding: 4px 10px;
+    text-transform: uppercase;
+  }
+  .topbar-right {
+    display: flex; align-items: center; gap: 20px;
+  }
+  .budget-display {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .budget-display strong { color: var(--accent2); font-size: 15px; }
+
+  /* TABS */
+  .tabs {
+    display: flex;
+    gap: 2px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+  }
+  .tab {
+    padding: 12px 20px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all .15s;
+  }
+  .tab.active { color: var(--text); border-bottom-color: var(--accent); }
+  .tab:hover:not(.active) { color: var(--text); }
+
+  /* MAIN */
+  .main { padding: 24px; max-width: 1200px; margin: 0 auto; }
+
+  /* SECTION HEADER */
+  .section-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 22px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+  }
+  .section-sub { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .live-dot {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--font-mono); font-size: 11px; color: var(--green);
+    letter-spacing: 1px; text-transform: uppercase;
+  }
+  .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--green);
+    animation: pulse 1.5s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50% { opacity: .4; transform: scale(.8); }
+  }
+
+  /* CAR GRID */
+  .car-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  /* CAR CARD */
+  .car-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all .2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .car-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .car-card.selected { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+  .car-card.won { border-color: var(--green); }
+  .car-card.lost { border-color: var(--red); opacity: .7; }
+
+  .car-img {
+    width: 100%; height: 180px;
+    background: var(--surface2);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .car-emoji { font-size: 64px; opacity: .4; }
+  .car-img-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,.7));
+  }
+  .car-badges {
+    position: absolute; top: 10px; left: 10px;
+    display: flex; gap: 6px;
+  }
+  .badge {
+    font-family: var(--font-mono);
+    font-size: 10px; font-weight: 500;
+    padding: 3px 8px; letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .badge-country { background: rgba(0,0,0,.7); color: #fff; border: 1px solid rgba(255,255,255,.2); }
+  .badge-hot { background: var(--red); color: #fff; }
+  .badge-buy { background: var(--green); color: #fff; }
+  .badge-won { background: var(--green); color: #fff; }
+  .badge-lost { background: var(--red); color: #fff; }
+
+  .car-timer {
+    position: absolute; bottom: 10px; right: 10px;
+    font-family: var(--font-mono); font-size: 13px; font-weight: 500;
+    background: rgba(0,0,0,.8); padding: 4px 10px;
+    color: var(--accent2);
+  }
+  .car-timer.urgent { color: var(--red); animation: blink .8s infinite; }
+  @keyframes blink { 50% { opacity: .4; } }
+
+  .car-body { padding: 14px 16px; }
+  .car-name {
+    font-family: var(--font-display);
+    font-weight: 800; font-size: 17px;
+    text-transform: uppercase; letter-spacing: .5px;
+    color: var(--text); margin-bottom: 4px;
+    line-height: 1.1;
+  }
+  .car-spec {
+    font-family: var(--font-mono); font-size: 11px; color: var(--muted);
+    margin-bottom: 12px; letter-spacing: .5px;
+  }
+  .car-damage {
+    font-size: 12px; color: rgba(232,160,32,.7);
+    margin-bottom: 12px; line-height: 1.4;
+  }
+
+  .car-price-row {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    padding-top: 12px; border-top: 1px solid var(--border);
+  }
+  .price-label { font-family: var(--font-mono); font-size: 10px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; display: block; margin-bottom: 2px; }
+  .price-val {
+    font-family: var(--font-display);
+    font-weight: 900; font-size: 22px;
+    color: var(--accent2); letter-spacing: .5px;
+  }
+  .price-czk { font-size: 13px; color: var(--muted); margin-top: 1px; }
+
+  .bid-btn {
+    background: var(--accent);
+    color: #000;
+    border: none;
+    font-family: var(--font-display);
+    font-weight: 800; font-size: 13px;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 10px 18px; cursor: pointer;
+    transition: all .15s;
+  }
+  .bid-btn:hover { background: var(--accent2); }
+  .bid-btn:disabled { background: var(--surface2); color: var(--muted); cursor: not-allowed; }
+  .bid-btn.won-btn { background: var(--green); color: #fff; cursor: default; }
+  .bid-btn.lost-btn { background: var(--surface2); color: var(--muted); cursor: default; }
+
+  /* BID MODAL */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,.85); z-index: 200;
+    align-items: center; justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    width: 500px; max-width: 95vw;
+    max-height: 92vh;
+    display: flex; flex-direction: column;
+    animation: modalIn .2s ease-out;
+  }
+  @keyframes modalIn {
+    from { opacity: 0; transform: scale(.95) translateY(10px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  .modal-header {
+    background: var(--surface2);
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .modal-title {
+    font-family: var(--font-display);
+    font-weight: 800; font-size: 16px;
+    text-transform: uppercase; letter-spacing: .5px;
+  }
+  .modal-close {
+    background: none; border: none; color: var(--muted);
+    font-size: 20px; cursor: pointer; line-height: 1;
+  }
+  .modal-close:hover { color: var(--text); }
+  .modal-body { padding: 20px; overflow-y: auto; flex: 1; }
+
+  .modal-car-info {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 14px 16px; margin-bottom: 20px;
+  }
+  .modal-car-name {
+    font-family: var(--font-display);
+    font-weight: 800; font-size: 18px;
+    text-transform: uppercase; margin-bottom: 4px;
+  }
+  .modal-car-spec { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+
+  .cost-breakdown { margin-bottom: 20px; }
+  .cost-row {
+    display: flex; justify-content: space-between;
+    padding: 8px 0; border-bottom: 1px solid var(--border);
+    font-size: 13px; color: var(--muted);
+  }
+  .cost-row:last-child { border-bottom: none; }
+  .cost-row.total {
+    font-weight: 700; font-size: 15px; color: var(--text);
+    border-top: 1px solid var(--border); border-bottom: none;
+    margin-top: 4px; padding-top: 12px;
+  }
+  .cost-row span:last-child {
+    font-family: var(--font-mono); font-size: 12px; color: var(--text);
+  }
+  .cost-row.total span:last-child { font-size: 16px; color: var(--accent2); }
+  .cost-row.saving span:last-child { color: var(--green); }
+
+  .bid-agent-section { margin-bottom: 20px; }
+  .bid-agent-title {
+    font-family: var(--font-display);
+    font-weight: 800; font-size: 15px; text-transform: uppercase;
+    letter-spacing: .5px; margin-bottom: 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .bid-agent-title .tag {
+    font-size: 10px; background: var(--blue); color: #fff;
+    padding: 2px 7px; font-family: var(--font-mono);
+    letter-spacing: 1px;
+  }
+
+  .max-bid-input-wrap { position: relative; }
+  .max-bid-input {
+    width: 100%; background: var(--surface2);
+    border: 1px solid var(--border); color: var(--text);
+    font-family: var(--font-display); font-weight: 700; font-size: 28px;
+    padding: 14px 80px 14px 16px; outline: none;
+    transition: border-color .15s;
+    letter-spacing: .5px;
+  }
+  .max-bid-input:focus { border-color: var(--accent); }
+  .max-bid-unit {
+    position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
+    font-family: var(--font-mono); font-size: 13px; color: var(--muted);
+  }
+  .bid-hint { font-size: 12px; color: var(--muted); margin-top: 8px; line-height: 1.5; }
+  .bid-hint strong { color: var(--accent); }
+
+  .bid-warning {
+    background: rgba(232,53,53,.1);
+    border: 1px solid rgba(232,53,53,.3);
+    color: #ff8080; font-size: 12px; padding: 10px 14px;
+    margin-top: 10px; display: none;
+  }
+  .bid-warning.show { display: block; }
+
+  .modal-footer {
+    padding: 16px 20px;
+    border-top: 1px solid var(--border);
+    display: flex; gap: 10px;
+    flex-shrink: 0;
+  }
+  .btn-cancel {
+    flex: 1; background: var(--surface2); border: 1px solid var(--border);
+    color: var(--muted); font-family: var(--font-display); font-weight: 700;
+    font-size: 14px; letter-spacing: 1px; text-transform: uppercase;
+    padding: 12px; cursor: pointer;
+  }
+  .btn-cancel:hover { color: var(--text); }
+  .btn-confirm {
+    flex: 2; background: var(--accent); border: none;
+    color: #000; font-family: var(--font-display); font-weight: 900;
+    font-size: 15px; letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 12px; cursor: pointer; transition: background .15s;
+  }
+  .btn-confirm:hover { background: var(--accent2); }
+  .btn-confirm:disabled,
+  .btn-confirm[disabled] { background: var(--surface2) !important; color: var(--muted) !important; cursor: not-allowed !important; pointer-events: none; }
+
+  /* AUCTION RUNNING */
+  .auction-screen { display: none; }
+  .auction-screen.active { display: block; }
+
+  .auction-progress {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 24px; margin-bottom: 20px;
+  }
+  .progress-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 20px;
+  }
+  .progress-title {
+    font-family: var(--font-display);
+    font-weight: 900; font-size: 20px; text-transform: uppercase;
+  }
+  .progress-car { font-family: var(--font-mono); font-size: 12px; color: var(--muted); margin-top: 3px; }
+
+  .countdown-big {
+    font-family: var(--font-display);
+    font-weight: 900; font-size: 48px;
+    color: var(--accent2); letter-spacing: 2px; line-height: 1;
+  }
+  .countdown-label { font-family: var(--font-mono); font-size: 11px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-top: 4px; }
+
+  .bid-log {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    height: 200px; overflow-y: auto;
+    padding: 12px 16px; margin: 16px 0;
+    font-family: var(--font-mono); font-size: 12px;
+  }
+  .log-entry {
+    padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,.04);
+    display: flex; gap: 12px; align-items: center;
+    animation: fadeIn .3s ease-out;
+  }
+  .log-entry:last-child { border-bottom: none; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateX(-10px); } }
+  .log-time { color: var(--muted); min-width: 60px; }
+  .log-msg { flex: 1; }
+  .log-msg.you { color: var(--accent2); }
+  .log-msg.competitor { color: #fff; }
+  .log-msg.system { color: var(--muted); font-style: italic; }
+  .log-msg.win { color: var(--green); font-weight: 700; }
+  .log-msg.lose { color: var(--red); }
+  .log-price { color: var(--muted); }
+  .log-price.you { color: var(--accent); }
+
+  .current-bid-row {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px; margin-top: 16px;
+  }
+  .bid-stat { background: var(--surface2); padding: 14px; border: 1px solid var(--border); }
+  .bid-stat-label { font-family: var(--font-mono); font-size: 10px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; display: block; margin-bottom: 4px; }
+  .bid-stat-val { font-family: var(--font-display); font-weight: 900; font-size: 22px; color: var(--text); }
+  .bid-stat-val.accent { color: var(--accent2); }
+  .bid-stat-val.green { color: var(--green); }
+  .bid-stat-val.red { color: var(--red); }
+
+  /* RESULT */
+  .result-screen { display: none; }
+  .result-screen.active { display: block; }
+  .result-card {
+    border: 2px solid var(--green);
+    background: var(--surface);
+    padding: 32px; text-align: center;
+    margin-bottom: 24px;
+  }
+  .result-card.lose { border-color: var(--red); }
+  .result-icon { font-size: 56px; margin-bottom: 16px; display: block; }
+  .result-title {
+    font-family: var(--font-display);
+    font-weight: 900; font-size: 36px; text-transform: uppercase;
+    letter-spacing: 1px; margin-bottom: 8px;
+    color: var(--green);
+  }
+  .result-card.lose .result-title { color: var(--red); }
+  .result-sub { font-size: 15px; color: var(--muted); line-height: 1.6; }
+
+  .summary-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px;
+  }
+  .summary-box { background: var(--surface2); border: 1px solid var(--border); padding: 20px; }
+  .summary-box-title {
+    font-family: var(--font-display); font-weight: 800; font-size: 14px;
+    text-transform: uppercase; letter-spacing: .5px;
+    margin-bottom: 14px; color: var(--muted);
+  }
+  .summary-row {
+    display: flex; justify-content: space-between;
+    font-size: 13px; padding: 7px 0; border-bottom: 1px solid var(--border);
+    color: var(--muted);
+  }
+  .summary-row:last-child { border-bottom: none; }
+  .summary-row span:last-child { font-family: var(--font-mono); font-size: 12px; color: var(--text); }
+  .summary-row.highlight span:last-child { color: var(--accent2); font-size: 14px; font-weight: 700; }
+  .summary-row.saving span:last-child { color: var(--green); }
+
+  .restart-btn {
+    display: block; width: 100%; margin-top: 24px;
+    background: var(--accent); border: none; color: #000;
+    font-family: var(--font-display); font-weight: 900; font-size: 16px;
+    letter-spacing: 2px; text-transform: uppercase; padding: 16px;
+    cursor: pointer; transition: background .15s;
+  }
+  .restart-btn:hover { background: var(--accent2); }
+
+  /* INFO BOX */
+  .info-box {
+    background: rgba(58,142,240,.08);
+    border: 1px solid rgba(58,142,240,.2);
+    padding: 16px 20px; margin-bottom: 24px;
+    display: flex; gap: 12px;
+  }
+  .info-icon { font-size: 20px; flex-shrink: 0; }
+  .info-text { font-size: 13px; color: rgba(232,234,240,.7); line-height: 1.6; }
+  .info-text strong { color: var(--text); }
+
+  /* RESPONSIVE */
+  @media (max-width: 700px) {
+    .car-grid { grid-template-columns: 1fr; }
+    .summary-grid { grid-template-columns: 1fr; }
+    .current-bid-row { grid-template-columns: 1fr; }
+    .topbar {
+      padding: 8px 12px;
+      flex-wrap: wrap;
+      gap: 6px;
+      min-height: unset;
+    }
+    .logo { font-size: 15px; }
+    .sim-badge { font-size: 9px; padding: 2px 6px; }
+    .topbar-right {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+    }
+    .topbar-right button {
+      flex: 1;
+      font-size: 10px !important;
+      padding: 6px 8px !important;
+      margin-right: 0 !important;
+    }
+    .budget-display { font-size: 11px; }
+    .live-dot { font-size: 10px; }
+    .tabs { gap: 0; }
+    .tab {
+      font-size: 11px;
+      padding: 12px 6px;
+      letter-spacing: 0;
+      flex: 1;
+      text-align: center;
+    }
+    .main { padding: 12px; }
+    .car-card { padding: 14px 12px; }
+    .car-name { font-size: 20px; }
+    .car-price { font-size: 28px; }
+    .price-czk { font-size: 14px; }
+    .car-emoji { font-size: 48px; }
+    .btn-bid {
+      width: 100%;
+      padding: 14px;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+    .modal-overlay {
+      align-items: flex-end;
+      padding: 0;
+    }
+    .modal {
+      width: 100% !important;
+      max-width: 100% !important;
+      border-radius: 16px 16px 0 0;
+      max-height: 92vh !important;
+    }
+    .modal-header { padding: 16px 16px 10px; }
+    .modal-title { font-size: 15px; }
+    .modal-body { padding: 12px 14px; }
+    .modal-footer {
+      padding: 10px 14px 24px;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .modal-footer button {
+      width: 100%;
+      padding: 16px;
+      font-size: 14px;
+    }
+    #maxBidInput { font-size: 32px !important; padding: 12px 14px !important; }
+    .quick-bids { grid-template-columns: 1fr 1fr; gap: 6px; }
+    .quick-bid-btn { padding: 10px 6px; font-size: 12px; }
+    #competitorList input[type=number] { font-size: 16px; padding: 10px; }
+    #timingManual, #timingScheduled {
+      font-size: 11px;
+      padding: 12px 8px;
+    }
+    .progress-header { flex-direction: column; gap: 8px; }
+    .progress-title { font-size: 16px; }
+    .countdown-big { font-size: 40px; }
+    .bid-stat-val { font-size: 24px; }
+    .bid-stat { padding: 12px; }
+    .result-icon { font-size: 48px; }
+    .result-title { font-size: 26px; }
+    .result-sub { font-size: 12px; }
+    .result-card { padding: 16px; margin: 0; }
+    .result-table td { font-size: 13px; padding: 8px 6px; }
+    .cost-row span { font-size: 12px; }
+    .cost-row.total span:last-child { font-size: 14px; }
+    .section-title { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo">AUTO<span>1</span>.COM <span style="color:var(--muted);font-size:14px;font-weight:400;letter-spacing:0;">DEALER AUCTION</span></div>
+  <span class="sim-badge">⚡ Simulátor — nanečisto</span>
+  <div class="topbar-right">
+    <button onclick="openJsonLoader()" style="
+      background:rgba(245,200,66,.15);border:1px solid rgba(245,200,66,.4);
+      color:var(--accent2);font-family:var(--font-display);font-weight:700;
+      font-size:11px;letter-spacing:1px;padding:5px 12px;cursor:pointer;
+      margin-right:4px;
+    ">📋 NAČÍST AUTA</button>
+    <button id="shareBtn" onclick="shareUrl()" style="
+      background:rgba(58,142,240,.15);border:1px solid rgba(58,142,240,.4);
+      color:var(--blue);font-family:var(--font-display);font-weight:700;
+      font-size:11px;letter-spacing:1px;padding:5px 12px;cursor:pointer;
+      margin-right:4px;
+    ">🔗 SDÍLET ODKAZ</button>
+    <button onclick="exportHtml()" style="
+      background:rgba(40,168,101,.15);border:1px solid rgba(40,168,101,.4);
+      color:var(--green);font-family:var(--font-display);font-weight:700;
+      font-size:11px;letter-spacing:1px;padding:5px 12px;cursor:pointer;
+      margin-right:8px;
+    ">💾 EXPORTOVAT HTML</button>
+    <div class="live-dot"><span class="dot"></span>LIVE</div>
+    <div style="display:flex;align-items:center;gap:4px;">
+      <span style="font-family:var(--font-mono);font-size:10px;color:var(--muted);letter-spacing:1px;">EUR/CZK</span>
+      <input type="number" id="eurCzkRate" value="24.2" step="0.1" style="
+        background:var(--surface2);border:1px solid var(--border);color:var(--accent2);
+        font-family:var(--font-mono);font-size:13px;font-weight:700;
+        text-align:center;width:62px;padding:4px 2px;outline:none;
+      " oninput="onRateChange()" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'">
+    </div>
+  </div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab('browse')">📋 Přehled aukcí</div>
+  <div class="tab" id="tab-auction" onclick="showTab('auction')">⚡ Průběh aukce</div>
+  <div class="tab" id="tab-result" onclick="showTab('result')">🏆 Výsledek</div>
+</div>
+
+<!-- ── BROWSE ── -->
+<div class="main" id="screen-browse">
+
+  <div class="info-box">
+    <span class="info-icon">💡</span>
+    <div class="info-text">
+      <strong>Jak to funguje:</strong> Vyber auto, nastav svůj max. bid (Bid Agent pak přihazuje automaticky za tebe — nikdy nad tvůj limit).
+      Systém simuluje ostatní uchazeče. Uvidíš přesně co se děje v reálné aukci AUTO1.
+    </div>
+  </div>
+
+  <div class="section-header">
+    <div>
+      <div class="section-title">Aktivní aukce · <span id="liveDate">—</span></div>
+      <div class="section-sub">Vyber auto a zadej max. bid</div>
+    </div>
+    <div class="live-dot"><span class="dot"></span><span id="liveCount">0</span> vozů live</div>
+  </div>
+
+  <div class="car-grid" id="carGrid"></div>
+
+</div>
+
+<!-- ── AUCTION RUNNING ── -->
+<div class="main auction-screen" id="screen-auction">
+  <div class="auction-progress">
+    <div style="background:rgba(58,142,240,.1);border:1px solid rgba(58,142,240,.3);padding:8px 14px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:var(--font-mono);font-size:11px;color:rgba(58,142,240,.8);letter-spacing:2px;">
+        ⚙️ SIMULOVANÁ AUKCE AUTO1 · Proxy bidding systém
+      </div>
+      <div style="background:rgba(58,142,240,.2);border:1px solid rgba(58,142,240,.4);padding:3px 10px;font-family:var(--font-mono);font-size:11px;color:rgba(58,142,240,.9);letter-spacing:1px;">
+        KROK PŘÍHOZU: <strong>+100 EUR / +2 530 Kč</strong>
+      </div>
+    </div>
+
+    <div class="progress-header">
+      <div>
+        <div class="progress-title" id="auctionCarName">—</div>
+        <div class="progress-car" id="auctionCarSpec">—</div>
+      </div>
+      <div style="text-align:right">
+        <div class="countdown-big" id="countdown">0:00</div>
+        <div class="countdown-label">do konce aukce</div>
+      </div>
+    </div>
+
+    <div style="background:rgba(245,200,66,.07);border:1px solid rgba(245,200,66,.3);padding:14px 18px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;">
+      <div>
+        <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(245,200,66,.6);margin-bottom:3px;">TVOJE MAXIMÁLNÍ CENA — hranice Bid Agenta</div>
+        <div style="display:flex;align-items:baseline;gap:14px;">
+          <div style="font-family:var(--font-display);font-weight:900;font-size:32px;color:var(--accent2);letter-spacing:1px;" id="statMaxBid">—</div>
+          <div style="font-family:var(--font-mono);font-size:15px;color:rgba(245,200,66,.5);" id="statMaxBidCzk">—</div>
+        </div>
+      </div>
+      <div style="text-align:right;font-size:11px;color:var(--muted);line-height:1.8;">
+        Ostatní uchazeči<br>tvůj limit <strong style="color:var(--accent2)">nevidí</strong><br>
+        <span style="font-family:var(--font-mono);font-size:10px;">Bid Agent přihazuje<br>automaticky</span>
+      </div>
+    </div>
+
+    <div class="current-bid-row">
+      <div class="bid-stat">
+        <span class="bid-stat-label">Aktuální příhoz v aukci</span>
+        <div class="bid-stat-val accent" id="statCurrentBid">—</div>
+        <div style="font-family:var(--font-mono);font-size:11px;color:var(--muted);margin-top:3px;" id="statCurrentBidCzk">—</div>
+      </div>
+      <div class="bid-stat">
+        <span class="bid-stat-label">Zbývá do tvého limitu</span>
+        <div class="bid-stat-val" id="statRemaining">—</div>
+        <div style="font-family:var(--font-mono);font-size:11px;color:var(--muted);margin-top:3px;" id="statRemainingCzk">—</div>
+      </div>
+      <div class="bid-stat">
+        <span class="bid-stat-label">Tvoje pozice</span>
+        <div class="bid-stat-val green" id="statPosition">VEDETE</div>
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-top:3px;" id="statCompetitors">— uchazeči</div>
+      </div>
+    </div>
+
+    <div class="bid-log" id="bidLog"></div>
+  </div>
+</div>
+
+<!-- ── RESULT ── -->
+<div class="main result-screen" id="screen-result">
+  <div id="resultCard" class="result-card">
+    <span id="resultIcon" class="result-icon">🏆</span>
+    <div id="resultTitle" class="result-title">Vyhráli jste!</div>
+    <div id="resultSub" class="result-sub">—</div>
+  </div>
+  <div class="summary-grid" id="summaryGrid"></div>
+  <button class="restart-btn" onclick="restart()">← Zkusit jiné auto</button>
+</div>
+
+<!-- ── BID MODAL ── -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">⚡ Nastavit Bid Agent</div>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-car-info">
+        <div class="modal-car-name" id="modalCarName">—</div>
+        <div class="modal-car-spec" id="modalCarSpec">—</div>
+      </div>
+
+      <div class="cost-breakdown" id="modalCostBreakdown"></div>
+
+      <div class="bid-agent-section">
+        <div class="bid-agent-title">
+          Maximální cena — hranice Bid Agenta
+          <span class="tag">BID AGENT</span>
+        </div>
+
+        <div style="background:rgba(58,142,240,.08);border:1px solid rgba(58,142,240,.25);padding:10px 14px;margin-bottom:12px;font-size:12px;color:rgba(232,234,240,.75);line-height:1.6;">
+          <strong style="color:#fff;">Jak funguje Bid Agent na AUTO1:</strong><br>
+          Zadáš <strong style="color:var(--accent2)">maximální cenu</strong> kterou jsi ochoten zaplatit.
+          Systém za tebe přihazuje automaticky po <strong style="color:var(--accent2)">100 EUR</strong> — vždy jen o minimum víc než konkurent.
+          Tvůj limit nikdo nevidí. Přestane přihazovat jakmile by ho překročil.
+        </div>
+
+        <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">
+          ZADEJ SVOJI MAXIMÁLNÍ CENU v EUR ← <span style="color:var(--accent)">POVINNÉ</span>
+        </div>
+        <div class="max-bid-input-wrap">
+          <input type="number" class="max-bid-input" id="maxBidInput" placeholder="0" oninput="updateBidHint()" onkeyup="updateBidHint()" onchange="updateBidHint()">
+          <span class="max-bid-unit">EUR MAX</span>
+        </div>
+
+        <div id="profitGrid" style="margin-top:12px;overflow-x:auto;"></div>
+
+        <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;" id="quickBids"></div>
+
+        <div class="bid-hint" id="bidHint" style="margin-top:10px;">← Zadej maximální cenu v EUR. All-in kalkulace se aktualizuje automaticky.</div>
+        <div class="bid-warning" id="bidWarning">⚠ Zadaná cena je pod minimálním příhozem aukce!</div>
+      </div>
+
+      <!-- SOUPEŘI -->
+      <div style="margin-bottom:20px;">
+        <div class="bid-agent-title" style="margin-bottom:10px;">
+          Soupeři v aukci
+          <span class="tag" style="background:var(--red);">KONKURENCE</span>
+        </div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:10px;">
+          Zadej max. bidy soupeřů (EUR). Na AUTO1 jsou skrytá — tady si je nastavíš sám pro realismus.
+        </div>
+        <div id="competitorList" style="display:flex;flex-direction:column;gap:6px;"></div>
+        <button onclick="addCompetitor()" style="
+          background:var(--surface2);border:1px dashed var(--border);color:var(--muted);
+          font-family:var(--font-mono);font-size:11px;padding:7px;width:100%;
+          cursor:pointer;margin-top:6px;letter-spacing:1px;
+        " onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">
+          + přidat soupeře
+        </button>
+      </div>
+
+      <!-- ČASOVÁNÍ AUKCE -->
+      <div style="margin-bottom:10px;">
+        <div class="bid-agent-title" style="margin-bottom:10px;">
+          Spuštění aukce
+          <span class="tag" style="background:var(--blue);">TIMING</span>
+        </div>
+        <div style="display:flex;gap:8px;margin-bottom:10px;">
+          <button id="timingManual" onclick="setTiming('manual')" style="
+            flex:1;background:var(--accent);border:none;color:#000;
+            font-family:var(--font-display);font-weight:800;font-size:12px;
+            letter-spacing:1px;padding:9px;cursor:pointer;
+          ">▶ HNED (manuální start)</button>
+          <button id="timingScheduled" onclick="setTiming('scheduled')" style="
+            flex:1;background:var(--surface2);border:1px solid var(--border);color:var(--muted);
+            font-family:var(--font-display);font-weight:800;font-size:12px;
+            letter-spacing:1px;padding:9px;cursor:pointer;
+          ">🕐 NAPLÁNOVAT</button>
+        </div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:4px;">
+          ↓ Zkontroluj max. bid výše a klikni <strong style="color:var(--accent)">SPUSTIT SIMULACI</strong> dole
+        </div>
+        <div id="schedulePanel" style="display:none;background:var(--surface2);border:1px solid var(--border);padding:12px;">
+          <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:2px;color:var(--muted);margin-bottom:8px;">DATUM A ČAS AUKCE</div>
+          <input type="datetime-local" id="auctionDateTime" style="
+            background:var(--surface);border:1px solid var(--border);color:var(--text);
+            font-family:var(--font-mono);font-size:13px;padding:8px;width:100%;
+          ">
+          <div id="countdownToAuction" style="font-family:var(--font-mono);font-size:12px;color:var(--accent2);margin-top:8px;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeModal()">Zrušit</button>
+      <button class="btn-confirm" id="btnConfirm" onclick="startAuction()">⚡ SPUSTIT SIMULACI →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── JSON LOADER MODAL ── -->
+<div id="jsonLoaderOverlay" class="modal-overlay" style="display:none;z-index:999;" onclick="if(event.target===this)closeJsonLoader()">
+  <div class="modal" style="max-width:640px;width:95%;">
+    <div class="modal-header">
+      <div class="modal-title">📋 NAČÍST NOVÁ AUTA</div>
+      <button class="modal-close" onclick="closeJsonLoader()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);letter-spacing:1px;margin-bottom:8px;">
+        VLOŽ JSON — ŠABLONA PRO 1 AUTO:
+      </div>
+      <div style="background:rgba(255,255,255,.04);border:1px solid var(--border);padding:10px 12px;font-family:var(--font-mono);font-size:11px;color:var(--accent2);margin-bottom:12px;white-space:pre;overflow-x:auto;">[
+  {
+    "id": "XL86610",
+    "name": "Škoda Octavia",
+    "spec": "2.0 TDI DSG · 2022 · 85 000 km",
+    "minBid": 12205,
+    "czPrice": 419000,
+    "type": "hot",
+    "emoji": "🚗",
+    "damage": "Popis škod nebo info o aukci"
+  }
+]</div>
+      <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);letter-spacing:1px;margin-bottom:6px;">
+        TVŮJ JSON:
+      </div>
+      <textarea id="jsonInput" placeholder='[{"id":"...","name":"...","spec":"...","minBid":0,"czPrice":0,"type":"hot","buyer_fee":850,"doc_fee":0,"voucher":0}]'
+        style="width:100%;height:180px;background:var(--surface2);border:1px solid var(--border);
+        color:#fff;font-family:var(--font-mono);font-size:12px;padding:10px;resize:vertical;
+        box-sizing:border-box;outline:none;"></textarea>
+      <div id="jsonError" style="color:var(--red);font-size:12px;margin-top:6px;display:none;"></div>
+      <div style="font-size:11px;color:var(--muted);margin-top:8px;">
+        ℹ️ <strong>type:</strong> "hot" nebo "standard" · <strong>emoji:</strong> ikona na kartě · <strong>damage:</strong> žlutý text pod spec · <strong>buyer_fee:</strong> aukční poplatek EUR (auto dle pásma) · <strong>doc_fee:</strong> dok. popl. · <strong>voucher:</strong> sleva
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeJsonLoader()">Zrušit</button>
+      <button class="btn-confirm" onclick="loadCarsFromJson()">✓ NAČÍST AUTA</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let EUR_CZK = 24.545;
+const DPH = 0.21;
+
+// Buyer Fee tabulka podle cenového pásma (střed rozsahu)
+function getBuyerFee(bidEur) {
+  if (bidEur < 1000) return 190;
+  if (bidEur < 3000) return 275;
+  if (bidEur < 6000) return 400;
+  if (bidEur < 10000) return 550;
+  if (bidEur < 15000) return 700;
+  return 850;
+}
+
+// Globální hodnoty editovatelné v modálu
+let modalDocFee = 0;
+let modalVoucher = 0;
+let modalBuyerFee = 0;
+
+const CARS = [
+  { id: 'BJ83438', name: 'Škoda Octavia 2.0 TDI Style', spec: '2.0 TDI 110kW DSG · 02/2023 · 99 615 km · Sedan', detail: 'DE · Nafta · DSG · Odpočitatelné DPH', damage: '1D 02:40:07 · Aukce', minBid: 17525, buyNow: null, step: 100, type: 'standard', color: '#2d5016', emoji: '🎯', extras: 'DSG · Navi · Nový', transport: 475, czPrice: 500000, damage_cost: 0 },
+  { id: 'CZ58096', name: 'VW Golf 2.0 TDI Life', spec: '2.0 TDI 110kW DSG · 02/2023 · 100 384 km · Hatchback', detail: 'DE · Nafta · DSG · Odpočitatelné DPH', damage: '1D 02:30:59 · Aukce', minBid: 15594, buyNow: null, step: 100, type: 'standard', color: '#0052a3', emoji: '🎯', extras: 'DSG · CarPlay · Vyhř. sedadla', transport: 575, czPrice: 400000, damage_cost: 0 },
+  { id: 'BU19474', name: 'VW Tiguan 2.0 TDI Active', spec: '2.0 TDI 110kW DSG · 01/2023 · 53 152 km · SUV', detail: 'DE · Nafta · DSG · Odpočitatelné DPH', damage: '1D 02:28:55 · Aukce', minBid: 25151, buyNow: null, step: 100, type: 'standard', color: '#0052a3', emoji: '🎯', extras: 'DSG · LED · Panorama · Nský', transport: 775, czPrice: 700000, damage_cost: 0 },
+  { id: 'TF47894', name: 'VW Tiguan 2.0 TDI Elegance', spec: '2.0 TDI 110kW DSG · 01/2023 · 60 794 km · SUV', detail: 'DE · Nafta · DSG · Odpočitatelné DPH', damage: '1D 02:04:40 · Aukce', minBid: 25948, buyNow: null, step: 100, type: 'standard', color: '#0052a3', emoji: '🎯', extras: 'DSG · Elegance · Vyhř.sedadla · Navi', transport: 575, czPrice: 720000, damage_cost: 0 },
+  { id: 'NK67778', name: 'VW Tiguan 2.0 TDI Elegance', spec: '2.0 TDI 110kW DSG · 02/2023 · 60 109 km · SUV', detail: 'DE · Nafta · DSG · Odpočitatelné DPH', damage: '1D 02:37:07 · Aukce', minBid: 25748, buyNow: null, step: 100, type: 'standard', color: '#0052a3', emoji: '🎯', extras: 'DSG · Elegance · LED · Top výbava', transport: 775, czPrice: 730000, damage_cost: 0 },
+  { id: 'TV50499', name: 'VW Tiguan 2.0 TDI Life', spec: '2.0 TDI 110kW DSG · 01/2023 · 53 451 km · SUV', detail: 'DE · Nafta · DSG · Odpočitatelné DPH', damage: '1D 02:28:00 · Aukce', minBid: 23032, buyNow: null, step: 100, type: 'standard', color: '#0052a3', emoji: '🎯', extras: 'DSG · Nový · Life · Vyhří.sed', transport: 775, czPrice: 690000, damage_cost: 0 },
+  { id: 'PC11757', name: 'Audi A4 40 TDI Mild-Hybrid quattro', spec: '2.0 TDI 150kW DSG · 03/2023 · 78 568 km · Sedan', detail: 'DE (Dortmund) · Nafta · DSG 4x4 · Odpočitatelné DPH', damage: 'Okamžitý nákup · Blízko DE', minBid: null, buyNow: 24165, step: null, type: 'standard', color: '#bc002d', emoji: '⚡', extras: 'Quattro · Mild-Hybrid · Premium · LED · Navi', transport: 320, czPrice: 1000000, damage_cost: 0 },
+  { id: 'AX26003', name: 'Škoda Karoq 1.5 TSI ACT Style', spec: '1.5 TSI 110kW DSG · 10/2019 · 97 298 km · SUV', detail: 'DE (Seddiner See) · Benzín · DSG · Odpočitatelné DPH', damage: 'Okamžitý nákup · Blízko DE', minBid: null, buyNow: 16722, step: null, type: 'standard', color: '#2d5016', emoji: '⚡', extras: 'DSG · TSI · Nový design · Style', transport: 340, czPrice: 350000, damage_cost: 0 },
+  { id: 'LE82535', name: 'Škoda Superb 2.0 TDI Style', spec: '2.0 TDI 147kW DSG · 01/2023 · 83 179 km · Sedan', detail: 'DE · Nafta · DSG · Odpočitatelné DPH', damage: 'HOT BID — 1D 18:59:39 · Min 14 205 €', minBid: 14205, buyNow: null, step: 100, type: 'hot', color: '#2d5016', emoji: '🔥', extras: 'DSG · HOT BID · Superb · Nový', transport: 480, czPrice: 550000, damage_cost: 0 },
+  { id: 'WH07970', name: 'Škoda Octavia 2.0 TDI Style', spec: '2.0 TDI 110kW DSG · 01/2023 · 71 516 km · Sedan', detail: 'DE (Düren) · Nafta · DSG · Odpočitatelné DPH', damage: 'HOT BID — 22:59:39 · Min 17 617 €', minBid: 17617, buyNow: null, step: 100, type: 'hot', color: '#2d5016', emoji: '🔥', extras: 'DSG · HOT BID · Style · Nový', transport: 475, czPrice: 500000, damage_cost: 0 },
+  { id: 'JH83652', name: 'Mercedes-Benz C 220 d T Mild-Hybrid', spec: '2.0 TDI 162kW Automat · 03/2022 · 108 475 km · Kombi', detail: 'DE · Nafta · Automat · Odpočitatelné DPH', damage: 'HOT BID — 22:59:39 · Min 17 009 €', minBid: 17009, buyNow: null, step: 100, type: 'hot', color: '#00adef', emoji: '🔥', extras: 'Automat · Premium · LED · Navi · Vyhř', transport: 480, czPrice: 600000, damage_cost: 0 },
+];
+
+let selectedCar = null;
+let auctionInterval = null;
+let countdownInterval = null;
+let resultTimeout = null;
+let auctionActive = false;
+let scheduleInterval = null;
+let auctionTime = 0;
+let maxBid = 0;
+let currentBid = 0;
+let leading = true;
+let competitorBidders = [];
+let auctionTiming = 'manual';
+
+// ══════════════════════════════════════
+// AUTOMATICKÝ DATUM + ČAS + POČET VOZŮ
+// ══════════════════════════════════════
+function updateLive() {
+  var d = new Date();
+  var den = d.getDate() + '. ' + (d.getMonth() + 1) + '. ' + d.getFullYear();
+  var cas = d.getHours() + ':' + String(d.getMinutes()).padStart(2, '0');
+  var el = document.getElementById('liveDate');
+  if (el) el.textContent = den + ' — ' + cas;
+  var cnt = document.getElementById('liveCount');
+  if (cnt) cnt.textContent = CARS.length;
+}
+setInterval(updateLive, 10000);
+
+function onRateChange() {
+  const v = parseFloat((document.getElementById('eurCzkRate')||{}).value);
+  if (v && v > 0) { EUR_CZK = v; renderCards(); }
+}
+// ══════════════════════════════════════
+
+function renderCompetitors() {
+  const list = document.getElementById('competitorList');
+  if (!list) return;
+  list.innerHTML = competitorBidders.map((c, i) => `
+    <div style="display:flex;align-items:center;gap:8px;">
+      <span style="font-family:var(--font-mono);font-size:11px;color:var(--muted);width:110px;flex-shrink:0;">${c.name}</span>
+      <input type="number" value="${c.maxBid}" onchange="competitorBidders[${i}].maxBid=parseFloat(this.value)||0"
+        style="flex:1;background:var(--surface);border:1px solid var(--border);color:var(--text);
+               font-family:var(--font-mono);font-size:13px;padding:6px 10px;"
+        placeholder="max bid EUR">
+      <button onclick="removeCompetitor(${i})" style="
+        background:none;border:1px solid rgba(232,53,53,.3);color:var(--red);
+        font-size:13px;padding:4px 8px;cursor:pointer;">✕</button>
+    </div>
+  `).join('');
+}
+
+const COMP_NAMES = ['Dealer Berlin','Auto Wien','CarFleet Praha','Dealer Frankfurt','Auto Hamburg','BidCar Munich','AutoHub Brno'];
+
+function addCompetitor() {
+  if (!selectedCar) return;
+  const spread = Math.round(selectedCar.minBid * 0.12 / 100) * 100;
+  const suggested = Math.round((selectedCar.minBid + Math.random() * spread) / 100) * 100;
+  const name = COMP_NAMES[competitorBidders.length % COMP_NAMES.length];
+  competitorBidders.push({ name, maxBid: suggested, eliminated: false });
+  renderCompetitors();
+}
+
+function removeCompetitor(i) {
+  competitorBidders.splice(i, 1);
+  renderCompetitors();
+}
+
+function setTiming(mode) {
+  auctionTiming = mode;
+  document.getElementById('timingManual').style.background = mode === 'manual' ? 'var(--accent)' : 'var(--surface2)';
+  document.getElementById('timingManual').style.color = mode === 'manual' ? '#000' : 'var(--muted)';
+  document.getElementById('timingScheduled').style.background = mode === 'scheduled' ? 'var(--accent)' : 'var(--surface2)';
+  document.getElementById('timingScheduled').style.color = mode === 'scheduled' ? '#000' : 'var(--muted)';
+  document.getElementById('schedulePanel').style.display = mode === 'scheduled' ? 'block' : 'none';
+  if (mode === 'scheduled') startScheduleCountdown();
+  else { clearInterval(scheduleInterval); }
+}
+
+function startScheduleCountdown() {
+  clearInterval(scheduleInterval);
+  scheduleInterval = setInterval(() => {
+    const dtEl = document.getElementById('auctionDateTime');
+    const infoEl = document.getElementById('countdownToAuction');
+    if (!dtEl || !infoEl) return;
+    const target = new Date(dtEl.value);
+    if (!dtEl.value || isNaN(target)) { infoEl.textContent = '← Vyber datum a čas aukce'; return; }
+    const diff = target - Date.now();
+    if (diff <= 0) {
+      infoEl.textContent = '🔴 AUKCE PROBÍHÁ — spusť nyní!';
+      infoEl.style.color = 'var(--red)';
+    } else {
+      const h = Math.floor(diff/3600000);
+      const m = Math.floor((diff%3600000)/60000);
+      const s = Math.floor((diff%60000)/1000);
+      infoEl.textContent = `⏳ Do aukce: ${h > 0 ? h+'h ' : ''}${m}m ${s}s`;
+      infoEl.style.color = 'var(--accent2)';
+    }
+  }, 1000);
+}
+
+function formatEur(n) {
+  return new Intl.NumberFormat('cs-CZ').format(Math.round(n)) + ' €';
+}
+function formatCzk(n) {
+  return new Intl.NumberFormat('cs-CZ').format(Math.round(n)) + ' Kč';
+}
+
+function renderCards() {
+  const grid = document.getElementById('carGrid');
+  grid.innerHTML = CARS.map(car => {
+    const typeBadge = car.type === 'hot'
+      ? `<span class="badge badge-hot">🔥 HOT BID</span>`
+      : `<span class="badge badge-country">STANDARD</span>`;
+    const countryBadge = `<span class="badge badge-country">${car.id.slice(0,2)}</span>`;
+    const tr = car.transport || 450;
+    const dc = car.damage_cost || 5000;
+    const bf = car.buyer_fee || getBuyerFee(car.minBid);
+    const df = car.doc_fee || 0;
+    const vo = car.voucher || 0;
+    const allInEur = car.minBid + bf + df - vo + tr + Math.round(4200/EUR_CZK) + Math.round(6500/EUR_CZK) + Math.round(dc/EUR_CZK);
+    const allInJaroslav = Math.round(allInEur * EUR_CZK);
+    const customerPrice = Math.round(allInJaroslav * (1 + DPH));
+    const czWithDph = Math.round(car.czPrice * (1 + DPH));
+    const savingPrivate = car.savingPrivate || (czWithDph - customerPrice);
+    const savingVat = car.savingDealer || (car.czPrice - allInJaroslav);
+    const dmg = car.damage || '';
+    const emo = car.emoji || '🚗';
+    const col = car.color || '#1A3A5C';
+    return `
+    <div class="car-card" id="card-${car.id}" onclick="openModal('${car.id}')">
+      <div class="car-img" style="background: linear-gradient(135deg, ${col}44, ${col}22)">
+        <span class="car-emoji">${emo}</span>
+        <div class="car-img-overlay"></div>
+        <div class="car-badges">${typeBadge}${countryBadge}</div>
+        <div class="car-timer ${car.type==='hot'?'urgent':''}">
+          ${car.type==='hot'?'⚡ HOT BID':'STANDARD'}
+        </div>
+      </div>
+      <div class="car-body">
+        <div class="car-name">${car.name}</div>
+        <div class="car-spec">${car.spec || ''}</div>
+        <div style="margin-top:4px;">
+          <a href="https://www.auto1.com/cs/app/merchant/car/${car.id}" target="_blank"
+             onclick="event.stopPropagation();"
+             style="font-family:var(--font-mono);font-size:11px;color:rgba(100,180,255,.8);letter-spacing:1px;text-decoration:none;background:rgba(100,180,255,.08);border:1px solid rgba(100,180,255,.25);padding:3px 9px;border-radius:3px;display:inline-flex;align-items:center;gap:5px;">
+            🔍 ${car.id} — otevřít na AUTO1
+          </a>
+        </div>
+        ${dmg ? '<div class="car-damage">⚠ '+dmg+'</div>' : ''}
+        <div class="car-price-row">
+          <div>
+            <span class="price-label">Min. příhoz</span>
+            <div class="price-val">${formatEur(car.minBid)}</div>
+            <div class="price-czk" style="display:flex;align-items:center;gap:6px;margin-top:2px;">
+              <span style="background:rgba(255,255,255,.06);padding:2px 6px;font-family:var(--font-mono);font-size:11px;">${formatCzk(Math.round(car.minBid * EUR_CZK))}</span>
+            </div>
+          </div>
+          <div style="text-align:right">
+            <span class="price-label" style="text-align:right;display:block">Tržní cena ČR</span>
+            <div style="font-family:var(--font-mono);font-size:11px;line-height:1.9;margin-top:3px;">
+              <span style="color:var(--muted);font-size:10px;">Soukr.&nbsp;</span><span style="color:var(--green);font-weight:700;">${savingPrivate > 0 ? '+' + formatCzk(savingPrivate) : '—'}</span><br>
+              <span style="color:var(--muted);font-size:10px;">Plátce&nbsp;</span><span style="color:rgba(100,220,130,.6);font-weight:700;">${savingVat > 0 ? '+' + formatCzk(savingVat) : '—'}</span>
+            </div>
+            <div class="price-czk" style="margin-top:3px;line-height:1.5;font-size:10px;">
+              <span style="color:var(--accent2);font-weight:600;">bez DPH: ${formatCzk(car.czPrice)}</span><br>
+              <span style="opacity:.5">s DPH: ${formatCzk(czWithDph)}</span>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:12px">
+          <button class="bid-btn" style="width:100%">⚡ Nastavit Bid Agent</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  updateLive();
+}
+
+function openModal(carId) {
+  selectedCar = CARS.find(c => c.id === carId);
+  const c = selectedCar;
+
+  document.getElementById('modalCarName').textContent = c.name;
+  document.getElementById('modalCarSpec').textContent = (c.spec || '') + (c.detail ? ' · ' + c.detail : '');
+
+  const STK_CZK = 4200;
+  const POJ_CZK = 6500;
+  const STK_EUR = Math.round(STK_CZK / EUR_CZK);
+  const POJ_EUR = Math.round(POJ_CZK / EUR_CZK);
+  const dc = c.damage_cost || 5000;
+  const tr = c.transport || 450;
+  const DAM_EUR = Math.round(dc / EUR_CZK);
+  const bf = c.buyer_fee || getBuyerFee(c.minBid);
+  const df = c.doc_fee || 0;
+  const vo = c.voucher || 0;
+  modalBuyerFee = bf;
+  modalDocFee = df;
+  modalVoucher = vo;
+
+  const allInEur = c.minBid + bf + df - vo + tr + STK_EUR + POJ_EUR + DAM_EUR;
+  const allInJaroslav = Math.round(allInEur * EUR_CZK);
+  const customerPrice = Math.round(allInJaroslav * (1 + DPH));
+  const czWithDph = Math.round(c.czPrice * (1 + DPH));
+  const savingPrivate = czWithDph - customerPrice;
+  const savingVat = c.czPrice - allInJaroslav;
+
+  const col = (eur, czk, eurColor='var(--accent)') =>
+    `<span style="text-align:right;font-family:var(--font-mono);font-size:12px;color:${eurColor}">${eur}</span>
+     <span style="text-align:right;font-family:var(--font-mono);font-size:12px;">${czk}</span>`;
+
+  const smallInput = (id, val, placeholder) =>
+    `<input type="number" id="${id}" value="${val}" placeholder="${placeholder}" oninput="onModalFeeChange()"
+      style="background:var(--surface);border:1px solid var(--border);color:var(--accent2);
+      font-family:var(--font-mono);font-size:12px;font-weight:600;text-align:right;
+      width:70px;padding:3px 6px;outline:none;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'">`;
+
+  document.getElementById('modalCostBreakdown').innerHTML = `
+    <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);
+         display:grid;grid-template-columns:1fr 85px 95px;padding:5px 0 6px;border-bottom:1px solid var(--border);margin-bottom:2px;">
+      <span>Položka</span><span style="text-align:right">EUR</span><span style="text-align:right">CZK (×${EUR_CZK})</span>
+    </div>
+    <div class="cost-row" style="display:grid;grid-template-columns:1fr 85px 95px;">
+      <span>Příhoz — min. cena aukce</span>
+      ${col(formatEur(c.minBid), formatCzk(Math.round(c.minBid * EUR_CZK)))}
+    </div>
+    <div class="cost-row" style="display:grid;grid-template-columns:1fr 85px 95px;background:rgba(232,53,53,.05);">
+      <span style="color:var(--text);font-weight:600;">⚠ Buyer Fee (aukční popl.)</span>
+      <span style="text-align:right">${smallInput('modalBfInput', bf, 'fee')}<span style="font-size:10px;color:var(--muted);"> €</span></span>
+      <span id="modalBfCzk" style="text-align:right;font-family:var(--font-mono);font-size:12px;">${formatCzk(Math.round(bf * EUR_CZK))}</span>
+    </div>
+    <div class="cost-row" style="display:grid;grid-template-columns:1fr 85px 95px;">
+      <span>Dokumentační poplatek</span>
+      <span style="text-align:right">${smallInput('modalDfInput', df, '0')}<span style="font-size:10px;color:var(--muted);"> €</span></span>
+      <span id="modalDfCzk" style="text-align:right;font-family:var(--font-mono);font-size:12px;">${formatCzk(Math.round(df * EUR_CZK))}</span>
+    </div>
+    <div class="cost-row" style="display:grid;grid-template-columns:1fr 85px 95px;">
+      <span>Doprava na adresu CZ</span>
+      ${col(formatEur(tr), formatCzk(Math.round(tr * EUR_CZK)))}
+    </div>
+    <div class="cost-row" style="display:grid;grid-template-columns:1fr 85px 95px;">
+      <span>STK + EM + přihlášení</span>
+      ${col('≈ ' + formatEur(STK_EUR), formatCzk(STK_CZK), 'rgba(232,160,32,.6)')}
+    </div>
+    <div class="cost-row" style="display:grid;grid-template-columns:1fr 85px 95px;">
+      <span>Opravy (odhad)</span>
+      ${col('≈ ' + formatEur(DAM_EUR), formatCzk(dc), 'rgba(232,160,32,.6)')}
+    </div>
+    <div class="cost-row" style="display:grid;grid-template-columns:1fr 85px 95px;">
+      <span>Pojištění / rok</span>
+      ${col('≈ ' + formatEur(POJ_EUR), formatCzk(POJ_CZK), 'rgba(232,160,32,.6)')}
+    </div>
+    <div class="cost-row" style="display:grid;grid-template-columns:1fr 85px 95px;background:rgba(100,220,130,.04);">
+      <span style="color:var(--green);">🎟 Voucher AUTO1</span>
+      <span style="text-align:right">${smallInput('modalVoInput', vo, '0')}<span style="font-size:10px;color:var(--muted);"> €</span></span>
+      <span id="modalVoCzk" style="text-align:right;font-family:var(--font-mono);font-size:12px;color:var(--green);">${vo > 0 ? '−' + formatCzk(Math.round(vo * EUR_CZK)) : '—'}</span>
+    </div>
+    <div class="cost-row total" style="display:grid;grid-template-columns:1fr 85px 95px;">
+      <span>CELKOVÉ NÁKLADY (bez DPH)</span>
+      <span id="modalTotalEur" style="text-align:right;font-family:var(--font-mono);font-size:13px;color:var(--accent);font-weight:700;">${formatEur(allInEur)}</span>
+      <span id="modalTotalCzk" style="text-align:right;font-family:var(--font-mono);font-size:13px;color:var(--accent);font-weight:700;">${formatCzk(allInJaroslav)}</span>
+    </div>
+    <div id="modalSavingBox" style="background:${savingVat>0?'rgba(100,220,130,.05)':'rgba(232,53,53,.05)'};border:1px solid ${savingVat>0?'rgba(100,220,130,.2)':'rgba(232,53,53,.3)'};padding:10px 12px;margin-top:8px;">
+      <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;color:rgba(245,200,66,.7);margin-bottom:8px;">📊 REFERENČNÍ TRŽNÍ CENA V ČR (základ kalkulace)</div>
+      <div style="display:grid;grid-template-columns:1fr auto;gap:4px;font-size:13px;margin-bottom:4px;">
+        <span style="color:var(--muted);">Odh. cena v ČR bez DPH</span>
+        <span style="font-family:var(--font-mono);font-weight:700;color:var(--accent2);">${formatCzk(c.czPrice)}</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr auto;gap:4px;font-size:12px;margin-bottom:10px;">
+        <span style="color:var(--muted);font-size:11px;">Odh. cena v ČR s DPH 21%</span>
+        <span style="font-family:var(--font-mono);color:rgba(245,200,66,.6);">${formatCzk(czWithDph)}</span>
+      </div>
+      <div style="border-top:1px solid rgba(255,255,255,.08);padding-top:8px;">
+      <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;color:${savingVat>0?'rgba(100,220,130,.5)':'rgba(232,53,53,.6)'};margin-bottom:6px;">${savingVat>0?'✅':'⛔'} ÚSPORA vs. KOUPĚ V ČR (při min. bidu)</div>
+      <div style="display:grid;grid-template-columns:1fr auto;gap:4px;font-size:13px;margin-bottom:4px;">
+        <span style="color:var(--muted);">👤 Soukromá osoba</span>
+        <span style="font-family:var(--font-mono);font-weight:700;color:${savingPrivate>0?'var(--green)':'var(--red)'};">${savingPrivate>0?'+':''}${formatCzk(savingPrivate)}</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr auto;gap:4px;font-size:13px;">
+        <span style="color:var(--muted);">🏢 Plátce DPH</span>
+        <span style="font-family:var(--font-mono);font-weight:700;color:${savingVat>0?'rgba(100,220,130,.8)':'var(--red)'};">${savingVat>0?'+':''}${formatCzk(savingVat)}</span>
+      </div>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('maxBidInput').value = '';
+  document.getElementById('bidHint').innerHTML = '← Zadej maximální cenu v EUR.';
+  document.getElementById('bidWarning').classList.remove('show');
+
+  competitorBidders = [];
+  const spread = Math.round(c.minBid * 0.12 / 100) * 100;
+  for (let i = 0; i < 3; i++) {
+    const suggested = Math.round((c.minBid + Math.random() * spread) / 100) * 100;
+    competitorBidders.push({ name: COMP_NAMES[i], maxBid: suggested, eliminated: false });
+  }
+  renderCompetitors();
+  auctionTiming = 'manual';
+  setTiming('manual');
+  renderQuickBids(c);
+  document.getElementById('modalOverlay').classList.add('open');
+  setTimeout(() => document.getElementById('maxBidInput').focus(), 100);
+}
+
+function renderQuickBidsAround(car, centerBid) {
+  const gridWrap = document.getElementById('profitGrid');
+  if (!gridWrap) return;
+  const dc = car.damage_cost || 5000;
+  const tr = car.transport || 450;
+  const STK_CZK = 4200, POJ_CZK = 6500;
+  const bf = parseFloat((document.getElementById('modalBfInput')||{}).value) || modalBuyerFee || getBuyerFee(car.minBid);
+  const df = parseFloat((document.getElementById('modalDfInput')||{}).value) || 0;
+  const vo = parseFloat((document.getElementById('modalVoInput')||{}).value) || 0;
+  const fixedEur = bf + df - vo + tr + Math.round(STK_CZK/EUR_CZK) + Math.round(POJ_CZK/EUR_CZK) + Math.round(dc/EUR_CZK);
+
+  // 4 sloupce: zadaná hodnota + 3 kroky nahoru po 300 EUR
+  const step = 300;
+  const bids = [centerBid, centerBid+step, centerBid+step*2, centerBid+step*3];
+
+  const cellStyle = 'text-align:center;font-family:var(--font-mono);font-size:11px;padding:5px 2px;cursor:pointer;transition:all .15s;';
+  const labelStyle = 'font-family:var(--font-mono);font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;padding:5px 4px;white-space:nowrap;text-align:left;width:60px;';
+  const inputStyle = 'background:var(--surface);border:1px solid var(--border);color:var(--accent2);font-family:var(--font-mono);font-size:12px;font-weight:700;text-align:center;width:68px;padding:4px 2px;outline:none;transition:border-color .15s;';
+
+  const steps = bids.map(bidEur => {
+    const bidCzk = Math.round(bidEur * EUR_CZK);
+    const allInCzk = Math.round((bidEur + fixedEur) * EUR_CZK);
+    const profit = car.czPrice - allInCzk;
+    return { bidEur, bidCzk, allInCzk, profit };
+  });
+
+  let html = `<div style="background:var(--surface2);border:1px solid var(--border);padding:8px 6px;">
+    <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(245,200,66,.6);margin-bottom:6px;">
+      💰 CENOVÝ ROZSAH <span style="color:var(--muted);">klik = vyplní bid · input = přepočítá</span>
+    </div>
+    <table style="width:100%;border-collapse:collapse;">
+      <tr><td style="${labelStyle}">Bid €</td>`;
+
+  steps.forEach((s, i) => {
+    const highlight = i === 0 ? 'border:1px solid var(--accent);color:var(--accent);' : '';
+    html += `<td style="${cellStyle}"><input type="number" id="pgBidEur_${i}" value="${s.bidEur}"
+      style="${inputStyle}${highlight}"
+      onfocus="this.style.borderColor='var(--accent)'"
+      onblur="this.style.borderColor='var(--border)'"
+      oninput="onPgBidChange(${i})"
+      onclick="event.stopPropagation()"></td>`;
+  });
+
+  html += `</tr><tr><td style="${labelStyle}">Kč</td>`;
+  steps.forEach((s, i) => {
+    html += `<td id="pgBidCzk_${i}" style="${cellStyle}color:var(--text);"
+      onclick="setQuickBid(getGridBid(${i}))"
+      onmouseover="this.style.color='var(--accent)';this.style.background='rgba(232,160,32,.08)'"
+      onmouseout="this.style.color='var(--text)';this.style.background=''"
+      >${formatCzk(s.bidCzk)}</td>`;
+  });
+
+  html += `</tr><tr><td style="${labelStyle}">Celk. Kč</td>`;
+  steps.forEach((s, i) => {
+    html += `<td id="pgAllIn_${i}" style="${cellStyle}color:var(--muted);font-size:10px;"
+      onclick="setQuickBid(getGridBid(${i}))"
+      onmouseover="this.style.color='var(--accent)';this.style.background='rgba(232,160,32,.08)'"
+      onmouseout="this.style.color='var(--muted)';this.style.background=''"
+      >${formatCzk(s.allInCzk)}</td>`;
+  });
+
+  html += `</tr><tr><td style="${labelStyle}">🏢 Zisk</td>`;
+  steps.forEach((s, i) => {
+    const clr = s.profit > 0 ? 'var(--green)' : s.profit === 0 ? 'var(--muted)' : 'var(--red)';
+    html += `<td id="pgProfit_${i}" style="${cellStyle}color:${clr};font-weight:700;"
+      onclick="setQuickBid(getGridBid(${i}))"
+      onmouseover="this.style.background='rgba(232,160,32,.08)'"
+      onmouseout="this.style.background=''"
+      >${s.profit > 0 ? '+' : ''}${formatCzk(s.profit)}</td>`;
+  });
+
+  html += `</tr></table></div>`;
+  gridWrap.innerHTML = html;
+  gridWrap.dataset.fixedEur = fixedEur;
+  gridWrap.dataset.czPrice = car.czPrice;
+}
+
+function updateBidHint() {
+  if (!selectedCar) return;
+  const c = selectedCar;
+  const raw = document.getElementById('maxBidInput').value;
+  const val = parseFloat(raw);
+  const warn = document.getElementById('bidWarning');
+  const hint = document.getElementById('bidHint');
+  const inp = document.getElementById('maxBidInput');
+  inp.style.borderColor = '';
+  inp.style.boxShadow = '';
+  if (!raw || !val || isNaN(val) || val <= 0) {
+    warn.classList.remove('show');
+    hint.innerHTML = '← Zadej maximální cenu v EUR.';
+    return;
+  }
+  // Překresli grid centrovaný kolem zadané hodnoty
+  renderQuickBidsAround(c, val);
+  if (val < c.minBid) { warn.classList.add('show'); }
+  else { warn.classList.remove('show'); }
+  const dc = c.damage_cost || 5000;
+  const tr = c.transport || 450;
+  const STK_CZK = 4200, POJ_CZK = 6500;
+  const bf = parseFloat((document.getElementById('modalBfInput')||{}).value) || modalBuyerFee || getBuyerFee(val);
+  const df = parseFloat((document.getElementById('modalDfInput')||{}).value) || 0;
+  const vo = parseFloat((document.getElementById('modalVoInput')||{}).value) || 0;
+  const allInEur = Math.round(val + bf + df - vo + tr + Math.round(STK_CZK/EUR_CZK) + Math.round(POJ_CZK/EUR_CZK) + Math.round(dc/EUR_CZK));
+  const allInJaroslav = Math.round(allInEur * EUR_CZK);
+  const customerPrice = Math.round(allInJaroslav * (1 + DPH));
+  const czWithDph = Math.round(c.czPrice * (1 + DPH));
+  const savingPrivate = czWithDph - customerPrice;
+  const savingVat = c.czPrice - allInJaroslav;
+  // Aktualizovat CELKOVÉ NÁKLADY podle zadaného bidu
+  const te = document.getElementById('modalTotalEur');
+  const tc = document.getElementById('modalTotalCzk');
+  if (te) te.textContent = formatEur(allInEur);
+  if (tc) tc.textContent = formatCzk(allInJaroslav);
+
+  // Aktualizovat savings box
+  const sb = document.getElementById('modalSavingBox');
+  if (sb) {
+    sb.style.background = savingVat>0?'rgba(100,220,130,.05)':'rgba(232,53,53,.05)';
+    sb.style.borderColor = savingVat>0?'rgba(100,220,130,.2)':'rgba(232,53,53,.3)';
+    sb.innerHTML = `
+    <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;color:${savingVat>0?'rgba(100,220,130,.5)':'rgba(232,53,53,.6)'};margin-bottom:6px;">${savingVat>0?'✅':'⛔'} ÚSPORA vs. KOUPĚ V ČR (při bidu ${formatEur(val)})</div>
+    <div style="display:grid;grid-template-columns:1fr auto;gap:4px;font-size:13px;margin-bottom:4px;">
+      <span style="color:var(--muted);">👤 Soukromá osoba</span>
+      <span style="font-family:var(--font-mono);font-weight:700;color:${savingPrivate>0?'var(--green)':'var(--red)'};">${savingPrivate>0?'+':''}${formatCzk(savingPrivate)}</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr auto;gap:4px;font-size:13px;">
+      <span style="color:var(--muted);">🏢 Plátce DPH</span>
+      <span style="font-family:var(--font-mono);font-weight:700;color:${savingVat>0?'rgba(100,220,130,.8)':'var(--red)'};">${savingVat>0?'+':''}${formatCzk(savingVat)}</span>
+    </div>`;
+  }
+
+  hint.innerHTML = `Celkem: <strong style="color:var(--accent2)">${formatCzk(allInJaroslav)}</strong>
+    · 👤 <strong style="color:${savingPrivate>0?'var(--green)':'var(--red)'}">${savingPrivate>0?'+':''}${formatCzk(savingPrivate)}</strong>
+    · 🏢 <strong style="color:${savingVat>0?'rgba(100,220,130,.8)':'var(--red)'}">${savingVat>0?'+':''}${formatCzk(savingVat)}</strong>`;
+}
+
+// Reaguje na změnu buyer fee / dok. popl. / voucher inputů v modálu
+function onModalFeeChange() {
+  if (!selectedCar) return;
+  const c = selectedCar;
+  const bf = parseFloat((document.getElementById('modalBfInput')||{}).value) || 0;
+  const df = parseFloat((document.getElementById('modalDfInput')||{}).value) || 0;
+  const vo = parseFloat((document.getElementById('modalVoInput')||{}).value) || 0;
+  modalBuyerFee = bf;
+  modalDocFee = df;
+  modalVoucher = vo;
+
+  // Update CZK labels
+  const bfCzk = document.getElementById('modalBfCzk');
+  const dfCzk = document.getElementById('modalDfCzk');
+  const voCzk = document.getElementById('modalVoCzk');
+  if (bfCzk) bfCzk.textContent = formatCzk(Math.round(bf * EUR_CZK));
+  if (dfCzk) dfCzk.textContent = formatCzk(Math.round(df * EUR_CZK));
+  if (voCzk) voCzk.textContent = vo > 0 ? '−' + formatCzk(Math.round(vo * EUR_CZK)) : '—';
+
+  // Recalc totals
+  const dc = c.damage_cost || 5000;
+  const tr = c.transport || 450;
+  const STK_CZK = 4200, POJ_CZK = 6500;
+  const allInEur = c.minBid + bf + df - vo + tr + Math.round(STK_CZK/EUR_CZK) + Math.round(POJ_CZK/EUR_CZK) + Math.round(dc/EUR_CZK);
+  const allInCzk = Math.round(allInEur * EUR_CZK);
+  const custCzk = Math.round(allInCzk * (1 + DPH));
+  const czWithDph = Math.round(c.czPrice * (1 + DPH));
+  const savP = czWithDph - custCzk;
+  const savV = c.czPrice - allInCzk;
+
+  const te = document.getElementById('modalTotalEur');
+  const tc = document.getElementById('modalTotalCzk');
+  if (te) te.textContent = formatEur(allInEur);
+  if (tc) tc.textContent = formatCzk(allInCzk);
+
+  const sb = document.getElementById('modalSavingBox');
+  if (sb) {
+    sb.style.background = savV>0?'rgba(100,220,130,.05)':'rgba(232,53,53,.05)';
+    sb.style.borderColor = savV>0?'rgba(100,220,130,.2)':'rgba(232,53,53,.3)';
+    sb.innerHTML = `
+    <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;color:${savV>0?'rgba(100,220,130,.5)':'rgba(232,53,53,.6)'};margin-bottom:6px;">${savV>0?'✅':'⛔'} ÚSPORA vs. KOUPĚ V ČR (při min. bidu)</div>
+    <div style="display:grid;grid-template-columns:1fr auto;gap:4px;font-size:13px;margin-bottom:4px;">
+      <span style="color:var(--muted);">👤 Soukromá osoba</span>
+      <span style="font-family:var(--font-mono);font-weight:700;color:${savP>0?'var(--green)':'var(--red)'};">${savP>0?'+':''}${formatCzk(savP)}</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr auto;gap:4px;font-size:13px;">
+      <span style="color:var(--muted);">🏢 Plátce DPH</span>
+      <span style="font-family:var(--font-mono);font-weight:700;color:${savV>0?'rgba(100,220,130,.7)':'var(--red)'};">${savV>0?'+':''}${formatCzk(savV)}</span>
+    </div>`;
+
+  }
+  // Refresh profit grid and bid hint
+  renderQuickBids(c);
+  updateBidHint();
+}
+
+function renderQuickBids(car) {
+  // Old quick bid buttons (kept as fallback row)
+  const wrap = document.getElementById('quickBids');
+  if (wrap) wrap.innerHTML = '';
+
+  // ── PROFIT GRID ──
+  const gridWrap = document.getElementById('profitGrid');
+  if (!gridWrap) return;
+
+  const dc = car.damage_cost || 5000;
+  const tr = car.transport || 450;
+  const STK_CZK = 4200, POJ_CZK = 6500;
+  const STK_EUR = Math.round(STK_CZK / EUR_CZK);
+  const POJ_EUR = Math.round(POJ_CZK / EUR_CZK);
+  const DAM_EUR = Math.round(dc / EUR_CZK);
+  const bf = parseFloat((document.getElementById('modalBfInput')||{}).value) || modalBuyerFee || getBuyerFee(car.minBid);
+  const df = parseFloat((document.getElementById('modalDfInput')||{}).value) || modalDocFee || 0;
+  const vo = parseFloat((document.getElementById('modalVoInput')||{}).value) || modalVoucher || 0;
+  const fixedEur = bf + df - vo + tr + STK_EUR + POJ_EUR + DAM_EUR;
+
+  // Break-even bid (profit = 0 for plátce DPH): czPrice = (bid + fixedEur) * EUR_CZK
+  const breakEvenBid = Math.round(car.czPrice / EUR_CZK - fixedEur);
+  // Max profit at minBid
+  const maxProfitCzk = car.czPrice - Math.round((car.minBid + fixedEur) * EUR_CZK);
+
+  // Grid vždy začíná od minBid nahoru po 300 EUR
+  const STEP = 300;
+  const profitSteps = [0,1,2,3].map(i => {
+    const bidEur = car.minBid + i * STEP;
+    const allInCzk = Math.round((bidEur + fixedEur) * EUR_CZK);
+    return {
+      bidEur,
+      bidCzk: Math.round(bidEur * EUR_CZK),
+      allInCzk,
+      profit: car.czPrice - allInCzk
+    };
+  });
+
+  const cellStyle = `
+    text-align:center;font-family:var(--font-mono);font-size:11px;
+    padding:5px 2px;cursor:pointer;transition:all .15s;
+  `;
+  const labelStyle = `
+    font-family:var(--font-mono);font-size:9px;color:var(--muted);
+    letter-spacing:1px;text-transform:uppercase;padding:5px 4px;
+    white-space:nowrap;text-align:left;width:60px;
+  `;
+  const inputStyle = `
+    background:var(--surface);border:1px solid var(--border);color:var(--accent2);
+    font-family:var(--font-mono);font-size:12px;font-weight:700;
+    text-align:center;width:68px;padding:4px 2px;outline:none;
+    transition:border-color .15s;
+  `;
+
+  let html = `
+  <div style="background:var(--surface2);border:1px solid var(--border);padding:8px 6px;">
+    <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;
+         color:rgba(245,200,66,.6);margin-bottom:6px;">
+      💰 CENOVÝ ROZSAH <span style="color:var(--muted);">klik = vyplní bid · input = přepočítá</span>
+    </div>
+    <table style="width:100%;border-collapse:collapse;">
+      <tr>
+        <td style="${labelStyle}">Bid €</td>`;
+
+  profitSteps.forEach((s, i) => {
+    html += `<td style="${cellStyle}">
+      <input type="number" id="pgBidEur_${i}" value="${s.bidEur}"
+        style="${inputStyle}"
+        onfocus="this.style.borderColor='var(--accent)'"
+        onblur="this.style.borderColor='var(--border)'"
+        oninput="onPgBidChange(${i})"
+        onclick="event.stopPropagation()">
+    </td>`;
+  });
+
+  html += `</tr><tr><td style="${labelStyle}">Kč</td>`;
+  profitSteps.forEach((s, i) => {
+    html += `<td id="pgBidCzk_${i}" style="${cellStyle}color:var(--text);"
+      onclick="setQuickBid(getGridBid(${i}))"
+      onmouseover="this.style.color='var(--accent)';this.style.background='rgba(232,160,32,.08)'"
+      onmouseout="this.style.color='var(--text)';this.style.background=''"
+    >${formatCzk(s.bidCzk)}</td>`;
+  });
+
+  html += `</tr><tr><td style="${labelStyle}">Celk. Kč</td>`;
+  profitSteps.forEach((s, i) => {
+    html += `<td id="pgAllIn_${i}" style="${cellStyle}color:var(--muted);font-size:10px;"
+      onclick="setQuickBid(getGridBid(${i}))"
+      onmouseover="this.style.color='var(--accent)';this.style.background='rgba(232,160,32,.08)'"
+      onmouseout="this.style.color='var(--muted)';this.style.background=''"
+    >${formatCzk(s.allInCzk)}</td>`;
+  });
+
+  html += `</tr><tr><td style="${labelStyle}">🏢 Zisk</td>`;
+  profitSteps.forEach((s, i) => {
+    const clr = s.profit > 0 ? 'var(--green)' : s.profit === 0 ? 'var(--muted)' : 'var(--red)';
+    html += `<td id="pgProfit_${i}" style="${cellStyle}color:${clr};font-weight:700;"
+      onclick="setQuickBid(getGridBid(${i}))"
+      onmouseover="this.style.background='rgba(232,160,32,.08)'"
+      onmouseout="this.style.background=''"
+    >${s.profit > 0 ? '+' : ''}${formatCzk(s.profit)}</td>`;
+  });
+
+  html += `</tr></table></div>`;
+  gridWrap.innerHTML = html;
+
+  // Store fixed costs for recalc
+  gridWrap.dataset.fixedEur = fixedEur;
+  gridWrap.dataset.czPrice = car.czPrice;
+}
+
+function getGridBid(colIdx) {
+  const inp = document.getElementById('pgBidEur_' + colIdx);
+  return inp ? parseFloat(inp.value) || 0 : 0;
+}
+
+function onPgBidChange(colIdx) {
+  if (!selectedCar) return;
+  const bidEur = getGridBid(colIdx);
+  const gridWrap = document.getElementById('profitGrid');
+  const fixedEur = parseFloat(gridWrap.dataset.fixedEur) || 0;
+  const czPrice = parseFloat(gridWrap.dataset.czPrice) || 0;
+
+  const bidCzk = Math.round(bidEur * EUR_CZK);
+  const allInCzk = Math.round((bidEur + fixedEur) * EUR_CZK);
+  const profit = czPrice - allInCzk;
+
+  const czkEl = document.getElementById('pgBidCzk_' + colIdx);
+  const allEl = document.getElementById('pgAllIn_' + colIdx);
+  const profEl = document.getElementById('pgProfit_' + colIdx);
+
+  if (czkEl) czkEl.textContent = formatCzk(bidCzk);
+  if (allEl) allEl.textContent = formatCzk(allInCzk);
+  if (profEl) {
+    profEl.textContent = (profit > 0 ? '+' : '') + formatCzk(profit);
+    profEl.style.color = profit > 0 ? 'var(--green)' : profit === 0 ? 'var(--muted)' : 'var(--red)';
+  }
+}
+
+function setQuickBid(val) {
+  document.getElementById('maxBidInput').value = val;
+  updateBidHint();
+}
+
+function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); }
+
+function showTab(tab) {
+  document.getElementById('screen-browse').style.display = tab==='browse' ? 'block' : 'none';
+  document.getElementById('screen-auction').style.display = tab==='auction' ? 'block' : 'none';
+  document.getElementById('screen-result').style.display = tab==='result' ? 'block' : 'none';
+  document.querySelectorAll('.tab').forEach((t,i) => {
+    t.classList.toggle('active', ['browse','auction','result'][i] === tab);
+  });
+}
+
+function addLog(time, msg, type, price) {
+  const log = document.getElementById('bidLog');
+  const t = String(Math.floor(time/60)).padStart(2,'0') + ':' + String(time%60).padStart(2,'0');
+  const priceHtml = price
+    ? `<span class="log-price ${type==='you'?'you':''}">
+        ${formatEur(price)} <span style="color:var(--muted);font-size:10px;">/ ${formatCzk(Math.round(price * EUR_CZK))}</span>
+       </span>` : '';
+  log.innerHTML += `
+    <div class="log-entry">
+      <span class="log-time">${t}</span>
+      <span class="log-msg ${type}">${msg}</span>
+      ${priceHtml}
+    </div>`;
+  log.scrollTop = log.scrollHeight;
+}
+
+function updateRemaining() {
+  const rem = maxBid - currentBid;
+  const el = document.getElementById('statRemaining');
+  el.textContent = formatEur(rem);
+  el.className = 'bid-stat-val ' + (rem < 500 ? 'red' : rem < 1000 ? 'accent' : 'green');
+  const czk = document.getElementById('statRemainingCzk');
+  if (czk) czk.textContent = '≈ ' + formatCzk(Math.round(rem * EUR_CZK));
+}
+
+function updateCurrentBidDisplay() {
+  document.getElementById('statCurrentBid').textContent = formatEur(currentBid);
+  const czk = document.getElementById('statCurrentBidCzk');
+  if (czk) czk.textContent = '≈ ' + formatCzk(Math.round(currentBid * EUR_CZK));
+}
+
+function startAuction() {
+  const val = parseFloat(document.getElementById('maxBidInput').value);
+  if (!val || val <= 0 || val < selectedCar.minBid) {
+    const body = document.querySelector('.modal-body');
+    if (body) body.scrollTop = 0;
+    const inp = document.getElementById('maxBidInput');
+    inp.style.borderColor = 'var(--red)';
+    inp.style.boxShadow = '0 0 0 2px rgba(232,53,53,.3)';
+    inp.focus();
+    document.getElementById('bidHint').innerHTML = `<span style="color:var(--red);font-weight:700;">⚠ Zadej min. ${formatEur(selectedCar.minBid)}</span>`;
+    setTimeout(() => { inp.style.borderColor = ''; inp.style.boxShadow = ''; }, 2500);
+    return;
+  }
+  maxBid = val;
+  document.querySelectorAll('#competitorList input[type=number]').forEach((inp, i) => {
+    if (competitorBidders[i]) competitorBidders[i].maxBid = parseFloat(inp.value) || 0;
+  });
+  // Vždy vygenerovat nové soupeře — nikdy nepoužívat staré z předchozí simulace
+  {
+    const lo = selectedCar.minBid;
+    const hi = maxBid;
+    const range = hi - lo;
+    const rnd = () => Math.round((lo + Math.random() * range) / 100) * 100;
+    competitorBidders = [
+      { name: 'Dealer Berlin',  maxBid: rnd(), eliminated: false },
+      { name: 'Auto Wien',      maxBid: rnd(), eliminated: false },
+      { name: 'CarFleet Praha', maxBid: rnd(), eliminated: false },
+    ];
+  }
+  closeModal();
+  auctionActive = true;
+  clearInterval(scheduleInterval);
+  const c = selectedCar;
+  const STEP = 100;
+  const numComp = competitorBidders.length;
+  let bidSequence = [];
+  let price = c.minBid;
+  let leaderIsYou = true;
+  price += STEP;
+  bidSequence.push({ price, name: '🤖 Bid Agent', isYou: true });
+  leaderIsYou = true;
+  let keepGoing = true;
+  let safety = 0;
+  while (keepGoing && safety++ < 60) {
+    keepGoing = false;
+    let responded = false;
+    for (let comp of competitorBidders) {
+      if (comp.eliminated) continue;
+      const nextPrice = price + STEP;
+      if (nextPrice <= comp.maxBid) {
+        price = nextPrice;
+        bidSequence.push({ price, name: comp.name, isYou: false });
+        leaderIsYou = false;
+        responded = true;
+        const agentNext = price + STEP;
+        if (agentNext <= maxBid) {
+          price = agentNext;
+          bidSequence.push({ price, name: '🤖 Bid Agent', isYou: true });
+          leaderIsYou = true;
+          keepGoing = true;
+        } else {
+          keepGoing = true;
+        }
+        break;
+      } else {
+        comp.eliminated = true;
+      }
+    }
+    if (!responded) keepGoing = false;
+  }
+  leading = leaderIsYou;
+  const finalBid = price;
+  document.getElementById('auctionCarName').textContent = c.name;
+  document.getElementById('auctionCarSpec').textContent = c.spec || '';
+  document.getElementById('statMaxBid').textContent = formatEur(maxBid);
+  const maxBidCzkEl = document.getElementById('statMaxBidCzk');
+  if (maxBidCzkEl) maxBidCzkEl.textContent = '≈ ' + formatCzk(Math.round(maxBid * EUR_CZK));
+  document.getElementById('statCompetitors').textContent = numComp + ' soupeři v aukci';
+  currentBid = c.minBid;
+  auctionTime = Math.max(60, bidSequence.length * 3 + 20);
+  document.getElementById('bidLog').innerHTML = '';
+  addLog(auctionTime, '⚙️ SIMULACE · proxy bidding · krok +100 EUR', 'system');
+  addLog(auctionTime, '🤖 Bid Agent max: ' + formatEur(maxBid) + ' · soupeři: ' + competitorBidders.map(b=>b.name).join(', '), 'system');
+  showTab('auction');
+  countdownInterval = setInterval(() => {
+    auctionTime--;
+    const m = Math.floor(auctionTime / 60);
+    const s = auctionTime % 60;
+    document.getElementById('countdown').textContent = m + ':' + s.toString().padStart(2,'0');
+    if (auctionTime <= 15) document.getElementById('countdown').style.color = 'var(--red)';
+    if (auctionTime <= 0) { leading = leaderIsYou; currentBid = finalBid; endAuction(); }
+  }, 1000);
+  let delay = 1200;
+  bidSequence.forEach((bid, idx) => {
+    const isLast = idx === bidSequence.length - 1;
+    setTimeout(() => {
+      if (auctionTime <= 0) return;
+      currentBid = bid.price;
+      updateCurrentBidDisplay();
+      updateRemaining();
+      if (bid.isYou) {
+        addLog(auctionTime, '🤖 Bid Agent +100 EUR', 'you', bid.price);
+        document.getElementById('statPosition').textContent = 'VEDETE';
+        document.getElementById('statPosition').className = 'bid-stat-val green';
+      } else {
+        addLog(auctionTime, bid.name + ' +100 EUR', 'competitor', bid.price);
+        document.getElementById('statPosition').textContent = 'PŘEBITI';
+        document.getElementById('statPosition').className = 'bid-stat-val red';
+      }
+      if (isLast) {
+        setTimeout(() => {
+          if (bid.isYou) addLog(auctionTime, '✅ Bid Agent drží vedení', 'system');
+          else addLog(auctionTime, '⛔ Bid Agent zastavil — limit ' + formatEur(maxBid), 'system');
+        }, 600);
+      }
+    }, delay);
+    delay += 700 + Math.random() * 600;
+  });
+}
+
+function endAuction() {
+  clearInterval(countdownInterval);
+  auctionActive = false;
+  const c = selectedCar;
+  resultTimeout = setTimeout(() => {
+    if (auctionActive) return;
+    const won = leading;
+    const card = document.getElementById('resultCard');
+    card.className = 'result-card' + (won ? '' : ' lose');
+    document.getElementById('resultIcon').textContent = won ? '🏆' : '😔';
+    document.getElementById('resultTitle').textContent = won ? 'AUKCI JSTE VYHRÁLI!' : 'AUKCI JSTE PROHRÁLI';
+    if (won) {
+      const dc = c.damage_cost || 5000;
+      const tr = c.transport || 450;
+      const bf = modalBuyerFee || getBuyerFee(currentBid);
+      const df = modalDocFee || 0;
+      const vo = modalVoucher || 0;
+      const costEur = currentBid + bf + df - vo + tr + Math.round(4200/EUR_CZK) + Math.round(6500/EUR_CZK) + Math.round(dc/EUR_CZK);
+      const costCzk = Math.round(costEur * EUR_CZK);
+      const custCzk = Math.round(costCzk * (1 + DPH));
+      const czWithDph = Math.round(c.czPrice * (1 + DPH));
+      const savingPrivate = czWithDph - custCzk;
+      const savingVat = c.czPrice - costCzk;
+      document.getElementById('resultSub').textContent = c.name + ' za ' + formatEur(currentBid) + ' / ' + formatCzk(Math.round(currentBid*EUR_CZK));
+      const row = (label, eur, czk) => `
+        <div class="summary-row" style="display:grid;grid-template-columns:1fr 85px 95px;gap:4px;">
+          <span>${label}</span>
+          <span style="text-align:right;font-family:var(--font-mono);font-size:11px;color:var(--accent);">${eur}</span>
+          <span style="text-align:right;font-family:var(--font-mono);font-size:11px;">${czk}</span>
+        </div>`;
+      document.getElementById('summaryGrid').innerHTML = `
+        <div class="summary-box" style="grid-column:1/-1">
+          <div class="summary-box-title">📋 Výsledná kalkulace</div>
+          <div style="background:rgba(245,200,66,.06);border:1px solid rgba(245,200,66,.25);padding:8px 12px;margin-bottom:8px;display:grid;grid-template-columns:1fr auto auto;gap:4px;align-items:center;">
+            <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:1px;color:rgba(245,200,66,.8);">📊 ODH. TRŽNÍ CENA V ČR (základ kalkulace)</span>
+            <span style="font-family:var(--font-mono);font-size:12px;color:var(--accent2);font-weight:700;text-align:right;">bez DPH: ${formatCzk(c.czPrice)}</span>
+            <span style="font-family:var(--font-mono);font-size:11px;color:rgba(245,200,66,.5);text-align:right;">s DPH: ${formatCzk(czWithDph)}</span>
+          </div>
+          ${row('Vítězný bid', formatEur(currentBid), formatCzk(Math.round(currentBid*EUR_CZK)))}
+          ${row('⚠ Buyer Fee', formatEur(bf), formatCzk(Math.round(bf*EUR_CZK)))}
+          ${df > 0 ? row('Dok. poplatek', formatEur(df), formatCzk(Math.round(df*EUR_CZK))) : ''}
+          ${row('Doprava CZ', formatEur(tr), formatCzk(Math.round(tr*EUR_CZK)))}
+          ${row('STK + přihlášení', '≈ ' + formatEur(Math.round(4200/EUR_CZK)), formatCzk(4200))}
+          ${row('Opravy', '≈ ' + formatEur(Math.round(dc/EUR_CZK)), formatCzk(dc))}
+          ${vo > 0 ? row('🎟 Voucher', '−' + formatEur(vo), '−' + formatCzk(Math.round(vo*EUR_CZK))) : ''}
+          ${row('<strong>Celkem bez DPH</strong>', '<strong>' + formatEur(costEur) + '</strong>', '<strong>' + formatCzk(costCzk) + '</strong>')}
+          <div style="background:rgba(100,220,130,.05);border:1px solid rgba(100,220,130,.2);padding:14px 14px;margin-top:8px;">
+            <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;color:rgba(100,220,130,.5);margin-bottom:10px;">👤 SOUKROMNÍK (platí vše s DPH, nevrací)</div>
+            <div style="display:grid;grid-template-columns:1fr auto;gap:4px;font-size:12px;margin-bottom:3px;">
+              <span style="color:var(--muted);">Zaplatí přes AUTO1 (s DPH 21%)</span>
+              <span style="font-family:var(--font-mono);color:var(--text);">${formatCzk(custCzk)}</span>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr auto;gap:4px;font-size:12px;margin-bottom:3px;">
+              <span style="color:var(--muted);">Zaplatí v ČR bazaru (s DPH 21%)</span>
+              <span style="font-family:var(--font-mono);color:var(--text);">${formatCzk(czWithDph)}</span>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr auto;gap:4px;font-size:13px;border-top:1px solid rgba(100,220,130,.2);padding-top:6px;margin-top:4px;">
+              <span style="font-weight:700;">Úspora soukromníka</span>
+              <span style="font-family:var(--font-mono);font-weight:700;color:${savingPrivate>0?'var(--green)':'var(--red)'};">${savingPrivate>0?'+':''}${formatCzk(savingPrivate)}</span>
+            </div>
+          </div>
+          <div style="background:rgba(100,220,130,.03);border:1px solid rgba(100,220,130,.15);padding:14px 14px;margin-top:6px;">
+            <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;color:rgba(100,220,130,.4);margin-bottom:10px;">🏢 PLÁTCE DPH (vrátí si DPH → srovnává bez DPH)</div>
+            <div style="display:grid;grid-template-columns:1fr auto;gap:4px;font-size:12px;margin-bottom:3px;">
+              <span style="color:var(--muted);">Zaplatí přes AUTO1 (bez DPH)</span>
+              <span style="font-family:var(--font-mono);color:var(--text);">${formatCzk(costCzk)}</span>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr auto;gap:4px;font-size:12px;margin-bottom:3px;">
+              <span style="color:var(--muted);">Zaplatí v ČR bazaru (bez DPH)</span>
+              <span style="font-family:var(--font-mono);color:var(--text);">${formatCzk(c.czPrice)}</span>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr auto;gap:4px;font-size:13px;border-top:1px solid rgba(100,220,130,.15);padding-top:6px;margin-top:4px;">
+              <span style="font-weight:700;">Úspora plátce DPH</span>
+              <span style="font-family:var(--font-mono);font-weight:700;color:${savingVat>0?'rgba(100,220,130,.8)':'var(--red)'};">${savingVat>0?'+':''}${formatCzk(savingVat)}</span>
+            </div>
+          </div>
+          ${row('Tvůj max. bid byl', formatEur(maxBid), formatCzk(Math.round(maxBid*EUR_CZK)))}
+          ${row('Zbývající rezerva', formatEur(maxBid - currentBid), formatCzk(Math.round((maxBid-currentBid)*EUR_CZK)))}
+        </div>`;
+    } else {
+      const lostBy = currentBid - maxBid;
+      document.getElementById('resultSub').textContent = 'Přehodil tě o ' + formatEur(lostBy) + '. Tvůj limit: ' + formatEur(maxBid) + '. Vítěz: ' + formatEur(currentBid);
+      document.getElementById('summaryGrid').innerHTML = `
+        <div class="summary-box" style="grid-column:1/-1">
+          <div class="summary-box-title">Co se stalo</div>
+          <div class="summary-row"><span>Tvůj max. bid</span><span>${formatEur(maxBid)}</span></div>
+          <div class="summary-row"><span>Vítězný bid konkurenta</span><span style="color:var(--red)">${formatEur(currentBid)}</span></div>
+          <div class="summary-row"><span>Rozdíl</span><span>${formatEur(currentBid - maxBid)}</span></div>
+          <div style="padding-top:12px;color:var(--accent);font-size:13px;">
+            💡 Doporučený limit příště: ${formatEur(currentBid + 200)}
+          </div>
+        </div>`;
+    }
+    showTab('result');
+  }, 1000);
+}
+
+function restart() {
+  clearTimeout(resultTimeout);
+  clearInterval(countdownInterval);
+  clearInterval(auctionInterval);
+  auctionActive = false;
+  selectedCar = null;
+  document.getElementById('countdown').style.color = 'var(--accent2)';
+  showTab('browse');
+  renderCards();
+}
+
+// ── JSON LOADER ──
+function openJsonLoader() {
+  document.getElementById('jsonLoaderOverlay').style.display = 'flex';
+  document.getElementById('jsonError').style.display = 'none';
+  document.getElementById('jsonInput').value = '';
+}
+function closeJsonLoader() {
+  document.getElementById('jsonLoaderOverlay').style.display = 'none';
+}
+function loadCarsFromJson() {
+  const raw = document.getElementById('jsonInput').value.trim();
+  const err = document.getElementById('jsonError');
+  err.style.display = 'none';
+  if (!raw) { err.textContent = '⚠ Vlož JSON data.'; err.style.display='block'; return; }
+  let parsed;
+  try { parsed = JSON.parse(raw); } catch(e) {
+    err.textContent = '⚠ Neplatný JSON: ' + e.message;
+    err.style.display = 'block'; return;
+  }
+  if (!Array.isArray(parsed) || parsed.length === 0) {
+    err.textContent = '⚠ JSON musí být pole [ {...}, {...} ]';
+    err.style.display = 'block'; return;
+  }
+  for (let i = 0; i < parsed.length; i++) {
+    const c = parsed[i];
+    if (!c.id || !c.name || !c.minBid || !c.czPrice) {
+      err.textContent = '⚠ Auto #'+(i+1)+': chybí povinné pole (id, name, minBid, czPrice).';
+      err.style.display = 'block'; return;
+    }
+    parsed[i].type = (c.type || 'standard').toLowerCase();
+    parsed[i].minBid = Number(c.minBid);
+    parsed[i].czPrice = Number(c.czPrice);
+    parsed[i].spec = c.spec || '';
+    parsed[i].emoji = c.emoji || '🚗';
+    parsed[i].damage = c.damage || '';
+    parsed[i].transport = c.transport || 450;
+    parsed[i].damage_cost = c.damage_cost || 5000;
+    parsed[i].step = c.step || 100;
+    parsed[i].color = c.color || '#1A3A5C';
+    parsed[i].buyer_fee = c.buyer_fee || 0;
+    parsed[i].doc_fee = c.doc_fee || 0;
+    parsed[i].voucher = c.voucher || 0;
+  }
+  CARS.length = 0;
+  parsed.forEach(c => CARS.push(c));
+  closeJsonLoader();
+  renderCards();
+  showTab('browse');
+}
+
+// ── SDÍLENÍ PŘES URL (PATCH B) ──
+function shareUrl() {
+  if (!CARS || CARS.length === 0) { alert('Nejdřív načti auta.'); return; }
+  const shareData = CARS.map(c => {
+    const o = { id:c.id, name:c.name, spec:c.spec||'', minBid:c.minBid, czPrice:c.czPrice, type:c.type||'standard', emoji:c.emoji||'', damage:c.damage||'' };
+    if (c.buyer_fee) o.buyer_fee = c.buyer_fee;
+    if (c.doc_fee) o.doc_fee = c.doc_fee;
+    if (c.voucher) o.voucher = c.voucher;
+    return o;
+  });
+  const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(shareData))));
+  const url = location.origin + location.pathname + '?data=' + b64;
+  if (url.length > 8000) { alert('Příliš mnoho aut — URL by byla příliš dlouhá. Použij variantu C (samostatný HTML).'); return; }
+  navigator.clipboard.writeText(url).then(() => {
+    const btn = document.getElementById('shareBtn');
+    const orig = btn.textContent;
+    btn.textContent = '✅ ZKOPÍROVÁNO';
+    btn.style.borderColor = 'rgba(40,168,101,.6)';
+    btn.style.color = 'var(--green)';
+    setTimeout(() => { btn.textContent = orig; btn.style.borderColor = 'rgba(58,142,240,.4)'; btn.style.color = 'var(--blue)'; }, 2500);
+  }).catch(() => {
+    prompt('Zkopíruj odkaz ručně:', url);
+  });
+}
+
+function loadFromUrl() {
+  const params = new URLSearchParams(location.search);
+  const b64 = params.get('data');
+  if (!b64) return false;
+  try {
+    const json = decodeURIComponent(escape(atob(b64)));
+    const parsed = JSON.parse(json);
+    if (!Array.isArray(parsed) || parsed.length === 0) return false;
+    for (let i = 0; i < parsed.length; i++) {
+      const c = parsed[i];
+      if (!c.id || !c.name || !c.minBid || !c.czPrice) return false;
+      parsed[i].type = (c.type || 'standard').toLowerCase();
+      parsed[i].minBid = Number(c.minBid);
+      parsed[i].czPrice = Number(c.czPrice);
+      parsed[i].spec = c.spec || '';
+      parsed[i].emoji = c.emoji || '🚗';
+      parsed[i].damage = c.damage || '';
+      parsed[i].transport = c.transport || 450;
+      parsed[i].damage_cost = c.damage_cost || 5000;
+      parsed[i].step = c.step || 100;
+      parsed[i].color = c.color || '#1A3A5C';
+      parsed[i].buyer_fee = c.buyer_fee || 0;
+      parsed[i].doc_fee = c.doc_fee || 0;
+      parsed[i].voucher = c.voucher || 0;
+    }
+    CARS.length = 0;
+    parsed.forEach(c => CARS.push(c));
+    return true;
+  } catch(e) { return false; }
+}
+
+// ── EXPORT HTML ──
+function exportHtml() {
+  if (!CARS || CARS.length === 0) { alert('Nejdřív načti auta přes NAČÍST AUTA.'); return; }
+
+  // Sestavení názvu souboru z dat
+  const now = new Date();
+  const pad = n => String(n).padStart(2,'0');
+  const datePart = `${now.getFullYear()}${pad(now.getMonth()+1)}${pad(now.getDate())}`;
+  const timePart = `${pad(now.getHours())}${pad(now.getMinutes())}`;
+  const hasHot = CARS.some(c => c.type === 'hot');
+  const typePart = hasHot ? 'hot_bid' : 'aukce';
+  const modelPart = CARS.slice(0,4).map(c =>
+    c.name.toLowerCase()
+      .replace(/š/g,'s').replace(/č/g,'c').replace(/ž/g,'z').replace(/ř/g,'r')
+      .replace(/ě/g,'e').replace(/á/g,'a').replace(/í/g,'i').replace(/ú/g,'u').replace(/ů/g,'u')
+      .replace(/ý/g,'y').replace(/é/g,'e').replace(/ó/g,'o').replace(/ď/g,'d').replace(/ť/g,'t').replace(/ň/g,'n')
+      .replace(/\s+/g,'_').replace(/[^a-z0-9_]/g,'')
+  ).join('_') + (CARS.length > 4 ? '_aj' : '');
+  const filename = `${datePart}_${timePart}_auto1_${typePart}_${modelPart}.html`;
+
+  // Načtení zdrojového HTML a nahrazení CARS
+  const carsJson = JSON.stringify(CARS, null, 2);
+  const srcHtml = document.documentElement.outerHTML;
+
+  // Nahradit const CARS = [...] novými daty
+  const exportHtml = srcHtml.replace(
+    /const CARS\s*=\s*\[[\s\S]*?\];/,
+    `const CARS = ${carsJson};`
+  );
+
+  const blob = new Blob([exportHtml], { type: 'text/html;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
+
+  // Vizuální potvrzení
+  const btn = event.target;
+  const orig = btn.textContent;
+  btn.textContent = `✅ ${filename}`;
+  btn.style.background = 'rgba(40,168,101,.3)';
+  setTimeout(() => { btn.textContent = orig; btn.style.background = 'rgba(40,168,101,.15)'; }, 3000);
+}
+
+// ── INIT ──
+const loadedFromUrl = loadFromUrl();
+renderCards();
+showTab('browse');
+updateLive();
+</script>
+
+</body>
+</html>
