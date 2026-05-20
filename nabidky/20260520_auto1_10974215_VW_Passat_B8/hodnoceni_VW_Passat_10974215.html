@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Odborné hodnocení – VW Passat Variant 2.0 TDI 200hp | Ref. 10974215</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; color: #1a1a1a; line-height: 1.55; }
+
+/* HEADER */
+.header { background: linear-gradient(135deg, #0d1f3c 0%, #1a3a6b 100%); color: #fff; padding: 32px 40px 28px; }
+.header-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
+.header h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 5px; }
+.header p { font-size: 0.88rem; opacity: 0.75; }
+.badge-report { background: #f39c12; color: #fff; padding: 5px 14px; border-radius: 20px; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.5px; display: inline-block; }
+.header-meta { display: flex; gap: 28px; flex-wrap: wrap; margin-top: 12px; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 12px; }
+.header-meta span { font-size: 0.82rem; opacity: 0.8; }
+.header-meta strong { color: #fff; }
+.header-meta a { color: #74b9ff; text-decoration: none; }
+
+/* CONTENT */
+.content { max-width: 960px; margin: 0 auto; padding: 28px 20px; }
+
+/* SECTION */
+.section { background: #fff; border-radius: 10px; padding: 24px 26px; margin-bottom: 20px; box-shadow: 0 1px 5px rgba(0,0,0,0.07); }
+.section h2 { font-size: 1.05rem; color: #0d1f3c; font-weight: 700; margin-bottom: 18px; border-bottom: 2px solid #e8ecf0; padding-bottom: 9px; display: flex; align-items: center; gap: 8px; }
+
+/* OVERALL SCORE */
+.score-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 20px; }
+@media(max-width:620px){ .score-grid { grid-template-columns: 1fr 1fr; } }
+.score-card { background: #f7f9fc; border-radius: 10px; padding: 16px 14px; text-align: center; border-top: 4px solid #ccc; }
+.score-card.green { border-color: #27ae60; }
+.score-card.yellow { border-color: #f39c12; }
+.score-card.red { border-color: #e74c3c; }
+.score-card .sc-label { font-size: 0.72rem; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+.score-card .sc-val { font-size: 2rem; font-weight: 800; }
+.score-card.green .sc-val { color: #27ae60; }
+.score-card.yellow .sc-val { color: #f39c12; }
+.score-card.red .sc-val { color: #e74c3c; }
+.score-card .sc-sub { font-size: 0.72rem; color: #999; margin-top: 3px; }
+
+/* VERDICT */
+.verdict-box { border-radius: 10px; padding: 20px 24px; display: flex; gap: 20px; align-items: flex-start; margin-bottom: 20px; }
+.verdict-box.go { background: #d4edda; border-left: 6px solid #27ae60; }
+.verdict-box.caution { background: #fff3cd; border-left: 6px solid #f39c12; }
+.verdict-box.stop { background: #fdecea; border-left: 6px solid #e74c3c; }
+.verdict-icon { font-size: 2.2rem; flex-shrink: 0; }
+.verdict-text h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; }
+.verdict-text p { font-size: 0.88rem; }
+
+/* TWO/THREE COL */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+@media(max-width:700px){ .two-col,.three-col { grid-template-columns: 1fr; } }
+
+/* METRIC ROWS */
+.metric-row { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-bottom: 1px solid #f0f2f5; font-size: 0.88rem; }
+.metric-row:last-child { border-bottom: none; }
+.metric-row .mlabel { color: #666; }
+.metric-row .mval { font-weight: 600; color: #0d1f3c; }
+.metric-row .mval.good { color: #27ae60; }
+.metric-row .mval.warn { color: #f39c12; }
+.metric-row .mval.bad { color: #e74c3c; }
+
+/* RISK MATRIX */
+.risk-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+.risk-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-radius: 8px; }
+.risk-item.high { background: #fdecea; }
+.risk-item.med { background: #fff3cd; }
+.risk-item.low { background: #d4edda; }
+.risk-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+.risk-dot.high { background: #e74c3c; }
+.risk-dot.med { background: #f39c12; }
+.risk-dot.low { background: #27ae60; }
+.risk-text strong { font-size: 0.88rem; display: block; margin-bottom: 2px; }
+.risk-text span { font-size: 0.8rem; color: #555; }
+
+/* CHECKLIST */
+.checklist { list-style: none; }
+.checklist li { padding: 9px 12px; border-bottom: 1px solid #f0f2f5; font-size: 0.87rem; display: flex; gap: 10px; align-items: flex-start; }
+.checklist li:last-child { border-bottom: none; }
+.checklist li .ck-icon { flex-shrink: 0; font-size: 1rem; }
+.checklist li.must .ck-icon::before { content: '🔴'; }
+.checklist li.should .ck-icon::before { content: '🟡'; }
+.checklist li.nice .ck-icon::before { content: '🟢'; }
+.checklist .ck-label { font-weight: 600; display: block; margin-bottom: 1px; }
+.checklist .ck-sub { color: #666; font-size: 0.8rem; }
+
+/* FINANCE TABLE */
+.fin-table { width: 100%; border-collapse: collapse; font-size: 0.87rem; }
+.fin-table th { background: #f0f4fa; color: #0d1f3c; font-weight: 700; padding: 10px 14px; text-align: left; border-bottom: 2px solid #d0dcea; }
+.fin-table td { padding: 9px 14px; border-bottom: 1px solid #f0f2f5; }
+.fin-table tr:last-child td { border-bottom: none; font-weight: 700; background: #f7f9fc; }
+.fin-table td.num { text-align: right; font-weight: 600; }
+.fin-table td.good { color: #27ae60; }
+.fin-table td.warn { color: #f39c12; }
+.fin-table td.bad { color: #e74c3c; }
+
+/* INFO/WARN BOXES */
+.info-box { background: #fff8e1; border-left: 4px solid #f39c12; border-radius: 6px; padding: 12px 16px; font-size: 0.85rem; color: #7d5a00; margin-top: 14px; }
+.info-box strong { display: block; margin-bottom: 3px; }
+.warn-box { background: #fdecea; border-left: 4px solid #e74c3c; border-radius: 6px; padding: 12px 16px; font-size: 0.85rem; color: #7b1c1c; margin-top: 14px; }
+.warn-box strong { display: block; margin-bottom: 3px; }
+.ok-box { background: #d4edda; border-left: 4px solid #27ae60; border-radius: 6px; padding: 12px 16px; font-size: 0.85rem; color: #155724; margin-top: 14px; }
+.ok-box strong { display: block; margin-bottom: 3px; }
+
+/* TAGS */
+.tag-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
+.tag { padding: 4px 12px; border-radius: 20px; font-size: 0.78rem; font-weight: 600; }
+.tag.green { background: #d4edda; color: #155724; }
+.tag.yellow { background: #fff3cd; color: #856404; }
+.tag.red { background: #fdecea; color: #7b1c1c; }
+
+/* TECH SPECS INLINE */
+.tech-item { margin-bottom: 14px; }
+.tech-item h4 { font-size: 0.82rem; font-weight: 700; color: #1a3a6b; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 6px; }
+.tech-item p { font-size: 0.87rem; color: #444; }
+
+/* CTA BAR */
+.cta-bar { background: #1a3a6b; border-radius: 10px; padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
+.cta-bar p { color: rgba(255,255,255,0.85); font-size: 0.88rem; }
+.cta-bar strong { color: #fff; display: block; font-size: 1rem; margin-bottom: 3px; }
+.cta-btn { background: #f39c12; color: #fff; text-decoration: none; padding: 11px 22px; border-radius: 7px; font-weight: 700; font-size: 0.92rem; white-space: nowrap; transition: background 0.2s; }
+.cta-btn:hover { background: #d68910; }
+
+/* DISCLAIMER */
+.disclaimer { background: #f7f9fc; border: 1px solid #dde3ec; border-radius: 8px; padding: 14px 18px; font-size: 0.78rem; color: #888; margin-top: 8px; }
+
+/* FOOTER */
+.footer { background: #0d1f3c; color: rgba(255,255,255,0.55); text-align: center; padding: 18px 20px; font-size: 0.8rem; margin-top: 20px; }
+.footer a { color: #74b9ff; }
+.footer strong { color: #fff; }
+
+/* KURZ BOX */
+.kurz-box { background: linear-gradient(135deg, #0d1f3c, #1a3a6b); color: #fff; border-radius: 10px; padding: 14px 22px; display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+.kurz-rate { font-size: 2rem; font-weight: 800; color: #f39c12; line-height: 1; }
+.kurz-label { font-size: 0.78rem; opacity: 0.75; margin-bottom: 3px; }
+.kurz-source { font-size: 0.72rem; opacity: 0.6; margin-top: 2px; }
+
+/* SCENARIO SUMMARY CARDS */
+.sc3-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-top: 18px; }
+@media(max-width:680px){ .sc3-grid { grid-template-columns: 1fr; } }
+.sc3-card { border-radius: 9px; padding: 14px 16px; border-top: 4px solid; }
+.sc3-card.sc-a { background: #d4edda; border-color: #27ae60; }
+.sc3-card.sc-b { background: #fff3cd; border-color: #f39c12; }
+.sc3-card.sc-c { background: #fdecea; border-color: #e74c3c; }
+.sc3-card h5 { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+.sc3-card .sc3-price { font-size: 1.2rem; font-weight: 800; margin-bottom: 5px; }
+.sc3-card .sc3-detail { font-size: 0.75rem; color: #444; line-height: 1.5; }
+
+/* DPH SCENARIO BOXES */
+.dph-box { border-radius: 10px; padding: 18px 20px; margin-bottom: 14px; border-left: 5px solid; }
+.dph-box.dph-green { background: #d4edda; border-color: #27ae60; }
+.dph-box.dph-yellow { background: #fff3cd; border-color: #f39c12; }
+.dph-box.dph-blue { background: #e8f4fd; border-color: #2980b9; }
+.dph-box h3 { font-size: 0.95rem; font-weight: 700; color: #0d1f3c; margin-bottom: 5px; }
+.dph-box .dph-badge { display: inline-block; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; border-radius: 20px; padding: 3px 10px; margin-bottom: 7px; }
+.dph-box.dph-green .dph-badge { background: #27ae60; color: #fff; }
+.dph-box.dph-yellow .dph-badge { background: #f39c12; color: #fff; }
+.dph-box.dph-blue .dph-badge { background: #2980b9; color: #fff; }
+.dph-sub-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-top: 12px; }
+@media(max-width:680px){ .dph-sub-grid { grid-template-columns: 1fr 1fr; } }
+.dph-sub-cell { background: rgba(255,255,255,0.65); border-radius: 7px; padding: 10px 12px; }
+.dph-sub-cell .dsc-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 4px; }
+.dph-sub-cell .dsc-val { font-size: 0.88rem; font-weight: 700; }
+.dph-sub-cell .dsc-note { font-size: 0.72rem; color: #555; margin-top: 2px; }
+.dph-note { font-size: 0.78rem; color: #444; margin-top: 10px; background: rgba(255,255,255,0.4); padding: 8px 10px; border-radius: 5px; }
+
+/* COMPANY ID BOX */
+.company-id-section { border: 2px solid #c8d6e8; border-radius: 10px; padding: 22px 26px; background: #f7f9fc; margin-bottom: 20px; }
+.company-id-section h2 { font-size: 1.0rem; color: #0d1f3c; font-weight: 700; margin-bottom: 6px; border-bottom: 2px solid #dde3ec; padding-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.company-id-section .legal-note { font-size: 0.8rem; color: #666; margin-bottom: 16px; }
+.id-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 30px; }
+@media(max-width:600px){ .id-grid { grid-template-columns: 1fr; } }
+.id-row { display: flex; gap: 8px; align-items: baseline; font-size: 0.84rem; padding: 5px 0; border-bottom: 1px solid #edf0f5; }
+.id-row:last-child { border-bottom: none; }
+.id-label { color: #888; min-width: 150px; flex-shrink: 0; font-size: 0.8rem; }
+.id-val { font-weight: 600; color: #0d1f3c; }
+.id-placeholder { color: #e74c3c; font-style: italic; font-weight: 400; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-top">
+    <div>
+      <div class="badge-report">📊 ODBORNÉ HODNOCENÍ VOZIDLA</div>
+      <h1 style="margin-top:10px;">Volkswagen Passat Variant 2.0 TDI Business 200hp DSG</h1>
+      <p>Aukce OPENLANE #10974215 · Amberg, Německo · Prodejce: Athlon (fleet)</p>
+    </div>
+    <div style="text-align:right;">
+      <div style="font-size:3rem;font-weight:800;color:#f39c12;line-height:1;">6.8</div>
+      <div style="font-size:0.75rem;opacity:0.7;">/ 10 · celkové skóre</div>
+    </div>
+  </div>
+  <div class="header-meta">
+    <span>Připravil: <strong>Jaroslav Batko</strong></span>
+    <span>✉ <a href="mailto:batko.digital.ai@gmail.com">batko.digital.ai@gmail.com</a></span>
+    <span>📅 20. 5. 2026</span>
+    <span>📋 <a href="nabidka_VW_Passat_10974215.html">Zobrazit původní nabídku →</a></span>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- VERDICT -->
+<div class="verdict-box caution">
+  <div class="verdict-icon">⚠️</div>
+  <div class="verdict-text">
+    <h3>PODMÍNĚNÉ ANO — s ověřením stavu karoserie</h3>
+    <p>Vůz nabízí výjimečnou výbavu, nízký skutečný věk a ověřený fleet původ za potenciálně zajímavou cenu. <strong>Klíčová podmínka:</strong> před podáním nabídky je nezbytné vyžádat si kompletní zprávu o stavu (Condition Report) z OPENLANE a ověřit rozsah opravy po nehodě. Pokud byl vůz opraven v autorizovaném servisu a bez strukturálních poškození, jde o nadprůměrnou příležitost. Bez ověření — nekupovat.</p>
+  </div>
+</div>
+
+<!-- SCORE GRID -->
+<div class="score-grid">
+  <div class="score-card yellow">
+    <div class="sc-label">Stav vozidla</div>
+    <div class="sc-val">5.5</div>
+    <div class="sc-sub">havárie v historii</div>
+  </div>
+  <div class="score-card green">
+    <div class="sc-label">Výbava</div>
+    <div class="sc-val">9.0</div>
+    <div class="sc-sub">top konfigurace</div>
+  </div>
+  <div class="score-card green">
+    <div class="sc-label">Spolehlivost modelu</div>
+    <div class="sc-val">7.5</div>
+    <div class="sc-sub">EA288 + DQ381 DSG</div>
+  </div>
+  <div class="score-card green">
+    <div class="sc-label">Původ &amp; doklady</div>
+    <div class="sc-val">8.0</div>
+    <div class="sc-sub">Athlon fleet, COC, servisní kniha</div>
+  </div>
+  <div class="score-card yellow">
+    <div class="sc-label">Pneumatiky</div>
+    <div class="sc-val">6.0</div>
+    <div class="sc-sub">přední 3 mm – blíží se výměně</div>
+  </div>
+  <div class="score-card green">
+    <div class="sc-label">Logistika</div>
+    <div class="sc-val">7.5</div>
+    <div class="sc-sub">Amberg DE, doklady do 2 dní</div>
+  </div>
+</div>
+
+<!-- SECTIONS: FINANCE -->
+<div class="section">
+  <h2>💶 Finanční analýza — kompletní náklady &amp; ROI</h2>
+
+  <!-- KURZ CNB -->
+  <div class="kurz-box">
+    <div>
+      <div class="kurz-label">Aktuální devizový kurz · Česká národní banka (ČNB)</div>
+      <div class="kurz-rate">1 EUR = 24 295 Kč</div>
+      <div class="kurz-source">Platnost: 19. 5. 2026 · Zdroj: ČNB (www.cnb.cz) · Všechny CZK částky v tomto dokumentu jsou přepočteny tímto kurzem</div>
+    </div>
+    <div style="text-align:right;font-size:0.8rem;opacity:0.8;">
+      Kurz ČNB se mění každý<br>pracovní den ~14:30.<br>Před podpisem smlouvy ověřte aktuální kurz.
+    </div>
+  </div>
+
+  <!-- MARKET PRICE + ROI -->
+  <div class="two-col" style="margin-bottom:20px;">
+    <div>
+      <h4 style="font-size:0.85rem;color:#1a3a6b;margin-bottom:10px;text-transform:uppercase;letter-spacing:0.4px;">Srovnání tržní ceny</h4>
+      <table class="fin-table">
+        <tr><th>Referenční bod</th><th style="text-align:right;">EUR</th><th style="text-align:right;">Kč</th></tr>
+        <tr><td>Nová cena (11/2022)</td><td class="num">~60 000</td><td class="num">~1 457 700</td></tr>
+        <tr><td>Maloobchod CZ/SK (bez havárie)</td><td class="num">~35–40 000</td><td class="num">~850k–972k</td></tr>
+        <tr><td>Maloobchod CZ (s haváriemi, toto auto)</td><td class="num warn">~30–34 000</td><td class="num warn">~729k–826k</td></tr>
+        <tr><td>Realistická aukční cena</td><td class="num warn">~22–26 000</td><td class="num warn">~535k–632k</td></tr>
+        <tr><td><strong>Prodejní cíl (−5 % pod trh. dnem)</strong></td><td class="num good"><strong>~29 750–32 000</strong></td><td class="num good"><strong>~723k–777k Kč</strong></td></tr>
+      </table>
+    </div>
+    <div>
+      <h4 style="font-size:0.85rem;color:#1a3a6b;margin-bottom:10px;text-transform:uppercase;letter-spacing:0.4px;">Cílový ROI — kritéria projektu</h4>
+      <div class="metric-row"><span class="mlabel">Cíl ROI</span><span class="mval">≥ 0,5 % / den z vloženého kapitálu</span></div>
+      <div class="metric-row"><span class="mlabel">Plánovaný horizont prodeje</span><span class="mval">20 dní</span></div>
+      <div class="metric-row"><span class="mlabel">Minimální celková marže</span><span class="mval warn">investice × 10 %</span></div>
+      <div class="metric-row"><span class="mlabel">Min. marže (příklep 24 000 €)</span><span class="mval warn">65 600 Kč / ~2 700 €</span></div>
+      <div class="metric-row"><span class="mlabel">Min. prodejní cena (příklep 24 000 €)</span><span class="mval">721 500 Kč / 29 699 €</span></div>
+      <div class="metric-row"><span class="mlabel">Max. doporučená aukční cena</span><span class="mval good">≤ 24 200 € / ≤ 587 900 Kč</span></div>
+      <div class="ok-box" style="margin-top:10px;">
+        <strong>✅ Při příklepu 24 000 €: ROI 0,83 %/den — nad cílem</strong>
+        Hrubá marže ~109 000 Kč / 4 490 € při prodeji za 31 500 €.
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPLETE COST TABLE -->
+  <h4 style="font-size:0.85rem;color:#1a3a6b;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.4px;">📋 Kompletní náklady na pořízení a přípravu — 3 cenové scénáře</h4>
+  <div style="overflow-x:auto;">
+    <table class="fin-table" style="min-width:640px;">
+      <tr>
+        <th style="width:38%;">Nákladová položka</th>
+        <th style="text-align:center;background:#d4edda;">Scénář A — 22 000 €</th>
+        <th style="text-align:center;background:#fff3cd;">Scénář B — 24 000 €</th>
+        <th style="text-align:center;background:#fdecea;">Scénář C — 26 000 €</th>
+        <th style="text-align:center;font-size:0.75rem;">DPH</th>
+      </tr>
+      <tr>
+        <td>🔨 Aukční cena (hammer price)</td>
+        <td style="text-align:center;">22 000 €<br><small><strong>534 490 Kč</strong></small></td>
+        <td style="text-align:center;">24 000 €<br><small><strong>582 480 Kč</strong></small></td>
+        <td style="text-align:center;">26 000 €<br><small><strong>631 670 Kč</strong></small></td>
+        <td style="text-align:center;font-size:0.75rem;color:#888;">Margin scheme<br>§90 ZDPH</td>
+      </tr>
+      <tr>
+        <td>💳 OPENLANE buyer premium (~3 %)</td>
+        <td style="text-align:center;" class="warn">660 €<br><small>16 035 Kč</small></td>
+        <td style="text-align:center;" class="warn">720 €<br><small>17 493 Kč</small></td>
+        <td style="text-align:center;" class="warn">780 €<br><small>18 950 Kč</small></td>
+        <td style="text-align:center;font-size:0.75rem;color:#888;">Bez DPH<br>(v ceně aukce)</td>
+      </tr>
+      <tr>
+        <td>🚚 Doprava DE → CZ (profesionální přepravce)</td>
+        <td style="text-align:center;">450 €<br><small>10 933 Kč</small></td>
+        <td style="text-align:center;">450 €<br><small>10 933 Kč</small></td>
+        <td style="text-align:center;">450 €<br><small>10 933 Kč</small></td>
+        <td style="text-align:center;font-size:0.75rem;color:#27ae60;">S DPH 21 %<br>→ odečit.*</td>
+      </tr>
+      <tr>
+        <td>🔴 Přední pneumatiky 2 ks (235/45 R18 letní, montáž)</td>
+        <td style="text-align:center;" class="warn">380 €<br><small>9 232 Kč</small></td>
+        <td style="text-align:center;" class="warn">380 €<br><small>9 232 Kč</small></td>
+        <td style="text-align:center;" class="warn">380 €<br><small>9 232 Kč</small></td>
+        <td style="text-align:center;font-size:0.75rem;color:#27ae60;">S DPH 21 %<br>→ odečit.*</td>
+      </tr>
+      <tr>
+        <td>⚙️ DSG servis — olej DQ381 + filtr (NUTNÝ, 63 211 km)</td>
+        <td style="text-align:center;" class="warn">400 €<br><small>9 718 Kč</small></td>
+        <td style="text-align:center;" class="warn">400 €<br><small>9 718 Kč</small></td>
+        <td style="text-align:center;" class="warn">400 €<br><small>9 718 Kč</small></td>
+        <td style="text-align:center;font-size:0.75rem;color:#27ae60;">S DPH 21 %<br>→ odečit.*</td>
+      </tr>
+      <tr>
+        <td>🧹 Profesionální detailing + čistění interiéru/exteriéru</td>
+        <td style="text-align:center;">200 €<br><small>4 859 Kč</small></td>
+        <td style="text-align:center;">200 €<br><small>4 859 Kč</small></td>
+        <td style="text-align:center;">200 €<br><small>4 859 Kč</small></td>
+        <td style="text-align:center;font-size:0.75rem;color:#27ae60;">S DPH 21 %<br>→ odečit.*</td>
+      </tr>
+      <tr>
+        <td>📋 Registrace v ČR — přepis, SPZ, technický průkaz (TP)</td>
+        <td style="text-align:center;"><small>—</small><br><small>2 200 Kč</small></td>
+        <td style="text-align:center;"><small>—</small><br><small>2 200 Kč</small></td>
+        <td style="text-align:center;"><small>—</small><br><small>2 200 Kč</small></td>
+        <td style="text-align:center;font-size:0.75rem;color:#888;">Správní poplatek<br>(bez DPH)</td>
+      </tr>
+      <tr>
+        <td>🛡️ Povinné ručení — zákonné pojištění (1 měsíc, 147 kW)</td>
+        <td style="text-align:center;"><small>—</small><br><small>800 Kč</small></td>
+        <td style="text-align:center;"><small>—</small><br><small>800 Kč</small></td>
+        <td style="text-align:center;"><small>—</small><br><small>800 Kč</small></td>
+        <td style="text-align:center;font-size:0.75rem;color:#888;">Pojistná smlouva<br>(bez DPH)</td>
+      </tr>
+      <tr>
+        <td>🔍 CEBIA — prověření VIN v databázích (doporučeno)</td>
+        <td style="text-align:center;"><small>—</small><br><small>699 Kč</small></td>
+        <td style="text-align:center;"><small>—</small><br><small>699 Kč</small></td>
+        <td style="text-align:center;"><small>—</small><br><small>699 Kč</small></td>
+        <td style="text-align:center;font-size:0.75rem;color:#27ae60;">S DPH 21 %<br>→ odečit.*</td>
+      </tr>
+      <tr>
+        <td>⚠️ Rezerva na skryté vady (3 % z hammer price) — doporučeno</td>
+        <td style="text-align:center;" class="bad">660 €<br><small>16 035 Kč</small></td>
+        <td style="text-align:center;" class="bad">720 €<br><small>17 493 Kč</small></td>
+        <td style="text-align:center;" class="bad">780 €<br><small>18 950 Kč</small></td>
+        <td style="text-align:center;font-size:0.75rem;color:#888;">Pojistná<br>rezerva</td>
+      </tr>
+      <tr>
+        <td><strong>📊 CELKEM — pořizovací náklady vč. rezervy</strong></td>
+        <td style="text-align:center;background:#d4edda;"><strong>~24 903 EUR</strong><br><small><strong>~605 000 Kč</strong></small></td>
+        <td style="text-align:center;background:#fff3cd;"><strong>~27 023 EUR</strong><br><small><strong>~656 000 Kč</strong></small></td>
+        <td style="text-align:center;background:#fdecea;"><strong>~29 143 EUR</strong><br><small><strong>~708 000 Kč</strong></small></td>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+  <p style="font-size:0.75rem;color:#999;margin-top:8px;line-height:1.5;">* Položky označené „S DPH 21 % → odečit." — jako plátce DPH (§ 72 ZDPH) si Jaroslav Batko uplatní odpočet DPH na vstupu z těchto nákladů. <strong>Celková úspora DPH z provozních nákladů: ~6 150 Kč</strong>, efektivní náklady podnikatele-plátce DPH: ~649 850 Kč. Aukční cena a buyer premium jsou v režimu přirážky (§ 90 ZDPH) — DPH nelze odečíst.</p>
+
+  <!-- ROI SCENARIO CARDS -->
+  <div class="sc3-grid">
+    <div class="sc3-card sc-a">
+      <h5>✅ Scénář A · Hammer 22 000 €</h5>
+      <div class="sc3-price" style="color:#155724;">605 000 Kč</div>
+      <div class="sc3-detail">
+        Prodej za 30 000 € = 728 850 Kč<br>
+        Hrubá marže: <strong>~124 000 Kč / 5 100 €</strong><br>
+        ROI: <strong style="color:#155724;">~1,02 %/den ✅</strong> (nad cílem)
+      </div>
+    </div>
+    <div class="sc3-card sc-b">
+      <h5>⚠️ Scénář B · Hammer 24 000 €</h5>
+      <div class="sc3-price" style="color:#856404;">656 000 Kč</div>
+      <div class="sc3-detail">
+        Prodej za 31 500 € = 765 293 Kč<br>
+        Hrubá marže: <strong>~109 000 Kč / 4 490 €</strong><br>
+        ROI: <strong style="color:#856404;">~0,83 %/den ✅</strong> (nad cílem)
+      </div>
+    </div>
+    <div class="sc3-card sc-c">
+      <h5>❌ Scénář C · Hammer 26 000 €</h5>
+      <div class="sc3-price" style="color:#7b1c1c;">708 000 Kč</div>
+      <div class="sc3-detail">
+        Prodej za 31 500 € = 765 293 Kč<br>
+        Hrubá marže: <strong>~57 000 Kč / 2 350 €</strong><br>
+        ROI: <strong style="color:#c0392b;">~0,40 %/den ❌</strong> (pod cílem)
+      </div>
+    </div>
+  </div>
+
+  <div class="warn-box" style="margin-top:16px;">
+    <strong>⚠️ Klíčová neznámá — rozsah nehody</strong>
+    Náklady na opravu po nehodě nejsou ve výše uvedené kalkulaci zahrnuty. Mohou být 0 Kč (již opraveno, kosmetická škoda) až 50 000+ Kč (strukturální poškození). Vždy stáhnout Condition Report z OPENLANE před podáním nabídky.
+  </div>
+</div>
+
+<!-- DPH SCENARE -->
+<div class="section">
+  <h2>📑 Daňové scénáře — DPH při pořízení a prodeji vozidla</h2>
+  <p style="font-size:0.85rem;color:#555;margin-bottom:4px;">OPENLANE.eu obchoduje s ojetými vozidly v <strong>režimu přirážky (§ 90 ZDPH)</strong> — na aukční faktuře není uvedeno DPH. Toto má zásadní vliv na daňové postavení různých typů kupujících a způsob dalšího prodeje.</p>
+  <div class="info-box" style="margin-bottom:16px;">
+    <strong>📌 Klíčové pravidlo margin scheme (přirážkový režim):</strong>
+    Při nákupu v tomto režimu kupující nevidí DPH na faktuře a nemůže si jej odečíst. Při dalším prodeji se DPH odvádí pouze z <em>marže</em> (rozdíl mezi nákupní a prodejní cenou), nikoli z celé prodejní ceny. To je legální a standardní praxe v celé EU pro obchodníky s ojetými vozidly.
+  </div>
+
+  <!-- SCÉNÁŘ 1 -->
+  <div class="dph-box dph-green">
+    <div class="dph-badge">Scénář 1 · Nejpřímější cesta · Doporučeno</div>
+    <h3>Podnikatel (plátce DPH) — přímý nákup na aukci OPENLANE</h3>
+    <p style="font-size:0.85rem;color:#333;">Zákazník nebo Jaroslav jako agent nakoupí vozidlo přímo na aukci OPENLANE. Vozidlo je pořízeno na firmu/IČO. OPENLANE je B2B platforma — nutná registrace jako podnikatelský subjekt.</p>
+    <div class="dph-sub-grid">
+      <div class="dph-sub-cell">
+        <div class="dsc-label" style="color:#155724;">DPH na vstupu (aukce)</div>
+        <div class="dsc-val">0 Kč DPH na faktuře</div>
+        <div class="dsc-note">Margin scheme §90 ZDPH — DPH skryta v ceně, nelze odečíst</div>
+      </div>
+      <div class="dph-sub-cell">
+        <div class="dsc-label" style="color:#155724;">DPH z provozních nákladů</div>
+        <div class="dsc-val">~6 150 Kč zpět</div>
+        <div class="dsc-note">Doprava, pneu, DSG, detailing, CEBIA — vše odečitatelné</div>
+      </div>
+      <div class="dph-sub-cell">
+        <div class="dsc-label" style="color:#155724;">Efektivní náklady (příklep 24 000 €)</div>
+        <div class="dsc-val" style="color:#155724;">~649 850 Kč</div>
+        <div class="dsc-note">Po uplatnění odpočtu DPH z provozních nákladů</div>
+      </div>
+    </div>
+    <div class="dph-note">
+      <strong>Při prodeji zákazníkovi:</strong> Jaroslav/kupující může prodávat v margin scheme → DPH odvádí pouze z marže (nevkládá DPH do prodejní ceny). Zákazník (FO nebo neplátce DPH) platí nižší cenu — DPH není v ceně viditelně přidána. <strong>Výsledek: nižší celková cena pro zákazníka, stejný čistý výnos pro prodejce.</strong>
+    </div>
+  </div>
+
+  <!-- SCÉNÁŘ 2 -->
+  <div class="dph-box dph-yellow">
+    <div class="dph-badge">Scénář 2 · Přeprodej hotového auta</div>
+    <h3>Fyzická osoba (nepodnikatel) — koupě hotového auta od Jaroslava</h3>
+    <p style="font-size:0.85rem;color:#333;">Auto je plně připraveno k provozu v ČR — zaregistrováno, servisováno, detailováno. Zákazník (fyzická osoba) kupuje jako od autobazaru. Jaroslav prodává v margin scheme.</p>
+    <div class="dph-sub-grid">
+      <div class="dph-sub-cell">
+        <div class="dsc-label" style="color:#856404;">Prodejní cena zákazníkovi</div>
+        <div class="dsc-val">30 000–33 000 €</div>
+        <div class="dsc-note">729 000–802 000 Kč — cena je konečná</div>
+      </div>
+      <div class="dph-sub-cell">
+        <div class="dsc-label" style="color:#856404;">DPH pro zákazníka (FO)</div>
+        <div class="dsc-val">Žádné DPH navíc</div>
+        <div class="dsc-note">Margin scheme — DPH skryta v marži Jaroslava, zákazník neřeší</div>
+      </div>
+      <div class="dph-sub-cell">
+        <div class="dsc-label" style="color:#856404;">Marže Jaroslava (příklep 24 000 €)</div>
+        <div class="dsc-val">~109 000 Kč</div>
+        <div class="dsc-note">DPH z marže odvede Jaroslav sám finančnímu úřadu</div>
+      </div>
+    </div>
+    <div class="dph-note">
+      Fyzická osoba <strong>nemůže nakupovat přímo na OPENLANE</strong> (platforma je pouze pro registrované podnikatelské subjekty). Musí využít zprostředkovatele. Model: agenturní nákup Jaroslav → poplatek 8 000–12 000 Kč + celé pořizovací náklady = celková cena zákazníka je vyšší než při přímé koupi, ale zákazník nemusí nic řešit.
+    </div>
+  </div>
+
+  <!-- SCÉNÁŘ 3 -->
+  <div class="dph-box dph-blue">
+    <div class="dph-badge">Scénář 3 · Firma nakupuje od Jaroslava</div>
+    <h3>Podnikatel (plátce DPH) — koupě hotového auta od Jaroslava</h3>
+    <p style="font-size:0.85rem;color:#333;">Zákazník je firma nebo OSVČ plátce DPH. Záleží mu na odpočtu DPH — Jaroslav přizpůsobí strukturu fakturace.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;">
+      <div style="background:rgba(255,255,255,0.65);border-radius:8px;padding:14px;">
+        <div style="font-size:0.78rem;font-weight:700;color:#1a5276;margin-bottom:8px;text-transform:uppercase;">Varianta A — Margin scheme</div>
+        <div class="metric-row"><span class="mlabel" style="font-size:0.78rem;">Faktura za vozidlo</span><span class="mval" style="font-size:0.8rem;">30 000–33 000 €</span></div>
+        <div class="metric-row"><span class="mlabel" style="font-size:0.78rem;">DPH na faktuře</span><span class="mval bad" style="font-size:0.8rem;">0 Kč — margin scheme</span></div>
+        <div class="metric-row"><span class="mlabel" style="font-size:0.78rem;">Odpočet DPH zákazníkem</span><span class="mval bad" style="font-size:0.8rem;">Nelze — DPH na faktuře není</span></div>
+        <div class="metric-row"><span class="mlabel" style="font-size:0.78rem;">Reálná cena pro firmu</span><span class="mval warn" style="font-size:0.8rem;">= fakturovaná cena</span></div>
+        <p style="font-size:0.74rem;color:#666;margin-top:6px;">Méně výhodné pro plátce DPH — zákazník si nemůže odečíst DPH.</p>
+      </div>
+      <div style="background:rgba(255,255,255,0.65);border-radius:8px;padding:14px;">
+        <div style="font-size:0.78rem;font-weight:700;color:#1a5276;margin-bottom:8px;text-transform:uppercase;">Varianta B — Prodej s DPH 21 % (dohodou)</div>
+        <div class="metric-row"><span class="mlabel" style="font-size:0.78rem;">Cena bez DPH</span><span class="mval" style="font-size:0.8rem;">~24 800–27 300 €</span></div>
+        <div class="metric-row"><span class="mlabel" style="font-size:0.78rem;">DPH 21 % na faktuře</span><span class="mval" style="font-size:0.8rem;">~5 200–5 730 €</span></div>
+        <div class="metric-row"><span class="mlabel" style="font-size:0.78rem;">Cena s DPH (fakturovaná)</span><span class="mval warn" style="font-size:0.8rem;">30 000–33 000 €</span></div>
+        <div class="metric-row"><span class="mlabel" style="font-size:0.78rem;">Zákazník si DPH odečte</span><span class="mval good" style="font-size:0.8rem;">+5 200–5 730 € zpět</span></div>
+        <p style="font-size:0.74rem;color:#666;margin-top:6px;">Výhodné pro plátce DPH — netto cena vozidla je o 21 % nižší. Jaroslav odvede DPH z celé prodejní ceny (ne jen z marže).</p>
+      </div>
+    </div>
+    <div class="dph-note"><strong>Poznámka:</strong> Přechod z margin scheme na standardní DPH režim musí být promítnut do kalkulace prodejní ceny. Konkrétní daňové strukturování vždy konzultujte s daňovým poradcem nebo účetní.</div>
+  </div>
+
+  <!-- COMPARISON TABLE -->
+  <h4 style="font-size:0.85rem;color:#1a3a6b;margin:16px 0 10px;text-transform:uppercase;letter-spacing:0.4px;">Srovnání scénářů — přehled</h4>
+  <div style="overflow-x:auto;">
+    <table class="fin-table" style="min-width:580px;">
+      <tr>
+        <th>Kdo nakupuje</th>
+        <th>Jak nakupuje</th>
+        <th style="text-align:right;">Celková cena (CZK)</th>
+        <th>DPH odečet zákazníka</th>
+        <th>Výhoda</th>
+      </tr>
+      <tr>
+        <td>Podnikatel (plátce DPH)</td>
+        <td>Přímo OPENLANE / přes Jaroslava jako agenta</td>
+        <td class="num good">~656 000 Kč (B)</td>
+        <td class="good">~6 150 Kč z provoz. nákladů</td>
+        <td class="good">Nejnižší cena pořízení</td>
+      </tr>
+      <tr>
+        <td>Fyzická osoba</td>
+        <td>Přes Jaroslava — agenturní nákup</td>
+        <td class="num warn">~664–668 000 Kč (B)</td>
+        <td>Žádný odpočet</td>
+        <td class="warn">Bez starostí s aukcí</td>
+      </tr>
+      <tr>
+        <td>Fyzická osoba</td>
+        <td>Koupě hotového auta od Jaroslava</td>
+        <td class="num warn">729–802 000 Kč</td>
+        <td>Žádný odpočet</td>
+        <td class="warn">Nejjednodušší, auto ihned</td>
+      </tr>
+      <tr>
+        <td>Podnikatel (plátce DPH)</td>
+        <td>Koupě od Jaroslava — varianta B s DPH</td>
+        <td class="num">729–802 000 Kč</td>
+        <td class="good">+5 200–5 730 € zpět od FÚ</td>
+        <td class="good">Netto cena ~126 000 Kč nižší</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<!-- TECHNICAL ASSESSMENT -->
+<div class="section">
+  <h2>🔧 Technická analýza</h2>
+  <div class="two-col">
+    <div>
+      <div class="tech-item">
+        <h4>Motor — EA288 2.0 TDI 147 kW (200 hp)</h4>
+        <p>Jeden z nejspolehlivějších dieselových motorů VW po kauze Dieselgate. Generace EA288 je výrazně robustnější než předchozí EA189. Emisní norma <strong>EU6d</strong> — plně legální pro vjezd do nízkoemisních zón. Běžný servisní interval: 30 000 km nebo 1 rok (olej + filtry).</p>
+        <div class="tag-row">
+          <span class="tag green">✅ Dobrá pověst</span>
+          <span class="tag green">✅ EU6d – budoucnost jistá</span>
+          <span class="tag yellow">⚠️ Sledovat: EGR, DPF</span>
+        </div>
+      </div>
+      <div class="tech-item" style="margin-top:16px;">
+        <h4>Převodovka — DSG 7st. (DQ381)</h4>
+        <p>Těžší varianta dvouspojkové převodovky určená pro výkonnější motory. Obecně spolehlivější než menší DQ200. <strong>Kritické upozornění: servisní interval převodovkového oleje je 60 000 km. Vůz má 63 211 km — servis DSG je pravděpodobně PŘESROCEN nebo těsně na hranici.</strong> Cena servisu: 300–500 €.</p>
+        <div class="tag-row">
+          <span class="tag red">🔴 DSG servis nutný IHNED</span>
+          <span class="tag yellow">⚠️ Ověřit v servisní knize</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="tech-item">
+        <h4>Poslední servis</h4>
+        <div class="metric-row"><span class="mlabel">Datum servisu</span><span class="mval good">29. 10. 2025</span></div>
+        <div class="metric-row"><span class="mlabel">Km při servisu</span><span class="mval good">58 956 km</span></div>
+        <div class="metric-row"><span class="mlabel">Km od servisu</span><span class="mval good">~4 255 km</span></div>
+        <div class="metric-row"><span class="mlabel">Zbývá do příštího</span><span class="mval good">~25 745 km</span></div>
+        <div class="ok-box" style="margin-top:10px;">
+          <strong>✅ Servis je čerstvý</strong>
+          Vůz byl servisován před 7 měsíci a má za sebou jen 4 255 km. Standardní roční servis je v pořádku. Nezapomeňte ověřit DSG zvlášť.
+        </div>
+      </div>
+      <div class="tech-item" style="margin-top:16px;">
+        <h4>Roční nájezd (fleet analýza)</h4>
+        <div class="metric-row"><span class="mlabel">1. registrace</span><span class="mval">24. 3. 2023</span></div>
+        <div class="metric-row"><span class="mlabel">Celkem km</span><span class="mval">63 211 km</span></div>
+        <div class="metric-row"><span class="mlabel">Doba provozu</span><span class="mval">~26 měsíců</span></div>
+        <div class="metric-row"><span class="mlabel">Průměr / rok</span><span class="mval warn">~29 000 km/rok</span></div>
+        <p style="font-size:0.8rem;color:#888;margin-top:6px;">Fleet průměr je 25–35 tis. km/rok — vůz odpovídá normálu fleet provozu. Diesel na dálkové jízdy — toto jsou pro motor vhodné kilometry.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="warn-box" style="margin-top:4px;">
+    <strong>⚠️ Zajímavý detail: Model rok vs. datum výroby vs. registrace</strong>
+    Vůz je označen jako model rok 2019, vyroben byl 23. 11. 2022 a poprvé registrován až 24. 3. 2023. Tento zdánlivý nesoulad je obvyklý — „model rok" u VW označuje generaci faceliftovaného modelu (B8.5 Passat), nikoliv rok výroby. Fyzické stáří vozu je od výroby cca 3,5 roku. <strong>Jde o výhodu</strong> — záruční lhůta a stáří se počítá od registrace (05/2026 = 3 roky a 2 měsíce v provozu).
+  </div>
+</div>
+
+<!-- ACCIDENT ANALYSIS -->
+<div class="section">
+  <h2>💥 Analýza škodní historie</h2>
+  <p style="font-size:0.88rem;color:#555;margin-bottom:16px;">Příznak „Poškození před nehodou: ANO" je nejzávažnější faktor tohoto vozidla. Níže uvádíme, jak jej správně interpretovat a co ověřit.</p>
+  <div class="two-col">
+    <div>
+      <h4 style="font-size:0.85rem;color:#1a3a6b;margin-bottom:10px;text-transform:uppercase;">Co příznak znamená</h4>
+      <div class="metric-row"><span class="mlabel">Vůz byl v minulosti poškozen</span><span class="mval bad">ANO — potvrzeno</span></div>
+      <div class="metric-row"><span class="mlabel">Rozsah poškození znám z aukce</span><span class="mval warn">NE — nutný Condition Report</span></div>
+      <div class="metric-row"><span class="mlabel">Oprava potvrzena</span><span class="mval warn">Nezjištěno</span></div>
+      <div class="metric-row"><span class="mlabel">Vliv na techniku (rámy, airbagy)</span><span class="mval warn">Nezjištěno</span></div>
+      <div class="metric-row"><span class="mlabel">Vliv na tržní cenu</span><span class="mval bad">−20 až −35 % vs. čistý vůz</span></div>
+
+      <div class="warn-box">
+        <strong>🚫 Bez Condition Reportu nekupovat</strong>
+        Athlon jako prodejce má povinnost zveřejnit kompletní zprávu o stavu. Tuto zprávu lze stáhnout po přihlášení do OPENLANE. Před podáním jakékoliv nabídky si ji vyžádejte a nechte posoudit odborníkem.
+      </div>
+    </div>
+    <div>
+      <h4 style="font-size:0.85rem;color:#1a3a6b;margin-bottom:10px;text-transform:uppercase;">Scénáře a jejich dopad</h4>
+      <div class="risk-item low" style="margin-bottom:8px;border-radius:8px;">
+        <div class="risk-dot low"></div>
+        <div class="risk-text">
+          <strong>Scénář A — Drobná kosmetická škoda (nejčastější u fleet)</strong>
+          <span>Nárazník, světlomet, lak — opraveno bez vlivu na techniku. Vliv na hodnotu: −5 až −10 %. Kupovat lze.</span>
+        </div>
+      </div>
+      <div class="risk-item med" style="margin-bottom:8px;border-radius:8px;">
+        <div class="risk-dot med"></div>
+        <div class="risk-text">
+          <strong>Scénář B — Středně závažná škoda</strong>
+          <span>Poškození dveří, blatníků, případně jednoho rohu — opraveno v servisu. Vliv: −15 až −25 %. Kupovat lze s odpovídající cenou.</span>
+        </div>
+      </div>
+      <div class="risk-item high" style="border-radius:8px;">
+        <div class="risk-dot high"></div>
+        <div class="risk-text">
+          <strong>Scénář C — Závažná škoda (rámy, airbagy, mechanika)</strong>
+          <span>Strukturální poškození, vystřelené airbagy, poškozená hřídel — kupovat pouze s extrémní slevou nebo vůbec. Taková auta jsou výrazně rizikovější pro další prodej.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TIRE & EQUIPMENT RISKS -->
+<div class="section">
+  <h2>🔵 Pneumatiky &amp; provozní stav</h2>
+  <div class="two-col">
+    <div>
+      <h4 style="font-size:0.85rem;color:#1a3a6b;margin-bottom:10px;text-transform:uppercase;">Stav dezénu</h4>
+      <div class="metric-row"><span class="mlabel">Přední levá</span><span class="mval warn">3,0 mm ⚠️</span></div>
+      <div class="metric-row"><span class="mlabel">Přední pravá</span><span class="mval warn">3,0 mm ⚠️</span></div>
+      <div class="metric-row"><span class="mlabel">Zadní levá</span><span class="mval good">4,0 mm ✅</span></div>
+      <div class="metric-row"><span class="mlabel">Zadní pravá</span><span class="mval good">4,0 mm ✅</span></div>
+      <div class="metric-row"><span class="mlabel">Zákonné minimum CZ</span><span class="mval">1,6 mm</span></div>
+      <div class="metric-row"><span class="mlabel">Doporučená výměna (bezpečnost)</span><span class="mval warn">pod 3 mm → brzy</span></div>
+      <div class="info-box">
+        <strong>🎁 Extra sada pneumatik v ceně</strong>
+        Součástí aukce je náhradní sada pneu. Zjistěte velikost, stáří a typ — mohou být zimní (celoroční) nebo léto, což výrazně ovlivňuje skutečnou hodnotu příslušenství.
+      </div>
+    </div>
+    <div>
+      <h4 style="font-size:0.85rem;color:#1a3a6b;margin-bottom:10px;text-transform:uppercase;">Kalkulace: náklady na uvedení do bezchybného stavu</h4>
+      <div class="metric-row"><span class="mlabel">2× přední pneu (235/45 R18 letní)</span><span class="mval warn">250–400 €</span></div>
+      <div class="metric-row"><span class="mlabel">Servis DSG oleje (DQ381)</span><span class="mval warn">300–500 €</span></div>
+      <div class="metric-row"><span class="mlabel">Případná kosmetika / přelak</span><span class="mval">0–1 500 €</span></div>
+      <div class="metric-row"><span class="mlabel">Příprava na prodej (CZ detailing)</span><span class="mval">150–300 €</span></div>
+      <div class="metric-row" style="background:#f7f9fc;padding:9px 6px;border-radius:6px;"><span class="mlabel"><strong>Celkem příprava</strong></span><span class="mval warn"><strong>700–2 700 €</strong></span></div>
+    </div>
+  </div>
+</div>
+
+<!-- FLEET ORIGIN -->
+<div class="section">
+  <h2>🏢 Analýza původu — Athlon (fleet)</h2>
+  <div class="two-col">
+    <div>
+      <p style="font-size:0.87rem;color:#444;margin-bottom:14px;">Athlon je jednou z největších evropských leasingových a fleet management společností (součást Mercedes-Benz Mobility Group). Vozy z fleetů tohoto typu mají specifické vlastnosti:</p>
+      <div class="metric-row"><span class="mlabel">Pravidelná údržba dle plánu</span><span class="mval good">✅ Téměř jistá</span></div>
+      <div class="metric-row"><span class="mlabel">Servisní historie dohledatelná</span><span class="mval good">✅ K dispozici</span></div>
+      <div class="metric-row"><span class="mlabel">Původ (ne soukromník)</span><span class="mval good">✅ Firemní řidič</span></div>
+      <div class="metric-row"><span class="mlabel">Pravděpodobnost úprav / chiptuning</span><span class="mval good">✅ Minimální</span></div>
+      <div class="metric-row"><span class="mlabel">Styl jízdy (firemní auto)</span><span class="mval warn">⚠️ Různé styly řidičů</span></div>
+      <div class="metric-row"><span class="mlabel">Výskyt havárií</span><span class="mval warn">⚠️ Vyšší než u soukromníka</span></div>
+    </div>
+    <div>
+      <div class="ok-box">
+        <strong>✅ Výhody fleet původu</strong>
+        Athlon jako korporátní prodejce musí dodávat kompletní dokumentaci, servisní historii a Condition Report. Vůz nebyl upraven, chiptunován ani přetočen. COC certifikát je k dispozici — nutný pro registraci v jiném státě EU bez komplikací.
+      </div>
+      <div class="info-box" style="margin-top:12px;">
+        <strong>📋 Doklady zasílány expresní poštou</strong>
+        Doklady nejsou fyzicky s vozem — zákazníkovi v EU jsou zasílány expresní poštou průměrně do 2 pracovních dnů od obdržení CMR (mezinárodní přepravní doklady). Počítejte s tím do logistického plánu.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RISK MATRIX -->
+<div class="section">
+  <h2>🎯 Matice rizik &amp; příležitostí</h2>
+  <div class="two-col">
+    <div>
+      <h4 style="font-size:0.85rem;color:#e74c3c;margin-bottom:10px;text-transform:uppercase;">Rizika</h4>
+      <div class="risk-grid">
+        <div class="risk-item high">
+          <div class="risk-dot high"></div>
+          <div class="risk-text"><strong>Neznámý rozsah havárie</strong><span>Bez Condition Reportu nelze odhadnout reálné náklady na opravu ani dopad na prodejnost a hodnotu.</span></div>
+        </div>
+        <div class="risk-item high">
+          <div class="risk-dot high"></div>
+          <div class="risk-text"><strong>DSG servis pravděpodobně přesrocen</strong><span>63 211 km, interval 60 000 km — nutno ověřit v servisní knize a případně ihned servisovat.</span></div>
+        </div>
+        <div class="risk-item med">
+          <div class="risk-dot med"></div>
+          <div class="risk-text"><strong>Přední pneumatiky 3,0 mm</strong><span>Zákonné, ale brzy bude potřeba výměna — kalkulovat do nákladů (~300 €).</span></div>
+        </div>
+        <div class="risk-item med">
+          <div class="risk-dot med"></div>
+          <div class="risk-text"><strong>Diesel — legislativní trend</strong><span>Nízkoemisní zóny v evropských městech se rozrůstají. EU6d je aktuálně nejlepší diesel norma, ale dlouhodobý trend je elektromobilita.</span></div>
+        </div>
+        <div class="risk-item low">
+          <div class="risk-dot low"></div>
+          <div class="risk-text"><strong>Doklady přes poštu (zpoždění)</strong><span>Doklady přicházejí expresní poštou průměrně do 2 dnů — standardní postup u DE prodejů.</span></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h4 style="font-size:0.85rem;color:#27ae60;margin-bottom:10px;text-transform:uppercase;">Příležitosti</h4>
+      <div class="risk-grid">
+        <div class="risk-item low">
+          <div class="risk-dot low"></div>
+          <div class="risk-text"><strong>Výjimečná výbava pro segment</strong><span>3-zónová klima, masáž, LED, tažný hák sklápěcí, bezdrátové nabíjení, CarPlay — nadstandardní výbava zvyšuje prodejnost.</span></div>
+        </div>
+        <div class="risk-item low">
+          <div class="risk-dot low"></div>
+          <div class="risk-text"><strong>Čerstvý servis, nízký věk</strong><span>Servisováno v říjnu 2025, 3 roky od registrace — pořád relativně mladý vůz s ověřitelnou historií.</span></div>
+        </div>
+        <div class="risk-item low">
+          <div class="risk-dot low"></div>
+          <div class="risk-text"><strong>Extra sada pneumatik zdarma</strong><span>Přidaná hodnota v ceně — při prodeji zákazníkovi lze prezentovat jako bonus.</span></div>
+        </div>
+        <div class="risk-item low">
+          <div class="risk-dot low"></div>
+          <div class="risk-text"><strong>Havárie = sleva na aukci</strong><span>Accident history tlačí aukční cenu dolů — je-li škoda pouze kosmetická, vzniká maržový prostor oproti „čistým" autům.</span></div>
+        </div>
+        <div class="risk-item low">
+          <div class="risk-dot low"></div>
+          <div class="risk-text"><strong>Reputable seller — Athlon</strong><span>Kompletní dokumentace, COC, servisní kniha — minimalizuje juridická rizika při dalším prodeji.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MARKET COMPARISON -->
+<div class="section">
+  <h2>📈 Srovnání trhu (CZ · SK · DE)</h2>
+  <table class="fin-table">
+    <tr>
+      <th>Parametr</th>
+      <th>Toto vozidlo</th>
+      <th>Průměr srovnatelných (CZ retail)</th>
+      <th>Hodnocení</th>
+    </tr>
+    <tr>
+      <td>Stáří (od výroby)</td>
+      <td>3,5 roku</td>
+      <td>3–5 let</td>
+      <td class="good">✅ Mladší průměru</td>
+    </tr>
+    <tr>
+      <td>Nájezd</td>
+      <td>63 211 km</td>
+      <td>60 000–90 000 km</td>
+      <td class="good">✅ V průměru</td>
+    </tr>
+    <tr>
+      <td>Výkon</td>
+      <td>200 hp (DSG)</td>
+      <td>150–200 hp</td>
+      <td class="good">✅ Horní hranice</td>
+    </tr>
+    <tr>
+      <td>Emisní norma</td>
+      <td>EU6d</td>
+      <td>EU6d / EU6d-temp</td>
+      <td class="good">✅ Nejlepší diesel norma</td>
+    </tr>
+    <tr>
+      <td>Výbava</td>
+      <td>Business (top paket)</td>
+      <td>Comfortline / Highline</td>
+      <td class="good">✅ Nadprůměrná</td>
+    </tr>
+    <tr>
+      <td>Škodní historie</td>
+      <td>ANO (havárie v hist.)</td>
+      <td>Většina bez záznamu</td>
+      <td class="bad">❌ Negativum</td>
+    </tr>
+    <tr>
+      <td>Retail cena (odhadovaná)</td>
+      <td>~30 000–34 000 € (s haváriemi)</td>
+      <td>~35 000–40 000 € (bez havárie)</td>
+      <td class="warn">⚠️ Sleva ~15–20 %</td>
+    </tr>
+  </table>
+  <div class="info-box">
+    <strong>📊 Tipy pro inzerci při dalším prodeji</strong>
+    Na CZ/SK trhu je nutné škodní historii uvést v inzerátu (zákonná povinnost). Správná prezentace — „servisovaný vůz z německého fleetového leasingu, opraveno po nehodě v autorizovaném servisu" — snižuje dopad na důvěru zákazníka, pokud je oprava doložitelná.
+  </div>
+</div>
+
+<!-- CHECKLIST -->
+<div class="section">
+  <h2>✅ Checklist před rozhodnutím</h2>
+  <p style="font-size:0.85rem;color:#666;margin-bottom:14px;">🔴 = Nutné před podáním nabídky &nbsp;|&nbsp; 🟡 = Důležité po přiklepnutí &nbsp;|&nbsp; 🟢 = Doporučené</p>
+  <ul class="checklist">
+    <li class="must"><span class="ck-icon"></span><div><span class="ck-label">Stáhnout Condition Report z OPENLANE</span><span class="ck-sub">Kompletní zpráva o stavu vozidla dostupná po přihlášení — klíčový dokument pro posouzení havárie.</span></div></li>
+    <li class="must"><span class="ck-icon"></span><div><span class="ck-label">Ověřit rozsah havárie (fotodokumentace v CR)</span><span class="ck-sub">Zjistit, zda jde o karoserii, strukturu nebo techniku. Bez tohoto kroku nelze kalkulovat cenu.</span></div></li>
+    <li class="must"><span class="ck-icon"></span><div><span class="ck-label">Zkontrolovat stav airbagů v Condition Reportu</span><span class="ck-sub">Vystřelené airbagy = zásadní problém. Ověřte, zda byly nebo nebyly aktivovány.</span></div></li>
+    <li class="must"><span class="ck-icon"></span><div><span class="ck-label">Ověřit čas konce aukce (21. 5. 2026 v 10:25)</span><span class="ck-sub">Dynamická aukce — konec se může prodloužit posledními nabídkami. Sledujte aktivně.</span></div></li>
+    <li class="should"><span class="ck-icon"></span><div><span class="ck-label">Po přiklepnutí: servis DSG (DQ381)</span><span class="ck-sub">Vůz je na 63 211 km, servisní interval je 60 000 km. Výměna oleje převodovky je s největší pravděpodobností nutná (~300–500 €).</span></div></li>
+    <li class="should"><span class="ck-icon"></span><div><span class="ck-label">Výměna předních pneumatik</span><span class="ck-sub">3,0 mm je zákonné, ale brzy bude nutná výměna. Kalkulovat do nákupní ceny nebo přednést jako bonus výměny zákazníkovi.</span></div></li>
+    <li class="should"><span class="ck-icon"></span><div><span class="ck-label">Ověřit extra sadu pneumatik (typ, stáří, velikost)</span><span class="ck-sub">Součástí jsou náhradní pneu — zjistit, zda jsou zimní nebo letní a v jakém stavu. Ovlivňuje skutečnou přidanou hodnotu.</span></div></li>
+    <li class="should"><span class="ck-icon"></span><div><span class="ck-label">Logistika: naplánovat přepravu z Ambergu (Německo)</span><span class="ck-sub">Kontaktovat přepravce, orientační cena DE→CZ: 300–500 €. Doklady přicházejí expresem do 2 dnů po CMR.</span></div></li>
+    <li class="nice"><span class="ck-icon"></span><div><span class="ck-label">Prověřit VIN v databázích (CEBIA, CARFAX DE)</span><span class="ck-sub">Nezávislé ověření škodní historie pro vlastní klid nebo jako podklad pro zákazníka.</span></div></li>
+    <li class="nice"><span class="ck-icon"></span><div><span class="ck-label">Přichystat inzerci předem (Sauto, TipCars, Mobil.de)</span><span class="ck-sub">Mít texty, fotky a cenu připraveny dopředu — zkrátit dobu mezi přiklepnutím a prodejem.</span></div></li>
+    <li class="nice"><span class="ck-icon"></span><div><span class="ck-label">Kalkulovat CZ registraci (v případě dalšího prodeje)</span><span class="ck-sub">COC je k dispozici — přeregistrace z DE do CZ je standardní postup, obvyklé poplatky + DPH dle situace.</span></div></li>
+  </ul>
+</div>
+
+<!-- FINAL RECOMMENDATION -->
+<div class="section">
+  <h2>🏁 Závěrečné doporučení</h2>
+  <div class="two-col">
+    <div>
+      <h4 style="font-size:0.85rem;color:#1a3a6b;margin-bottom:12px;text-transform:uppercase;">Kdy KUPOVAT</h4>
+      <div class="risk-item low" style="margin-bottom:8px;border-radius:8px;">
+        <div class="risk-dot low"></div>
+        <div class="risk-text"><strong>Condition Report potvrdí jen kosmetickou škodu</strong><span>Poškrábání, nárazník, světlomet — bez vlivu na techniku. V tom případě jde o atraktivní koupě s dobrým maržovým potenciálem.</span></div>
+      </div>
+      <div class="risk-item low" style="margin-bottom:8px;border-radius:8px;">
+        <div class="risk-dot low"></div>
+        <div class="risk-text"><strong>Aukční cena zůstane pod 24 000 €</strong><span>Při ceně do 24k € a retail potenciálu 30–33k € je marže i po přípravě zajímavá.</span></div>
+      </div>
+      <div class="risk-item low" style="border-radius:8px;">
+        <div class="risk-dot low"></div>
+        <div class="risk-text"><strong>Cílový zákazník zná historii a nevadí mu</strong><span>Zákazník hledající výborně vybavený diesel kombi za rozumnou cenu a akceptující opravenou havárii = ideální cíl.</span></div>
+      </div>
+    </div>
+    <div>
+      <h4 style="font-size:0.85rem;color:#e74c3c;margin-bottom:12px;text-transform:uppercase;">Kdy NEKUPOVAT</h4>
+      <div class="risk-item high" style="margin-bottom:8px;border-radius:8px;">
+        <div class="risk-dot high"></div>
+        <div class="risk-text"><strong>Condition Report není k dispozici nebo jej nečtete</strong><span>Bez tohoto dokumentu je jakákoliv koupě čistá spekulace.</span></div>
+      </div>
+      <div class="risk-item high" style="margin-bottom:8px;border-radius:8px;">
+        <div class="risk-dot high"></div>
+        <div class="risk-text"><strong>CR ukáže strukturální poškození nebo vystřelené airbagy</strong><span>V tom případě doporučujeme upustit, pokud nemáte přístup k specializované opravně a odpovídající ceně.</span></div>
+      </div>
+      <div class="risk-item med" style="border-radius:8px;">
+        <div class="risk-dot med"></div>
+        <div class="risk-text"><strong>Aukční cena překročí 27 000 €</strong><span>Nad touto hranicí se maržový prostor uzavírá po odečtení přípravných nákladů.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ok-box" style="margin-top:16px;">
+    <strong>✅ Celkový závěr hodnotitele</strong>
+    VW Passat Variant B8.5 2.0 TDI 200hp DSG7 s výjimečnou výbavou (Business paket), z ověřeného fleetového původu (Athlon DE), s kompletní dokumentací a čerstvým servisem je za normálních okolností výborným autem. Jediná, ale zásadní neznámá je rozsah škodní události. Tato neznámá je ŘEŠITELNÁ — stažením a prostudováním Condition Reportu z OPENLANE ještě dnes. Udělejte tento jeden krok a pak rozhodnutí bude jasné.
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-bar">
+  <div>
+    <strong>📋 Původní nabídkový list vozidla</strong>
+    <p>Fotogalerie, kompletní specifikace, výbava a aukční informace v přehledném formátu.</p>
+  </div>
+  <a class="cta-btn" href="nabidka_VW_Passat_10974215.html">Zobrazit nabídku →</a>
+</div>
+
+<div class="cta-bar" style="background:#155724;">
+  <div>
+    <strong>🔗 Aukce na OPENLANE.eu (jen pro registrované)</strong>
+    <p>Přímý odkaz na aukci — stáhnout Condition Report a podat nabídku.</p>
+  </div>
+  <a class="cta-btn" href="https://www.openlane.eu/cs/car/info?auctionId=10974215" target="_blank" style="background:#27ae60;">Otevřít aukci →</a>
+</div>
+
+<!-- COMPANY IDENTIFICATION -->
+<div class="company-id-section">
+  <h2>🏢 Identifikace zpracovatele — povinné údaje dle české legislativy</h2>
+  <p class="legal-note">Toto hodnocení je obchodním dokumentem. Dle § 435 zákona č. 89/2012 Sb. (občanský zákoník) a § 29 zákona č. 235/2004 Sb. (zákon o DPH) je zpracovatel povinen na obchodních listinách uvést níže uvedené identifikační údaje.</p>
+  <div class="id-grid">
+    <div>
+      <div class="id-row"><span class="id-label">Jméno a příjmení:</span><span class="id-val">Ing. Jaroslav Batko-Linet</span></div>
+      <div class="id-row"><span class="id-label">IČO:</span><span class="id-val">14600153</span></div>
+      <div class="id-row"><span class="id-label">DIČ:</span><span class="id-val">CZ5912280418</span></div>
+      <div class="id-row"><span class="id-label">Sídlo:</span><span class="id-val">Ostrava 1, Vítkovická 1, PSČ 701 00</span></div>
+    </div>
+    <div>
+      <div class="id-row"><span class="id-label">Předmět podnikání:</span><span class="id-val">Zprostředkování obchodu, poradenská činnost v oblasti nákupu vozidel</span></div>
+      <div class="id-row"><span class="id-label">Plátce DPH:</span><span class="id-val">ANO — registrovaný plátce DPH v ČR</span></div>
+      <div class="id-row"><span class="id-label">Obchodní rejstřík:</span><span class="id-val">Krajský soud v Ostravě, sp. zn. A 984, zápis 31. 01. 1991</span></div>
+      <div class="id-row"><span class="id-label">Telefon / E-mail:</span><span class="id-val">+420 725 360 151 · <a href="mailto:batko.digital.ai@gmail.com" style="color:#1a3a6b;">batko.digital.ai@gmail.com</a></span></div>
+    </div>
+  </div>
+</div>
+
+<!-- DISCLAIMER -->
+<div class="disclaimer">
+  <strong style="color:#555;">⚖️ Upozornění</strong><br>
+  Toto hodnocení je připraveno na základě informací dostupných z aukčního systému OPENLANE ke dni 20. 5. 2026. Cenové odhady jsou orientační a vycházejí z aktuální situace na trhu ojetých vozidel v ČR a SR. Hodnocení nelze považovat za odborný znalecký posudek ani za záruku kvality vozidla. Veškerá odpovědnost za nákupní rozhodnutí leží na kupujícím. Doporučujeme vždy ověřit technický stav vozu prostřednictvím oficiálního Condition Reportu OPENLANE a případně nezávislého technika.
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p>Hodnocení připravil: <strong>Ing. Jaroslav Batko-Linet</strong> · IČO: <strong>14600153</strong> · DIČ: <strong>CZ5912280418</strong> · Plátce DPH</p>
+  <p style="margin-top:4px;">Sídlo: Ostrava 1, Vítkovická 1, PSČ 701 00 · OR: Krajský soud v Ostravě, sp. zn. A 984, zápis 31. 01. 1991</p>
+  <p style="margin-top:4px;"><a href="mailto:batko.digital.ai@gmail.com">batko.digital.ai@gmail.com</a> · +420 725 360 151</p>
+  <p style="margin-top:5px;">Zdroj dat: <a href="https://www.openlane.eu/cs/car/info?auctionId=10974215" target="_blank">OPENLANE Europe – aukce #10974215</a> (jen pro registrované) · Kurz ČNB 19. 5. 2026: <strong>1 EUR = 24 295 Kč</strong> · Vygenerováno: 20. 5. 2026</p>
+</div>
+
+</body>
+</html>
