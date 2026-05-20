@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Expertiza & analýza vozidla — Model 1</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; color: #1a1a1a; line-height: 1.55; }
+.wrap { max-width: 900px; margin: 0 auto; padding: 0 0 40px; }
+.header { background: linear-gradient(135deg, #0d1f3c 0%, #1a3a6b 100%); color: #fff; padding: 28px 36px 24px; }
+.header h1 { font-size: 1.45rem; font-weight: 700; margin-bottom: 4px; }
+.header .sub { font-size: 0.88rem; opacity: 0.75; margin-bottom: 10px; }
+.badge { display:inline-block; padding:4px 12px; border-radius:20px; font-size:0.76rem; font-weight:700; letter-spacing:.4px; }
+.badge-a { background:#8e44ad; }
+.badge-b { background:#27ae60; }
+.badge-c { background:#2980b9; }
+.badge-d { background:#e67e22; }
+.badge-e { background:#16a085; }
+.badge-f { background:#c0392b; }
+.kurz-strip { background:#1a2a4a; color:rgba(255,255,255,.75); padding:8px 36px; font-size:.8rem; display:flex; gap:20px; flex-wrap:wrap; }
+.kurz-strip strong { color:#74b9ff; }
+.nav-back { background:#fff; border-bottom:2px solid #e0e6f0; padding:10px 36px; font-size:.82rem; }
+.nav-back a { color:#1a3a6b; text-decoration:none; font-weight:600; }
+.nav-back a:hover { text-decoration:underline; }
+.section { background:#fff; border-radius:10px; padding:22px 26px; margin:16px 0; }
+.section h2 { font-size:1.0rem; font-weight:700; color:#0d1f3c; margin-bottom:14px; border-bottom:2px solid #e8edf5; padding-bottom:8px; }
+.vozidlo-row { display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap; }
+.vozidlo-specs { flex:1; min-width:220px; }
+.vozidlo-specs table { width:100%; border-collapse:collapse; font-size:.87rem; }
+.vozidlo-specs td { padding:5px 8px; border-bottom:1px solid #f0f2f5; }
+.vozidlo-specs td:first-child { color:#666; font-weight:600; width:45%; }
+.highlight-box { background:linear-gradient(135deg,#0d1f3c,#1a3a6b); color:#fff; border-radius:10px; padding:20px 24px; }
+.highlight-box h3 { font-size:1.05rem; margin-bottom:10px; color:#f39c12; }
+.highlight-box ul { list-style:none; padding:0; }
+.highlight-box ul li { padding:5px 0; border-bottom:1px solid rgba(255,255,255,.1); font-size:.9rem; }
+.highlight-box ul li:last-child { border:none; }
+.highlight-box ul li::before { content:"✅ "; }
+.warn-box { background:#fff3cd; border:1px solid #ffc107; border-radius:8px; padding:14px 18px; font-size:.87rem; margin-top:12px; }
+.info-box { background:#e8f4fd; border-left:4px solid #2980b9; padding:12px 16px; border-radius:6px; font-size:.87rem; margin-top:12px; }
+.green-box { background:#eafaf1; border-left:4px solid #27ae60; padding:12px 16px; border-radius:6px; font-size:.87rem; margin-top:12px; }
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:16px 0; }
+@media(max-width:640px){ .two-col{grid-template-columns:1fr;} .vozidlo-row{flex-direction:column;} }
+.step { display:flex; gap:14px; align-items:flex-start; padding:12px 0; border-bottom:1px solid #f0f2f5; }
+.step:last-child { border:none; }
+.step-num { background:#0d1f3c; color:#fff; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:.85rem; flex-shrink:0; margin-top:2px; }
+.step-body strong { display:block; color:#0d1f3c; font-size:.92rem; margin-bottom:3px; }
+.step-body span { font-size:.85rem; color:#444; }
+table.fin { width:100%; border-collapse:collapse; font-size:.88rem; }
+table.fin th { background:#0d1f3c; color:#fff; padding:8px 10px; text-align:left; font-size:.82rem; }
+table.fin td { padding:7px 10px; border-bottom:1px solid #eee; }
+table.fin tr:last-child td { font-weight:700; background:#f7f9fc; border-top:2px solid #0d1f3c; }
+table.fin .eur { color:#666; font-size:.82rem; }
+.form-wrap { background:#fff; border-radius:10px; padding:26px 30px; margin:16px 0; }
+.form-wrap h2 { font-size:1.0rem; font-weight:700; color:#0d1f3c; margin-bottom:6px; }
+.form-wrap .sub { font-size:.84rem; color:#666; margin-bottom:18px; }
+.form-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+@media(max-width:500px){ .form-grid{grid-template-columns:1fr;} }
+.form-group { display:flex; flex-direction:column; gap:5px; }
+.form-group.full { grid-column:1/-1; }
+.form-group label { font-size:.82rem; font-weight:600; color:#444; }
+.form-group input, .form-group select, .form-group textarea {
+  border:1.5px solid #d0d7e4; border-radius:6px; padding:9px 12px; font-size:.88rem;
+  font-family:inherit; transition:border-color .2s;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  outline:none; border-color:#1a3a6b;
+}
+.btn-send { margin-top:16px; background:#0d1f3c; color:#fff; border:none; padding:12px 28px;
+  border-radius:7px; font-size:.95rem; font-weight:700; cursor:pointer; transition:background .2s; }
+.btn-send:hover { background:#1a3a6b; }
+.company-bar { background:#f0f4fa; border-top:3px solid #c8d6e8; padding:16px 36px; font-size:.8rem; color:#444; }
+.company-bar h4 { font-size:.77rem; font-weight:700; color:#0d1f3c; text-transform:uppercase; letter-spacing:.5px; margin-bottom:8px; }
+.cid-grid { display:grid; grid-template-columns:1fr 1fr; gap:5px 30px; }
+@media(max-width:600px){ .cid-grid{grid-template-columns:1fr;} }
+.cid-row { display:flex; gap:6px; }
+.cid-label { color:#888; min-width:130px; font-size:.77rem; flex-shrink:0; }
+.cid-val { font-weight:600; color:#0d1f3c; }
+.footer { background:#1a2a4a; color:rgba(255,255,255,.6); text-align:center; padding:16px 20px; font-size:.78rem; }
+.footer a { color:#74b9ff; }
+.footer strong { color:#fff; }
+.nav-offers { background:#fff; padding:14px 36px; border-top:1px solid #e0e6f0; font-size:.82rem; }
+.nav-offers strong { display:block; margin-bottom:8px; color:#0d1f3c; }
+.offer-pills { display:flex; gap:8px; flex-wrap:wrap; }
+.pill { display:inline-block; padding:5px 14px; border-radius:20px; font-size:.78rem; font-weight:600;
+  text-decoration:none; border:1.5px solid; transition:.2s; }
+.pill:hover { opacity:.8; }
+.pill-a { color:#8e44ad; border-color:#8e44ad; }
+.pill-b { color:#27ae60; border-color:#27ae60; }
+.pill-c { color:#2980b9; border-color:#2980b9; }
+.pill-d { color:#e67e22; border-color:#e67e22; }
+.pill-e { color:#16a085; border-color:#16a085; }
+.pill-f { color:#c0392b; border-color:#c0392b; }
+.pill-main { color:#0d1f3c; border-color:#0d1f3c; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="header">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px;">
+    <div>
+      <h1>Expertiza & analýza vozidla — Model 1</h1>
+      <p class="sub">VW Passat Variant B8.5 2.0 TDI 200hp DSG7 · Ref. OPENLANE #10974215</p>
+    </div>
+    <span class="badge badge-a">🔍 EXPERTIZA</span>
+  </div>
+</div>
+<div class="kurz-strip">
+  <span>Kurz ČNB 19. 5. 2026: <strong>1 EUR = 24 295 Kč</strong></span>
+  <span>VW Passat Variant B8.5 2.0 TDI 200hp DSG7 · OPENLANE #10974215</span>
+</div>
+<div class="nav-back">
+  <a href="nabidka_VW_Passat_10974215.html">← Zpět na hlavní nabídku</a> ·
+  <a href="hodnoceni_VW_Passat_10974215.html">Odborné hodnocení vozu</a>
+</div>
+      <div class="section">
+        <h2>🚗 Vozidlo — VW Passat Variant B8.5 2.0 TDI 200hp DSG7</h2>
+        <div class="vozidlo-row">
+          <div class="vozidlo-specs">
+            <table>
+              <tr><td>Aukce</td><td><a href="https://www.openlane.eu/cs/car/info?auctionId=10974215" target="_blank">OPENLANE #10974215</a> (jen pro registrované)</td></tr>
+              <tr><td>Rok výroby</td><td>2021</td></tr>
+              <tr><td>Nájezd</td><td>63 211 km</td></tr>
+              <tr><td>Motor / převodovka</td><td>2.0 TDI 200hp (147 kW) · DSG7 (DQ381)</td></tr>
+              <tr><td>Emisní norma</td><td>EU6d ✅ (nejlepší diesel)</td></tr>
+              <tr><td>Karoserie</td><td>Kombi (Variant)</td></tr>
+              <tr><td>Barva</td><td>Stříbrná metalíza</td></tr>
+              <tr><td>STK platná do</td><td>03/2027 ✅</td></tr>
+              <tr><td>Doklady</td><td>Kompletní · COC k dispozici</td></tr>
+              <tr><td>Původ</td><td>🇩🇪 Německo · Athlon (fleetový pronájem)</td></tr>
+              <tr><td>Kurz ČNB</td><td><strong>1 EUR = 24 295 Kč</strong> · 19. 5. 2026</td></tr>
+            </table>
+            <div class="warn-box" style="margin-top:10px;">⚠️ <strong>DSG servis:</strong> Interval 60 000 km byl překročen (63 211 km). Servis DSG oleje nutno zahrnout do nákladů.</div>
+          </div>
+        </div>
+      </div>
+
+<div class="section">
+  <h2>🔍 Co je Expertiza</h2>
+  <p style="margin-bottom:12px;">Zaplatíte za odbornou analýzu. <strong>Auto nekupuji za vás.</strong> Dostanete přesný podklad pro vaše vlastní rozhodnutí — s čísly, riziky a verdiktem.</p>
+  <div class="two-col">
+    <div class="highlight-box">
+      <h3>Co přesně dostanete</h3>
+      <ul>
+        <li>Kompletní kalkulace: aukce, poplatek, doprava, přepis, DPH, rezerva</li>
+        <li>Verdikt: KOUPIT / PODMÍNĚNĚ / NEKOUPIT s odůvodněním</li>
+        <li>3 hlavní rizika konkrétního vozidla (tech, právní, tržní)</li>
+        <li>Doporučená pořizovací nebo prodejní cena na CZ trhu</li>
+        <li>Záložní plán: co dělat, pokud se situace změní</li>
+        <li>Výstup: PDF report + Excel kalkulace (xlsx)</li>
+      </ul>
+    </div>
+    <div>
+      <div class="section" style="margin:0;padding:18px 20px;">
+        <h2>Pro koho je to</h2>
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body"><strong>Soukromník</strong><span>Chce koupit z DE aukce sám, ale chce jistotu, že nekupuje problém.</span></div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body"><strong>Autobazar</strong><span>Chce druhý pohled před rozhodnutím.</span></div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body"><strong>Firma</strong><span>Nakupuje vozový park a potřebuje auditovatelné rozhodnutí.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>💶 Orientační kalkulace tohoto vozidla (EUR + Kč)</h2>
+  <div style="margin-bottom:6px;font-weight:700;color:#0d1f3c;font-size:.92rem;">📦 Náklady pořízení — rozsah dle průběhu aukce</div>
+  <table class="fin">
+    <tr><th>Položka</th><th>EUR — rozsah</th><th>Kč @ 24 295 — rozsah</th><th>Poznámka</th></tr>
+    <tr><td>Aukční příklep + OPENLANE premium 3 %</td><td>24 500 – 26 500 €</td><td>595 225 – 643 815 Kč</td><td><strong>max. bid pevně stanoven</strong> — nepřekročíme hranici výhodnosti</td></tr>
+    <tr><td>Doprava DE → CZ</td><td>~450 €</td><td>~10 933 Kč</td><td>standardní přepravce</td></tr>
+    <tr><td>DSG olej + servis</td><td>~400 €</td><td>~9 718 Kč</td><td>⚠️ přetížená lhůta (63 211 km / interval 60 000 km)</td></tr>
+    <tr><td>Detailing / čistění</td><td>~200 €</td><td>~4 859 Kč</td><td>příprava na prodej</td></tr>
+    <tr><td>Registrace + přepis v ČR</td><td>–</td><td>2 200 Kč</td><td>správní poplatky</td></tr>
+    <tr><td>Povinné ručení (zákonné pojištění)</td><td>–</td><td>800 Kč</td><td>§ 1 zák. 168/1999 Sb.</td></tr>
+    <tr><td>CEBIA prověření</td><td>–</td><td>699 Kč</td><td>doporučeno</td></tr>
+    <tr><td>Pneumatiky (extra sada v ceně aukce)</td><td>~380 €</td><td>~9 232 Kč</td><td>✅ ZDARMA — součást aukčního balíčku</td></tr>
+    <tr><td>Rezerva na skryté vady 3 %</td><td>~735 – 795 €</td><td>~17 857 – 19 309 Kč</td><td>pojistka · nevyčerpané vrací se</td></tr>
+    <tr><td><strong>CELKEM náklady pořízení (rozsah)</strong></td><td><strong>~26 665 – 28 725 €</strong></td><td><strong>~647 523 – 697 823 Kč</strong></td><td>skutečná čísla po aukci doložena doklady</td></tr>
+  </table>
+  <div style="margin-top:14px;margin-bottom:6px;font-weight:700;color:#0d1f3c;font-size:.92rem;">📊 Orientační výsledek pro kupujícího</div>
+  <table class="fin">
+    <tr><th>Ukazatel</th><th>EUR — rozsah</th><th>Kč — rozsah</th><th>Poznámka</th></tr>
+    <tr><td>Celkové náklady pořízení</td><td>~26 665 – 28 725 €</td><td>~647 523 – 697 823 Kč</td><td>závisí na aukci</td></tr>
+    <tr><td>Referenční cena CZ trhu (05/2026)</td><td>~30 550 €</td><td>~741 000 Kč</td><td>srovnatelný vůz, stejný rok a km</td></tr>
+    <tr><td><strong>Orientační marže (před daněmi)</strong></td><td><strong>~1 825 – 3 885 €</strong></td><td><strong>~43 000 – 93 000 Kč</strong></td><td>závisí na skutečném příklepu</td></tr>
+  </table>
+  <div class="info-box">Expertiza tohoto konkrétního vozidla zahrnuje aktualizaci kalkulace, ověření stavu na trhu a písemný verdikt s odůvodněním. Cena expertízy 2 500 Kč se odečítá od odměny, pokud poté uzavřeme agenturní nákup (Model 2).</div>
+</div>
+
+<div class="section">
+  <h2>⏱️ Jak to probíhá — 3 kroky</h2>
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body"><strong>Poptávka (dnes)</strong><span>Vyplníte formulář níže. Do 2 hodin dostanete potvrzení a instrukce k platbě.</span></div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body"><strong>Platba předem</strong><span>Platba před zahájením analýzy. Teprve po přijetí platby začíná práce.</span></div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-body"><strong>Výstup do 24 hodin</strong><span>PDF report + xlsx kalkulace. Verdikt ANO / PODMÍNĚNĚ / NE s odůvodněním.</span></div>
+  </div>
+  <div class="green-box"><strong>Cena expertízy:</strong> Na dotaz — kontaktujte nás formulářem níže. Cena se odečítá od odměny v modelu agenturního nákupu.</div>
+</div>
+
+  <div class="form-wrap" id="poptavka">
+    <h2>📩 Mám zájem — poptávkový formulář</h2>
+    <p class="sub">Vyplňte formulář. Do 24 hodin se ozveme s kalkulací a dalšími kroky.</p>
+    <div class="form-grid">
+      <div class="form-group"><label>Jméno a příjmení *</label><input type="text" id="f_jmeno_a" placeholder="Jan Novák" required></div>
+      <div class="form-group"><label>E-mail *</label><input type="email" id="f_email_a" placeholder="vas@email.cz" required></div>
+      <div class="form-group"><label>Telefon</label><input type="tel" id="f_tel_a" placeholder="+420 ..."></div>
+      <div class="form-group">
+        <label>Typ zájmu *</label>
+        <select id="f_typ_a">
+          <option value="">-- vyberte --</option>
+          <option value="Analýza konkrétního vozidla (OPENLANE #10974215)">Analýza konkrétního vozidla (OPENLANE #10974215)</option>
+<option value="Výběr nejlepšího vozidla dle zadání">Výběr nejlepšího vozidla dle zadání</option>
+<option value="Jiné — popíši v poznámce">Jiné — popíši v poznámce</option>
+        </select>
+      </div>
+      <div class="form-group full"><label>Doplňující informace / dotaz</label>
+        <textarea id="f_pozn_a" rows="3" placeholder="Cokoliv co chcete sdělit předem..."></textarea>
+      </div>
+    </div>
+    <button class="btn-send" id="btn-send-a" onclick="sendForm_a()">Odeslat popt&aacute;vku &rarr;</button>
+      </div>
+  <div id="form-success-a" style="display:none;background:#d4edda;border:1px solid #c3e6cb;border-radius:8px;padding:16px 22px;margin-top:14px;color:#155724;font-size:.95rem;font-weight:600;">
+    &#x2705; Popt&aacute;vka odesl&aacute;na &mdash; ozveme se do 24 hodin na v&aacute;&scaron; e-mail.
+  </div>
+  <script>
+  const APPS_SCRIPT_URL_A = 'https://script.google.com/macros/s/AKfycbwcFA8bRyHnBB_4XlgH5_IMR4IBqUfvTD8vScGZPiuCh0gR5f4Mp_9OjOAw1u3lNEjI/exec';
+
+  function sendForm_a() {
+    var jmeno = document.getElementById('f_jmeno_a').value.trim();
+    var email = document.getElementById('f_email_a').value.trim();
+    var tel   = document.getElementById('f_tel_a').value.trim();
+    var typ   = document.getElementById('f_typ_a').value;
+    var pozn  = document.getElementById('f_pozn_a').value.trim();
+    if (!jmeno || !email) { alert('Vypl\u0148te jm\u00e9no a e-mail.'); return; }
+    try { localStorage.setItem('form_a', JSON.stringify({jmeno:jmeno,email:email,tel:tel,typ:typ,pozn:pozn})); } catch(ex) {}
+    var btn = document.getElementById('btn-send-a');
+    btn.disabled = true; btn.textContent = 'Odes\u00edl\u00e1m\u2026';
+    fetch(APPS_SCRIPT_URL_A, {
+      method: 'POST', mode: 'no-cors',
+      headers: {'Content-Type': 'text/plain;charset=utf-8'},
+      body: JSON.stringify({
+        source:       'nabidka_analyza_10974215',
+        formType:     'A-Expertiza',
+        jmeno:        jmeno,
+        email:        email,
+        telefon_text: tel,
+        note:         (typ ? '['+typ+'] ' : '') + pozn,
+        url_aukce:    'https://www.openlane.eu/en/item/10974215'
+      })
+    }).then(function() {
+      document.getElementById('form-success-a').style.display = 'block';
+      btn.textContent = 'Odesl\u00e1no \u2713';
+      document.getElementById('form-success-a').scrollIntoView({behavior:'smooth'});
+      try { localStorage.removeItem('form_a'); } catch(ex) {}
+    }).catch(function(err) {
+      btn.disabled = false; btn.textContent = 'Odeslat popt\u00e1vku \u2192';
+      alert('Chyba p\u0159i odes\u00edl\u00e1n\u00ed. Napi\u0161te n\u00e1m p\u0159\u00edmo: batko.digital.ai@gmail.com');
+    });
+  }
+
+  (function() {
+    try {
+      var d = JSON.parse(localStorage.getItem('form_a') || 'null');
+      if (!d) return;
+      if (d.jmeno) document.getElementById('f_jmeno_a').value = d.jmeno;
+      if (d.email) document.getElementById('f_email_a').value = d.email;
+      if (d.tel)   document.getElementById('f_tel_a').value   = d.tel;
+      if (d.typ)   document.getElementById('f_typ_a').value   = d.typ;
+      if (d.pozn)  document.getElementById('f_pozn_a').value  = d.pozn;
+    } catch(ex) {}
+  })();
+  </script>
+    <div style="background:#f0f4fa;border-top:2px solid #c8d6e8;padding:14px 36px;font-size:.83rem;display:flex;gap:16px;flex-wrap:wrap;align-items:center;">
+    <span style="color:#666;">Tato nabídka se vztahuje k vozidlu OPENLANE #10974215 ·</span>
+    <a href="nabidka_VW_Passat_10974215.html" style="color:#1a3a6b;font-weight:700;text-decoration:none;">← Hlavní nabídka</a>
+    <a href="hodnoceni_VW_Passat_10974215.html" style="color:#1a3a6b;font-weight:700;text-decoration:none;">Odborné hodnocení</a>
+    <a href="objednavka_10974215.html" style="background:#0d1f3c;color:#fff;padding:7px 18px;border-radius:6px;font-weight:700;text-decoration:none;">📋 Objednat / Poptávka →</a>
+  </div>
+    </div>
+  <div class="company-bar">
+    <h4>🏢 Identifikace zpracovatele — § 435 OZ · § 29 ZDPH</h4>
+    <div class="cid-grid">
+      <div>
+        <div class="cid-row"><span class="cid-label">Jméno:</span><span class="cid-val">Ing. Jaroslav Batko-Linet</span></div>
+        <div class="cid-row"><span class="cid-label">IČO:</span><span class="cid-val">14600153</span></div>
+        <div class="cid-row"><span class="cid-label">DIČ:</span><span class="cid-val">CZ5912280418</span></div>
+      </div>
+      <div>
+        <div class="cid-row"><span class="cid-label">Sídlo:</span><span class="cid-val">Ostrava 1, Vítkovická 1, PSČ 701 00</span></div>
+        <div class="cid-row"><span class="cid-label">Obchodní rejstřík:</span><span class="cid-val">Krajský soud v Ostravě, sp. zn. A 984, zápis 31. 01. 1991</span></div>
+        <div class="cid-row"><span class="cid-label">Plátce DPH:</span><span class="cid-val">ANO</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <p>© Ing. Jaroslav Batko-Linet · IČO 14600153 · DIČ CZ5912280418 · Plátce DPH · <a href="mailto:batko.digital.ai@gmail.com">batko.digital.ai@gmail.com</a> · +420 725 360 151</p>
+    <p style="margin-top:4px;">Sídlo: Ostrava 1, Vítkovická 1, PSČ 701 00 · Krajský soud v Ostravě, sp. zn. A 984, zápis 31. 01. 1991</p>
+    <p style="margin-top:4px;">Kurz ČNB 19. 5. 2026: <strong>1 EUR = 24 295 Kč</strong> · Vygenerováno: 20. 5. 2026</p>
+  </div>
+</div>
+</body>
+</html>
