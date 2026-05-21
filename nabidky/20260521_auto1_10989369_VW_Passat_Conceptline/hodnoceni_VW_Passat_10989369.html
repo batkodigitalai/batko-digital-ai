@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hodnocení — VW Passat Variant Conceptline 150hp | auto1</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f6f9;color:#1a1a2e;line-height:1.6}
+
+/* HEADER */
+.header{background:linear-gradient(135deg,#2c3e50 0%,#1a252f 100%);color:#fff;padding:28px 32px 24px}
+.header-top{display:flex;align-items:center;gap:14px;margin-bottom:10px;flex-wrap:wrap}
+.badge-report{background:rgba(255,255,255,0.15);border:2px solid rgba(255,255,255,0.3);color:#fff;padding:4px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase}
+.header h1{font-size:24px;font-weight:700;margin-bottom:6px}
+.header-meta{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
+.header-meta span{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);padding:4px 12px;border-radius:12px;font-size:13px}
+.overall-score{display:flex;align-items:center;gap:12px;margin-top:14px}
+.score-circle{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#f39c12,#e67e22);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;color:#fff;flex-shrink:0}
+.score-label{font-size:13px;opacity:0.7;margin-bottom:2px}
+.score-title{font-size:16px;font-weight:600}
+
+/* VERDICT */
+.verdict-box{border-radius:12px;padding:20px 24px;margin-bottom:20px}
+.verdict-caution{background:linear-gradient(135deg,#fff3cd,#ffeaa7);border-left:5px solid #f9a825}
+.verdict-caution .verdict-title{color:#e65100;font-size:17px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.verdict-caution p{font-size:14px;color:#444;line-height:1.7}
+
+/* SCORE GRID */
+.score-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px}
+.score-card{background:#fff;border-radius:10px;padding:16px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.06);border-top:3px solid #ddd}
+.score-card.good{border-top-color:#27ae60}
+.score-card.ok{border-top-color:#f9a825}
+.score-card.bad{border-top-color:#e74c3c}
+.score-card .sc-num{font-size:28px;font-weight:800;margin:4px 0}
+.score-card.good .sc-num{color:#27ae60}
+.score-card.ok .sc-num{color:#f9a825}
+.score-card.bad .sc-num{color:#e74c3c}
+.score-card .sc-label{font-size:12px;color:#666;font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.score-card .sc-note{font-size:11px;color:#888;margin-top:4px}
+
+/* SECTIONS */
+.section{background:#fff;border-radius:12px;padding:24px;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.section h2{font-size:18px;color:#1a1a2e;margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid #f0f0f0;display:flex;align-items:center;gap:8px}
+.section p{font-size:14px;color:#444;line-height:1.7;margin-bottom:10px}
+.section p:last-child{margin-bottom:0}
+
+/* KURZ BOX */
+.kurz-box{background:#e8f5e9;border-radius:8px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:10px;font-size:14px}
+.kurz-box strong{color:#1a7a3a}
+
+/* FINANCIAL TABLE */
+.fin-table{width:100%;border-collapse:collapse;font-size:14px;margin-bottom:12px}
+.fin-table th{background:#f0f4f8;color:#2c3e50;padding:9px 12px;text-align:left;font-size:12px;font-weight:600;text-transform:uppercase}
+.fin-table td{padding:8px 12px;border-bottom:1px solid #f5f5f5}
+.fin-table tr:last-child td{border-bottom:none}
+.fin-table tr.sc-a td{background:#eaf6ff}
+.fin-table tr.sc-b td{background:#f0fff4}
+.fin-table tr.sc-c td{background:#fff8e1}
+.fin-table tr.total-costs td{font-weight:700;border-top:2px solid #ddd;background:#f8f9fa}
+.fin-table .num{text-align:right;font-variant-numeric:tabular-nums}
+.fin-table .plus{color:#27ae60;font-weight:600}
+.fin-table .minus{color:#e74c3c;font-weight:600}
+
+/* SCENARIO CARDS */
+.sc3-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}
+.sc-roi-card{border-radius:8px;padding:14px;text-align:center}
+.sc-roi-card.sc-a{background:#eaf6ff;border:1px solid #90caf9}
+.sc-roi-card.sc-b{background:#f0fff4;border:1px solid #a5d6a7}
+.sc-roi-card.sc-c{background:#fff8e1;border:1px solid #ffe082}
+.sc-roi-card .sc-name{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;color:#555}
+.sc-roi-card .sc-margin{font-size:20px;font-weight:800;margin:4px 0}
+.sc-roi-card.sc-a .sc-margin{color:#1565C0}
+.sc-roi-card.sc-b .sc-margin{color:#2e7d32}
+.sc-roi-card.sc-c .sc-margin{color:#e65100}
+.sc-roi-card .sc-detail{font-size:11px;color:#666}
+
+/* DPH INFO */
+.dph-box{border-radius:8px;padding:14px 16px;margin-bottom:10px;border-left:4px solid}
+.dph-box.dph-a{background:#f3f4f6;border-color:#999;color:#444}
+.dph-box.dph-b{background:#e3f2fd;border-color:#2196F3;color:#1a3a5c}
+.dph-box.dph-c{background:#e8f5e9;border-color:#27ae60;color:#1a3a37}
+.dph-box .dph-title{font-weight:700;font-size:13px;margin-bottom:4px}
+.dph-box .dph-text{font-size:13px;line-height:1.6}
+.dph-box .dph-saving{font-weight:700;font-size:14px;margin-top:6px}
+
+/* TECH TABLE */
+.tech-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.tech-item{background:#f8f9fa;border-radius:8px;padding:12px 14px}
+.tech-item .ti-label{font-size:11px;color:#888;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:3px}
+.tech-item .ti-value{font-size:14px;font-weight:600;color:#1a1a2e}
+.tech-item .ti-note{font-size:12px;color:#e67e22;margin-top:2px}
+.tech-item .ti-ok{color:#27ae60}
+.tech-item .ti-warn{color:#e67e22}
+.tech-item .ti-bad{color:#e74c3c}
+
+/* ACCIDENT / HISTORY */
+.history-ok{background:#e8f5e9;border-left:4px solid #27ae60;border-radius:8px;padding:14px 16px;margin-bottom:12px}
+.history-ok strong{color:#1a7a3a;display:block;margin-bottom:4px}
+.history-ok p{font-size:13px;color:#2d5a3d}
+.history-bad{background:#ffebee;border-left:4px solid #e74c3c;border-radius:8px;padding:14px 16px;margin-bottom:12px}
+.history-bad strong{color:#c62828;display:block;margin-bottom:4px}
+.history-bad p{font-size:13px;color:#5d0000}
+
+/* RISK GRID */
+.risk-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px}
+.risk-col h4{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;padding:6px 10px;border-radius:6px 6px 0 0;text-align:center}
+.risk-col.high h4{background:#ffebee;color:#c62828}
+.risk-col.med h4{background:#fff8e1;color:#e65100}
+.risk-col.low h4{background:#e8f5e9;color:#2e7d32}
+.risk-item{font-size:13px;padding:6px 10px;border-bottom:1px solid rgba(0,0,0,0.05)}
+.risk-item:last-child{border-bottom:none}
+.risk-col.high .risk-item{background:#fff5f5}
+.risk-col.med .risk-item{background:#fffde7}
+.risk-col.low .risk-item{background:#f1f8e9}
+
+/* MARKET TABLE */
+.market-table{width:100%;border-collapse:collapse;font-size:13px}
+.market-table th{background:#f0f4f8;padding:8px 12px;text-align:left;font-size:12px;font-weight:600}
+.market-table td{padding:8px 12px;border-bottom:1px solid #f0f0f0}
+.market-table tr.this-car td{background:#e8f5e9;font-weight:600}
+
+/* CHECKLIST */
+.checklist-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.cl-section h4{font-size:13px;font-weight:700;padding:6px 10px;border-radius:6px;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.cl-section.must h4{background:#ffebee;color:#c62828}
+.cl-section.should h4{background:#fff8e1;color:#e65100}
+.cl-section ul{list-style:none;padding:0}
+.cl-section ul li{padding:5px 0 5px 20px;position:relative;font-size:13px;color:#444;border-bottom:1px solid #f5f5f5}
+.cl-section ul li:last-child{border-bottom:none}
+.cl-section.must ul li::before{content:'❗';position:absolute;left:0;font-size:12px}
+.cl-section.should ul li::before{content:'⚠️';position:absolute;left:0;font-size:12px}
+
+/* CONCLUSION */
+.conclusion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+.conclusion-card{border-radius:8px;padding:16px}
+.conclusion-card.buy-when{background:#e8f5e9;border-left:4px solid #27ae60}
+.conclusion-card.buy-when h4{color:#1a7a3a;margin-bottom:8px;font-size:14px}
+.conclusion-card.nobuy{background:#ffebee;border-left:4px solid #e74c3c}
+.conclusion-card.nobuy h4{color:#c62828;margin-bottom:8px;font-size:14px}
+.conclusion-card ul{list-style:none;padding:0}
+.conclusion-card ul li{padding:4px 0 4px 18px;position:relative;font-size:13px}
+.conclusion-card.buy-when ul li::before{content:'✓';position:absolute;left:0;color:#27ae60;font-weight:bold}
+.conclusion-card.nobuy ul li::before{content:'✗';position:absolute;left:0;color:#e74c3c;font-weight:bold}
+
+/* CTA */
+.cta-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:20px}
+.cta-card{border-radius:10px;padding:16px;text-align:center}
+.cta-card a{text-decoration:none;color:inherit}
+.cta-card.primary{background:linear-gradient(135deg,#1a73e8,#0d47a1);color:#fff}
+.cta-card.secondary{background:#f0f4f8;border:1px solid #ddd}
+.cta-card h4{font-size:14px;font-weight:600;margin-bottom:4px}
+.cta-card p{font-size:12px;opacity:0.8}
+
+/* COMPANY ID */
+.company-id{background:#f8f9fa;border-radius:10px;padding:16px 20px;margin-bottom:20px;border:1px solid #e0e0e0}
+.company-id h3{font-size:14px;color:#2c3e50;margin-bottom:10px}
+.company-id-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px}
+.company-id-item{font-size:13px}
+.company-id-item .ci-label{color:#888;font-size:11px;text-transform:uppercase}
+.company-id-item .ci-value{font-weight:600;color:#1a1a2e}
+
+/* DISCLAIMER */
+.disclaimer{background:#fff3e0;border-radius:8px;padding:12px 16px;margin-bottom:20px;font-size:12px;color:#666;line-height:1.6;border-left:3px solid #e67e22}
+
+.footer{text-align:center;padding:20px;color:#888;font-size:12px;border-top:1px solid #e0e0e0;margin-top:10px}
+.container{max-width:900px;margin:0 auto;padding:24px 16px}
+
+@media(max-width:650px){
+  .header{padding:20px 16px}
+  .header h1{font-size:18px}
+  .score-grid{grid-template-columns:repeat(2,1fr)}
+  .sc3-grid{grid-template-columns:1fr}
+  .risk-grid{grid-template-columns:1fr}
+  .checklist-grid{grid-template-columns:1fr}
+  .conclusion-grid{grid-template-columns:1fr}
+  .cta-grid{grid-template-columns:1fr}
+  .tech-row{grid-template-columns:1fr}
+  .company-id-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <span class="badge-report">HODNOCENÍ VOZIDLA</span>
+    <span class="badge-report">auto1 analýza</span>
+  </div>
+  <h1>VW Passat Variant 2.0 TDI Conceptline 150 hp — Hodnocení</h1>
+  <div class="header-meta">
+    <span>📅 2023 | 60 436 km | DSG7</span>
+    <span>🇩🇪 Německo | Fleet (Athlon)</span>
+    <span>🔢 OPENLANE #10989369</span>
+    <span>📅 Zpracováno: 21. 5. 2026</span>
+  </div>
+  <div class="overall-score">
+    <div class="score-circle">7.2</div>
+    <div>
+      <div class="score-label">Celkové hodnocení</div>
+      <div class="score-title">7,2 / 10 — Nadprůměrný vůz s podmínkami</div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="verdict-box verdict-caution">
+    <div class="verdict-title">⚠️ PODMÍNĚNÉ ANO — zajistěte tech. kontrolu a servis DSG7</div>
+    <p>VW Passat Variant 2.0 TDI Conceptline je <strong>solidní základní nabídka</strong> z německého firemního leasingu bez havárie. Klíčová podmínka: <strong>chybějící servisní knížka</strong> a <strong>DSG7 přesně na hranici servisního intervalu (60 436 km)</strong> vyžadují důkladnou technickou kontrolu a provedení servisu DSG7 ihned po zakoupení. Při splnění těchto podmínek jde o zajímavou příležitost v nižším cenovém segmentu trhu.</p>
+  </div>
+
+  <div class="score-grid">
+    <div class="score-card ok">
+      <div class="sc-label">Stav vozidla</div>
+      <div class="sc-num">7.5</div>
+      <div class="sc-note">Bez havárie ✅ | Chybí serv. knížka ⚠️</div>
+    </div>
+    <div class="score-card bad">
+      <div class="sc-label">Výbava</div>
+      <div class="sc-num">6.5</div>
+      <div class="sc-note">Conceptline = základní výbava</div>
+    </div>
+    <div class="score-card ok">
+      <div class="sc-label">Spolehlivost</div>
+      <div class="sc-num">7.5</div>
+      <div class="sc-note">EA288 150hp + DSG7 DQ381</div>
+    </div>
+    <div class="score-card ok">
+      <div class="sc-label">Původ & doklady</div>
+      <div class="sc-num">7.0</div>
+      <div class="sc-note">COC ✅ | Servisní knížka ❌</div>
+    </div>
+    <div class="score-card bad">
+      <div class="sc-label">DSG / km stav</div>
+      <div class="sc-num">6.0</div>
+      <div class="sc-note">60 436 km — na hranici 60 000 km</div>
+    </div>
+    <div class="score-card ok">
+      <div class="sc-label">Logistika</div>
+      <div class="sc-num">7.5</div>
+      <div class="sc-note">Německo, COC, standard přeprava</div>
+    </div>
+  </div>
+
+  <!-- FINANČNÍ ANALÝZA -->
+  <div class="section">
+    <h2>💰 Finanční analýza</h2>
+
+    <div class="kurz-box">
+      <span>💶</span>
+      <span><strong>Kurz ČNB (21. 5. 2026):</strong> 1 EUR = <strong>24 290 Kč</strong></span>
+      <span style="color:#888;font-size:12px;margin-left:auto">Platný kurz pro všechny výpočty</span>
+    </div>
+
+    <h3 style="font-size:15px;margin-bottom:12px;color:#2c3e50">Tři cenové scénáře (aukce + náklady → prodej → zisk)</h3>
+    <table class="fin-table">
+      <thead>
+        <tr>
+          <th>Položka</th>
+          <th class="num">Scénář A (16 000 EUR)</th>
+          <th class="num">Scénář B (18 000 EUR)</th>
+          <th class="num">Scénář C (20 000 EUR)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Aukční cena</td>
+          <td class="num sc-a">388 640 Kč</td>
+          <td class="num sc-b">437 220 Kč</td>
+          <td class="num sc-c">485 800 Kč</td>
+        </tr>
+        <tr>
+          <td>OPENLANE poplatek (3 %)</td>
+          <td class="num sc-a">11 659 Kč</td>
+          <td class="num sc-b">13 117 Kč</td>
+          <td class="num sc-c">14 574 Kč</td>
+        </tr>
+        <tr>
+          <td>Doprava DE → CZ</td>
+          <td class="num">10 931 Kč</td>
+          <td class="num">10 931 Kč</td>
+          <td class="num">10 931 Kč</td>
+        </tr>
+        <tr>
+          <td>Tech. kontrola + servis DSG7</td>
+          <td class="num">9 716 Kč</td>
+          <td class="num">9 716 Kč</td>
+          <td class="num">9 716 Kč</td>
+        </tr>
+        <tr>
+          <td>Registrace + ručení + CEBIA</td>
+          <td class="num">3 699 Kč</td>
+          <td class="num">3 699 Kč</td>
+          <td class="num">3 699 Kč</td>
+        </tr>
+        <tr class="total-costs">
+          <td><strong>CELKOVÉ NÁKLADY</strong></td>
+          <td class="num"><strong>424 645 Kč</strong></td>
+          <td class="num"><strong>474 683 Kč</strong></td>
+          <td class="num"><strong>524 720 Kč</strong></td>
+        </tr>
+        <tr>
+          <td>Prodejní cena v ČR (tržní odhad)</td>
+          <td class="num plus">535 000 Kč</td>
+          <td class="num plus">555 000 Kč</td>
+          <td class="num plus">570 000 Kč</td>
+        </tr>
+        <tr style="background:#f8f9fa">
+          <td><strong>HRUBÁ MARŽE (před odměnou)</strong></td>
+          <td class="num plus"><strong>~110 000 Kč</strong></td>
+          <td class="num plus"><strong>~80 000 Kč</strong></td>
+          <td class="num minus"><strong>~45 000 Kč</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="sc3-grid">
+      <div class="sc-roi-card sc-a">
+        <div class="sc-name">Scénář A (16 000 EUR)</div>
+        <div class="sc-margin">~110 000 Kč</div>
+        <div class="sc-detail">marže před odměnou agenta</div>
+      </div>
+      <div class="sc-roi-card sc-b">
+        <div class="sc-name">Scénář B (18 000 EUR)</div>
+        <div class="sc-margin">~80 000 Kč</div>
+        <div class="sc-detail">realistický střed, dobrá marže</div>
+      </div>
+      <div class="sc-roi-card sc-c">
+        <div class="sc-name">Scénář C (20 000 EUR)</div>
+        <div class="sc-margin">~45 000 Kč</div>
+        <div class="sc-detail">při max. ceně — nízká rentabilita</div>
+      </div>
+    </div>
+    <p style="font-size:12px;color:#888;margin-top:4px">* Prodejní ceny jsou orientační odhad dle aktuálního trhu v ČR. Výsledný zisk závisí na době prodeje a konkrétní dohodnuté ceně.</p>
+  </div>
+
+  <!-- DAŇOVÉ SCÉNÁŘE -->
+  <div class="section">
+    <h2>🧾 Daňové scénáře — DPH</h2>
+    <div class="dph-box dph-a">
+      <div class="dph-title">📋 Scénář 1 — FO nebo firma bez odpočtu DPH (§ 90 přirážkový režim)</div>
+      <div class="dph-text">Auto nakoupené v EU aukci podléhá přirážkovému režimu (§ 90 ZDPH). DPH se platí pouze z marže, nikoliv z celé ceny. Kupující fyzická osoba nebo firma s paušálním DPH nenárokuje odpočet. Standardní situace pro většinu přeprodejů.</div>
+    </div>
+    <div class="dph-box dph-b">
+      <div class="dph-title">💼 Scénář 2 — FO přes agenta (Jaroslav jako zástupce)</div>
+      <div class="dph-text">Jaroslav nakoupí auto jako registrovaný dealer. FO zákazník nemusí řešit OPENLANE, DPH ani celní formalit. Faktury za skutečné výdaje obdrží od agenta. Přirážkový režim zůstává — DPH se platí z marže agenta.</div>
+    </div>
+    <div class="dph-box dph-c">
+      <div class="dph-title">🏢 Scénář 3 — Firma / IČO plátce DPH (§ 72 odpočet)</div>
+      <div class="dph-text">Firemní kupující plátce DPH si může nárokovat odpočet vstupní DPH dle § 72 ZDPH při nákupu od plátce DPH. Konkrétně: při variantě B (s DPH na faktuře) lze odečíst <strong>84 062–105 079 Kč</strong> DPH zpět.</div>
+      <div class="dph-saving">💡 Úspora IČO plátce DPH vs. FO: ~84 000–105 000 Kč</div>
+    </div>
+    <p style="font-size:12px;color:#888">*Daňové informace jsou orientační. Vždy konzultujte s daňovým poradcem. DPH scénáře viz Varianta C (IČO přeprodej).</p>
+  </div>
+
+  <!-- TECHNICKÁ ANALÝZA -->
+  <div class="section">
+    <h2>🔧 Technická analýza</h2>
+
+    <div class="tech-row">
+      <div class="tech-item">
+        <div class="ti-label">Motor</div>
+        <div class="ti-value ti-ok">2.0 TDI 150 hp (EA288)</div>
+        <div class="ti-note">Osvědčený diesel, spolehlivý při pravidelném servisu</div>
+      </div>
+      <div class="tech-item">
+        <div class="ti-label">Převodovka</div>
+        <div class="ti-value ti-warn">DSG7 DQ381 (mokrá lamela)</div>
+        <div class="ti-note">⚠️ 60 436 km — servisní interval 60 000 km překročen!</div>
+      </div>
+      <div class="tech-item">
+        <div class="ti-label">Rok výroby</div>
+        <div class="ti-value">2023</div>
+        <div class="ti-note">Facelift B8.5 (nebo pozdní B8)</div>
+      </div>
+      <div class="tech-item">
+        <div class="ti-label">Nájezd</div>
+        <div class="ti-value">60 436 km</div>
+        <div class="ti-note">~20 000 km/rok — normální pro fleet</div>
+      </div>
+      <div class="tech-item">
+        <div class="ti-label">Servisní knížka</div>
+        <div class="ti-value ti-bad">CHYBÍ</div>
+        <div class="ti-note">❌ Kritický faktor — neznámá servisní historie</div>
+      </div>
+      <div class="tech-item">
+        <div class="ti-label">COC dokument</div>
+        <div class="ti-value ti-ok">DOSTUPNÝ ✅</div>
+        <div class="ti-note">Registrace v ČR bez problémů</div>
+      </div>
+    </div>
+
+    <div style="background:#fff3e0;border-radius:8px;padding:14px;border-left:3px solid #e67e22">
+      <strong style="color:#e65100;font-size:14px">⚠️ DSG7 — nutný servis ihned po zakoupení</strong>
+      <p style="font-size:13px;color:#555;margin-top:6px">DSG7 DQ381 (mokrá lamela) má doporučený servisní interval oleje a filtru 60 000 km nebo 6 let. Toto vozidlo má 60 436 km — interval je překročen. Servis DSG7 je zahrnut do kalkulace nákladů (~400 EUR / 9 716 Kč) a doporučuji ho provést okamžitě po příjezdu do ČR, bez čekání. Přeskočení servisu může vést k předčasnému opotřebení lamel (náklady na opravu: 50 000–120 000 Kč).</p>
+    </div>
+
+    <div style="margin-top:12px;background:#e8f5e9;border-radius:8px;padding:14px;border-left:3px solid #27ae60">
+      <strong style="color:#1a7a3a;font-size:14px">✅ Motor EA288 2.0 TDI 150 hp — hodnocení</strong>
+      <p style="font-size:13px;color:#444;margin-top:6px">Agregát EA288 je vylepšenou verzí problematického EA189 — bez NOx emisního problému. Ve výkonu 150 hp (110 kW) jde o střední variantu s dobrým poměrem výkon/spotřeba. Při nájezdu 60 000 km je motor teprve v záběhu. Doporučuji ověřit výměnu oleje a timing chain při tech. kontrole.</p>
+    </div>
+  </div>
+
+  <!-- ŠKODNÍ HISTORIE -->
+  <div class="section">
+    <h2>🔍 Škodní a servisní historie</h2>
+
+    <div class="history-ok">
+      <strong>✅ Žádná havárie — CARFAX čistý</strong>
+      <p>CARFAX report nehlásí žádné škodní události, totální škody ani pojistné plnění. Vozidlo pochází z firemního leasingu (Athlon) — typicky pečlivě udržovaná, bezhaváriová auta. Toto je <strong>klíčová silná stránka tohoto vozu</strong>.</p>
+    </div>
+
+    <div class="history-bad">
+      <strong>❌ Chybějící servisní knížka — hlavní riziko</strong>
+      <p>Servisní knížka není k dispozici. To znamená, že <strong>nevíme</strong>, kdy a kde byl motor naposledy servisován, zda byl vyměněn rozvodový řetěz (timing chain), zda byly provedeny recall opravy nebo software aktualizace. Toto je největší rizikový faktor tohoto vozu. Kompenzace: důkladná technická kontrola (diagnostika, test kompreze, analýza motorového oleje) při příjezdu do ČR. Athlon jako leasing společnost obvykle servisy pravidelně provádí — chybějící doklady jsou spíše administrativní problém než fyzické zanedbání údržby.</p>
+    </div>
+
+    <div style="background:#e3f2fd;border-radius:8px;padding:12px 14px;border-left:3px solid #2196F3">
+      <strong style="color:#1565C0;font-size:13px">ℹ️ Fleet původ (Athlon) — co to znamená</strong>
+      <p style="font-size:13px;color:#444;margin-top:4px">Athlon je velká evropská leasingová společnost. Firemní vozidla z jejich flotily jsou zpravidla pravidelně servisována (interní požadavky), jezdí po dálnicích (rovnoměrné opotřebení), a bývají ve standardním stavu. Chybějící servisní knížka u fleet vozidel není výjimkou — záznamy jsou vedeny digitálně v systému leasingové firmy.</p>
+    </div>
+  </div>
+
+  <!-- MATICE RIZIK -->
+  <div class="section">
+    <h2>⚖️ Matice rizik</h2>
+    <div class="risk-grid">
+      <div class="risk-col high">
+        <h4>🔴 Vysoké riziko</h4>
+        <div class="risk-item">Chybí servisní knížka</div>
+        <div class="risk-item">DSG7 na hranici servisu (60 436 km)</div>
+      </div>
+      <div class="risk-col med">
+        <h4>🟡 Střední riziko</h4>
+        <div class="risk-item">Conceptline — základní výbava</div>
+        <div class="risk-item">Barva nezjistitelná z OPENLANE</div>
+        <div class="risk-item">Delší čekání při prodeji (nižší výbava)</div>
+      </div>
+      <div class="risk-col low">
+        <h4>🟢 Nízké riziko</h4>
+        <div class="risk-item">Žádná havárie (CARFAX čistý)</div>
+        <div class="risk-item">COC dostupný — snadná registrace</div>
+        <div class="risk-item">Německý původ, fleet</div>
+        <div class="risk-item">Motor EA288 (bez emisní kauzy)</div>
+        <div class="risk-item">Normální roční nájezd (20 000 km)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRŽNÍ SROVNÁNÍ -->
+  <div class="section">
+    <h2>📊 Tržní srovnání — CZ trh (5/2026)</h2>
+    <table class="market-table">
+      <thead>
+        <tr>
+          <th>Model</th>
+          <th>Rok</th>
+          <th>Km</th>
+          <th>Výbava</th>
+          <th>Cena CZ (Kč)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>VW Passat Variant 2.0 TDI Elegance 150 DSG</td>
+          <td>2023</td>
+          <td>55 000</td>
+          <td>Elegance</td>
+          <td>580 000–620 000</td>
+        </tr>
+        <tr class="this-car">
+          <td>VW Passat Variant 2.0 TDI Conceptline 150 DSG <strong>(TENTO VŮZ)</strong></td>
+          <td>2023</td>
+          <td>60 436</td>
+          <td>Conceptline</td>
+          <td><strong>535 000–575 000</strong></td>
+        </tr>
+        <tr>
+          <td>VW Passat Variant 2.0 TDI Life 150 DSG</td>
+          <td>2023</td>
+          <td>65 000</td>
+          <td>Life</td>
+          <td>555 000–590 000</td>
+        </tr>
+        <tr>
+          <td>Škoda Superb Combi 2.0 TDI 150 DSG</td>
+          <td>2023</td>
+          <td>60 000</td>
+          <td>Ambition</td>
+          <td>530 000–570 000</td>
+        </tr>
+        <tr>
+          <td>VW Passat Variant 2.0 TDI Elegance 200 DSG</td>
+          <td>2023</td>
+          <td>55 000</td>
+          <td>Elegance+</td>
+          <td>620 000–680 000</td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#888;margin-top:8px">* Orientační ceny dle aktuálního stavu autobazarů a inzertních portálů CZ (5/2026). Conceptline bude mít zpomalený prodej oproti Elegance — kalkulujte dobu prodeje 3–6 týdnů.</p>
+  </div>
+
+  <!-- CHECKLIST -->
+  <div class="section">
+    <h2>✅ Checklist před / po nákupu</h2>
+    <div class="checklist-grid">
+      <div class="cl-section must">
+        <h4>❗ MUSÍTE (před vydražením)</h4>
+        <ul>
+          <li>Zkontrolovat CARFAX report (dostupný na OPENLANE)</li>
+          <li>Ověřit dostupnost COC dokumentu</li>
+          <li>Nastavit max. limit aukce (Sc. B = 18 000 EUR)</li>
+          <li>Připravit zálohu na nákup + logistiku</li>
+          <li>Domluvit technickou kontrolu v autorizovaném VW servisu</li>
+        </ul>
+      </div>
+      <div class="cl-section should">
+        <h4>⚠️ DOPORUČENO (po vydražení)</h4>
+        <ul>
+          <li>Servis DSG7 ihned po příjezdu (olej + filtr)</li>
+          <li>Diagnostika OBD — ověřit chybové kódy</li>
+          <li>Vizuální kontrola timing chain</li>
+          <li>Kontrola brzdových destiček a disků</li>
+          <li>Detailing exteriér + interiér před prodejem</li>
+          <li>CEBIA report pro kupujícího (průhlednost)</li>
+          <li>Fotografická dokumentace při předání</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ZÁVĚREČNÉ DOPORUČENÍ -->
+  <div class="section">
+    <h2>🎯 Závěrečné doporučení</h2>
+    <div class="conclusion-grid">
+      <div class="conclusion-card buy-when">
+        <h4>✅ Kupujte, pokud:</h4>
+        <ul>
+          <li>Vydražíte za max. 18 000 EUR (Sc. A/B)</li>
+          <li>Zajistíte servis DSG7 ihned po příjezdu</li>
+          <li>Provedete technickou kontrolu v autorizovaném servisu</li>
+          <li>Nevadí vám základní výbava Conceptline</li>
+          <li>Máte čas počkat na správného kupujícího (3–6 týdnů)</li>
+          <li>Jste IČO plátce DPH — úspora ~84k–105k Kč</li>
+        </ul>
+      </div>
+      <div class="conclusion-card nobuy">
+        <h4>✗ Nepojte, pokud:</h4>
+        <ul>
+          <li>Cena překročí 19 500 EUR (Sc. C — nízká marže)</li>
+          <li>Chcete auto s bohatou výbavou pro náročné kupce</li>
+          <li>Nechcete investovat do tech. kontroly a DSG servisu</li>
+          <li>Potřebujete rychlý obrat (Conceptline = delší prodej)</li>
+          <li>Stresuje vás absence servisní knížky</li>
+        </ul>
+      </div>
+    </div>
+    <div style="background:#e0f2f1;border-radius:8px;padding:14px;border-left:3px solid #00897B;margin-top:4px">
+      <strong style="color:#00695C">💡 Celkový závěr:</strong>
+      <p style="font-size:14px;color:#1a3a37;margin-top:6px">VW Passat Variant Conceptline 150hp, 2023, bez havárie, z německého fleet leasingu je <strong>solidní B kategorie</strong>. Není to prémiový kousek jako Elegance s plnou výbavou, ale při ceně 16 000–18 000 EUR nabízí <strong>slušnou marži 80–110 000 Kč</strong> před odměnou agenta. Hlavní domácí úkol: servis DSG7 + technická kontrola = podmínka ke splnění, nikoli varování před nákupem.</p>
+    </div>
+  </div>
+
+  <div class="cta-grid">
+    <div class="cta-card primary">
+      <h4>🤝 Chci agenturní nákup</h4>
+      <p>Jaroslav vydraží auto za vás</p>
+      <p style="margin-top:8px"><a href="nabidka_agent_nakup_10989369.html">→ Varianta D (Agenturní nákup)</a></p>
+    </div>
+    <div class="cta-card secondary">
+      <h4>🎓 Chci se naučit nakupovat</h4>
+      <p>Mentoring na tomto konkrétním vozu</p>
+      <p style="margin-top:8px"><a href="nabidka_mentoring_10989369.html">→ Varianta E (Mentoring)</a></p>
+    </div>
+    <div class="cta-card secondary">
+      <h4>📊 Finanční analýza</h4>
+      <p>Detailní kalkulace tohoto vozu</p>
+      <p style="margin-top:8px"><a href="nabidka_analyza_10989369.html">→ Varianta A (Analýza)</a></p>
+    </div>
+    <div class="cta-card secondary">
+      <h4>📋 Všechny varianty</h4>
+      <p>Přehled a objednávka</p>
+      <p style="margin-top:8px"><a href="objednavka_10989369.html">→ Objednávkový formulář</a></p>
+    </div>
+  </div>
+
+  <div class="company-id">
+    <h3>🏢 Poskytovatel analýzy</h3>
+    <div class="company-id-grid">
+      <div class="company-id-item">
+        <div class="ci-label">Jméno</div>
+        <div class="ci-value">Jaroslav Batko</div>
+      </div>
+      <div class="company-id-item">
+        <div class="ci-label">E-mail</div>
+        <div class="ci-value">jaroslav.batko@gmail.com</div>
+      </div>
+      <div class="company-id-item">
+        <div class="ci-label">Aukce ID</div>
+        <div class="ci-value">OPENLANE #10989369</div>
+      </div>
+      <div class="company-id-item">
+        <div class="ci-label">Datum analýzy</div>
+        <div class="ci-value">21. 5. 2026</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="disclaimer">
+    <strong>Upozornění:</strong> Tato analýza je zpracována na základě dostupných dat z OPENLANE aukční platformy, CARFAX reportu a veřejných zdrojů. Finanční kalkulace jsou orientační — skutečné náklady se mohou lišit. Tržní ceny jsou odhadem dle aktuálního stavu CZ trhu k datu zpracování. Daňové informace jsou orientační — vždy konzultujte s daňovým poradcem. Autor nenese odpovědnost za výsledky obchodního rozhodnutí provedeného na základě této analýzy.
+  </div>
+
+  <div class="footer">
+    <p>auto1 | Jaroslav Batko | jaroslav.batko@gmail.com</p>
+    <p style="margin-top:4px">VW Passat Variant 2.0 TDI Conceptline 150hp | OPENLANE #10989369 | Hodnocení zpracováno: 21. 5. 2026 | © 2026</p>
+  </div>
+
+</div>
+</body>
+</html>
