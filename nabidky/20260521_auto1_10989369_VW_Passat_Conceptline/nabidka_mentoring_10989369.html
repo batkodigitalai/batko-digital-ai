@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MENTORING — Naučte se nakupovat z aukcí | auto1</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f6f9;color:#1a1a2e;line-height:1.6}
+.header{background:linear-gradient(135deg,#00897B 0%,#00695C 100%);color:#fff;padding:28px 32px 24px}
+.header-top{display:flex;align-items:center;gap:16px;margin-bottom:8px}
+.badge{background:rgba(255,255,255,0.2);border:2px solid rgba(255,255,255,0.5);color:#fff;padding:4px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase}
+.badge-e{background:rgba(255,255,255,0.15);border-color:rgba(255,255,255,0.4)}
+.header h1{font-size:26px;font-weight:700;margin-bottom:4px}
+.header-sub{font-size:14px;opacity:0.85}
+.header-meta{display:flex;gap:20px;margin-top:14px;flex-wrap:wrap}
+.header-meta span{background:rgba(0,0,0,0.15);padding:4px 12px;border-radius:12px;font-size:13px}
+
+.container{max-width:860px;margin:0 auto;padding:24px 16px}
+
+.intro-box{background:#fff;border-radius:12px;padding:24px;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.intro-box h2{font-size:18px;color:#00695C;margin-bottom:12px}
+.intro-box p{font-size:14px;color:#444;line-height:1.7;margin-bottom:10px}
+
+.case-study-box{background:linear-gradient(135deg,#e0f2f1,#b2dfdb);border-left:4px solid #00897B;border-radius:8px;padding:20px 24px;margin-bottom:20px}
+.case-study-box h3{color:#00695C;font-size:15px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.case-study-box p{font-size:14px;color:#1a3a37;line-height:1.6}
+.case-study-box .highlight{font-weight:700;color:#00695C}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
+.col-box{background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.col-box h3{font-size:15px;color:#00695C;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #e0f2f1;display:flex;align-items:center;gap:8px}
+.col-box ul{list-style:none;padding:0}
+.col-box ul li{padding:6px 0 6px 22px;position:relative;font-size:13px;border-bottom:1px solid #f5f5f5;color:#444}
+.col-box ul li:last-child{border-bottom:none}
+.col-box ul li::before{content:'📌';position:absolute;left:0;font-size:12px}
+
+.deliverables-section{background:#fff;border-radius:12px;padding:24px;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.deliverables-section h2{font-size:18px;color:#1a1a2e;margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid #f0f0f0;display:flex;align-items:center;gap:8px}
+.deliverables-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.deliverable-card{background:#e0f2f1;border-radius:8px;padding:14px 16px;border-left:3px solid #00897B}
+.deliverable-card strong{display:block;font-size:13px;color:#00695C;margin-bottom:4px}
+.deliverable-card span{font-size:12px;color:#444}
+
+.steps-section{background:#fff;border-radius:12px;padding:24px;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.steps-section h2{font-size:18px;color:#1a1a2e;margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid #f0f0f0;display:flex;align-items:center;gap:8px}
+.steps-list{list-style:none;padding:0;counter-reset:steps}
+.steps-list li{counter-increment:steps;display:flex;gap:16px;padding:14px 0;border-bottom:1px solid #f0f0f0}
+.steps-list li:last-child{border-bottom:none}
+.step-num{width:32px;height:32px;background:#00897B;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0}
+.step-content strong{display:block;font-size:14px;color:#1a1a2e;margin-bottom:3px}
+.step-content span{font-size:13px;color:#666}
+
+.info-box{background:linear-gradient(135deg,#e0f2f1,#b2dfdb);border-left:4px solid #00897B;border-radius:8px;padding:16px 20px;margin-bottom:20px}
+.info-box strong{color:#00695C;display:block;margin-bottom:6px}
+.info-box p{font-size:14px;color:#1a3a37}
+
+.this-car-box{background:#fff3e0;border-left:4px solid #f9a825;border-radius:8px;padding:20px 24px;margin-bottom:20px}
+.this-car-box h3{color:#e65100;font-size:15px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.this-car-box p{font-size:14px;color:#444;line-height:1.7}
+
+.form-section{background:#fff;border-radius:12px;padding:28px;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.form-section h2{font-size:18px;color:#1a1a2e;margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-size:13px;font-weight:600;color:#444;margin-bottom:6px}
+.form-group input,.form-group select,.form-group textarea{width:100%;border:1.5px solid #ddd;border-radius:8px;padding:10px 14px;font-size:14px;transition:border-color .2s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:#00897B}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.submit-btn{background:linear-gradient(135deg,#00897B,#00695C);color:#fff;border:none;padding:14px 32px;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;width:100%;margin-top:8px;transition:opacity .2s}
+.submit-btn:hover{opacity:0.9}
+.submit-note{font-size:12px;color:#888;text-align:center;margin-top:8px}
+
+.cta-bar{background:linear-gradient(135deg,#00897B,#00695C);color:#fff;border-radius:12px;padding:20px 24px;margin-bottom:20px;text-align:center}
+.cta-bar h3{font-size:17px;margin-bottom:8px}
+.cta-bar p{font-size:13px;opacity:0.9;margin-bottom:14px}
+.cta-phone{font-size:20px;font-weight:700;letter-spacing:1px}
+
+.footer{text-align:center;padding:20px;color:#888;font-size:12px}
+.success-msg{display:none;background:#e8f5e9;border:1px solid #4CAF50;border-radius:8px;padding:16px;text-align:center;color:#2e7d32;font-weight:600;margin-top:12px}
+.error-msg{display:none;background:#ffebee;border:1px solid #f44336;border-radius:8px;padding:16px;text-align:center;color:#c62828;font-size:14px;margin-top:12px}
+
+@media(max-width:600px){
+  .header{padding:20px 16px}
+  .header h1{font-size:20px}
+  .two-col{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .header-meta{gap:8px}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <span class="badge badge-e">VARIANTA E</span>
+    <span class="badge badge-e">MENTORING</span>
+  </div>
+  <h1>🎓 Mentoring — Naučte se nakupovat z EU aukcí sami</h1>
+  <div class="header-sub">VW Passat Variant 2.0 TDI Conceptline 150 hp | Aukce #10989369 | Tento vůz jako váš praktický příklad</div>
+  <div class="header-meta">
+    <span>📚 2–4 konzultace</span>
+    <span>💻 Online nebo osobně</span>
+    <span>⏱ Flexibilní termíny</span>
+    <span>📋 Praktické materiály</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="intro-box">
+    <h2>Co je mentoring a proč ho nabízím?</h2>
+    <p>Nákup ojetého auta z evropské B2B aukce není raketová věda — ale skrývá překvapivě mnoho detailů, které mohou proměnit dobrý obchod v drahé poučení. Mentoring je strukturovaný program, ve kterém vás provedu celým procesem <strong>od hledání vozidla až po registraci v ČR</strong> — na konkrétním příkladu.</p>
+    <p>Tento VW Passat Variant Conceptline je ideální výukový případ: reálná aukce probíhající DNES, zajímavá finanční kalkulace a několik věcí, na které si dát pozor (DSG7 na servisu, chybějící servisní knížka). Přesně takové situace, se kterými se v praxi setkáte.</p>
+  </div>
+
+  <div class="case-study-box">
+    <h3>📎 Tento vůz jako praktický mentoring příklad</h3>
+    <p>Na tomto konkrétním voze si ukážeme: jak číst OPENLANE aukci (dynamická x-Time aukce), jak pracovat s CARFAX a CEBIA reporty, jak správně spočítat celkové náklady, jak posoudit stav DSG7 na <span class="highlight">60 436 km (hranice servisu)</span>, proč chybějící servisní knížka mění kalkulaci a jak se k tomu postavit. Nakonec si spolu projdeme, zda je tento konkrétní vůz za tuto cenu dobrá koupě.</p>
+  </div>
+
+  <div class="two-col">
+    <div class="col-box">
+      <h3>🧠 Co se naučíte</h3>
+      <ul>
+        <li>Jak funguje OPENLANE a jak číst aukci</li>
+        <li>Registrace v ČR — COC, STK, TP, RZ</li>
+        <li>Finanční kalkulace od aukce po prodej</li>
+        <li>CARFAX, CEBIA — jak je správně číst</li>
+        <li>DPH scénáře: §90, §72, přirážkový režim</li>
+        <li>Doprava: výběr přepravce, ceny, rizika</li>
+        <li>Jak odhadnout správnou prodejní cenu v ČR</li>
+        <li>Pojištění, roční náklady, odpisy</li>
+      </ul>
+    </div>
+    <div class="col-box">
+      <h3>📋 Formát mentoringového programu</h3>
+      <ul>
+        <li><strong>Konzultace 1:</strong> OPENLANE, výběr vozidla, aukce</li>
+        <li><strong>Konzultace 2:</strong> Finanční kalkulace, DPH scénáře</li>
+        <li><strong>Konzultace 3:</strong> Logistika, technická kontrola, registrace</li>
+        <li><strong>Konzultace 4:</strong> Prodej, tvorba ceny, marketing</li>
+        <li>Každá konzultace 60–90 minut</li>
+        <li>Online (Teams/Zoom) nebo osobně v Praze</li>
+        <li>Nahrávka konzultace k dispozici</li>
+        <li>30 dní e-mail podpora po skončení</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="deliverables-section">
+    <h2>🎁 Co dostanete po absolvování mentoringu</h2>
+    <div class="deliverables-grid">
+      <div class="deliverable-card">
+        <strong>📊 Excel šablona kalkulace</strong>
+        <span>Připravená kalkulační šablona pro libovolné auto z EU aukce</span>
+      </div>
+      <div class="deliverable-card">
+        <strong>✅ Checklist 11 kroků</strong>
+        <span>Od nalezení auta po předání zákazníkovi — krok za krokem</span>
+      </div>
+      <div class="deliverable-card">
+        <strong>📋 DPH přehled variant</strong>
+        <span>Přehled všech relevantních DPH scénářů pro přeprodej aut</span>
+      </div>
+      <div class="deliverable-card">
+        <strong>📞 Kontakty (přepravci, STK)</strong>
+        <span>Prověřené kontakty na přepravce, STK stanice, registrační místa</span>
+      </div>
+      <div class="deliverable-card">
+        <strong>💬 30 dní e-mail konzultace</strong>
+        <span>Kdykoli po skončení programu se můžete zeptat na cokoliv</span>
+      </div>
+      <div class="deliverable-card">
+        <strong>🎥 Nahrávky konzultací</strong>
+        <span>Záznamy všech konzultací pro opakované přehrání</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="steps-section">
+    <h2>🚀 Jak mentoring probíhá — 4 kroky</h2>
+    <ol class="steps-list">
+      <li>
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <strong>Úvodní analýza vašich cílů</strong>
+          <span>Zjistíme, co přesně chcete dosáhnout — nákup pro sebe, přeprodej, firma nebo fyzická osoba. Připravíme plán mentoringu na míru.</span>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <strong>Teorie + praxe na reálném příkladu</strong>
+          <span>Každou konzultaci spojujeme teorii s praxí. Pracujeme na reálném voze (tento Passat nebo jiný, který si vyberete).</span>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <strong>Živá kalkulace a rozhodovací proces</strong>
+          <span>Spolu sestavíme kompletní kalkulaci, projdeme DPH scénáře a rozhodneme, zda a za kolik má smysl auto koupit.</span>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <strong>Certifikát a materiály</strong>
+          <span>Po absolvování všech konzultací obdržíte sadu materiálů a 30 dní podpůrnou e-mail konzultaci pro vaše první samostatné nákupy.</span>
+        </div>
+      </li>
+    </ol>
+  </div>
+
+  <div class="this-car-box">
+    <h3>⚡ Využijte živou aukci DNES jako výukový příklad</h3>
+    <p>Tato aukce probíhá DNES — pokud se do ní nezapojíme, přijdeme o reálný příklad. Mentoring lze zahájit i bez zakoupení tohoto konkrétního auta — ale pokud chcete vidět celý proces od aukce po registraci na <strong>živém případě</strong>, je to ideální příležitost. Kontaktujte mě nyní a probereme možnosti.</p>
+  </div>
+
+  <div class="info-box">
+    <strong>ℹ️ Délka, formát a cena mentoringu</strong>
+    <p>Program trvá 2–4 konzultace (záleží na vašich zkušenostech a tempu). Konzultace probíhají online (Teams/Zoom) nebo osobně v Praze či okolí.
+    <strong>Cena je individuální</strong> dle rozsahu a formy — zjistěte si ji nezávazně přes formulář níže.</p>
+  </div>
+
+  <div class="cta-bar">
+    <h3>Zájem o mentoring?</h3>
+    <p>Napište mi a probereme váš cíl — bez závazku. Mentoring zahájíme kdykoli vám vyhovuje.</p>
+    <div class="cta-phone">📞 +420 XXX XXX XXX</div>
+  </div>
+
+  <div class="form-section">
+    <h2>📬 Poptávkový formulář — Varianta E (Mentoring)</h2>
+
+    <div class="form-group">
+      <label for="jmeno_e">Jméno a příjmení *</label>
+      <input type="text" id="jmeno_e" placeholder="Jan Novák">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="email_e">E-mail *</label>
+        <input type="email" id="email_e" placeholder="vas@email.cz">
+      </div>
+      <div class="form-group">
+        <label for="telefon_e">Telefon *</label>
+        <input type="tel" id="telefon_e" placeholder="+420 777 888 999">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="cil_e">Co je váš hlavní cíl?</label>
+      <select id="cil_e">
+        <option value="preprodej_fo">Přeprodej aut jako fyzická osoba</option>
+        <option value="preprodej_ico">Přeprodej aut na IČO / firmu</option>
+        <option value="nakup_pro_sebe">Nákup auta pro vlastní potřebu</option>
+        <option value="informace">Chci se nejprve zorientovat</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="zkusenosti_e">Vaše dosavadní zkušenosti s nákupem aut</label>
+      <select id="zkusenosti_e">
+        <option value="zacatecnik">Začátečník — nikdy jsem nekupoval z aukce</option>
+        <option value="pokrocily">Mám základní zkušenosti</option>
+        <option value="pokrocily2">Kupoval jsem z aukce, ale chci se zlepšit</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="zprava_e">Zpráva / dotazy</label>
+      <textarea id="zprava_e" rows="3" placeholder="Napište cokoliv — vaše situace, cíle, dotazy..."></textarea>
+    </div>
+
+    <button class="submit-btn" onclick="sendForm_e()">Mám zájem o mentoring — kontaktujte mě</button>
+    <p class="submit-note">Odesláním formuláře souhlasíte se zpracováním osobních údajů pro účely odpovědi na poptávku.</p>
+    <div class="success-msg" id="success_e">✅ Poptávka odeslána! Ozvu se vám do 2 hodin.</div>
+    <div class="error-msg" id="error_e">❌ Chyba při odesílání. Zkuste to znovu nebo napište přímo na e-mail.</div>
+  </div>
+
+  <div class="footer">
+    <p>auto1 | Jaroslav Batko | jaroslav.batko@gmail.com</p>
+    <p style="margin-top:4px">VW Passat Variant 2.0 TDI Conceptline 150hp | OPENLANE #10989369 | © 2026</p>
+  </div>
+
+</div>
+
+<script>
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwcFA8bRyHnBB_4XlgH5_IMR4IBqUfvTD8vScGZPiuCh0gR5f4Mp_9OjOAw1u3lNEjI/exec';
+
+function sendForm_e() {
+  var jmeno = document.getElementById('jmeno_e').value.trim();
+  var email = document.getElementById('email_e').value.trim();
+  var telefon = document.getElementById('telefon_e').value.trim();
+  if (!jmeno || !email || !telefon) {
+    alert('Vyplňte prosím jméno, e-mail a telefon.');
+    return;
+  }
+  var payload = {
+    formType: 'E-Mentoring',
+    source: 'nabidka_mentoring_10989369',
+    VS: '10989369',
+    jmeno: jmeno,
+    email: email,
+    telefon: telefon,
+    cil: document.getElementById('cil_e').value,
+    zkusenosti: document.getElementById('zkusenosti_e').value,
+    zprava: document.getElementById('zprava_e').value,
+    timestamp: new Date().toISOString()
+  };
+  localStorage.setItem('auto1_form_e', JSON.stringify(payload));
+  fetch(APPS_SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(payload)
+  }).then(function() {
+    document.getElementById('success_e').style.display = 'block';
+    document.getElementById('error_e').style.display = 'none';
+  }).catch(function() {
+    document.getElementById('error_e').style.display = 'block';
+  });
+}
+
+var saved = localStorage.getItem('auto1_form_e');
+if (saved) {
+  try {
+    var d = JSON.parse(saved);
+    if (d.jmeno) document.getElementById('jmeno_e').value = d.jmeno;
+    if (d.email) document.getElementById('email_e').value = d.email;
+    if (d.telefon) document.getElementById('telefon_e').value = d.telefon;
+  } catch(e) {}
+}
+</script>
+
+</body>
+</html>
