@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AGENTURNÍ NÁKUP — VW Passat Variant Conceptline | auto1</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f6f9;color:#1a1a2e;line-height:1.6}
+.header{background:linear-gradient(135deg,#e67e22 0%,#d35400 100%);color:#fff;padding:28px 32px 24px}
+.header-top{display:flex;align-items:center;gap:16px;margin-bottom:8px}
+.badge{background:rgba(255,255,255,0.2);border:2px solid rgba(255,255,255,0.5);color:#fff;padding:4px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase}
+.badge-d{background:rgba(255,255,255,0.15);border-color:rgba(255,255,255,0.4)}
+.header h1{font-size:26px;font-weight:700;margin-bottom:4px}
+.header-sub{font-size:14px;opacity:0.85}
+.header-meta{display:flex;gap:20px;margin-top:14px;flex-wrap:wrap}
+.header-meta span{background:rgba(0,0,0,0.15);padding:4px 12px;border-radius:12px;font-size:13px}
+
+.container{max-width:860px;margin:0 auto;padding:24px 16px}
+
+.highlight-box{background:linear-gradient(135deg,#fff3e0,#ffe0b2);border-left:4px solid #e67e22;border-radius:8px;padding:20px 24px;margin-bottom:20px}
+.highlight-box h3{color:#d35400;font-size:16px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.highlight-box ul{list-style:none;padding:0}
+.highlight-box ul li{padding:5px 0 5px 22px;position:relative;font-size:14px;border-bottom:1px solid rgba(230,126,34,0.1)}
+.highlight-box ul li:last-child{border-bottom:none}
+.highlight-box ul li::before{content:'✓';position:absolute;left:0;color:#e67e22;font-weight:bold}
+
+.green-box{background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border-left:4px solid #27ae60;border-radius:8px;padding:20px 24px;margin-bottom:20px}
+.green-box h3{color:#1a7a3a;font-size:16px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.green-box ul{list-style:none;padding:0}
+.green-box ul li{padding:5px 0 5px 22px;position:relative;font-size:14px;border-bottom:1px solid rgba(39,174,96,0.1)}
+.green-box ul li:last-child{border-bottom:none}
+.green-box ul li::before{content:'🔒';position:absolute;left:0;font-size:13px}
+
+.section{background:#fff;border-radius:12px;padding:24px;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.section h2{font-size:18px;color:#1a1a2e;margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid #f0f0f0;display:flex;align-items:center;gap:8px}
+
+.steps-list{list-style:none;padding:0;counter-reset:steps}
+.steps-list li{counter-increment:steps;display:flex;gap:16px;padding:14px 0;border-bottom:1px solid #f0f0f0}
+.steps-list li:last-child{border-bottom:none}
+.step-num{width:32px;height:32px;background:#e67e22;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0}
+.step-content strong{display:block;font-size:14px;color:#1a1a2e;margin-bottom:3px}
+.step-content span{font-size:13px;color:#666}
+
+.table-section table{width:100%;border-collapse:collapse;font-size:14px}
+.table-section th{background:#fff3e0;color:#d35400;padding:10px 14px;text-align:left;font-weight:600;font-size:13px}
+.table-section td{padding:9px 14px;border-bottom:1px solid #f5f5f5}
+.table-section tr:last-child td{border-bottom:none}
+.table-section tr.total-row td{background:#fff3e0;font-weight:700;color:#d35400;border-top:2px solid #e67e22}
+.table-section tr.sub-row td{background:#fafafa;font-size:13px;color:#666}
+.amount-eur{color:#888;font-size:12px}
+.amount-czk{font-weight:600;color:#1a1a2e}
+.range-note{font-size:12px;color:#888;margin-top:4px}
+
+.info-box{background:linear-gradient(135deg,#e3f2fd,#bbdefb);border-left:4px solid #2196F3;border-radius:8px;padding:16px 20px;margin-bottom:20px}
+.info-box strong{color:#1565C0;display:block;margin-bottom:6px}
+.info-box p{font-size:14px;color:#1a3a5c}
+
+.warning-box{background:#fff8e1;border-left:4px solid #f9a825;border-radius:8px;padding:16px 20px;margin-bottom:20px}
+.warning-box strong{color:#e65100;display:block;margin-bottom:6px;font-size:14px}
+.warning-box p{font-size:13px;color:#555}
+
+.form-section{background:#fff;border-radius:12px;padding:28px;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.form-section h2{font-size:18px;color:#1a1a2e;margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-size:13px;font-weight:600;color:#444;margin-bottom:6px}
+.form-group input,.form-group select,.form-group textarea{width:100%;border:1.5px solid #ddd;border-radius:8px;padding:10px 14px;font-size:14px;transition:border-color .2s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:#e67e22}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.submit-btn{background:linear-gradient(135deg,#e67e22,#d35400);color:#fff;border:none;padding:14px 32px;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;width:100%;margin-top:8px;transition:opacity .2s}
+.submit-btn:hover{opacity:0.9}
+.submit-note{font-size:12px;color:#888;text-align:center;margin-top:8px}
+
+.cta-bar{background:linear-gradient(135deg,#e67e22,#d35400);color:#fff;border-radius:12px;padding:20px 24px;margin-bottom:20px;text-align:center}
+.cta-bar h3{font-size:17px;margin-bottom:8px}
+.cta-bar p{font-size:13px;opacity:0.9;margin-bottom:14px}
+.cta-phone{font-size:20px;font-weight:700;letter-spacing:1px}
+
+.footer{text-align:center;padding:20px;color:#888;font-size:12px}
+
+.success-msg{display:none;background:#e8f5e9;border:1px solid #4CAF50;border-radius:8px;padding:16px;text-align:center;color:#2e7d32;font-weight:600;margin-top:12px}
+.error-msg{display:none;background:#ffebee;border:1px solid #f44336;border-radius:8px;padding:16px;text-align:center;color:#c62828;font-size:14px;margin-top:12px}
+
+@media(max-width:600px){
+  .header{padding:20px 16px}
+  .header h1{font-size:20px}
+  .form-row{grid-template-columns:1fr}
+  .header-meta{gap:8px}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <span class="badge badge-d">VARIANTA D</span>
+    <span class="badge badge-d">AGENTURNÍ NÁKUP</span>
+  </div>
+  <h1>🤝 Agenturní nákup — Jaroslav jako váš zástupce</h1>
+  <div class="header-sub">VW Passat Variant 2.0 TDI Conceptline 150 hp | Aukce #10989369 | DSG7 | 60 436 km | 2023</div>
+  <div class="header-meta">
+    <span>📅 Aukce DNES</span>
+    <span>⏱ Dynamická aukce (x-Time)</span>
+    <span>🇩🇪 Původ: Německo</span>
+    <span>💶 Kurz: 1 EUR = 24 290 Kč</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="highlight-box">
+    <h3>🎯 Proč zvolit agenturní nákup?</h3>
+    <ul>
+      <li>Nemusíte mít přístup na OPENLANE — vydražím auto za vás jako registrovaný dealer</li>
+      <li>Celý proces zařídím od aukce přes dopravu až po předání klíčů v ČR</li>
+      <li>Veškeré výdaje doložím doklady — transparentní účtování každé koruny</li>
+      <li>Záloha je po celou dobu váš majetek vedená odděleně na vázaném účtu</li>
+      <li>Ušetříte čas, vyhnete se chybám a nákup provedete bezpečně i poprvé</li>
+    </ul>
+  </div>
+
+  <div class="green-box">
+    <h3>🔒 Vaše ochrana při agenturním nákupu</h3>
+    <ul>
+      <li>Písemná smlouva o agenturním nákupu před zahájením</li>
+      <li>Záloha vedena odděleně — nikdy nesměšována s mými prostředky</li>
+      <li>Ke každé platbě dostanete doklad (OPENLANE invoice, přepravce, STK atd.)</li>
+      <li>Nevydražení nebo odmítnutí auta = vrácení zálohy do 3 pracovních dnů</li>
+      <li>Písemný výpis všech výdajů s doklady při předání vozidla</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>📋 Průběh agenturního nákupu — 5 kroků</h2>
+    <ol class="steps-list">
+      <li>
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <strong>Zadání a smlouva</strong>
+          <span>Podepíšeme smlouvu o agenturním nákupu. Nastavíme maximální cenu aukce a podmínky. Zkontrolujeme technický stav auta (CARFAX, OPENLANE report).</span>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <strong>Záloha na nákup (100 % odhadovaných výdajů)</strong>
+          <span>Složíte zálohu na vázaný účet pokrývající aukci + doprava + tech. kontrola + detailing + registrace + rezerva 3 %. Záloha je váš majetek — jen ji spravuji.</span>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <strong>Vydražení a logistika</strong>
+          <span>Vydražím auto na OPENLANE v rámci dohodnutého limitu. Zajistím přepravu z Německa (450 EUR), technickou kontrolu a servis DSG v autorizovaném servisu.</span>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <strong>Registrace a příprava</strong>
+          <span>Zajistím COC, registraci v ČR, povinné ručení (na vaše jméno), CEBIA report a případný detailing. Doložím veškeré výdaje originálními doklady.</span>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <strong>Předání + vyúčtování + odměna</strong>
+          <span>Předám vám auto osobně s kompletní dokumentací, výpisem výdajů a zbývající částí zálohy (pokud zůstane přebytek). Má odměna je splatná až při předání.</span>
+        </div>
+      </li>
+    </ol>
+  </div>
+
+  <div class="section table-section">
+    <h2>💰 Složení zálohy na nákup</h2>
+    <p style="font-size:13px;color:#666;margin-bottom:16px">Záloha pokrývá všechny odhadované výdaje. Nevyužité prostředky vám vrátím zpět.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Položka</th>
+          <th>Odhad (EUR)</th>
+          <th>Odhad (Kč)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Aukční cena vozidla</td>
+          <td><span class="amount-eur">16 000–20 000 EUR</span></td>
+          <td><span class="amount-czk">388 640–485 800 Kč</span></td>
+        </tr>
+        <tr>
+          <td>OPENLANE poplatek (3 % z aukce)</td>
+          <td><span class="amount-eur">480–600 EUR</span></td>
+          <td><span class="amount-czk">11 659–14 574 Kč</span></td>
+        </tr>
+        <tr>
+          <td>Mezinárodní doprava (Německo → ČR)</td>
+          <td><span class="amount-eur">450 EUR</span></td>
+          <td><span class="amount-czk">10 931 Kč</span></td>
+        </tr>
+        <tr>
+          <td>Technická kontrola + servis DSG7</td>
+          <td><span class="amount-eur">400 EUR</span></td>
+          <td><span class="amount-czk">9 716 Kč</span></td>
+        </tr>
+        <tr>
+          <td>Detailing (exteriér + interiér)</td>
+          <td><span class="amount-eur">150 EUR</span></td>
+          <td><span class="amount-czk">3 644 Kč</span></td>
+        </tr>
+        <tr>
+          <td>Registrace v ČR (poplatky)</td>
+          <td>—</td>
+          <td><span class="amount-czk">2 200 Kč</span></td>
+        </tr>
+        <tr>
+          <td>Povinné ručení (1 rok, základ)</td>
+          <td>—</td>
+          <td><span class="amount-czk">800 Kč</span></td>
+        </tr>
+        <tr>
+          <td>CEBIA report</td>
+          <td>—</td>
+          <td><span class="amount-czk">699 Kč</span></td>
+        </tr>
+        <tr>
+          <td>Rezerva na nepředvídané výdaje (~3 %)</td>
+          <td><span class="amount-eur">480–600 EUR</span></td>
+          <td><span class="amount-czk">11 659–14 574 Kč</span></td>
+        </tr>
+        <tr class="total-row">
+          <td><strong>CELKOVÁ ZÁLOHA (odhad)</strong></td>
+          <td><span class="amount-eur">~17 960–22 200 EUR</span></td>
+          <td><span class="amount-czk">~440 000–542 000 Kč</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="range-note" style="margin-top:10px;padding:10px;background:#fff3e0;border-radius:6px">
+      <strong style="color:#e67e22">Má odměna za agenturní nákup:</strong> 10 000–18 000 Kč (závisí na finální aukční ceně a složitosti).
+      Splatná až při předání vozidla — <strong>nikoliv předem</strong>.
+    </div>
+  </div>
+
+  <div class="warning-box">
+    <strong>⚠️ Upozornění k tomuto vozu — přečtěte si před rozhodnutím</strong>
+    <p><strong>DSG7 na hranici servisu:</strong> Vozidlo má 60 436 km, servisní interval DSG7 je 60 000 km. V záloze je zahrnuto provedení servisní prohlídky převodovky. <br>
+    <strong>Chybí servisní knížka:</strong> Dokumentace servisní historie není k dispozici. Doporučuji plnou technickou diagnostiku před nebo při příjezdu. COC dokument dostupný — registrace v ČR bez problémů.<br>
+    <strong>Bez nehody ✅:</strong> CARFAX nehlásí žádné škodní události — pozitivní zjištění.</p>
+  </div>
+
+  <div class="info-box">
+    <strong>ℹ️ Záloha je váš majetek — vedena odděleně</strong>
+    <p>Složená záloha je po celou dobu vázána na odděleném účtu. Nikdy ji nesměšuji se svými prostředky.
+    Po předání auta dostanete přesné vyúčtování každé koruny. Pokud auto nevydražím nebo se rozhodnete odstoupit před aukci, zálohu vracím do 3 pracovních dnů v plné výši.</p>
+  </div>
+
+  <div class="cta-bar">
+    <h3>Zájem o agenturní nákup?</h3>
+    <p>Aukce probíhá DNES — čas na rozhodnutí je omezený. Kontaktujte mě nyní nebo vyplňte poptávkový formulář níže.</p>
+    <div class="cta-phone">📞 +420 XXX XXX XXX</div>
+  </div>
+
+  <div class="form-section">
+    <h2>📬 Poptávkový formulář — Varianta D (Agenturní nákup)</h2>
+
+    <div class="form-group">
+      <label for="jmeno_d">Jméno a příjmení *</label>
+      <input type="text" id="jmeno_d" placeholder="Jan Novák">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="email_d">E-mail *</label>
+        <input type="email" id="email_d" placeholder="vas@email.cz">
+      </div>
+      <div class="form-group">
+        <label for="telefon_d">Telefon *</label>
+        <input type="tel" id="telefon_d" placeholder="+420 777 888 999">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="kontakt_d">Preferovaný způsob kontaktu</label>
+      <select id="kontakt_d">
+        <option value="telefon">Telefon</option>
+        <option value="email">E-mail</option>
+        <option value="whatsapp">WhatsApp</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="limit_d">Váš maximální limit pro aukci (EUR)</label>
+      <input type="number" id="limit_d" placeholder="např. 18000" min="16000" max="25000">
+    </div>
+    <div class="form-group">
+      <label for="zprava_d">Zpráva / dotazy</label>
+      <textarea id="zprava_d" rows="3" placeholder="Zde napište vaše dotazy nebo poznámky..."></textarea>
+    </div>
+
+    <button class="submit-btn" onclick="sendForm_d()">Mám zájem o agenturní nákup — kontaktujte mě</button>
+    <p class="submit-note">Odesláním formuláře souhlasíte se zpracováním osobních údajů pro účely odpovědi na poptávku.</p>
+    <div class="success-msg" id="success_d">✅ Poptávka odeslána! Ozvu se vám do 2 hodin.</div>
+    <div class="error-msg" id="error_d">❌ Chyba při odesílání. Zkuste to znovu nebo napište přímo na e-mail.</div>
+  </div>
+
+  <div class="footer">
+    <p>auto1 | Jaroslav Batko | jaroslav.batko@gmail.com</p>
+    <p style="margin-top:4px">VW Passat Variant 2.0 TDI Conceptline 150hp | OPENLANE #10989369 | © 2026</p>
+  </div>
+
+</div>
+
+<script>
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwcFA8bRyHnBB_4XlgH5_IMR4IBqUfvTD8vScGZPiuCh0gR5f4Mp_9OjOAw1u3lNEjI/exec';
+
+function sendForm_d() {
+  const jmeno = document.getElementById('jmeno_d').value.trim();
+  const email = document.getElementById('email_d').value.trim();
+  const telefon = document.getElementById('telefon_d').value.trim();
+  if (!jmeno || !email || !telefon) {
+    alert('Vyplňte prosím jméno, e-mail a telefon.');
+    return;
+  }
+  const payload = {
+    formType: 'D-Agent_nakup',
+    source: 'nabidka_agent_nakup_10989369',
+    VS: '10989369',
+    jmeno: jmeno,
+    email: email,
+    telefon: telefon,
+    kontakt: document.getElementById('kontakt_d').value,
+    limit_aukce: document.getElementById('limit_d').value,
+    zprava: document.getElementById('zprava_d').value,
+    timestamp: new Date().toISOString()
+  };
+  localStorage.setItem('auto1_form_d', JSON.stringify(payload));
+  fetch(APPS_SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(payload)
+  }).then(function() {
+    document.getElementById('success_d').style.display = 'block';
+    document.getElementById('error_d').style.display = 'none';
+  }).catch(function() {
+    document.getElementById('error_d').style.display = 'block';
+  });
+}
+
+// Restore form data
+var saved = localStorage.getItem('auto1_form_d');
+if (saved) {
+  try {
+    var d = JSON.parse(saved);
+    if (d.jmeno) document.getElementById('jmeno_d').value = d.jmeno;
+    if (d.email) document.getElementById('email_d').value = d.email;
+    if (d.telefon) document.getElementById('telefon_d').value = d.telefon;
+  } catch(e) {}
+}
+</script>
+
+</body>
+</html>
