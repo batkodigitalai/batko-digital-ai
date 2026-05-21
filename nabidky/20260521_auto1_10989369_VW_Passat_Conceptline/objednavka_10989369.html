@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Objednávka / Poptávka — VW Passat Conceptline #10989369 | auto1</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f6f9;color:#1a1a2e;line-height:1.6}
+
+.header{background:linear-gradient(135deg,#2c3e50 0%,#1a252f 100%);color:#fff;padding:28px 32px 24px}
+.header h1{font-size:24px;font-weight:700;margin-bottom:6px}
+.header-sub{font-size:14px;opacity:0.8;margin-bottom:14px}
+.header-meta{display:flex;gap:12px;flex-wrap:wrap}
+.header-meta span{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);padding:4px 12px;border-radius:12px;font-size:13px}
+
+.container{max-width:860px;margin:0 auto;padding:24px 16px}
+
+/* KURZ STRIP */
+.kurz-strip{background:#fff;border-radius:10px;padding:16px 20px;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,0.06);display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between}
+.kurz-item .ki-label{font-size:11px;color:#888;text-transform:uppercase;letter-spacing:0.5px}
+.kurz-item .ki-value{font-size:14px;font-weight:700;color:#1a1a2e}
+.kurz-item .ki-value.highlight{color:#1a73e8}
+.payment-info{background:#e8f5e9;border-radius:8px;padding:10px 14px;font-size:13px}
+.payment-info strong{display:block;color:#1a7a3a;margin-bottom:3px}
+.payment-info span{color:#444}
+
+/* NAV EXPLAIN */
+.nav-explain{background:#fff;border-radius:12px;padding:20px 24px;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.nav-explain h2{font-size:16px;color:#1a1a2e;margin-bottom:14px}
+.variant-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.variant-card{border-radius:8px;padding:12px 14px;border:1px solid #e0e0e0;transition:box-shadow .2s;cursor:pointer}
+.variant-card:hover{box-shadow:0 3px 12px rgba(0,0,0,0.1)}
+.variant-card a{text-decoration:none;color:inherit}
+.vc-badge{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:2px 8px;border-radius:10px;margin-bottom:6px;display:inline-block}
+.vc-a .vc-badge{background:#e3f2fd;color:#1565C0}
+.vc-b .vc-badge{background:#e8f5e9;color:#2e7d32}
+.vc-c .vc-badge{background:#e3f2fd;color:#0d47a1}
+.vc-d .vc-badge{background:#fff3e0;color:#e65100}
+.vc-e .vc-badge{background:#e0f2f1;color:#00695C}
+.vc-f .vc-badge{background:#ffebee;color:#c62828}
+.vc-name{font-size:13px;font-weight:600;margin-bottom:3px;display:block}
+.vc-price{font-size:12px;color:#888}
+.vc-desc{font-size:11px;color:#666;margin-top:3px}
+
+/* FORM */
+.form-section{background:#fff;border-radius:12px;padding:28px;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.form-section h2{font-size:18px;color:#1a1a2e;margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-size:13px;font-weight:600;color:#444;margin-bottom:6px}
+.form-group input,.form-group select,.form-group textarea{width:100%;border:1.5px solid #ddd;border-radius:8px;padding:10px 14px;font-size:14px;transition:border-color .2s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:#2c3e50}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+
+/* TYP ZÁKAZNÍKA TOGGLE */
+.typ-toggle{display:flex;gap:10px;margin-bottom:16px}
+.typ-btn{flex:1;padding:10px;border:2px solid #ddd;border-radius:8px;background:#fff;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;text-align:center}
+.typ-btn.active{border-color:#2c3e50;background:#2c3e50;color:#fff}
+.po-fields{display:none}
+.po-fields.visible{display:block}
+
+/* PRODUCT SELECT */
+.product-list{display:grid;gap:8px;margin-bottom:16px}
+.product-item{border:1.5px solid #ddd;border-radius:8px;padding:12px 14px;cursor:pointer;transition:border-color .2s;display:flex;align-items:center;gap:12px}
+.product-item:hover{border-color:#888}
+.product-item.selected{border-color:#2c3e50;background:#f0f4f8}
+.product-item input[type=radio]{width:16px;height:16px;flex-shrink:0;accent-color:#2c3e50}
+.pi-label{font-size:14px;font-weight:600;color:#1a1a2e;flex:1}
+.pi-price{font-size:14px;font-weight:700;color:#1a73e8;white-space:nowrap}
+.pi-price.dotaz{color:#888}
+.pi-desc{font-size:12px;color:#666;margin-top:2px}
+
+/* PAYMENT / DOTAZ BOX */
+.payment-box{background:#e3f2fd;border-radius:8px;padding:16px 20px;margin-bottom:16px;border-left:4px solid #1a73e8}
+.payment-box h4{color:#1565C0;margin-bottom:8px;font-size:14px}
+.payment-box .bank-detail{font-size:13px;color:#1a1a2e;margin-bottom:4px}
+.payment-box .bank-detail strong{color:#1565C0}
+
+.dotaz-box{background:#fff3e0;border-radius:8px;padding:16px 20px;margin-bottom:16px;border-left:4px solid #f9a825}
+.dotaz-box h4{color:#e65100;margin-bottom:6px;font-size:14px}
+.dotaz-box p{font-size:13px;color:#555}
+
+.submit-btn{background:linear-gradient(135deg,#2c3e50,#1a252f);color:#fff;border:none;padding:14px 32px;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;width:100%;margin-top:8px;transition:opacity .2s}
+.submit-btn:hover{opacity:0.85}
+.submit-note{font-size:12px;color:#888;text-align:center;margin-top:8px}
+
+.success-msg{display:none;background:#e8f5e9;border:1px solid #4CAF50;border-radius:8px;padding:16px;text-align:center;color:#2e7d32;font-weight:600;margin-top:12px}
+.error-msg{display:none;background:#ffebee;border:1px solid #f44336;border-radius:8px;padding:16px;text-align:center;color:#c62828;font-size:14px;margin-top:12px}
+
+.info-note{background:#f8f9fa;border-radius:8px;padding:12px 16px;font-size:13px;color:#666;margin-bottom:16px;border-left:3px solid #ccc}
+
+.footer{text-align:center;padding:20px;color:#888;font-size:12px;border-top:1px solid #e0e0e0}
+
+@media(max-width:650px){
+  .header{padding:20px 16px}
+  .header h1{font-size:18px}
+  .variant-grid{grid-template-columns:1fr 1fr}
+  .form-row{grid-template-columns:1fr}
+  .form-row3{grid-template-columns:1fr}
+  .kurz-strip{flex-direction:column}
+}
+@media(max-width:400px){
+  .variant-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>📋 Objednávka / Poptávka — VW Passat Variant Conceptline</h1>
+  <div class="header-sub">Vyberte variantu spolupráce a odešlete poptávku nebo objednávku</div>
+  <div class="header-meta">
+    <span>🔢 OPENLANE #10989369</span>
+    <span>📅 2023 | 60 436 km | DSG7</span>
+    <span>🇩🇪 Německo | Fleet (Athlon)</span>
+    <span>💶 Kurz: 1 EUR = 24 290 Kč</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="kurz-strip">
+    <div class="kurz-item">
+      <div class="ki-label">Kurz ČNB</div>
+      <div class="ki-value highlight">1 EUR = 24 290 Kč</div>
+    </div>
+    <div class="kurz-item">
+      <div class="ki-label">Platný ke dni</div>
+      <div class="ki-value">21. 5. 2026</div>
+    </div>
+    <div class="kurz-item">
+      <div class="ki-label">Aukce ID</div>
+      <div class="ki-value">OPENLANE #10989369</div>
+    </div>
+    <div class="payment-info">
+      <strong>Platební údaje (pevné ceny)</strong>
+      <span>Účet: <strong>7236159001/5500</strong> (Raiffeisenbank)</span><br>
+      <span>IBAN: CZ37 5500 0000 0072 3615 9001 | SWIFT: RZBCCZPP</span>
+    </div>
+  </div>
+
+  <!-- NAVIGATOR -->
+  <div class="nav-explain">
+    <h2>📂 Přehled variant — vyberte nebo si rozklikněte detail</h2>
+    <div class="variant-grid">
+      <div class="variant-card vc-a">
+        <a href="nabidka_analyza_10989369.html">
+          <div class="vc-badge">Varianta A</div>
+          <span class="vc-name">Expertiza & Analýza</span>
+          <div class="vc-price">2 500 Kč nebo 5 000 Kč</div>
+          <div class="vc-desc">Finanční analýza aukce, kalkulace, doporučení</div>
+        </a>
+      </div>
+      <div class="variant-card vc-b">
+        <a href="nabidka_FO_preprodej_10989369.html">
+          <div class="vc-badge">Varianta B</div>
+          <span class="vc-name">FO Přeprodej</span>
+          <div class="vc-price">Na dotaz</div>
+          <div class="vc-desc">Nákup pro fyzickou osobu — přeprodej</div>
+        </a>
+      </div>
+      <div class="variant-card vc-c">
+        <a href="nabidka_ICO_preprodej_10989369.html">
+          <div class="vc-badge">Varianta C</div>
+          <span class="vc-name">IČO Přeprodej</span>
+          <div class="vc-price">Na dotaz</div>
+          <div class="vc-desc">Nákup na firmu — dvě DPH varianty</div>
+        </a>
+      </div>
+      <div class="variant-card vc-d">
+        <a href="nabidka_agent_nakup_10989369.html">
+          <div class="vc-badge">Varianta D</div>
+          <span class="vc-name">Agenturní nákup</span>
+          <div class="vc-price">Na dotaz</div>
+          <div class="vc-desc">Jaroslav vydraží auto za vás</div>
+        </a>
+      </div>
+      <div class="variant-card vc-e">
+        <a href="nabidka_mentoring_10989369.html">
+          <div class="vc-badge">Varianta E</div>
+          <span class="vc-name">Mentoring</span>
+          <div class="vc-price">Na dotaz</div>
+          <div class="vc-desc">Naučte se celý proces sami</div>
+        </a>
+      </div>
+      <div class="variant-card vc-f">
+        <a href="nabidka_premium_full_10989369.html">
+          <div class="vc-badge">Varianta F</div>
+          <span class="vc-name">Premium Full</span>
+          <div class="vc-price">Na dotaz</div>
+          <div class="vc-desc">Agenturní nákup + Mentoring v jednom</div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN FORM -->
+  <div class="form-section">
+    <h2>📝 Objednávkový / Poptávkový formulář</h2>
+
+    <!-- KONTAKTNÍ ÚDAJE -->
+    <div class="form-group">
+      <label for="jmeno">Jméno a příjmení *</label>
+      <input type="text" id="jmeno" placeholder="Jan Novák">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="email">E-mail *</label>
+        <input type="email" id="email" placeholder="vas@email.cz">
+      </div>
+      <div class="form-group">
+        <label for="telefon">Telefon *</label>
+        <input type="tel" id="telefon" placeholder="+420 777 888 999">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="kontakt">Preferovaný způsob kontaktu</label>
+      <select id="kontakt">
+        <option value="telefon">Telefon</option>
+        <option value="email">E-mail</option>
+        <option value="whatsapp">WhatsApp</option>
+      </select>
+    </div>
+
+    <!-- TYP ZÁKAZNÍKA -->
+    <div class="form-group">
+      <label>Typ zákazníka</label>
+      <div class="typ-toggle">
+        <button class="typ-btn active" onclick="setTyp('FO',this)" id="btn-fo">👤 Fyzická osoba (FO)</button>
+        <button class="typ-btn" onclick="setTyp('PO',this)" id="btn-po">🏢 Firma / Podnikatel (IČO)</button>
+      </div>
+    </div>
+
+    <!-- PO POLE -->
+    <div class="po-fields" id="po-fields">
+      <div class="form-row3">
+        <div class="form-group">
+          <label for="ico">IČO</label>
+          <input type="text" id="ico" placeholder="12345678">
+        </div>
+        <div class="form-group">
+          <label for="dic">DIČ (pokud plátce DPH)</label>
+          <input type="text" id="dic" placeholder="CZ12345678">
+        </div>
+        <div class="form-group">
+          <label for="firma">Název firmy</label>
+          <input type="text" id="firma" placeholder="ABC s.r.o.">
+        </div>
+      </div>
+    </div>
+
+    <!-- VÝBĚR PRODUKTU FO -->
+    <div id="products-fo">
+      <div class="form-group">
+        <label>Vyberte službu / variantu</label>
+        <div class="product-list" id="product-list-fo">
+          <label class="product-item selected">
+            <input type="radio" name="produkt_fo" value="expertiza_1" checked onchange="updatePayment()">
+            <div>
+              <div class="pi-label">Varianta A — Expertiza & Analýza (základní)</div>
+              <div class="pi-desc">Finanční kalkulace, OPENLANE analýza, doporučení nákup/nekupovat</div>
+            </div>
+            <div class="pi-price">2 500 Kč</div>
+          </label>
+          <label class="product-item">
+            <input type="radio" name="produkt_fo" value="expertiza_vyber" onchange="updatePayment()">
+            <div>
+              <div class="pi-label">Varianta A+ — Expertiza & Výběr vozidla</div>
+              <div class="pi-desc">Analýza + aktivní spolupráce při výběru vhodného auta</div>
+            </div>
+            <div class="pi-price">5 000 Kč</div>
+          </label>
+          <label class="product-item">
+            <input type="radio" name="produkt_fo" value="fo_preprodej" onchange="updatePayment()">
+            <div>
+              <div class="pi-label">Varianta B — FO Přeprodej</div>
+              <div class="pi-desc">Nákup a přeprodej pro fyzickou osobu — kompletní servis</div>
+            </div>
+            <div class="pi-price dotaz">Na dotaz</div>
+          </label>
+          <label class="product-item">
+            <input type="radio" name="produkt_fo" value="agent_fo" onchange="updatePayment()">
+            <div>
+              <div class="pi-label">Varianta D — Agenturní nákup (FO)</div>
+              <div class="pi-desc">Jaroslav vydraží auto za vás jako váš zástupce</div>
+            </div>
+            <div class="pi-price dotaz">Na dotaz</div>
+          </label>
+          <label class="product-item">
+            <input type="radio" name="produkt_fo" value="mentoring_fo" onchange="updatePayment()">
+            <div>
+              <div class="pi-label">Varianta E — Mentoring (FO)</div>
+              <div class="pi-desc">Program: naučte se nakupovat auta z EU aukcí</div>
+            </div>
+            <div class="pi-price dotaz">Na dotaz</div>
+          </label>
+          <label class="product-item">
+            <input type="radio" name="produkt_fo" value="premium_fo" onchange="updatePayment()">
+            <div>
+              <div class="pi-label">Varianta F — Premium Full (FO)</div>
+              <div class="pi-desc">Agenturní nákup + Mentoring — top balíček</div>
+            </div>
+            <div class="pi-price dotaz">Na dotaz</div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- VÝBĚR PRODUKTU PO -->
+    <div id="products-po" style="display:none">
+      <div class="form-group">
+        <label>Vyberte službu / variantu</label>
+        <div class="product-list" id="product-list-po">
+          <label class="product-item selected">
+            <input type="radio" name="produkt_po" value="expertiza_1" checked onchange="updatePayment()">
+            <div>
+              <div class="pi-label">Varianta A — Expertiza & Analýza (základní)</div>
+              <div class="pi-desc">Finanční kalkulace, OPENLANE analýza, doporučení</div>
+            </div>
+            <div class="pi-price">2 500 Kč</div>
+          </label>
+          <label class="product-item">
+            <input type="radio" name="produkt_po" value="expertiza_vyber" onchange="updatePayment()">
+            <div>
+              <div class="pi-label">Varianta A+ — Expertiza & Výběr vozidla</div>
+              <div class="pi-desc">Analýza + aktivní spolupráce při výběru vhodného auta</div>
+            </div>
+            <div class="pi-price">5 000 Kč</div>
+          </label>
+          <label class="product-item">
+            <input type="radio" name="produkt_po" value="ico_margin_a" onchange="updatePayment()">
+            <div>
+              <div class="pi-label">Varianta C-A — IČO Přeprodej (přirážkový §90)</div>
+              <div class="pi-desc">Nákup a přeprodej na firmu — varianta bez DPH na faktuře</div>
+            </div>
+            <div class="pi-price dotaz">Na dotaz</div>
+          </label>
+          <label class="product-item">
+            <input type="radio" name="produkt_po" value="ico_dph_b" onchange="updatePayment()">
+            <div>
+              <div class="pi-label">Varianta C-B — IČO Přeprodej (s DPH 21%)</div>
+              <div class="pi-desc">Nákup na firmu s DPH fakturou — odpočet §72 pro plátce DPH</div>
+            </div>
+            <div class="pi-price dotaz">Na dotaz</div>
+          </label>
+          <label class="product-item">
+            <input type="radio" name="produkt_po" value="agent_ico" onchange="updatePayment()">
+            <div>
+              <div class="pi-label">Varianta D — Agenturní nákup (IČO/firma)</div>
+              <div class="pi-desc">Jaroslav vydraží auto za vás jako váš zástupce</div>
+            </div>
+            <div class="pi-price dotaz">Na dotaz</div>
+          </label>
+          <label class="product-item">
+            <input type="radio" name="produkt_po" value="mentoring_firma" onchange="updatePayment()">
+            <div>
+              <div class="pi-label">Varianta E — Mentoring (firma)</div>
+              <div class="pi-desc">Program pro podnikatele a firmy nakupující auta</div>
+            </div>
+            <div class="pi-price dotaz">Na dotaz</div>
+          </label>
+          <label class="product-item">
+            <input type="radio" name="produkt_po" value="premium_po" onchange="updatePayment()">
+            <div>
+              <div class="pi-label">Varianta F — Premium Full (firma)</div>
+              <div class="pi-desc">Agenturní nákup + Mentoring — top balíček pro firmy</div>
+            </div>
+            <div class="pi-price dotaz">Na dotaz</div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAYMENT BOX (pro pevné ceny) -->
+    <div class="payment-box" id="payment-box" style="display:none">
+      <h4>💳 Platební instrukce</h4>
+      <div class="bank-detail">Banka: <strong>Raiffeisenbank</strong></div>
+      <div class="bank-detail">Číslo účtu: <strong>7236159001/5500</strong></div>
+      <div class="bank-detail">IBAN: <strong>CZ37 5500 0000 0072 3615 9001</strong></div>
+      <div class="bank-detail">SWIFT: <strong>RZBCCZPP</strong></div>
+      <div class="bank-detail" style="margin-top:8px">Variabilní symbol: <strong>10989369</strong></div>
+      <div class="bank-detail">Částka: <strong id="payment-amount">—</strong></div>
+      <div class="bank-detail" style="font-size:12px;color:#888;margin-top:6px">Po přijetí platby vás kontaktuji do 24 hodin.</div>
+    </div>
+
+    <!-- DOTAZ BOX (pro "na dotaz") -->
+    <div class="dotaz-box" id="dotaz-box">
+      <h4>💬 Cena na dotaz — kontaktujeme vás</h4>
+      <p>Tato varianta nemá fixní cenu — závisí na konkrétních podmínkách. Po odeslání formuláře vás kontaktuji do 2 hodin a probereme detaily.</p>
+    </div>
+
+    <div class="form-group">
+      <label for="zprava">Zpráva / poznámky</label>
+      <textarea id="zprava" rows="3" placeholder="Napište váš dotaz, specifické požadavky nebo cokoliv důležitého..."></textarea>
+    </div>
+
+    <div class="info-note">
+      📌 Odesláním formuláře se <strong>nezavazujete</strong> ke koupi. U "na dotaz" variant jde o nezávaznou poptávku — potvrdíme podmínky v e-mailu nebo telefonicky.
+    </div>
+
+    <button class="submit-btn" onclick="sendOrder()">Odeslat objednávku / poptávku</button>
+    <p class="submit-note">Odesláním formuláře souhlasíte se zpracováním osobních údajů pro účely odpovědi na poptávku.</p>
+    <div class="success-msg" id="success-msg">✅ Vaše poptávka / objednávka byla odeslána! Ozvu se vám do 2 hodin.</div>
+    <div class="error-msg" id="error-msg">❌ Chyba při odesílání. Zkuste to znovu nebo napište přímo na e-mail: jaroslav.batko@gmail.com</div>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <div class="nav-explain" style="margin-bottom:20px">
+    <h2>📚 Detailní informace k jednotlivým variantám</h2>
+    <div class="variant-grid">
+      <div class="variant-card vc-a"><a href="nabidka_VW_Passat_10989369.html"><div class="vc-badge">Hlavní strana</div><span class="vc-name">Nabídka vozidla</span><div class="vc-desc">Fotogalerie, specs, info o aukci</div></a></div>
+      <div class="variant-card vc-a"><a href="nabidka_analyza_10989369.html"><div class="vc-badge">Varianta A</div><span class="vc-name">Finanční analýza</span><div class="vc-desc">Kalkulace, marže, doporučení</div></a></div>
+      <div class="variant-card vc-b"><a href="nabidka_FO_preprodej_10989369.html"><div class="vc-badge">Varianta B</div><span class="vc-name">FO Přeprodej</span><div class="vc-desc">Přeprodej pro fyzické osoby</div></a></div>
+      <div class="variant-card vc-c"><a href="nabidka_ICO_preprodej_10989369.html"><div class="vc-badge">Varianta C</div><span class="vc-name">IČO Přeprodej</span><div class="vc-desc">Firma + DPH scénáře</div></a></div>
+      <div class="variant-card vc-d"><a href="nabidka_agent_nakup_10989369.html"><div class="vc-badge">Varianta D</div><span class="vc-name">Agenturní nákup</span><div class="vc-desc">Nákup prostřednictvím agenta</div></a></div>
+      <div class="variant-card vc-e"><a href="nabidka_mentoring_10989369.html"><div class="vc-badge">Varianta E</div><span class="vc-name">Mentoring</span><div class="vc-desc">Naučte se celý proces</div></a></div>
+      <div class="variant-card vc-f"><a href="nabidka_premium_full_10989369.html"><div class="vc-badge">Varianta F</div><span class="vc-name">Premium Full</span><div class="vc-desc">Nákup + Mentoring dohromady</div></a></div>
+      <div class="variant-card vc-a"><a href="hodnoceni_VW_Passat_10989369.html"><div class="vc-badge">Hodnocení</div><span class="vc-name">Analýza vozu (7.2/10)</span><div class="vc-desc">Technická + finanční analýza</div></a></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>auto1 | Jaroslav Batko | jaroslav.batko@gmail.com</p>
+    <p style="margin-top:4px">VW Passat Variant 2.0 TDI Conceptline 150hp | OPENLANE #10989369 | © 2026</p>
+  </div>
+
+</div>
+
+<script>
+var currentTyp = 'FO';
+var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwcFA8bRyHnBB_4XlgH5_IMR4IBqUfvTD8vScGZPiuCh0gR5f4Mp_9OjOAw1u3lNEjI/exec';
+
+var CENY = {
+  expertiza_1: 2500,
+  expertiza_vyber: 5000
+};
+
+function setTyp(typ, btn) {
+  currentTyp = typ;
+  document.querySelectorAll('.typ-btn').forEach(function(b){b.classList.remove('active')});
+  btn.classList.add('active');
+  if (typ === 'PO') {
+    document.getElementById('po-fields').classList.add('visible');
+    document.getElementById('products-fo').style.display = 'none';
+    document.getElementById('products-po').style.display = 'block';
+  } else {
+    document.getElementById('po-fields').classList.remove('visible');
+    document.getElementById('products-fo').style.display = 'block';
+    document.getElementById('products-po').style.display = 'none';
+  }
+  updatePayment();
+}
+
+function getSelectedProduct() {
+  var listId = currentTyp === 'FO' ? 'product-list-fo' : 'product-list-po';
+  var radios = document.querySelectorAll('#' + listId + ' input[type=radio]');
+  for (var i = 0; i < radios.length; i++) {
+    if (radios[i].checked) return radios[i].value;
+  }
+  return null;
+}
+
+function updatePayment() {
+  var selected = getSelectedProduct();
+  var paymentBox = document.getElementById('payment-box');
+  var dotazBox = document.getElementById('dotaz-box');
+
+  // Highlight selected item
+  var listId = currentTyp === 'FO' ? 'product-list-fo' : 'product-list-po';
+  document.querySelectorAll('#' + listId + ' .product-item').forEach(function(item) {
+    item.classList.remove('selected');
+    var radio = item.querySelector('input[type=radio]');
+    if (radio && radio.checked) item.classList.add('selected');
+  });
+
+  if (selected && CENY[selected]) {
+    paymentBox.style.display = 'block';
+    dotazBox.style.display = 'none';
+    document.getElementById('payment-amount').textContent = CENY[selected].toLocaleString('cs') + ' Kč';
+  } else {
+    paymentBox.style.display = 'none';
+    dotazBox.style.display = 'block';
+  }
+}
+
+function sendOrder() {
+  var jmeno = document.getElementById('jmeno').value.trim();
+  var email = document.getElementById('email').value.trim();
+  var telefon = document.getElementById('telefon').value.trim();
+
+  if (!jmeno || !email || !telefon) {
+    alert('Vyplňte prosím jméno, e-mail a telefon.');
+    return;
+  }
+
+  var selected = getSelectedProduct();
+  if (!selected) {
+    alert('Vyberte prosím variantu / produkt.');
+    return;
+  }
+
+  var payload = {
+    source: 'objednavka_10989369',
+    VS: '10989369',
+    formType: currentTyp + '_' + selected,
+    typ_zakaznika: currentTyp,
+    produkt: selected,
+    cena_czk: CENY[selected] || 0,
+    jmeno: jmeno,
+    email: email,
+    telefon: telefon,
+    kontakt: document.getElementById('kontakt').value,
+    zprava: document.getElementById('zprava').value,
+    timestamp: new Date().toISOString()
+  };
+
+  if (currentTyp === 'PO') {
+    payload.ico = document.getElementById('ico').value;
+    payload.dic = document.getElementById('dic').value;
+    payload.firma = document.getElementById('firma').value;
+  }
+
+  localStorage.setItem('auto1_objednavka_10989369', JSON.stringify(payload));
+
+  fetch(APPS_SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(payload)
+  }).then(function() {
+    document.getElementById('success-msg').style.display = 'block';
+    document.getElementById('error-msg').style.display = 'none';
+    document.querySelector('.submit-btn').disabled = true;
+  }).catch(function() {
+    document.getElementById('error-msg').style.display = 'block';
+  });
+}
+
+// Restore saved data
+var saved = localStorage.getItem('auto1_objednavka_10989369');
+if (saved) {
+  try {
+    var d = JSON.parse(saved);
+    if (d.jmeno) document.getElementById('jmeno').value = d.jmeno;
+    if (d.email) document.getElementById('email').value = d.email;
+    if (d.telefon) document.getElementById('telefon').value = d.telefon;
+    if (d.firma) document.getElementById('firma').value = d.firma;
+    if (d.ico) document.getElementById('ico').value = d.ico;
+  } catch(e) {}
+}
+
+// Init
+updatePayment();
+</script>
+
+</body>
+</html>
