@@ -402,7 +402,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f6f9;color:#1a1a2e;li
     <button class="submit-btn" onclick="sendOrder()">Odeslat objednávku / poptávku</button>
     <p class="submit-note">Odesláním formuláře souhlasíte se zpracováním osobních údajů pro účely odpovědi na poptávku.</p>
     <div class="success-msg" id="success-msg">✅ Vaše poptávka / objednávka byla odeslána! Ozvu se vám do 2 hodin.</div>
-    <div class="error-msg" id="error-msg">❌ Chyba při odesílání. Zkuste to znovu nebo napište přímo na e-mail: jaroslav.batko@gmail.com</div>
+    <div class="error-msg" id="error-msg">❌ Chyba při odesílání. Zkuste to znovu nebo napište přímo na e-mail: batko.digital.ai@gmail.com</div>
   </div>
 
   <!-- BOTTOM NAV -->
@@ -421,7 +421,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f6f9;color:#1a1a2e;li
   </div>
 
   <div class="footer">
-    <p>auto1 | Jaroslav Batko | jaroslav.batko@gmail.com</p>
+    <p>auto1 | Jaroslav Batko | batko.digital.ai@gmail.com</p>
     <p style="margin-top:4px">VW Passat Variant 2.0 TDI Conceptline 150hp | OPENLANE #10989369 | © 2026</p>
   </div>
 
@@ -501,6 +501,10 @@ function sendOrder() {
   }
 
   var payload = {
+    auto_nazev: 'VW Passat Variant 2.0 TDI Conceptline',
+    aukce_id: '10989369',
+    aukce_url: 'https://www.openlane.eu/en/item/10989369',
+    nabidka_url: 'https://batkodigitalai.github.io/batko-digital-ai/nabidky/20260521_auto1_10989369_VW_Passat_Conceptline/nabidka_VW_Passat_10989369.html',
     source: 'objednavka_10989369',
     VS: '10989369',
     formType: currentTyp + '_' + selected,
