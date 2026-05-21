@@ -212,7 +212,7 @@ function sendForm_b() {
   fetch(APPS_SCRIPT_URL_B, {
     method: 'POST', mode: 'no-cors',
     headers: {'Content-Type': 'text/plain;charset=utf-8'},
-    body: JSON.stringify({ source: 'nabidka_FO_preprodej_10989369', formType: 'B-FO_preprodej', jmeno: jmeno, email: email, telefon_text: tel, note: (typ ? '['+typ+'] ' : '') + pozn, url_aukce: 'https://www.openlane.eu/en/item/10989369' })
+    body: JSON.stringify({ auto_nazev: 'VW Passat Variant 2.0 TDI Conceptline', aukce_id: '10989369', aukce_url: 'https://www.openlane.eu/en/item/10989369', nabidka_url: 'https://batkodigitalai.github.io/batko-digital-ai/nabidky/20260521_auto1_10989369_VW_Passat_Conceptline/nabidka_VW_Passat_10989369.html', source: 'nabidka_FO_preprodej_10989369', formType: 'B-FO_preprodej', jmeno: jmeno, email: email, telefon_text: tel, note: (typ ? '['+typ+'] ' : '') + pozn, url_aukce: 'https://www.openlane.eu/en/item/10989369' })
   }).then(function() {
     document.getElementById('form-success-b').style.display = 'block';
     btn.textContent = 'Odesláno ✓';
