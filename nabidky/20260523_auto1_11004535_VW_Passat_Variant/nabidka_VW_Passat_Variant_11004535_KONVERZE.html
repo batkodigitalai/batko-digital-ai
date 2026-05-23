@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interní příležitost: Passat Variant z evropské aukce — Batko Digital AI</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; color: #1a1a1a; }
+.header { background: linear-gradient(135deg, #0d1f3c 0%, #1a2a4a 60%, #2c4a7c 100%); color: #fff; padding: 32px 40px 26px; }
+.header-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px; }
+.header-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #f39c12; margin-bottom: 10px; }
+.header-main-title { font-size: 1.9rem; font-weight: 800; line-height: 1.2; margin-bottom: 8px; }
+.header-main-title span { color: #f39c12; }
+.header-sub { font-size: 0.88rem; opacity: 0.75; margin-bottom: 6px; }
+.header-car-spec { font-size: 0.78rem; opacity: 0.55; }
+.header-right { text-align: right; min-width: 180px; }
+.badge-system { background: rgba(243,156,18,0.15); border: 1px solid #f39c12; color: #f39c12; padding: 5px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.5px; display: inline-block; margin-bottom: 10px; }
+.header-ref { font-size: 0.75rem; opacity: 0.5; margin-top: 6px; }
+.sender-bar { background: #162240; border-top: 1px solid rgba(255,255,255,0.1); padding: 9px 40px; color: rgba(255,255,255,0.7); font-size: 0.82rem; display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+.sender-bar strong { color: #fff; }
+.sender-bar a { color: #74b9ff; text-decoration: none; }
+.kurz-strip { background: #0d1f3c; color: #fff; padding: 9px 40px; display: flex; gap: 20px; align-items: center; flex-wrap: wrap; font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.08); }
+.kurz-strip .kr-rate { font-size: 1rem; font-weight: 800; color: #f39c12; }
+.kurz-strip .kr-label { opacity: 0.6; font-size: 0.72rem; }
+.urgency-block { background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%); color: #fff; padding: 22px 40px; text-align: center; position: relative; overflow: hidden; }
+.urgency-block::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(0,0,0,0.04) 20px, rgba(0,0,0,0.04) 40px); }
+.urgency-inner { position: relative; z-index: 1; }
+.urgency-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; opacity: 0.85; margin-bottom: 8px; }
+.urgency-headline { font-size: 1.35rem; font-weight: 800; margin-bottom: 14px; }
+.countdown { display: flex; gap: 12px; justify-content: center; align-items: center; margin-bottom: 10px; }
+.cd-unit { background: rgba(0,0,0,0.25); border-radius: 8px; padding: 10px 18px; min-width: 70px; }
+.cd-num { font-size: 2rem; font-weight: 900; line-height: 1; font-variant-numeric: tabular-nums; }
+.cd-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.75; margin-top: 3px; }
+.cd-sep { font-size: 2rem; font-weight: 900; opacity: 0.5; margin-top: -6px; animation: blink 1s step-end infinite; }
+@keyframes blink { 0%,100%{opacity:0.5} 50%{opacity:0.1} }
+.urgency-sub { font-size: 0.78rem; opacity: 0.75; margin-top: 4px; }
+.urgency-ended { font-size: 1.2rem; font-weight: 800; color: #fff; background: rgba(0,0,0,0.3); padding: 12px 24px; border-radius: 8px; display: none; }
+.gallery-wrap { background: #0d1420; padding: 0; position: relative; }
+.gallery-main { position: relative; width: 100%; height: 420px; overflow: hidden; }
+.gallery-main img { width: 100%; height: 100%; object-fit: cover; display: none; }
+.gallery-main img.active { display: block; }
+.gallery-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.55); color: #fff; border: none; cursor: pointer; font-size: 1.6rem; padding: 10px 18px; border-radius: 4px; z-index: 10; transition: background 0.2s; }
+.gallery-nav:hover { background: rgba(0,0,0,0.8); }
+.gallery-nav.prev { left: 12px; }
+.gallery-nav.next { right: 12px; }
+.gallery-counter { position: absolute; bottom: 12px; right: 16px; background: rgba(0,0,0,0.65); color: #fff; font-size: 0.78rem; padding: 3px 10px; border-radius: 12px; z-index: 10; }
+.gallery-badge { position: absolute; top: 16px; left: 16px; z-index: 20; }
+.gbadge { display: inline-block; background: linear-gradient(135deg, #0d1f3c, #1a3a6b); color: #f39c12; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 5px 14px; border-radius: 20px; border: 1px solid rgba(243,156,18,0.4); opacity: 0; position: absolute; left: 0; top: 0; white-space: nowrap; transition: opacity 0.6s ease; }
+.gbadge.visible { opacity: 1; }
+.thumbs { display: flex; gap: 4px; padding: 6px; overflow-x: auto; background: #0d1420; }
+.thumbs img { width: 80px; height: 54px; object-fit: cover; cursor: pointer; border: 2px solid transparent; border-radius: 3px; flex-shrink: 0; opacity: 0.65; transition: opacity 0.2s, border-color 0.2s; }
+.thumbs img.active { border-color: #f39c12; opacity: 1; }
+.thumbs img:hover { opacity: 1; }
+.content { max-width: 980px; margin: 0 auto; padding: 28px 20px; }
+.why-box { background: linear-gradient(135deg, #0d1f3c, #1a3461); border-radius: 12px; padding: 24px 28px; margin-bottom: 22px; color: #fff; }
+.why-box .wb-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #f39c12; margin-bottom: 10px; }
+.why-box h2 { font-size: 1.1rem; font-weight: 800; margin-bottom: 18px; }
+.why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 20px; }
+@media(max-width:600px){ .why-grid { grid-template-columns: 1fr; } }
+.why-item { background: rgba(255,255,255,0.07); border-radius: 8px; padding: 10px 14px; display: flex; align-items: center; gap: 10px; font-size: 0.85rem; }
+.why-item .wi-icon { font-size: 1rem; flex-shrink: 0; }
+.scoring-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 6px; }
+.score-item { background: rgba(255,255,255,0.08); border-radius: 8px; padding: 10px 16px; text-align: center; flex: 1; min-width: 100px; }
+.score-item .sc-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.6; margin-bottom: 5px; }
+.score-item .sc-val { font-size: 1rem; font-weight: 800; }
+.sc-high { color: #2ecc71; }
+.sc-mid { color: #f39c12; }
+.sc-low { color: #e74c3c; }
+.section { background: #fff; border-radius: 12px; padding: 22px 26px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.section h2 { font-size: 1rem; color: #1a2a4a; font-weight: 800; margin-bottom: 16px; border-bottom: 2px solid #e8ecf2; padding-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.specs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+@media(max-width:600px){ .specs-grid { grid-template-columns: 1fr 1fr; } }
+.spec-item { background: #f5f7fb; border-radius: 8px; padding: 11px 14px; }
+.spec-item .slabel { font-size: 0.68rem; color: #999; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 3px; }
+.spec-item .sval { font-size: 0.92rem; font-weight: 700; color: #1a2a4a; }
+.locked-block { background: linear-gradient(135deg, #f5f7fb, #edf2fb); border: 2px dashed #c8d6f0; border-radius: 10px; padding: 18px 20px; margin-top: 14px; text-align: center; position: relative; overflow: hidden; }
+.locked-block::before { content: ''; position: absolute; inset: 0; background: rgba(255,255,255,0.6); backdrop-filter: blur(2px); z-index: 1; }
+.locked-inner { position: relative; z-index: 2; }
+.lock-icon { font-size: 1.8rem; margin-bottom: 8px; }
+.lock-text { font-size: 0.85rem; color: #5a6a8a; margin-bottom: 12px; font-weight: 600; }
+.lock-sub { font-size: 0.75rem; color: #8899bb; margin-bottom: 14px; }
+.btn-unlock { background: linear-gradient(135deg, #2c4a7c, #1a2a4a); color: #fff; border: none; padding: 10px 22px; border-radius: 25px; font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; }
+.btn-unlock:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(28,42,74,0.3); }
+.unlocked-content { display: none; }
+.unlocked-content.visible { display: block; }
+.eq-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.eq-tag { background: #edf2fb; color: #2c4a7c; font-size: 0.78rem; padding: 4px 12px; border-radius: 20px; white-space: nowrap; }
+.eq-tag.highlight { background: #d4edda; color: #155724; font-weight: 700; }
+.audit-cta { background: linear-gradient(135deg, #0d1f3c, #1a3a6b); border-radius: 12px; padding: 24px 28px; margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
+.audit-cta-left .al-tag { color: #f39c12; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 7px; }
+.audit-cta-left .al-title { color: #fff; font-size: 1.05rem; font-weight: 800; margin-bottom: 5px; }
+.audit-cta-left .al-sub { color: rgba(255,255,255,0.65); font-size: 0.82rem; }
+.btn-audit { background: linear-gradient(135deg, #f39c12, #e67e22); color: #fff; text-decoration: none; padding: 13px 26px; border-radius: 8px; font-weight: 800; font-size: 0.95rem; white-space: nowrap; flex-shrink: 0; transition: transform 0.15s, box-shadow 0.15s; display: inline-block; cursor: pointer; border: none; }
+.btn-audit:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(243,156,18,0.4); }
+.kaskada { background: #fff; border-radius: 12px; padding: 24px 26px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.kaskada h2 { font-size: 1rem; color: #1a2a4a; font-weight: 800; margin-bottom: 18px; border-bottom: 2px solid #e8ecf2; padding-bottom: 8px; }
+.kaskada-items { display: flex; flex-direction: column; gap: 0; }
+.kaska-item { display: flex; gap: 16px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid #f0f2f5; }
+.kaska-item:last-child { border-bottom: none; }
+.kaska-num { background: linear-gradient(135deg, #1a2a4a, #2c4a7c); color: #fff; border-radius: 50%; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.9rem; flex-shrink: 0; margin-top: 2px; }
+.kaska-body { flex: 1; }
+.kaska-title { font-size: 0.92rem; font-weight: 800; color: #1a2a4a; margin-bottom: 3px; }
+.kaska-desc { font-size: 0.78rem; color: #666; margin-bottom: 6px; line-height: 1.5; }
+.kaska-price { font-size: 0.75rem; font-weight: 700; color: #2c4a7c; background: #edf2fb; padding: 2px 10px; border-radius: 20px; display: inline-block; }
+.kaska-price.free { background: #d4edda; color: #155724; }
+.kaska-price.top { background: linear-gradient(135deg, #f39c12, #e67e22); color: #fff; }
+.lead-section { background: linear-gradient(135deg, #f5f7fb, #eaf0ff); border: 2px solid #c8d6f0; border-radius: 12px; padding: 28px; margin-bottom: 18px; }
+.lead-section .ls-tag { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #2c4a7c; margin-bottom: 8px; }
+.lead-section h2 { font-size: 1.1rem; color: #1a2a4a; font-weight: 800; margin-bottom: 6px; }
+.lead-section .ls-sub { font-size: 0.83rem; color: #555; margin-bottom: 20px; }
+.lead-form { display: flex; flex-direction: column; gap: 12px; }
+.lead-form .lf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media(max-width:600px){ .lead-form .lf-row { grid-template-columns: 1fr; } }
+.lead-form input, .lead-form select, .lead-form textarea { width: 100%; padding: 11px 14px; border: 1.5px solid #c8d6f0; border-radius: 8px; font-size: 0.88rem; font-family: inherit; background: #fff; color: #1a1a1a; transition: border-color 0.2s; }
+.lead-form input:focus, .lead-form select:focus, .lead-form textarea:focus { outline: none; border-color: #2c4a7c; }
+.lead-form textarea { height: 80px; resize: vertical; }
+.btn-lead { background: linear-gradient(135deg, #2c4a7c, #1a2a4a); color: #fff; border: none; padding: 14px; border-radius: 8px; font-size: 0.95rem; font-weight: 800; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; letter-spacing: 0.3px; }
+.btn-lead:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(28,42,74,0.35); }
+.lead-privacy { font-size: 0.72rem; color: #999; text-align: center; margin-top: 8px; }
+.lead-success { display: none; background: #d4edda; border: 1px solid #27ae60; border-radius: 8px; padding: 16px; text-align: center; color: #155724; font-weight: 700; font-size: 0.9rem; }
+.doc-summary { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+@media(max-width:600px){ .doc-summary { grid-template-columns: 1fr; } }
+.doc-item { background: #f5f7fb; border-radius: 8px; padding: 11px 14px; display: flex; align-items: center; gap: 10px; font-size: 0.85rem; }
+.doc-item .di-icon { font-size: 1rem; flex-shrink: 0; }
+.doc-item .di-text { color: #1a2a4a; font-weight: 600; }
+.doc-detail-link { font-size: 0.78rem; color: #888; margin-top: 10px; cursor: pointer; text-decoration: underline; text-decoration-style: dotted; }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+@media(max-width:700px){ .two-col { grid-template-columns: 1fr; } }
+.company-id-bar { background: #f5f7fb; border-top: 2px solid #e0e7f0; padding: 14px 40px; font-size: 0.75rem; color: #666; }
+.company-id-bar h4 { font-size: 0.7rem; font-weight: 700; color: #8899bb; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+.company-id-bar .cid-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 24px; }
+@media(max-width:600px){ .company-id-bar .cid-grid { grid-template-columns: 1fr; } }
+.company-id-bar .cid-row { display: flex; gap: 6px; }
+.company-id-bar .cid-label { color: #aaa; min-width: 120px; font-size: 0.72rem; flex-shrink: 0; }
+.company-id-bar .cid-val { font-weight: 600; color: #555; font-size: 0.72rem; }
+.footer { background: #0d1f3c; color: rgba(255,255,255,0.5); text-align: center; padding: 16px 20px; font-size: 0.75rem; }
+.footer a { color: #74b9ff; }
+.info-box { background: #fff8e1; border-left: 4px solid #f39c12; border-radius: 6px; padding: 11px 14px; font-size: 0.82rem; color: #7d5a00; margin-top: 12px; }
+.info-box strong { display: block; margin-bottom: 3px; }
+.warn-box { background: #fdecea; border-left: 4px solid #e74c3c; border-radius: 6px; padding: 11px 14px; font-size: 0.82rem; color: #7b1c1c; margin-top: 12px; }
+.warn-box strong { display: block; margin-bottom: 3px; }
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 1000; align-items: center; justify-content: center; }
+.modal-overlay.open { display: flex; }
+.modal-box { background: #fff; border-radius: 14px; padding: 32px; max-width: 480px; width: 90%; position: relative; max-height: 90vh; overflow-y: auto; }
+.modal-close { position: absolute; top: 14px; right: 18px; background: none; border: none; font-size: 1.4rem; cursor: pointer; color: #888; }
+.modal-box h3 { font-size: 1.1rem; color: #1a2a4a; font-weight: 800; margin-bottom: 8px; }
+.modal-box .ms-sub { font-size: 0.85rem; color: #666; margin-bottom: 20px; }
+.modal-form input, .modal-form select { width: 100%; padding: 11px 14px; border: 1.5px solid #c8d6f0; border-radius: 8px; font-size: 0.88rem; font-family: inherit; margin-bottom: 10px; }
+.modal-form input:focus, .modal-form select:focus { outline: none; border-color: #2c4a7c; }
+.teaser-wrap { margin-bottom: 14px; }
+.teaser-card { background: #fff; border-radius: 14px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); overflow: hidden; border: 1px solid #e8ecf4; }
+.teaser-head { padding: 20px 24px; cursor: pointer; display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; transition: background 0.15s; }
+.teaser-head:hover { background: #fafbfd; }
+.teaser-badge { font-size: 0.66rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; padding: 3px 10px; border-radius: 20px; display: inline-block; margin-bottom: 7px; }
+.tb-free { background: #d4edda; color: #155724; }
+.tb-paid { background: #fff3cd; color: #856404; }
+.tb-prem { background: linear-gradient(135deg,#f39c12,#e67e22); color: #fff; }
+.teaser-head h3 { font-size: 1.05rem; font-weight: 800; color: #1a2a4a; margin-bottom: 5px; }
+.teaser-head .th-sub { font-size: 0.8rem; color: #666; }
+.teaser-arrow { font-size: 1.3rem; color: #2c4a7c; flex-shrink: 0; transition: transform 0.25s; margin-top: 4px; }
+.teaser-body { display: none; padding: 0 24px 22px; border-top: 1px solid #f0f3f8; }
+.teaser-body.open { display: block; }
+.teaser-body .tb-intro { font-size: 0.88rem; color: #333; font-weight: 600; margin: 16px 0 12px; line-height: 1.5; }
+.teaser-body ul { list-style: none; padding: 0; margin: 0 0 16px; display: flex; flex-direction: column; gap: 7px; }
+.teaser-body ul li { font-size: 0.83rem; color: #444; padding-left: 24px; position: relative; line-height: 1.5; }
+.teaser-body ul li::before { content: '✓'; position: absolute; left: 0; color: #27ae60; font-weight: 800; }
+.teaser-body .tb-anchor { background: linear-gradient(135deg,#0d1f3c,#1a3a6b); color: rgba(255,255,255,0.9); border-radius: 8px; padding: 12px 16px; font-size: 0.82rem; margin-bottom: 16px; }
+.teaser-body .tb-anchor strong { color: #f39c12; }
+.teaser-body .tb-price { font-size: 0.8rem; color: #888; margin-bottom: 14px; }
+.teaser-body .tb-price strong { color: #1a2a4a; font-size: 1rem; }
+.inline-form { background: #f5f7fb; border-radius: 10px; padding: 16px 18px; }
+.inline-form p { font-size: 0.82rem; color: #555; margin-bottom: 12px; font-weight: 600; }
+.inline-form input, .inline-form select, .inline-form textarea { width: 100%; padding: 10px 13px; border: 1.5px solid #c8d6f0; border-radius: 7px; font-size: 0.85rem; font-family: inherit; background: #fff; margin-bottom: 9px; }
+.inline-form input:focus, .inline-form select:focus { outline: none; border-color: #2c4a7c; }
+.inline-form textarea { height: 68px; resize: vertical; }
+.btn-service { background: linear-gradient(135deg,#1a2a4a,#2c4a7c); color: #fff; border: none; padding: 11px 22px; border-radius: 25px; font-size: 0.86rem; font-weight: 700; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; }
+.btn-service:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(28,42,74,0.3); }
+.btn-service-gold { background: linear-gradient(135deg,#f39c12,#e67e22); }
+.service-success { display:none; background:#d4edda; border:1px solid #27ae60; border-radius:7px; padding:13px; text-align:center; color:#155724; font-weight:700; font-size:0.88rem; margin-top:10px; }
+.teaser-body .divider { border:none; border-top:1px solid #e8ecf4; margin:14px 0; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div class="header-left">
+      <div class="header-label">⚡ Interní příležitost — systém AI výběru vozidel</div>
+      <h1 class="header-main-title">Passat Variant z německé aukce —<br>v ČR ho koupíte za <span>výrazně více.</span></h1>
+      <p class="header-sub">Předběžně vyhodnoceno systémem pro vyhledávání vozidel z evropských aukčních zdrojů.</p>
+      <p class="header-car-spec">Volkswagen Passat Variant 2.0 TDI Business &bull; 150 hp &bull; 59 394 km &bull; 2022 &bull; Automat</p>
+    </div>
+    <div class="header-right">
+      <div class="badge-system">✦ Systém AI výběru</div>
+      <p style="color:rgba(255,255,255,0.55);font-size:0.75rem;margin-top:4px;">Zpracoval: <strong style="color:#fff;">Jaroslav Batko</strong></p>
+      <p class="header-ref">Ref.: #11004535</p>
+    </div>
+  </div>
+</div>
+
+<div class="sender-bar">
+  <span>Batko Digital AI</span>
+  <span>✉ <a href="mailto:batko.digital.ai@gmail.com">batko.digital.ai@gmail.com</a></span>
+  <span>📞 +420 725 360 151</span>
+  <span style="margin-left:auto;font-size:0.75rem;opacity:0.5;">Zdroj: Evropský aukční zdroj (jen pro registrované)</span>
+</div>
+
+<div class="kurz-strip">
+  <span class="kr-label">Kurz ČNB</span>
+  <span class="kr-rate">1 EUR = 24,40 Kč</span>
+  <span style="opacity:0.4;">·</span>
+  <span>Platnost: <strong>23. 5. 2026</strong></span>
+  <span style="opacity:0.5;font-size:0.72rem;margin-left:4px;">Před rozhodnutím vždy ověřte aktuální kurz na cnb.cz</span>
+</div>
+
+<div class="urgency-block">
+  <div class="urgency-inner">
+    <div class="urgency-label">⏳ Pozor — omezená časová příležitost</div>
+    <div class="urgency-headline">Aukce končí za méně než 4 dny.</div>
+    <div class="countdown" id="countdown">
+      <div class="cd-unit"><div class="cd-num" id="cd-h">00</div><div class="cd-label">hodin</div></div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit"><div class="cd-num" id="cd-m">00</div><div class="cd-label">minut</div></div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit"><div class="cd-num" id="cd-s">00</div><div class="cd-label">sekund</div></div>
+    </div>
+    <div class="urgency-ended" id="urgency-ended">⚠️ Aukce skončila — podobné vozidlo lze vyhledat na žádost</div>
+    <div class="urgency-sub" id="urgency-sub">Aukce: 26. 5. 2026 14:55 &bull; x-Time aukce &bull; Leipzig, DE &bull; Ayvens (ex ALD)</div>
+  </div>
+</div>
+
+<div class="gallery-wrap">
+  <div class="gallery-main" id="gallery">
+    <div class="gallery-badge" id="gallery-badge">
+      <div class="gbadge visible" id="gbadge">✦ Vybráno systémem AI</div>
+    </div>
+    <img src="img/foto_01.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/a2b9d856-235d-4063-978c-5ddfa9e11b0d.jpg'" class="active" alt="VW Passat Variant foto 1">
+    <img src="img/foto_02.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/ee1427bd-5e90-446b-82a0-ceff3d39e178.jpg'" alt="VW Passat Variant foto 2">
+    <img src="img/foto_03.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/ee95dce5-2e2b-43b2-a621-0561c8ed1f08.jpg'" alt="VW Passat Variant foto 3">
+    <img src="img/foto_04.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/629e4450-6b3c-4871-9951-daf98e8ecfaa.jpg'" alt="VW Passat Variant foto 4">
+    <img src="img/foto_05.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/ee7c0085-7f1a-4067-98e8-a131b5122867.jpg'" alt="VW Passat Variant foto 5">
+    <img src="img/foto_06.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/0e83aa05-3372-4ecb-873f-ad8faa2ba5f3.jpg'" alt="VW Passat Variant foto 6">
+    <img src="img/foto_07.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/d32ef9fb-2190-4aa2-b30b-f36c720a0bc0.jpg'" alt="VW Passat Variant foto 7">
+    <img src="img/foto_08.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/2de49432-5e6b-4902-a2eb-753de773942a.jpg'" alt="VW Passat Variant foto 8">
+    <img src="img/foto_09.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/2a42d95c-69ea-40d6-9eca-561a776b9171.jpg'" alt="VW Passat Variant foto 9">
+    <img src="img/foto_10.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/4c1c7a64-a9ae-49ac-92f5-64c5d7d6d0bf.jpg'" alt="VW Passat Variant foto 10">
+    <img src="img/foto_11.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/a78e28a0-b069-4762-a10e-35b4d81c9eed.jpg'" alt="VW Passat Variant foto 11">
+    <img src="img/foto_12.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/dd47a73d-aa59-4bbc-9bcc-ecf2476494e4.jpg'" alt="VW Passat Variant foto 12">
+    <img src="img/foto_13.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/a6b01661-c9d2-4e09-8a16-65602b2a5acb.jpg'" alt="VW Passat Variant foto 13">
+    <img src="img/foto_14.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/7b05c9f6-c1c5-4d3c-bc5f-771ec70ab410.jpg'" alt="VW Passat Variant foto 14">
+    <img src="img/foto_15.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/66884662-9b40-4a3a-b832-65942befbb22.jpg'" alt="VW Passat Variant foto 15">
+    <img src="img/foto_16.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/ddd95d5b-4663-4f3c-9b0f-f4b63001d6aa.jpg'" alt="VW Passat Variant foto 16">
+    <img src="img/foto_17.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/597f6e2f-f1a9-4903-b5cf-14003c1b6c49.jpg'" alt="VW Passat Variant foto 17">
+    <img src="img/foto_18.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/68b9956d-d940-4f36-a982-0a8e32f7bcc1.jpg'" alt="VW Passat Variant foto 18">
+    <img src="img/foto_19.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/5a1ac031-aeee-41ad-921a-d53f76a0389b.jpg'" alt="VW Passat Variant foto 19">
+    <img src="img/foto_20.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/b43dc4b6-d267-4d09-91e2-a0dd3002e8f5.jpg'" alt="VW Passat Variant foto 20">
+    <img src="img/foto_21.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/01c076d6-1ff7-40c4-a605-3c0b7b1186d3.jpg'" alt="VW Passat Variant foto 21">
+    <img src="img/foto_22.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/3d745e4d-8ba7-4ba9-a8f7-ce49854c9b1d.jpg'" alt="VW Passat Variant foto 22">
+    <img src="img/foto_23.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/95ba1d3e-2479-4e3f-b5eb-7482184a1ffb.jpg'" alt="VW Passat Variant foto 23">
+    <img src="img/foto_24.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/35078f54-fd9e-4824-9c28-90b67cde198a.jpg'" alt="VW Passat Variant foto 24">
+    <img src="img/foto_25.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/4789edba-5236-4f04-85ce-8584289589bc.jpg'" alt="VW Passat Variant foto 25">
+    <img src="img/foto_26.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/9172eb29-c851-4bc3-9dc4-3c8561ca608f.jpg'" alt="VW Passat Variant foto 26">
+    <img src="img/foto_27.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/e3cee27b-11ab-43ad-8f71-ca1e0d87f36b.jpg'" alt="VW Passat Variant foto 27">
+    <img src="img/foto_28.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/db665883-9ebf-4fa7-88f6-bb1af4a3310c.jpg'" alt="VW Passat Variant foto 28">
+    <img src="img/foto_29.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/04c50965-05fb-40cf-8c30-db321c8dbb35.jpg'" alt="VW Passat Variant foto 29">
+    <img src="img/foto_30.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/c386b1fe-60ad-45c1-ae6d-fc1c74b1541d.jpg'" alt="VW Passat Variant foto 30">
+    <img src="img/foto_31.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/c062deee-4cb7-468f-8ae2-99a163078020.jpg'" alt="VW Passat Variant foto 31">
+    <img src="img/foto_32.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/f9aaf313-aa54-41d8-ac28-fa0dc4903b56.jpg'" alt="VW Passat Variant foto 32">
+    <img src="img/foto_33.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/135cb3e5-f5b3-4412-b8eb-7a6bef322887.jpg'" alt="VW Passat Variant foto 33">
+    <img src="img/foto_34.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/0afd6181-1970-4f11-83f1-47450b35c1c1.jpg'" alt="VW Passat Variant foto 34">
+    <img src="img/foto_35.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/829f167a-6235-4589-a3be-ae5a2f738647.jpg'" alt="VW Passat Variant foto 35">
+    <img src="img/foto_36.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/163287ce-f417-402b-b9fb-a8263693b80b.jpg'" alt="VW Passat Variant foto 36">
+    <img src="img/foto_37.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/527305f9-dbd2-4fe4-b4f5-5657d846ed0a.jpg'" alt="VW Passat Variant foto 37">
+    <img src="img/foto_38.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/14e5d6d8-e9d8-4b17-bcea-f1aa16231421.jpg'" alt="VW Passat Variant foto 38">
+    <img src="img/foto_39.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/1d50d902-9e66-4a08-86a3-8b810f03ff5c.jpg'" alt="VW Passat Variant foto 39">
+    <img src="img/foto_40.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/61fac6f4-12fc-4ae3-9103-9fffd051a410.jpg'" alt="VW Passat Variant foto 40">
+    <img src="img/foto_41.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/ad7f210c-ab11-454f-8ef4-967b9fc150f4.jpg'" alt="VW Passat Variant foto 41">
+    <button class="gallery-nav prev" onclick="changeSlide(-1)">&#8249;</button>
+    <button class="gallery-nav next" onclick="changeSlide(1)">&#8250;</button>
+    <div class="gallery-counter" id="counter">1 / 41</div>
+  </div>
+  <div class="thumbs" id="thumbs">
+    <img src="img/foto_01.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/a2b9d856-235d-4063-978c-5ddfa9e11b0d.jpg'" class="active" onclick="goSlide(0)">
+    <img src="img/foto_02.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/ee1427bd-5e90-446b-82a0-ceff3d39e178.jpg'" onclick="goSlide(1)">
+    <img src="img/foto_03.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/ee95dce5-2e2b-43b2-a621-0561c8ed1f08.jpg'" onclick="goSlide(2)">
+    <img src="img/foto_04.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/629e4450-6b3c-4871-9951-daf98e8ecfaa.jpg'" onclick="goSlide(3)">
+    <img src="img/foto_05.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/ee7c0085-7f1a-4067-98e8-a131b5122867.jpg'" onclick="goSlide(4)">
+    <img src="img/foto_06.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/0e83aa05-3372-4ecb-873f-ad8faa2ba5f3.jpg'" onclick="goSlide(5)">
+    <img src="img/foto_07.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/d32ef9fb-2190-4aa2-b30b-f36c720a0bc0.jpg'" onclick="goSlide(6)">
+    <img src="img/foto_08.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/2de49432-5e6b-4902-a2eb-753de773942a.jpg'" onclick="goSlide(7)">
+    <img src="img/foto_09.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/2a42d95c-69ea-40d6-9eca-561a776b9171.jpg'" onclick="goSlide(8)">
+    <img src="img/foto_10.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/4c1c7a64-a9ae-49ac-92f5-64c5d7d6d0bf.jpg'" onclick="goSlide(9)">
+    <img src="img/foto_11.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/a78e28a0-b069-4762-a10e-35b4d81c9eed.jpg'" onclick="goSlide(10)">
+    <img src="img/foto_12.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/dd47a73d-aa59-4bbc-9bcc-ecf2476494e4.jpg'" onclick="goSlide(11)">
+    <img src="img/foto_13.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/a6b01661-c9d2-4e09-8a16-65602b2a5acb.jpg'" onclick="goSlide(12)">
+    <img src="img/foto_14.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/7b05c9f6-c1c5-4d3c-bc5f-771ec70ab410.jpg'" onclick="goSlide(13)">
+    <img src="img/foto_15.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/66884662-9b40-4a3a-b832-65942befbb22.jpg'" onclick="goSlide(14)">
+    <img src="img/foto_16.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/ddd95d5b-4663-4f3c-9b0f-f4b63001d6aa.jpg'" onclick="goSlide(15)">
+    <img src="img/foto_17.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/597f6e2f-f1a9-4903-b5cf-14003c1b6c49.jpg'" onclick="goSlide(16)">
+    <img src="img/foto_18.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/68b9956d-d940-4f36-a982-0a8e32f7bcc1.jpg'" onclick="goSlide(17)">
+    <img src="img/foto_19.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/5a1ac031-aeee-41ad-921a-d53f76a0389b.jpg'" onclick="goSlide(18)">
+    <img src="img/foto_20.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/b43dc4b6-d267-4d09-91e2-a0dd3002e8f5.jpg'" onclick="goSlide(19)">
+    <img src="img/foto_21.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/01c076d6-1ff7-40c4-a605-3c0b7b1186d3.jpg'" onclick="goSlide(20)">
+    <img src="img/foto_22.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/3d745e4d-8ba7-4ba9-a8f7-ce49854c9b1d.jpg'" onclick="goSlide(21)">
+    <img src="img/foto_23.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/95ba1d3e-2479-4e3f-b5eb-7482184a1ffb.jpg'" onclick="goSlide(22)">
+    <img src="img/foto_24.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/35078f54-fd9e-4824-9c28-90b67cde198a.jpg'" onclick="goSlide(23)">
+    <img src="img/foto_25.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/4789edba-5236-4f04-85ce-8584289589bc.jpg'" onclick="goSlide(24)">
+    <img src="img/foto_26.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/9172eb29-c851-4bc3-9dc4-3c8561ca608f.jpg'" onclick="goSlide(25)">
+    <img src="img/foto_27.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/e3cee27b-11ab-43ad-8f71-ca1e0d87f36b.jpg'" onclick="goSlide(26)">
+    <img src="img/foto_28.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/db665883-9ebf-4fa7-88f6-bb1af4a3310c.jpg'" onclick="goSlide(27)">
+    <img src="img/foto_29.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/04c50965-05fb-40cf-8c30-db321c8dbb35.jpg'" onclick="goSlide(28)">
+    <img src="img/foto_30.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/c386b1fe-60ad-45c1-ae6d-fc1c74b1541d.jpg'" onclick="goSlide(29)">
+    <img src="img/foto_31.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/c062deee-4cb7-468f-8ae2-99a163078020.jpg'" onclick="goSlide(30)">
+    <img src="img/foto_32.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/f9aaf313-aa54-41d8-ac28-fa0dc4903b56.jpg'" onclick="goSlide(31)">
+    <img src="img/foto_33.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/135cb3e5-f5b3-4412-b8eb-7a6bef322887.jpg'" onclick="goSlide(32)">
+    <img src="img/foto_34.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/0afd6181-1970-4f11-83f1-47450b35c1c1.jpg'" onclick="goSlide(33)">
+    <img src="img/foto_35.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/829f167a-6235-4589-a3be-ae5a2f738647.jpg'" onclick="goSlide(34)">
+    <img src="img/foto_36.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/163287ce-f417-402b-b9fb-a8263693b80b.jpg'" onclick="goSlide(35)">
+    <img src="img/foto_37.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/527305f9-dbd2-4fe4-b4f5-5657d846ed0a.jpg'" onclick="goSlide(36)">
+    <img src="img/foto_38.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/14e5d6d8-e9d8-4b17-bcea-f1aa16231421.jpg'" onclick="goSlide(37)">
+    <img src="img/foto_39.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/1d50d902-9e66-4a08-86a3-8b810f03ff5c.jpg'" onclick="goSlide(38)">
+    <img src="img/foto_40.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/61fac6f4-12fc-4ae3-9103-9fffd051a410.jpg'" onclick="goSlide(39)">
+    <img src="img/foto_41.jpg" onerror="this.src='https://images.openlane.eu/carimgs/5842450/general/ad7f210c-ab11-454f-8ef4-967b9fc150f4.jpg'" onclick="goSlide(40)">
+  </div>
+</div>
+
+<div class="content">
+
+  <div class="why-box">
+    <div class="wb-label">✦ Hodnocení systému</div>
+    <h2>Proč bylo toto vozidlo vybráno</h2>
+    <div class="why-grid">
+      <div class="why-item"><span class="wi-icon">✅</span> Passat Variant — prémiové kombi, žádané u firem i rodin</div>
+      <div class="why-item"><span class="wi-icon">✅</span> Fleetový původ Ayvens/ALD — kontrolovaný provoz</div>
+      <div class="why-item"><span class="wi-icon">✅</span> Navigace + kamera + tempomat + tažný hák v ceně</div>
+      <div class="why-item"><span class="wi-icon">✅</span> LED světlomety + bezklíčové zamykání — business výbava</div>
+      <div class="why-item"><span class="wi-icon">✅</span> Nájezd 59 394 km odpovídá stáří (~20 000 km/rok) ✅</div>
+      <div class="why-item"><span class="wi-icon">⚠️</span> 1 klíč v aukci — doporučena VIN kontrola před nákupem</div>
+    </div>
+    <div class="wb-label" style="margin-bottom:10px;">Předběžné skóre systému</div>
+    <div class="scoring-row">
+      <div class="score-item"><div class="sc-label">Příležitost</div><div class="sc-val sc-high">Vysoká</div></div>
+      <div class="score-item"><div class="sc-label">Riziko</div><div class="sc-val sc-mid">Střední</div></div>
+      <div class="score-item"><div class="sc-label">Likvidita</div><div class="sc-val sc-high">Silná</div></div>
+      <div class="score-item"><div class="sc-label">Vhodnost: rodina</div><div class="sc-val sc-high">✓ Ano</div></div>
+      <div class="score-item"><div class="sc-label">Vhodnost: přeprodej</div><div class="sc-val sc-mid">✓ Podmíněně</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>📋 Základní parametry vozidla</h2>
+    <div class="specs-grid">
+      <div class="spec-item"><div class="slabel">Rok výroby / 1. registrace</div><div class="sval">2022 (14. 12. 2022)</div></div>
+      <div class="spec-item"><div class="slabel">Nájezd</div><div class="sval">59 394 km</div></div>
+      <div class="spec-item"><div class="slabel">Výkon</div><div class="sval">110 kW / 150 hp</div></div>
+      <div class="spec-item"><div class="slabel">Palivo</div><div class="sval">Nafta (diesel)</div></div>
+      <div class="spec-item"><div class="slabel">Převodovka</div><div class="sval">7-stupňová DSG (automat)</div></div>
+      <div class="spec-item"><div class="slabel">Karoserie</div><div class="sval">Kombi (Break / Variant)</div></div>
+      <div class="spec-item"><div class="slabel">Aukční cena</div><div class="sval">10 600 EUR / 258 646 Kč</div></div>
+    </div>
+
+    <div class="locked-block" id="lock-specs">
+      <div class="locked-inner">
+        <div class="lock-icon">🔒</div>
+        <div class="lock-text">Další technické informace dostupné po odemčení</div>
+        <div class="lock-sub">Objem motoru &bull; Barva a interiér &bull; VIN &bull; Počet klíčů &bull; Inspekční zprávy</div>
+        <button class="btn-unlock" onclick="openModal('modal-lead', 'specs')">🔓 Odemknout podrobnosti zdarma</button>
+      </div>
+    </div>
+    <div class="unlocked-content" id="unlocked-specs">
+      <div class="specs-grid" style="margin-top:14px;">
+        <div class="spec-item"><div class="slabel">Objem motoru</div><div class="sval">1 968 cc</div></div>
+        <div class="spec-item"><div class="slabel">Norma emisí</div><div class="sval">Euro 6d</div></div>
+        <div class="spec-item"><div class="slabel">Barva (lak)</div><div class="sval">Stříbrná metalická</div></div>
+        <div class="spec-item"><div class="slabel">Interiér</div><div class="sval">Černý</div></div>
+        <div class="spec-item"><div class="slabel">Dveře / Místa</div><div class="sval">5 dveří / 5 míst</div></div>
+        <div class="spec-item"><div class="slabel">Klíče</div><div class="sval">1 ks (dle aukce) ⚠️</div></div>
+        <div class="spec-item"><div class="slabel">VIN</div><div class="sval">WVWZZZ3CZPE028430</div></div>
+      </div>
+      <div class="warn-box" style="margin-top:14px;">
+        <strong>⚠️ Pouze 1 klíč</strong>
+        Aukce uvádí 1 klíč — typické u leasingových/fleetových vozidel. Doporučujeme ověřit při převzetí a případně zajistit nový klíč přes VW servis (cca 5 000–10 000 Kč).
+      </div>
+      <div class="info-box" style="margin-top:10px;">
+        <strong>🏭 Fleetový původ — Ayvens (ex ALD Automotive)</strong>
+        Jedno z největších leasingových / fleetových provozovatelů v EU. Vozidla pravidelně servisována, dokumentace k dispozici v aukci. Zpravidla bez úprav a bez soukromého opotřebení.
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>⭐ Výbava vozidla</h2>
+    <div style="font-size:0.72rem;color:#155724;background:#d4edda;border-radius:6px;padding:5px 12px;display:inline-flex;align-items:center;gap:6px;margin-bottom:10px;">
+      <span>✦</span> <strong>Zelené položky</strong> = výbava nad standard — přidávají hodnotu při přeprodaji i vlastním užívání.
+    </div>
+    <div class="eq-tags" style="margin-bottom:12px;">
+      <span class="eq-tag highlight">LED světlomety</span>
+      <span class="eq-tag highlight">Tažný hák</span>
+      <span class="eq-tag highlight">Android Auto</span>
+      <span class="eq-tag highlight">Navigace</span>
+      <span class="eq-tag highlight">Adaptivní tempomat</span>
+      <span class="eq-tag highlight">Zadní kamera</span>
+      <span class="eq-tag highlight">Bezklíčové zamykání</span>
+    </div>
+
+    <div class="locked-block" id="lock-eq">
+      <div class="locked-inner">
+        <div class="lock-icon">🔒</div>
+        <div class="lock-text">+ dalších 10 položek výbavy</div>
+        <div class="lock-sub">Bezpečnostní asistenti &bull; Komfort &bull; Konektivita &bull; Exteriér</div>
+        <button class="btn-unlock" onclick="openModal('modal-lead', 'eq')">🔓 Zobrazit kompletní výbavu zdarma</button>
+      </div>
+    </div>
+    <div class="unlocked-content" id="unlocked-eq">
+      <div style="margin-top:14px;">
+        <div style="font-size:0.75rem;font-weight:700;color:#2c4a7c;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">🛡 Bezpečnostní systémy &amp; asistenti</div>
+        <div class="eq-tags" style="margin-bottom:12px;">
+          <span class="eq-tag">ABS + ESP</span>
+          <span class="eq-tag highlight">Asistent udržení pruhu (Lane Assist)</span>
+          <span class="eq-tag highlight">Adaptivní tempomat (ACC)</span>
+          <span class="eq-tag">Start&amp;Stop systém</span>
+          <span class="eq-tag">Isofix</span>
+        </div>
+        <div style="font-size:0.75rem;font-weight:700;color:#2c4a7c;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">🌡 Klimatizace &amp; komfort</div>
+        <div class="eq-tags" style="margin-bottom:12px;">
+          <span class="eq-tag">Manuální klimatizace</span>
+          <span class="eq-tag">Bederní opěrka</span>
+          <span class="eq-tag">Střešní lišty</span>
+          <span class="eq-tag">Vyhřívání předních dveří</span>
+        </div>
+        <div style="font-size:0.75rem;font-weight:700;color:#2c4a7c;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">🔄 Konektivita &amp; infotainment</div>
+        <div class="eq-tags" style="margin-bottom:12px;">
+          <span class="eq-tag highlight">Android Auto</span>
+          <span class="eq-tag highlight">Navigace</span>
+          <span class="eq-tag">Rádio DAB+</span>
+          <span class="eq-tag">Kožený volant</span>
+        </div>
+        <div style="font-size:0.75rem;font-weight:700;color:#2c4a7c;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">🚗 Parkování &amp; exteriér</div>
+        <div class="eq-tags">
+          <span class="eq-tag highlight">Zadní parkovací čidla</span>
+          <span class="eq-tag highlight">Zadní kamera</span>
+          <span class="eq-tag highlight">Bezklíčové zamykání</span>
+          <span class="eq-tag highlight">Metalický lak (stříbrná)</span>
+          <span class="eq-tag">Alu kola</span>
+          <span class="eq-tag highlight">Tažný hák</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="section">
+      <h2>🔍 Stav vozidla</h2>
+      <div class="info-box">
+        <strong>✅ Fleetový původ Ayvens — kontrolovaný provoz</strong>
+        Vozidlo pochází z firemního leasingového provozu největšího provozovatele flotil v EU. Pravidelný servis, bez soukromého opotřebení.
+      </div>
+      <div class="info-box" style="margin-top:10px;">
+        <strong>📋 Inspekční zprávy dostupné v aukci</strong>
+        K vozidlu jsou přiloženy inspekční dokumenty. Detaily k dispozici po přihlášení do aukčního systému nebo na vyžádání.
+      </div>
+      <div class="warn-box">
+        <strong>⚠️ 1 klíč — ověřit při převzetí</strong>
+        Doporučujeme VIN kontrolu a fyzickou prohlídku před finálním rozhodnutím.
+      </div>
+      <div style="margin-top:14px;">
+        <button class="btn-unlock" style="font-size:0.82rem;padding:9px 18px;" onclick="openModal('modal-audit', null)">📊 Zjistit detail rizik →</button>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>📁 Dokumenty &amp; původ</h2>
+      <div class="doc-summary">
+        <div class="doc-item"><span class="di-icon">✅</span><span class="di-text">Registrace vozidla</span></div>
+        <div class="doc-item"><span class="di-icon">✅</span><span class="di-text">Evropský původ (DE)</span></div>
+        <div class="doc-item"><span class="di-icon">✅</span><span class="di-text">Inspekční zprávy v aukci</span></div>
+        <div class="doc-item"><span class="di-icon">✅</span><span class="di-text">CarReport k dispozici</span></div>
+        <div class="doc-item"><span class="di-icon">🏭</span><span class="di-text">Fleet Ayvens / ALD (DE)</span></div>
+        <div class="doc-item"><span class="di-icon">⚠️</span><span class="di-text">Servis — ověřit dle VIN</span></div>
+      </div>
+      <div class="info-box">
+        <strong>📬 Doklady</strong>
+        Expresní pošta kupujícímu, průměrně do 2 dnů od finalizace transakce.
+      </div>
+      <p class="doc-detail-link" onclick="openModal('modal-lead', 'docs')">Zobrazit detailní informace o dokumentaci →</p>
+    </div>
+  </div>
+
+  <div class="audit-cta">
+    <div class="audit-cta-left">
+      <div class="al-tag">📊 Placená prémiová služba</div>
+      <div class="al-title">Detailní audit rizik vozidla</div>
+      <div class="al-sub">Technická rizika &bull; Ekonomická analýza &bull; Predikce nákladů &bull; Odhad ROI &bull; Kontrolní checklist &bull; Verdikt ke koupi</div>
+    </div>
+    <button class="btn-audit" onclick="openModal('modal-audit', null)">Požádat o audit →</button>
+  </div>
+
+  <div class="lead-section" id="lead-main">
+    <div class="ls-tag">✉ Bezplatná konzultace</div>
+    <h2>Máte zájem? Zanechte kontakt.</h2>
+    <p class="ls-sub">Ozveme se do několika hodin. Bez závazků. Posoudíme příležitost společně.</p>
+    <div class="lead-form" id="lead-form-main">
+      <div class="lf-row">
+        <input type="text" id="lf-jmeno" placeholder="Jméno a příjmení" required>
+        <input type="tel" id="lf-telefon" placeholder="Telefon (+420 …)">
+      </div>
+      <input type="email" id="lf-email" placeholder="E-mail (povinné)" required>
+      <select id="lf-zajem">
+        <option value="">— Jak chcete vozidlo využít? —</option>
+        <option value="rodinne">Rodinné auto pro vlastní potřebu</option>
+        <option value="preprodej-fo">Přeprodej — fyzická osoba</option>
+        <option value="preprodej-ico">Přeprodej — podnikatel / firma (IČO)</option>
+        <option value="agentura">Chci, aby nakoupil Batko za mě</option>
+        <option value="podobne">Hledám podobné vozidlo</option>
+        <option value="jine">Jiné</option>
+      </select>
+      <textarea id="lf-zprava" placeholder="Doplňující informace nebo dotaz (nepovinné)…"></textarea>
+      <button class="btn-lead" onclick="submitLead('main')">📩 Odeslat — chci se dozvědět více</button>
+      <p class="lead-privacy">Vaše údaje jsou v bezpečí. Slouží pouze pro kontaktování zpracovatele. Nikam nepředáváme.</p>
+    </div>
+    <div class="lead-success" id="lead-success-main">
+      ✅ Děkujeme! Ozve se vám Jaroslav Batko, zpravidla do několika hodin.
+    </div>
+  </div>
+
+  <div class="kaskada">
+    <h2>💼 Co můžete získat dál</h2>
+    <div class="kaskada-items">
+      <div class="kaska-item">
+        <div class="kaska-num">1</div>
+        <div class="kaska-body">
+          <div class="kaska-title">Rychlé vyhodnocení vozidla</div>
+          <div class="kaska-desc">Orientační posouzení příležitosti, základní parametry, verdikt k dalšímu postupu. Tato stránka je ukázkou výstupu.</div>
+          <span class="kaska-price free">Zdarma při kontaktu</span>
+        </div>
+      </div>
+      <div class="kaska-item">
+        <div class="kaska-num">2</div>
+        <div class="kaska-body">
+          <div class="kaska-title">Detailní audit rizik vozidla</div>
+          <div class="kaska-desc">Technická rizika EA288 TDI &bull; predikce budoucích nákladů &bull; odhad návratnosti kapitálu &bull; checklist 11 kroků &bull; jasný verdikt: koupit / nekupovat.</div>
+          <span class="kaska-price">Od 990 Kč</span>
+        </div>
+      </div>
+      <div class="kaska-item">
+        <div class="kaska-num">3</div>
+        <div class="kaska-body">
+          <div class="kaska-title">Vyhledání podobných vozidel pod trhem</div>
+          <div class="kaska-desc">Procházíme aktivní evropské aukce a hledáme vozidla odpovídající vašim parametrům, které český trh nabízí výrazně dráže.</div>
+          <span class="kaska-price">Od 1 490 Kč</span>
+        </div>
+      </div>
+      <div class="kaska-item">
+        <div class="kaska-num">4</div>
+        <div class="kaska-body">
+          <div class="kaska-title">Komplexní sourcing na míru</div>
+          <div class="kaska-desc">Specifikujete parametry, my hledáme konkrétní vozidla na evropských zdrojích a předkládáme vybrané příležitosti s kompletní analýzou.</div>
+          <span class="kaska-price">Individuální ceník</span>
+        </div>
+      </div>
+      <div class="kaska-item">
+        <div class="kaska-num">5</div>
+        <div class="kaska-body">
+          <div class="kaska-title">Zastupování v aukci</div>
+          <div class="kaska-desc">Vy schválíte maximální cenu, my sledujeme průběh a nabízíme vaším jménem. Transparentní provize ze skutečně realizovaného nákupu.</div>
+          <span class="kaska-price">Provize ze nákupu</span>
+        </div>
+      </div>
+      <div class="kaska-item">
+        <div class="kaska-num">6</div>
+        <div class="kaska-body">
+          <div class="kaska-title">Kompletní realizace nákupu</div>
+          <div class="kaska-desc">Od výběru vozidla přes aukci, dopravu, celní odbavení, registraci až po předání klíčů. Vše za paušál nebo podíl z úspory oproti trhu.</div>
+          <span class="kaska-price top">Prémiová služba</span>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:20px;">
+      <button class="btn-audit" onclick="document.getElementById('lead-main').scrollIntoView({behavior:'smooth'})">
+        📩 Mám zájem — kontaktujte mě
+      </button>
+    </div>
+  </div>
+
+  <!-- TEASER 1 — EXPERTIZA -->
+  <div class="teaser-wrap">
+  <div class="teaser-card">
+    <div class="teaser-head" onclick="toggleTeaser('t1')">
+      <div>
+        <div class="teaser-badge tb-paid">📊 Placená služba &nbsp;·&nbsp; od 990 Kč</div>
+        <h3>Expertiza &amp; technický audit rizik vozidla</h3>
+        <p class="th-sub">Dostanete přesně to, co by vám řekl technik, kterého znáte 20 let — ale bez vytáček a bez loajality k prodejci.</p>
+      </div>
+      <span class="teaser-arrow" id="arr-t1">›</span>
+    </div>
+    <div class="teaser-body" id="t1">
+      <p class="tb-intro">Tady je přesně to, co dostanete. Žádné sliby, žádná abstrakta — jen konkrétní výstupy:</p>
+      <ul>
+        <li>Identifikace nejčastějších selhání motorové skupiny EA288 TDI u tohoto ročníku a nájezdu</li>
+        <li>Predikce pravděpodobných výdajů na opravy v horizontu 1, 2 a 3 let</li>
+        <li>Posouzení DSG7: rizika mechatroniky, oleje a dvojspojky — a co to znamená finančně</li>
+        <li>Výpočet reálné tržní ceny v ČR: průměr z Tipcars, Sauto, AAA a Mototechna za posledních 90 dní</li>
+        <li>Orientační odhad spreadu: co zaplatíte na aukci vs. za co to prodáte</li>
+        <li>11-bodový kontrolní checklist pro fyzickou prohlídku</li>
+        <li>Jasný finální verdikt: <strong>KOUPIT / KOUPIT ZA MAX. X Kč / VELKÉ RIZIKO / NEKUPOVAT</strong></li>
+      </ul>
+      <div class="tb-anchor">
+        <strong>Proč to má cenu?</strong> Průměrná oprava DSG7 stojí 30 000–90 000 Kč. Motor EA288 s EGR/DPF: 50 000–150 000 Kč. Tato analýza stojí zlomek jedné opravy.
+      </div>
+      <p class="tb-price">Cena: <strong>od 990 Kč</strong> &nbsp;·&nbsp; Zpracování do 24 hodin od objednávky</p>
+      <hr class="divider">
+      <div class="inline-form" id="form-wrap-t1">
+        <p>Objednat expertizu — vyplňte kontakt:</p>
+        <input type="text" id="t1-jmeno" placeholder="Jméno a příjmení" required>
+        <input type="email" id="t1-email" placeholder="E-mail (povinné)" required>
+        <input type="tel" id="t1-tel" placeholder="Telefon">
+        <select id="t1-typ">
+          <option value="">— Typ auditu —</option>
+          <option value="Audit standard (990 Kč)">Audit standard (990 Kč) — písemný report</option>
+          <option value="Audit premium (1 990 Kč)">Audit premium (1 990 Kč) — report + 30min telefonát</option>
+          <option value="Full doprovod (individuálně)">Full doprovod — chci, aby Batko zastupoval při koupi</option>
+        </select>
+        <textarea id="t1-pozn" placeholder="URL vozidla nebo č. aukce + co vás nejvíce zajímá…"></textarea>
+        <button class="btn-service btn-service-gold" onclick="submitService('t1','A-Expertiza')">📊 Objednat audit →</button>
+      </div>
+      <div class="service-success" id="succ-t1">✅ Objednávka přijata! Ozveme se do 24 hodin s potvrzením a platebními údaji.</div>
+    </div>
+  </div>
+  </div>
+
+  <!-- TEASER 2 — FO -->
+  <div class="teaser-wrap">
+  <div class="teaser-card">
+    <div class="teaser-head" onclick="toggleTeaser('t2')">
+      <div>
+        <div class="teaser-badge tb-paid">👤 Pro fyzické osoby &nbsp;·&nbsp; od 1 490 Kč</div>
+        <h3>Přeprodejní kalkulace — fyzická osoba (bez IČO)</h3>
+        <p class="th-sub">Zjistíte přesně, kolik na tomto Passatu reálně vyděláte — nebo proč nemá smysl ani zkoušet.</p>
+      </div>
+      <span class="teaser-arrow" id="arr-t2">›</span>
+    </div>
+    <div class="teaser-body" id="t2">
+      <p class="tb-intro">Většina lidí podceňuje náklady a přeceňuje prodejní cenu. Tato kalkulace vám řekne pravdu dřív, než utratíte korunu:</p>
+      <ul>
+        <li>Výpočet all-in nákladů: aukční cena + aukční poplatky + doprava do ČR + přepis + rezerva na vady</li>
+        <li>Odhad reálné realizační prodejní ceny ve třech scénářích: rychlý prodej / tržní průměr / optimistický</li>
+        <li>Čistý zisk po odečtení všech nákladů ve všech třech scénářích — bez iluzí</li>
+        <li>Holding cost model: kolik vás auto bude stát za každý týden, kdy se neprodá</li>
+        <li>Daňový pohled pro fyzickou osobu: kdy a za jakých podmínek hrozí problém s FÚ</li>
+        <li>Závěrečné doporučení: vstoupit ANO / NE / jen za cenu max. X Kč</li>
+      </ul>
+      <div class="tb-anchor">
+        <strong>Reálný příklad:</strong> Passat koupíte za 10 600 EUR. All-in náklady: ~15 000 EUR = ~366 000 Kč. Tržní cena v ČR: ~420 000–450 000 Kč. Bez kalkulace byste tipovali.
+      </div>
+      <p class="tb-price">Cena: <strong>od 1 490 Kč</strong> &nbsp;·&nbsp; Zpracování do 48 hodin</p>
+      <hr class="divider">
+      <div class="inline-form" id="form-wrap-t2">
+        <p>Objednat přeprodejní kalkulaci:</p>
+        <input type="text" id="t2-jmeno" placeholder="Jméno a příjmení" required>
+        <input type="email" id="t2-email" placeholder="E-mail (povinné)" required>
+        <input type="tel" id="t2-tel" placeholder="Telefon">
+        <textarea id="t2-pozn" placeholder="Kolik chcete maximálně zaplatit na aukci? Máte zkušenosti s přeprodejem?…"></textarea>
+        <button class="btn-service" onclick="submitService('t2','C-FO_preprodej')">👤 Objednat kalkulaci →</button>
+      </div>
+      <div class="service-success" id="succ-t2">✅ Přijato! Ozveme se do 48 hodin.</div>
+    </div>
+  </div>
+  </div>
+
+  <!-- TEASER 3 — ICO -->
+  <div class="teaser-wrap">
+  <div class="teaser-card">
+    <div class="teaser-head" onclick="toggleTeaser('t3')">
+      <div>
+        <div class="teaser-badge tb-paid">🏢 Pro podnikatele &amp; firmy &nbsp;·&nbsp; od 1 990 Kč</div>
+        <h3>Přeprodejní kalkulace — firma / podnikatel (IČO)</h3>
+        <p class="th-sub">Detailní ekonomický model s DPH analýzou, daňovou optimalizací a výpočtem čisté marže po zdanění.</p>
+      </div>
+      <span class="teaser-arrow" id="arr-t3">›</span>
+    </div>
+    <div class="teaser-body" id="t3">
+      <p class="tb-intro">Koupě auta přes firmu není jen o DPH. Je o celkovém ekonomickém modelu transakce:</p>
+      <ul>
+        <li>DPH analýza na vstupu: lze odečíst? Za jakých podmínek?</li>
+        <li>Kalkulace marže před a po zdanění: DPH + daň z příjmů + sociální/zdravotní (OSVČ) nebo korporátní</li>
+        <li>Optimální maximální nákupní cena pro dosažení cílové čisté marže 15 / 20 / 25 %</li>
+        <li>Holding cost model pro firmu: vázaný kapitál, financování vs. koupě</li>
+        <li>Doporučení: má transakce smysl při aktuální ceně aukce?</li>
+      </ul>
+      <p class="tb-price">Cena: <strong>od 1 990 Kč</strong> &nbsp;·&nbsp; Zpracování do 48 hodin</p>
+      <hr class="divider">
+      <div class="inline-form" id="form-wrap-t3">
+        <p>Objednat kalkulaci pro firmu:</p>
+        <input type="text" id="t3-jmeno" placeholder="Jméno a příjmení" required>
+        <input type="email" id="t3-email" placeholder="E-mail (povinné)" required>
+        <input type="tel" id="t3-tel" placeholder="Telefon">
+        <select id="t3-forma">
+          <option value="">— Právní forma —</option>
+          <option value="OSVČ / živnostník">OSVČ / živnostník</option>
+          <option value="s.r.o.">s.r.o.</option>
+          <option value="a.s. / jiná">a.s. / jiná forma</option>
+        </select>
+        <textarea id="t3-pozn" placeholder="Plátce DPH? Kolik aut měsíčně plánujete?…"></textarea>
+        <button class="btn-service" onclick="submitService('t3','C-ICO_preprodej')">🏢 Objednat kalkulaci pro firmu →</button>
+      </div>
+      <div class="service-success" id="succ-t3">✅ Přijato! Ozveme se do 48 hodin.</div>
+    </div>
+  </div>
+  </div>
+
+  <!-- TEASER 4 — AGENTURNÍ -->
+  <div class="teaser-wrap">
+  <div class="teaser-card">
+    <div class="teaser-head" onclick="toggleTeaser('t4')">
+      <div>
+        <div class="teaser-badge tb-prem">🤝 Prémium &nbsp;·&nbsp; Provize z úspory</div>
+        <h3>Agenturní nákup — koupím za vás, vy jen schválíte max. cenu</h3>
+        <p class="th-sub">Registrace na aukci, monitoring, nabízení, logistika, dokumenty. Vy sedíte a čekáte na klíče.</p>
+      </div>
+      <span class="teaser-arrow" id="arr-t4">›</span>
+    </div>
+    <div class="teaser-body" id="t4">
+      <ul>
+        <li>Aktivní monitoring relevantních aukcí: hlídám za vás 24/7</li>
+        <li>Posouzení technické zprávy před prvním příhozem</li>
+        <li>Profesionální nabízení ve vašem zájmu</li>
+        <li>Transparentní provize: platíte jen z realizované úspory</li>
+        <li>Kompletní logistika: doprava, tranzitní dokumenty, pojištění přepravy</li>
+      </ul>
+      <div class="tb-anchor">
+        <strong>Jak funguje provize:</strong> Schválíte max. 13 000 EUR. Nakoupím za 10 600 EUR. Vaše úspora: 2 400 EUR. Moje provize: dohodnuté % z této úspory. <strong>Motivace je stejná — chci nakoupit co nejlevněji.</strong>
+      </div>
+      <p class="tb-price">Cena: <strong>dohodnuté % z realizované úspory</strong></p>
+      <hr class="divider">
+      <div class="inline-form" id="form-wrap-t4">
+        <p>Mám zájem o agenturní nákup:</p>
+        <input type="text" id="t4-jmeno" placeholder="Jméno a příjmení" required>
+        <input type="email" id="t4-email" placeholder="E-mail (povinné)" required>
+        <input type="tel" id="t4-tel" placeholder="Telefon (doporučeno)">
+        <textarea id="t4-pozn" placeholder="Jaké auto hledáte? Jaký je váš max. rozpočet? Pro jaký účel?…"></textarea>
+        <button class="btn-service btn-service-gold" onclick="submitService('t4','B-AgentNakup')">🤝 Mám zájem — kontaktujte mě →</button>
+      </div>
+      <div class="service-success" id="succ-t4">✅ Přijato! Ozve se vám Jaroslav Batko osobně.</div>
+    </div>
+  </div>
+  </div>
+
+</div><!-- /content -->
+
+<div class="company-id-bar">
+  <h4>Identifikace zpracovatele — povinné údaje dle § 435 OZ a § 29 ZDPH</h4>
+  <div class="cid-grid">
+    <div>
+      <div class="cid-row"><span class="cid-label">Jméno:</span><span class="cid-val">Ing. Jaroslav Batko-Linet</span></div>
+      <div class="cid-row"><span class="cid-label">IČO:</span><span class="cid-val">14600153</span></div>
+      <div class="cid-row"><span class="cid-label">DIČ:</span><span class="cid-val">CZ5912280418 &nbsp;·&nbsp; Plátce DPH</span></div>
+      <div class="cid-row"><span class="cid-label">Sídlo:</span><span class="cid-val">Ostrava 1, Vítkovická 1, PSČ 701 00</span></div>
+    </div>
+    <div>
+      <div class="cid-row"><span class="cid-label">Obchodní rejstřík:</span><span class="cid-val">KS Ostrava, sp. zn. A 984, zápis 31. 01. 1991</span></div>
+      <div class="cid-row"><span class="cid-label">Telefon:</span><span class="cid-val">+420 725 360 151</span></div>
+      <div class="cid-row"><span class="cid-label">E-mail:</span><span class="cid-val">batko.digital.ai@gmail.com</span></div>
+    </div>
+  </div>
+  <div style="margin-top:8px;font-size:0.7rem;color:#aaa;">
+    Kurz ČNB 23. 5. 2026: 1 EUR = 24,40 Kč &nbsp;·&nbsp; Ref.: #11004535 &nbsp;·&nbsp; Generováno: 23. 5. 2026
+  </div>
+</div>
+
+<div class="footer">
+  <p style="opacity:0.5;">Tato stránka slouží jako informační podklad. Ceny jsou orientační a podléhají aktuálnímu kurzu.</p>
+</div>
+
+<!-- MODAL — LEAD -->
+<div class="modal-overlay" id="modal-lead">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal-lead')">✕</button>
+    <h3>🔓 Odemknout podrobnosti</h3>
+    <p class="ms-sub">Zanechte kontakt a okamžitě zobrazíme skryté informace. Zdarma. Bez závazku.</p>
+    <div class="modal-form" id="modal-lead-form">
+      <input type="text" id="ml-jmeno" placeholder="Jméno a příjmení" required>
+      <input type="email" id="ml-email" placeholder="E-mail (povinné)" required>
+      <input type="tel" id="ml-telefon" placeholder="Telefon (nepovinné)">
+      <button class="btn-lead" style="margin-top:4px;width:100%;" onclick="submitModalLead()">🔓 Odemknout zdarma</button>
+      <p class="lead-privacy" style="margin-top:10px;">Vaše údaje jsou v bezpečí. Slouží pouze pro kontaktování zpracovatele.</p>
+    </div>
+    <div class="lead-success" id="modal-lead-success">
+      ✅ Přístup odemčen! Informace jsou nyní viditelné na stránce.
+    </div>
+  </div>
+</div>
+
+<!-- MODAL — AUDIT -->
+<div class="modal-overlay" id="modal-audit">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal-audit')">✕</button>
+    <h3>📊 Požádat o detailní audit rizik</h3>
+    <p class="ms-sub">Technická rizika &bull; Predikce nákladů &bull; Odhad ROI &bull; Verdikt ke koupi.<br><br>Cena auditu: <strong>od 990 Kč</strong>. Zpracování do 24 hodin.</p>
+    <div class="modal-form" id="modal-audit-form">
+      <input type="text" id="ma-jmeno" placeholder="Jméno a příjmení" required>
+      <input type="email" id="ma-email" placeholder="E-mail" required>
+      <input type="tel" id="ma-telefon" placeholder="Telefon">
+      <select id="ma-typ">
+        <option value="">— Typ auditu —</option>
+        <option value="standard">Audit standard (od 990 Kč)</option>
+        <option value="premium">Audit premium + call (od 1 990 Kč)</option>
+        <option value="full">Full servis — doprovod při koupi (individuálně)</option>
+      </select>
+      <button class="btn-audit" style="margin-top:6px;width:100%;" onclick="submitAuditLead()">📊 Odeslat objednávku auditu</button>
+      <p class="lead-privacy" style="margin-top:10px;">Po odeslání vás kontaktuje Jaroslav Batko s potvrzením a platebními údaji.</p>
+    </div>
+    <div class="lead-success" id="modal-audit-success">
+      ✅ Objednávka přijata! Ozveme se vám do 24 hodin.
+    </div>
+  </div>
+</div>
+
+<script>
+var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwcFA8bRyHnBB_4XlgH5_IMR4IBqUfvTD8vScGZPiuCh0gR5f4Mp_9OjOAw1u3lNEjI/exec';
+var AUTO_NAZEV = 'VW Passat Variant 2.0 TDI Business 2022';
+var AUKCE_ID   = '11004535';
+var AUKCE_URL  = window.location.href;
+
+function sendToSheets(payload) {
+  fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) }).catch(function(e) { console.warn('Sheet send error:', e); });
+}
+function fval(id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; }
+
+function toggleTeaser(id) {
+  var body = document.getElementById(id);
+  var arr  = document.getElementById('arr-' + id);
+  if (!body) return;
+  var isOpen = body.style.display === 'block';
+  body.style.display = isOpen ? 'none' : 'block';
+  if (arr) arr.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(90deg)';
+}
+
+function submitService(id, formType) {
+  var jmeno = fval(id+'-jmeno'), email = fval(id+'-email'), tel = fval(id+'-tel');
+  var pozn = fval(id+'-pozn'), typ = fval(id+'-typ'), forma = fval(id+'-forma');
+  if (!email) { alert('Vyplňte prosím e-mail.'); return; }
+  var note = pozn;
+  if (typ)   note += (note ? ' | ' : '') + 'Typ: ' + typ;
+  if (forma) note += (note ? ' | ' : '') + 'Forma: ' + forma;
+  sendToSheets({ auto_nazev: AUTO_NAZEV, aukce_id: AUKCE_ID, aukce_url: AUKCE_URL, nabidka_url: window.location.href, source: 'nabidka_KONVERZE_'+AUKCE_ID, formType: formType, jmeno: jmeno, email: email, telefon_text: tel, note: note, url_aukce: AUKCE_URL });
+  var wrap = document.getElementById('form-wrap-'+id);
+  var succ = document.getElementById('succ-'+id);
+  if (wrap) wrap.style.display = 'none';
+  if (succ) succ.style.display = 'block';
+}
+
+function submitLead(id) {
+  var jmeno = fval('lf-jmeno'), email = fval('lf-email'), tel = fval('lf-telefon'), msg = fval('lf-zprava');
+  if (!email) { alert('Vyplňte prosím e-mail.'); return; }
+  sendToSheets({ auto_nazev: AUTO_NAZEV, aukce_id: AUKCE_ID, aukce_url: AUKCE_URL, nabidka_url: window.location.href, source: 'nabidka_KONVERZE_'+AUKCE_ID, formType: 'E-Konzultace', jmeno: jmeno, email: email, telefon_text: tel, note: msg, url_aukce: AUKCE_URL });
+  var form = document.getElementById('lead-form-main');
+  var succ = document.getElementById('lead-success-main');
+  if (form) form.style.display = 'none';
+  if (succ) succ.style.display = 'block';
+}
+
+var pendingUnlock = null;
+function openModal(id, unlockTarget) { pendingUnlock = unlockTarget || null; document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+document.querySelectorAll('.modal-overlay').forEach(function(el) { el.addEventListener('click', function(e) { if (e.target === el) el.classList.remove('open'); }); });
+
+function submitModalLead() {
+  var jmeno = fval('ml-jmeno'), email = fval('ml-email'), tel = fval('ml-telefon');
+  if (!email) { alert('Vyplňte prosím e-mail.'); return; }
+  sendToSheets({ auto_nazev: AUTO_NAZEV, aukce_id: AUKCE_ID, aukce_url: AUKCE_URL, nabidka_url: window.location.href, source: 'nabidka_KONVERZE_'+AUKCE_ID, formType: 'F-Odemceni', jmeno: jmeno, email: email, telefon_text: tel, note: 'Odemčení obsahu' + (pendingUnlock ? ' / '+pendingUnlock : ''), url_aukce: AUKCE_URL });
+  if (pendingUnlock === 'specs') { var ls = document.getElementById('lock-specs'); var us = document.getElementById('unlocked-specs'); if (ls) ls.style.display='none'; if (us) { us.classList.add('visible'); us.style.display='block'; } }
+  if (pendingUnlock === 'eq') { var le = document.getElementById('lock-eq'); var ue = document.getElementById('unlocked-eq'); if (le) le.style.display='none'; if (ue) { ue.classList.add('visible'); ue.style.display='block'; } }
+  if (pendingUnlock === 'docs') { closeModal('modal-lead'); var lm = document.getElementById('lead-main'); if (lm) lm.scrollIntoView({behavior:'smooth'}); return; }
+  document.getElementById('modal-lead-form').style.display = 'none';
+  document.getElementById('modal-lead-success').style.display = 'block';
+  setTimeout(function() { closeModal('modal-lead'); }, 1600);
+}
+
+function submitAuditLead() {
+  var jmeno = fval('ma-jmeno'), email = fval('ma-email'), tel = fval('ma-telefon'), typ = fval('ma-typ');
+  if (!email) { alert('Vyplňte prosím e-mail.'); return; }
+  sendToSheets({ auto_nazev: AUTO_NAZEV, aukce_id: AUKCE_ID, aukce_url: AUKCE_URL, nabidka_url: window.location.href, source: 'nabidka_KONVERZE_'+AUKCE_ID, formType: 'A-Expertiza', jmeno: jmeno, email: email, telefon_text: tel, note: typ ? 'Typ auditu: '+typ : '', url_aukce: AUKCE_URL });
+  document.getElementById('modal-audit-form').style.display = 'none';
+  document.getElementById('modal-audit-success').style.display = 'block';
+}
+
+var imgs = document.querySelectorAll('.gallery-main img');
+var thumbs = document.querySelectorAll('.thumbs img');
+var current = 0;
+function showSlide(n) {
+  if (!imgs.length) return;
+  imgs[current].classList.remove('active');
+  if (thumbs[current]) thumbs[current].classList.remove('active');
+  current = (n + imgs.length) % imgs.length;
+  imgs[current].classList.add('active');
+  if (thumbs[current]) { thumbs[current].classList.add('active'); thumbs[current].scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'}); }
+  var counter = document.getElementById('counter');
+  if (counter) counter.textContent = (current+1) + ' / ' + imgs.length;
+}
+function changeSlide(d) { showSlide(current + d); }
+function goSlide(n) { showSlide(n); }
+document.addEventListener('keydown', function(e) { if (e.key==='ArrowLeft') changeSlide(-1); if (e.key==='ArrowRight') changeSlide(1); });
+
+var badgeTexts = ['✦ Vybráno systémem AI','✦ Předběžně vyhodnoceno','✦ Fleetový původ Ayvens','✦ Výběr z tisíců aukcí','✦ Tažný hák v ceně','✦ Omezená příležitost','✦ Passat Business — prémiová výbava'];
+var bIdx = 0;
+var gbadge = document.getElementById('gbadge');
+if (gbadge) {
+  setInterval(function() {
+    gbadge.classList.remove('visible');
+    setTimeout(function() { bIdx = (bIdx+1) % badgeTexts.length; gbadge.textContent = badgeTexts[bIdx]; gbadge.classList.add('visible'); }, 600);
+  }, 3500);
+}
+
+var auctionEnd = new Date(2026, 4, 26, 14, 55, 0);
+function updateCountdown() {
+  var now = new Date(), diff = auctionEnd - now;
+  if (diff <= 0) {
+    var cdEl = document.getElementById('countdown'), endEl = document.getElementById('urgency-ended'), subEl = document.getElementById('urgency-sub');
+    if (cdEl) cdEl.style.display='none'; if (endEl) endEl.style.display='block'; if (subEl) subEl.style.display='none';
+    return;
+  }
+  var h = Math.floor(diff/3600000), m = Math.floor((diff%3600000)/60000), s = Math.floor((diff%60000)/1000);
+  var cdH = document.getElementById('cd-h'), cdM = document.getElementById('cd-m'), cdS = document.getElementById('cd-s');
+  if (cdH) cdH.textContent = String(h).padStart(2,'0');
+  if (cdM) cdM.textContent = String(m).padStart(2,'0');
+  if (cdS) cdS.textContent = String(s).padStart(2,'0');
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+</script>
+</body>
+</html>
