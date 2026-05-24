@@ -145,6 +145,8 @@ body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; color: #
 .company-id-bar .cid-row { display: flex; gap: 6px; }
 .company-id-bar .cid-label { color: #aaa; min-width: 120px; font-size: 0.72rem; flex-shrink: 0; }
 .company-id-bar .cid-val { font-weight: 600; color: #555; font-size: 0.72rem; }
+.privacy-law-note { margin-top: 8px; padding-top: 8px; border-top: 1px solid #e0e7f0; font-size: 0.72rem; line-height: 1.45; color: #777; }
+.privacy-law-note strong { color: #667899; }
 .footer { background: #0d1f3c; color: rgba(255,255,255,0.5); text-align: center; padding: 16px 20px; font-size: 0.75rem; }
 .footer a { color: #74b9ff; }
 .info-box { background: #fff8e1; border-left: 4px solid #f39c12; border-radius: 6px; padding: 11px 14px; font-size: 0.82rem; color: #7d5a00; margin-top: 12px; }
@@ -244,7 +246,7 @@ body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; color: #
 <div class="urgency-block">
   <div class="urgency-inner">
     <div class="urgency-label">⏳ Pozor — omezená časová příležitost</div>
-    <div class="urgency-headline">Aukce končí za méně než 4 dny.</div>
+    <div class="urgency-headline" id="urgency-headline">Aukce končí podle aktuálního odpočtu.</div>
     <div class="countdown" id="countdown">
       <div class="cd-unit"><div class="cd-num" id="cd-h">00</div><div class="cd-label">hodin</div></div>
       <div class="cd-sep">:</div>
@@ -793,6 +795,9 @@ body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; color: #
   <div style="margin-top:8px;font-size:0.7rem;color:#aaa;">
     Kurz ČNB 23. 5. 2026: 1 EUR = 24,40 Kč &nbsp;·&nbsp; Ref.: #11004535 &nbsp;·&nbsp; Generováno: 23. 5. 2026
   </div>
+  <div class="privacy-law-note">
+    <strong>Ochrana osobních údajů:</strong> Údaje z kontaktních a objednávkových formulářů zpracováváme výhradně za účelem vyřízení vaší poptávky, přípravy nabídky a navazující komunikace. S údaji nakládáme důvěrně, v souladu s platnými právními předpisy na ochranu osobních údajů; nejsou prodávány ani předávány třetím osobám bez právního důvodu nebo vašeho souhlasu.
+  </div>
 </div>
 
 <div class="footer">
@@ -940,11 +945,15 @@ if (gbadge) {
 }
 
 var auctionEnd = new Date(2026, 4, 26, 14, 55, 0);
+function czechDayWord(n) {
+  return n === 1 ? 'den' : (n >= 2 && n <= 4 ? 'dny' : 'dní');
+}
 function updateCountdown() {
   var now = new Date(), diff = auctionEnd - now;
   if (diff <= 0) {
-    var cdEl = document.getElementById('countdown'), endEl = document.getElementById('urgency-ended'), subEl = document.getElementById('urgency-sub');
+    var cdEl = document.getElementById('countdown'), endEl = document.getElementById('urgency-ended'), subEl = document.getElementById('urgency-sub'), headlineEl = document.getElementById('urgency-headline');
     if (cdEl) cdEl.style.display='none'; if (endEl) endEl.style.display='block'; if (subEl) subEl.style.display='none';
+    if (headlineEl) headlineEl.style.display='none';
     return;
   }
   var h = Math.floor(diff/3600000), m = Math.floor((diff%3600000)/60000), s = Math.floor((diff%60000)/1000);
@@ -952,6 +961,13 @@ function updateCountdown() {
   if (cdH) cdH.textContent = String(h).padStart(2,'0');
   if (cdM) cdM.textContent = String(m).padStart(2,'0');
   if (cdS) cdS.textContent = String(s).padStart(2,'0');
+  var headline = document.getElementById('urgency-headline');
+  if (headline) {
+    var daysRemaining = Math.ceil(diff / 86400000);
+    headline.textContent = daysRemaining <= 1
+      ? 'Aukce končí za méně než 24 hodin.'
+      : 'Aukce končí za méně než ' + daysRemaining + ' ' + czechDayWord(daysRemaining) + '.';
+  }
 }
 updateCountdown();
 setInterval(updateCountdown, 1000);
