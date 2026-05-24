@@ -43,3 +43,5 @@ Proto:
 3. Potom nové složky a šablony.
 4. Potom až automatizace.
 5. Žádné mazání bez zálohy a redirectu.
+
+Test zmeny z terminalu.
