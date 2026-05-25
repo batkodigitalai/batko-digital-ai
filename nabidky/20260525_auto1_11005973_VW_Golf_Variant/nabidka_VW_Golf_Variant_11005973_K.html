@@ -286,25 +286,6 @@ body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; color: #
     <img src="img/foto_20.jpg" alt="VW Golf Variant foto 20">
     <img src="img/foto_21.jpg" alt="VW Golf Variant foto 21">
     <img src="img/foto_22.jpg" alt="VW Golf Variant foto 22">
-    <img src="img/foto_23.jpg" alt="VW Golf Variant foto 23">
-    <img src="img/foto_24.jpg" alt="VW Golf Variant foto 24">
-    <img src="img/foto_25.jpg" alt="VW Golf Variant foto 25">
-    <img src="img/foto_26.jpg" alt="VW Golf Variant foto 26">
-    <img src="img/foto_27.jpg" alt="VW Golf Variant foto 27">
-    <img src="img/foto_28.jpg" alt="VW Golf Variant foto 28">
-    <img src="img/foto_29.jpg" alt="VW Golf Variant foto 29">
-    <img src="img/foto_30.jpg" alt="VW Golf Variant foto 30">
-    <img src="img/foto_31.jpg" alt="VW Golf Variant foto 31">
-    <img src="img/foto_32.jpg" alt="VW Golf Variant foto 32">
-    <img src="img/foto_33.jpg" alt="VW Golf Variant foto 33">
-    <img src="img/foto_34.jpg" alt="VW Golf Variant foto 34">
-    <img src="img/foto_35.jpg" alt="VW Golf Variant foto 35">
-    <img src="img/foto_36.jpg" alt="VW Golf Variant foto 36">
-    <img src="img/foto_37.jpg" alt="VW Golf Variant foto 37">
-    <img src="img/foto_38.jpg" alt="VW Golf Variant foto 38">
-    <img src="img/foto_39.jpg" alt="VW Golf Variant foto 39">
-    <img src="img/foto_40.jpg" alt="VW Golf Variant foto 40">
-    <img src="img/foto_41.jpg" alt="VW Golf Variant foto 41">
     <button class="gallery-nav prev" onclick="changeSlide(-1)">&#8249;</button>
     <button class="gallery-nav next" onclick="changeSlide(1)">&#8250;</button>
     <div class="gallery-counter" id="counter">1 / 22</div>
@@ -332,25 +313,6 @@ body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; color: #
     <img src="img/foto_20.jpg" onclick="goSlide(19)">
     <img src="img/foto_21.jpg" onclick="goSlide(20)">
     <img src="img/foto_22.jpg" onclick="goSlide(21)">
-    <img src="img/foto_23.jpg" onclick="goSlide(22)">
-    <img src="img/foto_24.jpg" onclick="goSlide(23)">
-    <img src="img/foto_25.jpg" onclick="goSlide(24)">
-    <img src="img/foto_26.jpg" onclick="goSlide(25)">
-    <img src="img/foto_27.jpg" onclick="goSlide(26)">
-    <img src="img/foto_28.jpg" onclick="goSlide(27)">
-    <img src="img/foto_29.jpg" onclick="goSlide(28)">
-    <img src="img/foto_30.jpg" onclick="goSlide(29)">
-    <img src="img/foto_31.jpg" onclick="goSlide(30)">
-    <img src="img/foto_32.jpg" onclick="goSlide(31)">
-    <img src="img/foto_33.jpg" onclick="goSlide(32)">
-    <img src="img/foto_34.jpg" onclick="goSlide(33)">
-    <img src="img/foto_35.jpg" onclick="goSlide(34)">
-    <img src="img/foto_36.jpg" onclick="goSlide(35)">
-    <img src="img/foto_37.jpg" onclick="goSlide(36)">
-    <img src="img/foto_38.jpg" onclick="goSlide(37)">
-    <img src="img/foto_39.jpg" onclick="goSlide(38)">
-    <img src="img/foto_40.jpg" onclick="goSlide(39)">
-    <img src="img/foto_41.jpg" onclick="goSlide(40)">
   </div>
 </div>
 
@@ -885,20 +847,60 @@ function submitLead(id) {
 }
 
 var pendingUnlock = null;
-function openModal(id, unlockTarget) { pendingUnlock = unlockTarget || null; document.getElementById(id).classList.add('open'); }
+var unlockMeta = {
+  specs: {
+    formType: 'F-Odemceni: technicke podrobnosti',
+    button: 'Odemknout podrobnosti zdarma',
+    section: 'Technicke parametry a stav',
+    task: 'Poslat zakaznikovi odemcene technicke podrobnosti a kratke doporuceni ke stavu vozu.'
+  },
+  eq: {
+    formType: 'F-Odemceni: kompletni vybava',
+    button: 'Zobrazit kompletni vybavu zdarma',
+    section: 'Kompletni vybava',
+    task: 'Poslat zakaznikovi kompletni vybavu a zvyraznit hodnotne prvky pro koupi nebo preprodej.'
+  },
+  docs: {
+    formType: 'F-Odemceni: dokumentace',
+    button: 'Zobrazit detailni informace o dokumentaci',
+    section: 'Dokumentace a historie',
+    task: 'Poslat zakaznikovi detail dokumentace, servisni historie a co je potreba proverit pred koupi.'
+  }
+};
+function getUnlockMeta(target) {
+  return unlockMeta[target] || {
+    formType: 'F-Odemceni: obecne',
+    button: 'Odemknout zdarma',
+    section: 'Obecne odemceni',
+    task: 'Kontaktovat zakaznika a poslat odemcene informace k vozidlu.'
+  };
+}
+function resetLeadModal() {
+  var form = document.getElementById('modal-lead-form');
+  var succ = document.getElementById('modal-lead-success');
+  if (form) form.style.display = 'block';
+  if (succ) succ.style.display = 'none';
+}
+function openModal(id, unlockTarget) {
+  pendingUnlock = unlockTarget || null;
+  if (id === 'modal-lead') resetLeadModal();
+  document.getElementById(id).classList.add('open');
+}
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 document.querySelectorAll('.modal-overlay').forEach(function(el) { el.addEventListener('click', function(e) { if (e.target === el) el.classList.remove('open'); }); });
 
 function submitModalLead() {
   var jmeno = fval('ml-jmeno'), email = fval('ml-email'), tel = fval('ml-telefon');
   if (!email) { alert('Vyplňte prosím e-mail.'); return; }
-  sendToSheets({ auto_nazev: AUTO_NAZEV, aukce_id: AUKCE_ID, aukce_url: AUKCE_URL, nabidka_url: window.location.href, source: 'nabidka_K_'+AUKCE_ID, formType: 'F-Odemceni', jmeno: jmeno, email: email, telefon_text: tel, note: 'Odemčení obsahu' + (pendingUnlock ? ' / '+pendingUnlock : ''), url_aukce: AUKCE_URL });
+  var meta = getUnlockMeta(pendingUnlock);
+  var note = 'TLAČÍTKO: ' + meta.button + ' | SEKCE: ' + meta.section + ' | ÚKOL: ' + meta.task;
+  sendToSheets({ auto_nazev: AUTO_NAZEV, aukce_id: AUKCE_ID, aukce_url: AUKCE_URL, nabidka_url: window.location.href, source: 'nabidka_K_'+AUKCE_ID+' / '+meta.button, formType: meta.formType, jmeno: jmeno, email: email, telefon_text: tel, note: note, button_text: meta.button, lead_task: meta.task, unlock_section: meta.section, url_aukce: AUKCE_URL });
   if (pendingUnlock === 'specs') { var ls = document.getElementById('lock-specs'); var us = document.getElementById('unlocked-specs'); if (ls) ls.style.display='none'; if (us) { us.classList.add('visible'); us.style.display='block'; } }
   if (pendingUnlock === 'eq') { var le = document.getElementById('lock-eq'); var ue = document.getElementById('unlocked-eq'); if (le) le.style.display='none'; if (ue) { ue.classList.add('visible'); ue.style.display='block'; } }
   if (pendingUnlock === 'docs') { closeModal('modal-lead'); var lm = document.getElementById('lead-main'); if (lm) lm.scrollIntoView({behavior:'smooth'}); return; }
   document.getElementById('modal-lead-form').style.display = 'none';
   document.getElementById('modal-lead-success').style.display = 'block';
-  setTimeout(function() { closeModal('modal-lead'); }, 1600);
+  setTimeout(function() { closeModal('modal-lead'); resetLeadModal(); }, 1600);
 }
 
 function submitAuditLead() {
