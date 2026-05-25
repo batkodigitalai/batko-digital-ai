@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Premium Full — Agenturní nákup + Mentoring</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; color: #1a1a1a; line-height: 1.55; }
+.wrap { max-width: 960px; margin: 0 auto; padding-bottom: 40px; }
+.header { background: linear-gradient(135deg, #0d1f3c 0%, #1a3a6b 100%); color: #fff; padding: 28px 36px 24px; }
+.header h1 { font-size: 1.4rem; font-weight: 700; margin-bottom: 4px; }
+.header .sub { font-size: .88rem; opacity: .75; margin-bottom: 10px; }
+.badge { display:inline-block; padding:4px 12px; border-radius:20px; font-size:.76rem; font-weight:700; letter-spacing:.4px; }
+.badge-a { background:#8e44ad; } .badge-b { background:#27ae60; } .badge-c { background:#2980b9; }
+.badge-d { background:#e67e22; } .badge-e { background:#16a085; } .badge-f { background:#c0392b; }
+.kurz-strip { background:#1a2a4a; color:rgba(255,255,255,.75); padding:8px 36px; font-size:.8rem; display:flex; gap:20px; flex-wrap:wrap; }
+.kurz-strip strong { color:#74b9ff; }
+.nav-back { background:#fff; border-bottom:2px solid #e0e6f0; padding:10px 36px; font-size:.82rem; }
+.nav-back a { color:#1a3a6b; text-decoration:none; font-weight:600; }
+.section { background:#fff; border-radius:10px; padding:22px 26px; margin:16px 0; }
+.section h2 { font-size:1.0rem; font-weight:700; color:#0d1f3c; margin-bottom:14px; border-bottom:2px solid #e8edf5; padding-bottom:8px; }
+.vozidlo-specs table { width:100%; border-collapse:collapse; font-size:.87rem; }
+.vozidlo-specs td { padding:6px 10px; border-bottom:1px solid #f0f2f5; }
+.vozidlo-specs td:first-child { color:#888; width:38%; }
+.green-box { background:#eafaf1; border-left:4px solid #27ae60; border-radius:6px; padding:12px 16px; font-size:.85rem; color:#155724; margin-top:10px; }
+.warn-box { background:#fdecea; border-left:4px solid #e74c3c; border-radius:6px; padding:12px 16px; font-size:.85rem; color:#7b1c1c; margin-top:10px; }
+.warn-box strong { display:block; margin-bottom:3px; }
+.info-box { background:#fff8e1; border-left:4px solid #f39c12; border-radius:6px; padding:12px 16px; font-size:.85rem; color:#7d5a00; margin-top:10px; }
+.info-box strong { display:block; margin-bottom:3px; }
+.ok-box { background:#d4edda; border-left:4px solid #27ae60; border-radius:6px; padding:12px 16px; font-size:.85rem; color:#155724; margin-top:10px; }
+.fin { width:100%; border-collapse:collapse; font-size:.84rem; margin-top:4px; }
+.fin th { background:#f0f4fa; color:#0d1f3c; font-weight:700; padding:9px 12px; text-align:left; border-bottom:2px solid #d0dcea; }
+.fin td { padding:8px 12px; border-bottom:1px solid #f0f2f5; }
+.fin tr:last-child td { font-weight:700; background:#f7f9fc; }
+.step { display:flex; gap:14px; align-items:flex-start; margin-bottom:16px; }
+.step-num { background:#1a3a6b; color:#fff; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:.9rem; flex-shrink:0; margin-top:2px; }
+.step-body strong { display:block; font-size:.9rem; margin-bottom:2px; }
+.step-body span { font-size:.82rem; color:#555; }
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+@media(max-width:680px){ .two-col { grid-template-columns:1fr; } }
+.highlight-box { background:#f0f4fa; border-radius:8px; padding:16px; }
+.highlight-box h3 { font-size:.9rem; font-weight:700; color:#0d1f3c; margin-bottom:10px; }
+.highlight-box ul { padding-left:18px; font-size:.85rem; }
+.highlight-box li { margin-bottom:5px; }
+.cta-bar { background:linear-gradient(135deg,#0d1f3c,#1a3a6b); border-radius:10px; padding:20px 26px; display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; margin:16px 0; }
+.cta-bar strong { color:#fff; display:block; font-size:1rem; margin-bottom:3px; }
+.cta-bar p { color:rgba(255,255,255,.8); font-size:.85rem; }
+.cta-btn { background:#f39c12; color:#fff; text-decoration:none; padding:11px 22px; border-radius:7px; font-weight:700; font-size:.92rem; white-space:nowrap; }
+.company-bar { background:#f0f4fa; border-top:3px solid #c8d6e8; padding:16px 36px; font-size:.79rem; color:#444; }
+.cid-grid { display:grid; grid-template-columns:1fr 1fr; gap:4px 30px; }
+.cid-row { display:flex; gap:6px; }
+.cid-label { color:#888; min-width:130px; font-size:.76rem; flex-shrink:0; }
+.cid-val { font-weight:600; color:#0d1f3c; font-size:.79rem; }
+.footer { background:#1a2a4a; color:rgba(255,255,255,.6); text-align:center; padding:15px 20px; font-size:.77rem; }
+.footer a { color:#74b9ff; }
+.footer strong { color:#fff; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="header">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px;">
+    <div><h1>Premium Full — Agenturní nákup + Mentoring</h1><p class="sub">VW Golf Variant · Nakoupím za vás A naučím vás</p></div>
+    <span class="badge badge-f">⭐ PREMIUM FULL</span>
+  </div>
+</div>
+<div class="kurz-strip">
+  <span>Kurz ČNB 25. 5. 2026: <strong>1 EUR = 24,4028 Kč</strong></span>
+  <span>Volkswagen Golf Variant VIII 2.0 TDI 110 kW DSG7 Life · OPENLANE #11005973</span>
+</div>
+<div class="nav-back">
+  <a href="nabidka_VW_Golf_Variant_11005973.html">← Zpět na hlavní nabídku</a> ·
+  <a href="hodnoceni_VW_Golf_Variant_11005973.html">Odborné hodnocení vozu</a> ·
+  <a href="objednavka_11005973.html" style="background:#0d1f3c;color:#fff;padding:5px 14px;border-radius:5px;font-weight:700;text-decoration:none;font-size:.79rem;">📋 Objednat →</a>
+</div>
+<div class="section">
+  <h2>🚗 Vozidlo — Volkswagen Golf Variant VIII 2.0 TDI 110 kW DSG7 Life</h2>
+  <div class="vozidlo-specs">
+    <table>
+      <tr><td>Aukce</td><td><a href="https://www.openlane.eu/cs/car/info?auctionId=11005973" target="_blank">OPENLANE #11005973</a> <small>(jen pro registrované)</small></td></tr>
+      <tr><td>Rok výroby</td><td>2023</td></tr>
+      <tr><td>Nájezd</td><td>73 918 km</td></tr>
+      <tr><td>Motor / převodovka</td><td>2.0 TDI Life DSG (110 kW / 150 hp) · DSG7 DQ381</td></tr>
+      <tr><td>Emisní norma</td><td>EU6d / Euro 6 ✅</td></tr>
+      <tr><td>Karoserie</td><td>Kombi (Variant / Break)</td></tr>
+      <tr><td>Barva</td><td>černá perleťová Deep Black</td></tr>
+      <tr><td>STK platná do</td><td>ověřit při registraci ✅</td></tr>
+      <tr><td>Doklady</td><td>Kompletní · COC k dispozici</td></tr>
+      <tr><td>Původ</td><td>Německo · Německý aukční prodejce (aukční / fleetový původ)</td></tr>
+      <tr><td>Kurz ČNB</td><td><strong>1 EUR = 24,4028 Kč</strong> · 25. 5. 2026</td></tr>
+    </table>
+    <div class="warn-box">⚠️ <strong>Poznámka:</strong> Aktuální nabídka: 14 500 EUR bez DPH, přihazovací cena 14 600 EUR bez DPH, celkem podle aukční obrazovky 370 556,52 Kč.</div><div class="warn-box">⚠️ <strong>Poznámka:</strong> Pneumatiky Continental celoroční 205/55 R16: přední 4,0 mm, zadní 5,0 mm; roadworthy: yes.</div><div class="warn-box">⚠️ <strong>Poznámka:</strong> TÜV report 15. 4. 2026: vozidlo špinavé, podmínky inspekce dostatečné, zvedák nepoužit, motorový test proveden.</div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>⭐ Co je Premium Full</h2>
+  <p>Kombinace agenturního nákupu a mentoringu — <strong>nakoupím za vás TOTO konkrétní vozidlo</strong> a zároveň vás naučím celý proces, abyste příště mohli jednat samostatně.</p>
+  <div class="two-col" style="margin-top:14px;">
+    <div class="highlight-box">
+      <h3>Co zahrnuje</h3>
+      <ul>
+        <li>✅ Vše z varianty D (Agenturní nákup)</li>
+        <li>✅ Vše z varianty E (Mentoring)</li>
+        <li>Toto vozidlo jako živá case study</li>
+        <li>Účast na celém procesu — od aukce po předání</li>
+        <li>Vidíte každý doklad, každou platbu v reálném čase</li>
+        <li>Kombinovaná cena výhodná oproti oddělené objednávce</li>
+      </ul>
+    </div>
+    <div>
+      <div class="green-box"><strong>Ideální pro:</strong><br>Ty, kdo plánují nakupovat vozidla opakovaně a chtějí se naučit proces NA ŽIVÉM PŘÍKLADU — ne z videí.</div>
+      <div class="info-box" style="margin-top:10px;"><strong>💶 Cena:</strong> Kombinovaná — nižší než součet A+E zvlášť. Individuální kalkulace na základě konkrétního vozidla.</div>
+    </div>
+  </div>
+</div>
+<div class="cta-bar">
+  <div><strong>Chci Premium Full</strong><p>Nakoupím za vás + naučím vás celý proces</p></div>
+  <a class="cta-btn" href="objednavka_11005973.html">Poptávka Premium Full →</a>
+</div>
+</body></html>
+
+<div class="company-bar">
+  <div style="font-size:.77rem;font-weight:700;color:#0d1f3c;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;">🏢 Identifikace zpracovatele — § 435 OZ · § 29 ZDPH</div>
+  <div class="cid-grid">
+    <div>
+      <div class="cid-row"><span class="cid-label">Jméno:</span><span class="cid-val">Ing. Jaroslav Batko-Linet</span></div>
+      <div class="cid-row"><span class="cid-label">IČO:</span><span class="cid-val">14600153</span></div>
+      <div class="cid-row"><span class="cid-label">DIČ:</span><span class="cid-val">CZ5912280418</span></div>
+    </div>
+    <div>
+      <div class="cid-row"><span class="cid-label">Sídlo:</span><span class="cid-val">Ostrava 1, Vítkovická 1, PSČ 701 00</span></div>
+      <div class="cid-row"><span class="cid-label">Obchodní rejstřík:</span><span class="cid-val">Krajský soud v Ostravě, sp. zn. A 9…</span></div>
+      <div class="cid-row"><span class="cid-label">Plátce DPH:</span><span class="cid-val">ANO</span></div>
+    </div>
+  </div>
+</div>
+<div class="footer">
+  <p>© Ing. Jaroslav Batko-Linet · IČO 14600153 · DIČ CZ5912280418 · <a href="mailto:batko.digital.ai@gmail.com">batko.digital.ai@gmail.com</a> · +420 725 360 151</p>
+  <p style="margin-top:4px">Kurz ČNB 25. 5. 2026: <strong>1 EUR = 24,4028 Kč</strong> · Platba: 7236159001/5500 · IBAN: CZ3755000000007236159001 · SWIFT: RZBCCZPP</p>
+</div>
+</body></html>
