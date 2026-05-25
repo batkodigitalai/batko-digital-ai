@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Volkswagen Golf Variant 2.0 TDI Life DSG – Nabídka od Jaroslava Batka</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; color: #1a1a1a; line-height: 1.55; }
+.wrap { max-width: 960px; margin: 0 auto; padding-bottom: 40px; }
+.header { background: linear-gradient(135deg, #0d1f3c 0%, #1a3a6b 100%); color: #fff; padding: 28px 36px 24px; }
+.header h1 { font-size: 1.4rem; font-weight: 700; margin-bottom: 4px; }
+.header .sub { font-size: .88rem; opacity: .75; margin-bottom: 10px; }
+.badge { display:inline-block; padding:4px 12px; border-radius:20px; font-size:.76rem; font-weight:700; letter-spacing:.4px; }
+.badge-a { background:#8e44ad; } .badge-b { background:#27ae60; } .badge-c { background:#2980b9; }
+.badge-d { background:#e67e22; } .badge-e { background:#16a085; } .badge-f { background:#c0392b; }
+.kurz-strip { background:#1a2a4a; color:rgba(255,255,255,.75); padding:8px 36px; font-size:.8rem; display:flex; gap:20px; flex-wrap:wrap; }
+.kurz-strip strong { color:#74b9ff; }
+.nav-back { background:#fff; border-bottom:2px solid #e0e6f0; padding:10px 36px; font-size:.82rem; }
+.nav-back a { color:#1a3a6b; text-decoration:none; font-weight:600; }
+.section { background:#fff; border-radius:10px; padding:22px 26px; margin:16px 0; }
+.section h2 { font-size:1.0rem; font-weight:700; color:#0d1f3c; margin-bottom:14px; border-bottom:2px solid #e8edf5; padding-bottom:8px; }
+.vozidlo-specs table { width:100%; border-collapse:collapse; font-size:.87rem; }
+.vozidlo-specs td { padding:6px 10px; border-bottom:1px solid #f0f2f5; }
+.vozidlo-specs td:first-child { color:#888; width:38%; }
+.green-box { background:#eafaf1; border-left:4px solid #27ae60; border-radius:6px; padding:12px 16px; font-size:.85rem; color:#155724; margin-top:10px; }
+.warn-box { background:#fdecea; border-left:4px solid #e74c3c; border-radius:6px; padding:12px 16px; font-size:.85rem; color:#7b1c1c; margin-top:10px; }
+.warn-box strong { display:block; margin-bottom:3px; }
+.info-box { background:#fff8e1; border-left:4px solid #f39c12; border-radius:6px; padding:12px 16px; font-size:.85rem; color:#7d5a00; margin-top:10px; }
+.info-box strong { display:block; margin-bottom:3px; }
+.ok-box { background:#d4edda; border-left:4px solid #27ae60; border-radius:6px; padding:12px 16px; font-size:.85rem; color:#155724; margin-top:10px; }
+.fin { width:100%; border-collapse:collapse; font-size:.84rem; margin-top:4px; }
+.fin th { background:#f0f4fa; color:#0d1f3c; font-weight:700; padding:9px 12px; text-align:left; border-bottom:2px solid #d0dcea; }
+.fin td { padding:8px 12px; border-bottom:1px solid #f0f2f5; }
+.fin tr:last-child td { font-weight:700; background:#f7f9fc; }
+.step { display:flex; gap:14px; align-items:flex-start; margin-bottom:16px; }
+.step-num { background:#1a3a6b; color:#fff; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:.9rem; flex-shrink:0; margin-top:2px; }
+.step-body strong { display:block; font-size:.9rem; margin-bottom:2px; }
+.step-body span { font-size:.82rem; color:#555; }
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+@media(max-width:680px){ .two-col { grid-template-columns:1fr; } }
+.highlight-box { background:#f0f4fa; border-radius:8px; padding:16px; }
+.highlight-box h3 { font-size:.9rem; font-weight:700; color:#0d1f3c; margin-bottom:10px; }
+.highlight-box ul { padding-left:18px; font-size:.85rem; }
+.highlight-box li { margin-bottom:5px; }
+.cta-bar { background:linear-gradient(135deg,#0d1f3c,#1a3a6b); border-radius:10px; padding:20px 26px; display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; margin:16px 0; }
+.cta-bar strong { color:#fff; display:block; font-size:1rem; margin-bottom:3px; }
+.cta-bar p { color:rgba(255,255,255,.8); font-size:.85rem; }
+.cta-btn { background:#f39c12; color:#fff; text-decoration:none; padding:11px 22px; border-radius:7px; font-weight:700; font-size:.92rem; white-space:nowrap; }
+.company-bar { background:#f0f4fa; border-top:3px solid #c8d6e8; padding:16px 36px; font-size:.79rem; color:#444; }
+.cid-grid { display:grid; grid-template-columns:1fr 1fr; gap:4px 30px; }
+.cid-row { display:flex; gap:6px; }
+.cid-label { color:#888; min-width:130px; font-size:.76rem; flex-shrink:0; }
+.cid-val { font-weight:600; color:#0d1f3c; font-size:.79rem; }
+.footer { background:#1a2a4a; color:rgba(255,255,255,.6); text-align:center; padding:15px 20px; font-size:.77rem; }
+.footer a { color:#74b9ff; }
+.footer strong { color:#fff; }
+
+.header-main { background:linear-gradient(135deg,#1a2a4a 0%,#2c4a7c 100%); color:#fff; padding:28px 40px 24px; display:flex; justify-content:space-between; align-items:flex-start; }
+.header-left h1 { font-size:1.65rem; font-weight:700; margin-bottom:4px; }
+.header-left p { font-size:.92rem; opacity:.8; }
+.header-right { text-align:right; }
+.badge-urgent { background:#e74c3c; color:#fff; padding:6px 16px; border-radius:20px; font-weight:700; font-size:.85rem; display:inline-block; margin-bottom:8px; }
+.sender-bar { background:#2c4a7c; border-top:1px solid rgba(255,255,255,.15); padding:10px 40px; color:rgba(255,255,255,.85); font-size:.85rem; display:flex; gap:24px; align-items:center; }
+.sender-bar strong { color:#fff; }
+.sender-bar a { color:#74b9ff; text-decoration:none; }
+.kurz-strip-main { background:#0d1f3c; color:#fff; padding:10px 40px; display:flex; gap:24px; align-items:center; flex-wrap:wrap; font-size:.83rem; border-top:1px solid rgba(255,255,255,.1); }
+.kr-rate { font-size:1.1rem; font-weight:800; color:#f39c12; }
+.gallery-wrap { background:#111; }
+.gallery-main { position:relative; width:100%; height:400px; overflow:hidden; }
+.gallery-main img { width:100%; height:100%; object-fit:cover; display:none; }
+.gallery-main img.active { display:block; }
+.gallery-nav { position:absolute; top:50%; transform:translateY(-50%); background:rgba(0,0,0,.55); color:#fff; border:none; cursor:pointer; font-size:1.6rem; padding:10px 18px; border-radius:4px; z-index:10; }
+.gallery-nav.prev { left:12px; }
+.gallery-nav.next { right:12px; }
+.gallery-counter { position:absolute; bottom:12px; right:16px; background:rgba(0,0,0,.6); color:#fff; font-size:.8rem; padding:3px 10px; border-radius:12px; }
+.thumbs { display:flex; gap:4px; padding:6px; overflow-x:auto; background:#111; }
+.thumbs img { width:80px; height:54px; object-fit:cover; cursor:pointer; border:2px solid transparent; border-radius:3px; flex-shrink:0; opacity:.7; }
+.thumbs img.active { border-color:#74b9ff; opacity:1; }
+.thumbs img:hover { opacity:1; }
+.content { max-width:960px; margin:0 auto; padding:28px 20px; }
+.auction-box { background:#fff; border:2px solid #e74c3c; border-radius:10px; padding:20px 24px; margin-bottom:24px; display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+.aitem { text-align:center; }
+.aitem .label { font-size:.75rem; color:#888; text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px; }
+.aitem .val { font-size:1.05rem; font-weight:700; color:#1a2a4a; }
+.aitem .val.red { color:#e74c3c; }
+.auction-link { background:#e74c3c; color:#fff; text-decoration:none; display:block; text-align:center; padding:11px; border-radius:7px; font-weight:700; font-size:.95rem; grid-column:1/-1; }
+.section-main { background:#fff; border-radius:10px; padding:22px 24px; margin-bottom:20px; box-shadow:0 1px 4px rgba(0,0,0,.06); }
+.section-main h2 { font-size:1.05rem; color:#1a2a4a; font-weight:700; margin-bottom:16px; border-bottom:2px solid #e8ecf0; padding-bottom:8px; }
+.specs-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+@media(max-width:600px){ .specs-grid { grid-template-columns:1fr 1fr; } }
+.spec-item { background:#f8f9fb; border-radius:8px; padding:11px 14px; }
+.spec-item .slabel { font-size:.72rem; color:#888; text-transform:uppercase; letter-spacing:.4px; margin-bottom:3px; }
+.spec-item .sval { font-size:.95rem; font-weight:600; color:#1a2a4a; }
+.eq-group { margin-bottom:16px; }
+.eq-group h3 { font-size:.82rem; font-weight:700; color:#2c4a7c; text-transform:uppercase; letter-spacing:.5px; margin-bottom:8px; }
+.eq-tags { display:flex; flex-wrap:wrap; gap:6px; }
+.eq-tag { background:#edf2fb; color:#2c4a7c; font-size:.8rem; padding:4px 11px; border-radius:20px; white-space:nowrap; }
+.eq-tag.highlight { background:#d4edda; color:#155724; font-weight:600; }
+.tire-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.tire-item { background:#f8f9fb; border-radius:8px; padding:10px 14px; text-align:center; }
+.tire-item .tpos { font-size:.72rem; color:#888; margin-bottom:2px; }
+.tire-item .tdepth { font-size:1.1rem; font-weight:700; color:#27ae60; }
+.logistics-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.log-item { background:#f8f9fb; border-radius:8px; padding:12px 16px; }
+.log-item .llabel { font-size:.72rem; color:#888; text-transform:uppercase; letter-spacing:.4px; margin-bottom:4px; }
+.log-item .lval { font-size:.92rem; font-weight:600; color:#1a2a4a; }
+.log-item .lsub { font-size:.78rem; color:#666; margin-top:3px; }
+.log-item a { color:#2c4a7c; }
+.ol-link { background:#edf2fb; color:#2c4a7c; text-decoration:none; padding:7px 14px; border-radius:20px; font-size:.82rem; font-weight:600; border:1px solid #c8d8f5; }
+.company-id-bar { background:#f0f4fa; border-top:3px solid #c8d6e8; padding:18px 40px; font-size:.82rem; color:#444; }
+.company-id-bar h4 { font-size:.8rem; font-weight:700; color:#0d1f3c; text-transform:uppercase; letter-spacing:.5px; margin-bottom:10px; }
+.cid-grid-main { display:grid; grid-template-columns:1fr 1fr; gap:6px 30px; }
+</style>
+</head>
+<body>
+<div class="header-main">
+  <div class="header-left">
+    <h1>Volkswagen Golf Variant 2.0 TDI Life DSG</h1>
+    <p>2.0 TDI 110 kW, přední pohon, DSG7</p>
+  </div>
+  <div class="header-right">
+    <div class="badge-urgent">🔴 AUKCE PROBÍHÁ</div>
+    <p>25. 5. 2026 v 17:00 hod</p>
+    <p>Ref. č. 11005973</p>
+  </div>
+</div>
+<div class="sender-bar">
+  <span>Připravil: <strong>Ing. Jaroslav Batko-Linet</strong></span>
+  <span>✉ <a href="mailto:batko.digital.ai@gmail.com">batko.digital.ai@gmail.com</a></span>
+  <span>📅 25. 5. 2026</span>
+  <span style="margin-left:auto;">Zdroj: <a href="https://www.openlane.eu/cs/car/info?auctionId=11005973" target="_blank">OPENLANE Europe – aukce #11005973</a> <span style="opacity:.6;font-size:.78rem;">(jen pro registrované)</span></span>
+</div>
+<div class="kurz-strip-main">
+  <span class="kr-label">Kurz ČNB</span>
+  <span class="kr-rate">1 EUR = 24,4028 Kč</span>
+  <span style="opacity:.6;">·</span>
+  <span>Platnost: <strong>25. 5. 2026</strong></span>
+  <span style="opacity:.7;font-size:.75rem;">Zdroj: Česká národní banka (www.cnb.cz) · Kurz se mění každý pracovní den ~14:30 — před podpisem vždy ověřte aktuální kurz</span>
+</div>
+<div class="gallery-wrap">
+  <div class="gallery-main" id="gallery">
+    <img src="img/foto_01.jpg"  class="active" alt="VW Golf Variant 1">
+    <img src="img/foto_02.jpg" alt="VW Golf Variant 2">
+    <img src="img/foto_03.jpg" alt="VW Golf Variant 3">
+    <img src="img/foto_04.jpg" alt="VW Golf Variant 4">
+    <img src="img/foto_05.jpg" alt="VW Golf Variant 5">
+    <img src="img/foto_06.jpg" alt="VW Golf Variant 6">
+    <img src="img/foto_07.jpg" alt="VW Golf Variant 7">
+    <img src="img/foto_08.jpg" alt="VW Golf Variant 8">
+    <img src="img/foto_09.jpg" alt="VW Golf Variant 9">
+    <img src="img/foto_10.jpg" alt="VW Golf Variant 10">
+    <img src="img/foto_11.jpg" alt="VW Golf Variant 11">
+    <img src="img/foto_12.jpg" alt="VW Golf Variant 12">
+    <img src="img/foto_13.jpg" alt="VW Golf Variant 13">
+    <img src="img/foto_14.jpg" alt="VW Golf Variant 14">
+    <img src="img/foto_15.jpg" alt="VW Golf Variant 15">
+    <img src="img/foto_16.jpg" alt="VW Golf Variant 16">
+    <img src="img/foto_17.jpg" alt="VW Golf Variant 17">
+    <img src="img/foto_18.jpg" alt="VW Golf Variant 18">
+    <img src="img/foto_19.jpg" alt="VW Golf Variant 19">
+    <img src="img/foto_20.jpg" alt="VW Golf Variant 20">
+    <img src="img/foto_21.jpg" alt="VW Golf Variant 21">
+    <img src="img/foto_22.jpg" alt="VW Golf Variant 22">
+    <button class="gallery-nav prev" onclick="changeSlide(-1)">&#8249;</button>
+    <button class="gallery-nav next" onclick="changeSlide(1)">&#8250;</button>
+    <div class="gallery-counter" id="counter">1 / 22</div>
+  </div>
+  <div class="thumbs" id="thumbs">
+    <img src="img/foto_01.jpg"  class="active" onclick="goSlide(0)">
+    <img src="img/foto_02.jpg" onclick="goSlide(1)">
+    <img src="img/foto_03.jpg" onclick="goSlide(2)">
+    <img src="img/foto_04.jpg" onclick="goSlide(3)">
+    <img src="img/foto_05.jpg" onclick="goSlide(4)">
+    <img src="img/foto_06.jpg" onclick="goSlide(5)">
+    <img src="img/foto_07.jpg" onclick="goSlide(6)">
+    <img src="img/foto_08.jpg" onclick="goSlide(7)">
+    <img src="img/foto_09.jpg" onclick="goSlide(8)">
+    <img src="img/foto_10.jpg" onclick="goSlide(9)">
+    <img src="img/foto_11.jpg" onclick="goSlide(10)">
+    <img src="img/foto_12.jpg" onclick="goSlide(11)">
+    <img src="img/foto_13.jpg" onclick="goSlide(12)">
+    <img src="img/foto_14.jpg" onclick="goSlide(13)">
+    <img src="img/foto_15.jpg" onclick="goSlide(14)">
+    <img src="img/foto_16.jpg" onclick="goSlide(15)">
+    <img src="img/foto_17.jpg" onclick="goSlide(16)">
+    <img src="img/foto_18.jpg" onclick="goSlide(17)">
+    <img src="img/foto_19.jpg" onclick="goSlide(18)">
+    <img src="img/foto_20.jpg" onclick="goSlide(19)">
+    <img src="img/foto_21.jpg" onclick="goSlide(20)">
+    <img src="img/foto_22.jpg" onclick="goSlide(21)">
+  </div>
+</div>
+<div class="content">
+  <div class="auction-box">
+    <div class="aitem"><div class="label">Typ aukce</div><div class="val">Dynamická aukce</div></div>
+    <div class="aitem"><div class="label">Konec aukce</div><div class="val red">25. 5. 2026 · 17:00</div></div>
+    <div class="aitem"><div class="label">Režim DPH</div><div class="val">Bez DPH</div></div>
+    <a class="auction-link" href="https://www.openlane.eu/cs/car/info?auctionId=11005973" target="_blank">🔗 Otevřít aukci na OPENLANE.eu &rarr; <span style="font-weight:400;font-size:.8rem;opacity:.85;">(jen pro registrované)</span></a>
+  </div>
+  <div class="section-main"><h2>📋 Technické specifikace</h2>
+    <div class="specs-grid">
+      <div class="spec-item"><div class="slabel">Značka / Model</div><div class="sval">Volkswagen Golf Variant</div></div>
+      <div class="spec-item"><div class="slabel">Verze</div><div class="sval">2.0 TDI Life DSG</div></div>
+      <div class="spec-item"><div class="slabel">Model rok</div><div class="sval">2023</div></div>
+      <div class="spec-item"><div class="slabel">Datum výroby</div><div class="sval">3. 11. 2023</div></div>
+      <div class="spec-item"><div class="slabel">1. registrace</div><div class="sval">27. 11. 2023</div></div>
+      <div class="spec-item"><div class="slabel">Najeto</div><div class="sval">73 918 km</div></div>
+      <div class="spec-item"><div class="slabel">Palivo</div><div class="sval">Nafta (diesel)</div></div>
+      <div class="spec-item"><div class="slabel">Převodovka</div><div class="sval">Automatická DSG7</div></div>
+      <div class="spec-item"><div class="slabel">Výkon</div><div class="sval">110 kW / 150 hp</div></div>
+      <div class="spec-item"><div class="slabel">Objem motoru</div><div class="sval">1 968 cc</div></div>
+      <div class="spec-item"><div class="slabel">Emisní norma</div><div class="sval">EU6d / Euro 6</div></div>
+      <div class="spec-item"><div class="slabel">Emise CO2</div><div class="sval">ověřit v dokladech</div></div>
+      <div class="spec-item"><div class="slabel">Typ karoserie</div><div class="sval">Kombi (Variant / Break)</div></div>
+      <div class="spec-item"><div class="slabel">Barva (lak)</div><div class="sval">černá perleťová Deep Black</div></div>
+      <div class="spec-item"><div class="slabel">Barva interiéru</div><div class="sval">černá látka Life</div></div>
+      <div class="spec-item"><div class="slabel">Číslo aukce</div><div class="sval">11005973</div></div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+    <div class="section-main"><h2>🔍 Stav vozidla</h2>
+      <div class="specs-grid" style="grid-template-columns:1fr 1fr;">
+        <div class="spec-item"><div class="slabel">Poškození</div><div class="sval" style="color:#e74c3c">Před nehodou – ANO ⚠️</div></div>
+        <div class="spec-item"><div class="slabel">Poslední servis</div><div class="sval">neuvedeno / digitální servis netestovatelný<br><span style="font-size:.8rem;color:#666;">neuvedeno</span></div></div>
+      </div>
+      <div class="warn-box"><strong>⚠️</strong> Aktuální nabídka: 14 500 EUR bez DPH, přihazovací cena 14 600 EUR bez DPH, celkem podle aukční obrazovky 370 556,52 Kč.</div><div class="warn-box"><strong>⚠️</strong> Pneumatiky Continental celoroční 205/55 R16: přední 4,0 mm, zadní 5,0 mm; roadworthy: yes.</div><div class="warn-box"><strong>⚠️</strong> TÜV report 15. 4. 2026: vozidlo špinavé, podmínky inspekce dostatečné, zvedák nepoužit, motorový test proveden.</div>
+    </div>
+    <div class="section-main"><h2>🔵 Pneumatiky</h2>
+      <div class="tire-grid">
+        <div class="tire-item"><div class="tpos">Přední levá</div><div class="tdepth">4,0 mm</div></div>
+        <div class="tire-item"><div class="tpos">Přední pravá</div><div class="tdepth">4,0 mm</div></div>
+        <div class="tire-item"><div class="tpos">Zadní levá</div><div class="tdepth">5,0 mm</div></div>
+        <div class="tire-item"><div class="tpos">Zadní pravá</div><div class="tdepth">5,0 mm</div></div>
+      </div>
+      
+      
+    </div>
+  </div>
+  <div class="section-main"><h2>⭐ Výbava vozidla</h2><div class="eq-group"><h3>🛡 Bezpečnostní systémy</h3><div class="eq-tags"><span class="eq-tag highlight">Adaptivní tempomat ACC stop & go</span><span class="eq-tag highlight">Travel Assist / Lane Assist</span><span class="eq-tag highlight">Front Assist s detekcí chodců a cyklistů</span><span class="eq-tag">Rozpoznávání dopravních značek</span><span class="eq-tag">Emergency Assist</span><span class="eq-tag">ISOFIX</span><span class="eq-tag">Proaktivní ochrana cestujících</span></div></div>
+<div class="eq-group"><h3>📱 Infotainment &amp; konektivita</h3><div class="eq-tags"><span class="eq-tag highlight">Navigace Discover Media</span><span class="eq-tag highlight">Apple CarPlay / Android Auto bezdrátově</span><span class="eq-tag highlight">Digital Cockpit Pro</span><span class="eq-tag">DAB+ rádio</span><span class="eq-tag">Bluetooth</span><span class="eq-tag">Hlasové ovládání</span><span class="eq-tag">USB-C vpředu i vzadu</span><span class="eq-tag">Bezdrátové nabíjení telefonu</span></div></div>
+<div class="eq-group"><h3>💡 Světla &amp; exteriér</h3><div class="eq-tags"><span class="eq-tag highlight">LED světlomety</span><span class="eq-tag highlight">Light Assist</span><span class="eq-tag">LED denní svícení</span><span class="eq-tag">Automatická světla</span><span class="eq-tag">Dešťový senzor</span></div></div>
+<div class="eq-group"><h3>🅿️ Parkovací asistent &amp; kamery</h3><div class="eq-tags"><span class="eq-tag highlight">Zadní kamera</span><span class="eq-tag">Parkovací senzory vpředu a vzadu</span><span class="eq-tag">Auto Hold</span><span class="eq-tag">Elektronická parkovací brzda</span></div></div>
+</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+    <div class="section-main"><h2>📁 Dokumenty &amp; historie</h2>
+      <div class="logistics-grid">
+        <div class="log-item"><div class="llabel">Registrace vozu</div><div class="lval">✅ Kompletní</div></div>
+        <div class="log-item"><div class="llabel">Certifikát o shodě (COC)</div><div class="lval">✅ K dispozici</div></div>
+        <div class="log-item"><div class="llabel">Záznam o údržbě</div><div class="lval">✅ K dispozici</div></div>
+        <div class="log-item"><div class="llabel">Země dokladů</div><div class="lval">Německo</div></div>
+      </div>
+    </div>
+    <div class="section-main"><h2>🚚 Logistika &amp; původ</h2>
+      <div class="logistics-grid">
+        <div class="log-item"><div class="llabel">Prodejce</div><div class="lval">Německý aukční prodejce</div><div class="lsub">aukční / fleetový původ</div></div>
+        <div class="log-item"><div class="llabel">Prodejní kancelář</div><div class="lval">Německo</div></div>
+        <div class="log-item"><div class="llabel">Místo vyzvednutí</div><div class="lval"><a href="https://maps.google.com/?q=Moenchengladbach,Germany" target="_blank">Mönchengladbach, Německo 📍</a></div></div>
+        <div class="log-item"><div class="llabel">Rozhodnutí prodejce</div><div class="lval">Do 1 pracovního dne</div></div>
+      </div>
+    </div>
+  </div>
+  <div style="background:linear-gradient(135deg,#0d1f3c,#1a3a6b);border-radius:10px;padding:22px 26px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;">
+    <div>
+      <div style="color:#f39c12;font-size:.78rem;font-weight:700;text-transform:uppercase;margin-bottom:6px;">📊 ODBORNÉ HODNOCENÍ VOZIDLA</div>
+      <div style="color:#fff;font-size:1rem;font-weight:700;margin-bottom:4px;">Celkové skóre: 7.1 / 10 · Podmíněné doporučení ke koupi při ceně do 14 600 EUR bez DPH a po kontrole poškození</div>
+      <div style="color:rgba(255,255,255,.7);font-size:.85rem;">Finanční analýza · Rizika &amp; příležitosti · Checklist · Srovnání trhu</div>
+    </div>
+    <a href="hodnoceni_VW_Golf_Variant_11005973.html" style="background:#f39c12;color:#fff;text-decoration:none;padding:12px 22px;border-radius:7px;font-weight:700;font-size:.92rem;white-space:nowrap;flex-shrink:0;">Zobrazit hodnocení →</a>
+  </div>
+  <div class="company-id-bar">
+  <h4>🏢 Identifikace zpracovatele — povinné údaje dle § 435 OZ a § 29 ZDPH</h4>
+  <div class="cid-grid-main">
+    <div>
+      <div class="cid-row"><span class="cid-label">Jméno a příjmení:</span><span class="cid-val">Ing. Jaroslav Batko-Linet</span></div>
+      <div class="cid-row"><span class="cid-label">IČO:</span><span class="cid-val">14600153</span></div>
+      <div class="cid-row"><span class="cid-label">DIČ:</span><span class="cid-val">CZ5912280418</span></div>
+      <div class="cid-row"><span class="cid-label">Sídlo:</span><span class="cid-val">Ostrava 1, Vítkovická 1, PSČ 701 00</span></div>
+    </div>
+    <div>
+      <div class="cid-row"><span class="cid-label">Plátce DPH:</span><span class="cid-val">ANO</span></div>
+      <div class="cid-row"><span class="cid-label">Obchodní rejstřík:</span><span class="cid-val">Krajský soud v Ostravě, sp. zn. A 984, zápis 31. 01. 1991</span></div>
+      <div class="cid-row"><span class="cid-label">Telefon:</span><span class="cid-val">+420 725 360 151</span></div>
+      <div class="cid-row"><span class="cid-label">E-mail:</span><span class="cid-val"><a href="mailto:batko.digital.ai@gmail.com" style="color:#1a3a6b;">batko.digital.ai@gmail.com</a></span></div>
+    </div>
+  </div>
+  <div style="margin-top:10px;font-size:.77rem;color:#666;">Kurz ČNB 25. 5. 2026: <strong>1 EUR = 24,4028 Kč</strong> · Všechny ceny jsou uváděny v EUR i Kč souběžně.</div>
+</div>
+  <div class="footer">
+    <p>Nabídku připravil: <strong>Ing. Jaroslav Batko-Linet</strong> · IČO: <strong>14600153</strong> · Plátce DPH</p>
+    <p style="margin-top:4px;"><a href="mailto:batko.digital.ai@gmail.com">batko.digital.ai@gmail.com</a> · +420 725 360 151</p>
+    <p style="margin-top:5px;">Zdroj dat: <a href="https://www.openlane.eu/cs/car/info?auctionId=11005973" target="_blank">OPENLANE Europe – aukce #11005973</a> · Kurz ČNB 25. 5. 2026: <strong>1 EUR = 24,4028 Kč</strong> · Vygenerováno: 25. 5. 2026</p>
+  </div>
+</div>
+<script>
+const imgs = document.querySelectorAll('#gallery img');
+const thumbs = document.querySelectorAll('#thumbs img');
+const counter = document.getElementById('counter');
+let cur = 0;
+function goSlide(n) {
+  imgs[cur].classList.remove('active'); thumbs[cur].classList.remove('active');
+  cur = (n + 22) % 22;
+  imgs[cur].classList.add('active'); thumbs[cur].classList.add('active');
+  counter.textContent = (cur+1) + ' / ' + 22;
+}
+function changeSlide(dir) { goSlide(cur + dir); }
+</script>
+</body></html>
