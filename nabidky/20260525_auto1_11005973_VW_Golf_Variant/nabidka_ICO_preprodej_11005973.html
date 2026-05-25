@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="cs">
 <head>
 <meta charset="UTF-8">
@@ -52,9 +52,17 @@ body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; color: #
 .cid-row { display:flex; gap:6px; }
 .cid-label { color:#888; min-width:130px; font-size:.76rem; flex-shrink:0; }
 .cid-val { font-weight:600; color:#0d1f3c; font-size:.79rem; }
-.footer { background:#1a2a4a; color:rgba(255,255,255,.6); text-align:center; padding:15px 20px; font-size:.77rem; }
-.footer a { color:#74b9ff; }
-.footer strong { color:#fff; }
+.company-id-bar { background: #f5f7fb; border-top: 2px solid #e0e7f0; padding: 14px 40px; font-size: 0.75rem; color: #666; }
+.company-id-bar h4 { font-size: 0.7rem; font-weight: 700; color: #8899bb; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+.company-id-bar .cid-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 24px; }
+@media(max-width:600px){ .company-id-bar .cid-grid { grid-template-columns: 1fr; } }
+.company-id-bar .cid-row { display: flex; gap: 6px; }
+.company-id-bar .cid-label { color: #aaa; min-width: 120px; font-size: 0.72rem; flex-shrink: 0; }
+.company-id-bar .cid-val { font-weight: 600; color: #555; font-size: 0.72rem; }
+.privacy-law-note { margin-top: 8px; padding-top: 8px; border-top: 1px solid #e0e7f0; font-size: 0.72rem; line-height: 1.45; color: #777; }
+.privacy-law-note strong { color: #667899; }
+.footer { background: #0d1f3c; color: rgba(255,255,255,0.5); text-align: center; padding: 16px 20px; font-size: 0.75rem; }
+.footer a { color: #74b9ff; }
 </style>
 </head>
 <body>
@@ -67,7 +75,7 @@ body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; color: #
 </div>
 <div class="kurz-strip">
   <span>Kurz ČNB 25. 5. 2026: <strong>1 EUR = 24,4028 Kč</strong></span>
-  <span>Volkswagen Golf Variant VIII 2.0 TDI 110 kW DSG7 Life · OPENLANE #11005973</span>
+  <span>Volkswagen Golf Variant VIII 2.0 TDI 110 kW DSG7 Life · evropská aukce #11005973</span>
 </div>
 <div class="nav-back">
   <a href="nabidka_VW_Golf_Variant_11005973.html">← Zpět na hlavní nabídku</a> ·
@@ -78,7 +86,7 @@ body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; color: #
   <h2>🚗 Vozidlo — Volkswagen Golf Variant VIII 2.0 TDI 110 kW DSG7 Life</h2>
   <div class="vozidlo-specs">
     <table>
-      <tr><td>Aukce</td><td><a href="https://www.openlane.eu/cs/car/info?auctionId=11005973" target="_blank">OPENLANE #11005973</a> <small>(jen pro registrované)</small></td></tr>
+      <tr><td>Aukce</td><td>evropská aukce #11005973 <small>(detail dostupný na vyžádání)</small></td></tr>
       <tr><td>Rok výroby</td><td>2023</td></tr>
       <tr><td>Nájezd</td><td>73 918 km</td></tr>
       <tr><td>Motor / převodovka</td><td>2.0 TDI Life DSG (110 kW / 150 hp) · DSG7 DQ381</td></tr>
@@ -123,22 +131,23 @@ body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; color: #
 </body></html>
 
 <div class="company-bar">
-  <div style="font-size:.77rem;font-weight:700;color:#0d1f3c;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;">🏢 Identifikace zpracovatele — § 435 OZ · § 29 ZDPH</div>
+  <div class="company-id-bar">
+  <h4>Identifikace zpracovatele — povinné údaje dle § 435 OZ a § 29 ZDPH</h4>
   <div class="cid-grid">
     <div>
       <div class="cid-row"><span class="cid-label">Jméno:</span><span class="cid-val">Ing. Jaroslav Batko-Linet</span></div>
       <div class="cid-row"><span class="cid-label">IČO:</span><span class="cid-val">14600153</span></div>
-      <div class="cid-row"><span class="cid-label">DIČ:</span><span class="cid-val">CZ5912280418</span></div>
+      <div class="cid-row"><span class="cid-label">DIČ:</span><span class="cid-val">CZ5912280418 &nbsp;·&nbsp; Plátce DPH</span></div>
+      <div class="cid-row"><span class="cid-label">Sídlo:</span><span class="cid-val">Jindřišská 941/24, 110 00 Praha 1</span></div>
     </div>
     <div>
-      <div class="cid-row"><span class="cid-label">Sídlo:</span><span class="cid-val">Ostrava 1, Vítkovická 1, PSČ 701 00</span></div>
-      <div class="cid-row"><span class="cid-label">Obchodní rejstřík:</span><span class="cid-val">Krajský soud v Ostravě, sp. zn. A 9…</span></div>
-      <div class="cid-row"><span class="cid-label">Plátce DPH:</span><span class="cid-val">ANO</span></div>
+      <div class="cid-row"><span class="cid-label">Telefon:</span><span class="cid-val">+420 725 360 151</span></div>
+      <div class="cid-row"><span class="cid-label">E-mail:</span><span class="cid-val">batko.digital.ai@gmail.com</span></div>
     </div>
   </div>
+  <div style="margin-top:8px;font-size:.7rem;color:#aaa;">Kurz ČNB 25. 5. 2026: 1 EUR = 24,4028 Kč &nbsp;·&nbsp; Ref.: #11005973 &nbsp;·&nbsp; Generováno: 25. 5. 2026</div>
+  <div class="privacy-law-note"><strong>Ochrana osobních údajů:</strong> Údaje z kontaktních a objednávkových formulářů zpracováváme výhradně za účelem vyřízení vaší poptávky, přípravy nabídky a navazující komunikace. S údaji nakládáme důvěrně, v souladu s platnými právními předpisy na ochranu osobních údajů; nejsou prodávány ani předávány třetím osobám bez právního důvodu nebo vašeho souhlasu.</div>
 </div>
-<div class="footer">
-  <p>© Ing. Jaroslav Batko-Linet · IČO 14600153 · DIČ CZ5912280418 · <a href="mailto:batko.digital.ai@gmail.com">batko.digital.ai@gmail.com</a> · +420 725 360 151</p>
-  <p style="margin-top:4px">Kurz ČNB 25. 5. 2026: <strong>1 EUR = 24,4028 Kč</strong> · Platba: 7236159001/5500 · IBAN: CZ3755000000007236159001 · SWIFT: RZBCCZPP</p>
-</div>
+<div class="footer"><p style="opacity:.5;">Tato stránka slouží jako informační podklad. Ceny jsou orientační a podléhají aktuálnímu kurzu.</p></div>
 </body></html>
+
