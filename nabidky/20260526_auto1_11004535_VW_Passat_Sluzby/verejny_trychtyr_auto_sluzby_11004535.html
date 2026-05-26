@@ -1,0 +1,796 @@
+﻿<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prověřená nabídka auta | VW Passat Variant #11004535</title>
+  <style>
+    :root {
+      --ink: #0f172a;
+      --muted: #526174;
+      --bg: #f3f6f8;
+      --panel: #ffffff;
+      --line: #d6dee8;
+      --blue: #155e93;
+      --gold: #b7791f;
+      --green: #137a4b;
+      --red: #b4232b;
+      --dark: #071827;
+      --shadow: 0 16px 42px rgba(15, 23, 42, .12);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 17px;
+      line-height: 1.55;
+    }
+    a { color: inherit; }
+    .hero {
+      min-height: 88vh;
+      display: grid;
+      align-items: end;
+      background:
+        linear-gradient(180deg, rgba(7, 24, 39, .10), rgba(7, 24, 39, .86)),
+        url("img/foto_01.jpg") center / cover no-repeat;
+      color: #fff;
+      padding: 28px;
+    }
+    .hero-inner {
+      max-width: 1180px;
+      width: 100%;
+      margin: 0 auto;
+      padding-bottom: 34px;
+    }
+    .topbar {
+      position: absolute;
+      left: 28px;
+      right: 28px;
+      top: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+    .brand {
+      font-weight: 850;
+      letter-spacing: .2px;
+      background: rgba(7, 24, 39, .62);
+      border: 1px solid rgba(255,255,255,.24);
+      border-radius: 8px;
+      padding: 9px 12px;
+    }
+    .source {
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.24);
+      border-radius: 8px;
+      padding: 8px 12px;
+      color: rgba(255,255,255,.9);
+      font-size: 14px;
+    }
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(34px, 5vw, 66px);
+      line-height: 1.03;
+      letter-spacing: 0;
+      max-width: 980px;
+    }
+    .lead {
+      max-width: 760px;
+      margin: 0 0 20px;
+      color: rgba(255,255,255,.9);
+      font-size: 21px;
+    }
+    .hero-actions, .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 13px 18px;
+      border-radius: 8px;
+      border: 2px solid transparent;
+      background: var(--blue);
+      color: #fff;
+      font-weight: 850;
+      text-decoration: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .btn.alt {
+      background: rgba(255,255,255,.12);
+      border-color: rgba(255,255,255,.55);
+    }
+    .btn.gold { background: var(--gold); }
+    .btn.light {
+      color: var(--blue);
+      background: #eef6ff;
+      border-color: #cfe3f7;
+    }
+    main { max-width: 1180px; margin: 0 auto; padding: 24px; }
+    section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      padding: 24px;
+      margin: 0 0 20px;
+    }
+    .section-title {
+      margin: 0 0 14px;
+      font-size: 28px;
+      line-height: 1.18;
+    }
+    .muted { color: var(--muted); }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .two { grid-template-columns: repeat(2, 1fr); }
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      background: #fff;
+    }
+    .card strong {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+    .specs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+    .spec {
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+    }
+    .spec span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      text-transform: uppercase;
+      font-weight: 800;
+      margin-bottom: 3px;
+    }
+    .spec b { font-size: 18px; }
+    .photo-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 10px;
+    }
+    .photo-grid img {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      display: block;
+    }
+    .photo-grid img:first-child {
+      grid-row: span 2;
+      height: 430px;
+    }
+    .signal {
+      border-left: 6px solid var(--blue);
+      background: #eef6ff;
+    }
+    .risk {
+      border-left: 6px solid var(--gold);
+      background: #fff9eb;
+    }
+    .stop {
+      border-left: 6px solid var(--red);
+      background: #fff1f2;
+    }
+    .safe-box {
+      border-left: 6px solid var(--green);
+      background: #ecfdf3;
+    }
+    .path {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .path-card {
+      border: 2px solid var(--line);
+      border-radius: 10px;
+      padding: 20px;
+      background: #fff;
+    }
+    .path-card.featured {
+      border-color: #9bc8eb;
+      background: #f3f9ff;
+    }
+    .price {
+      font-size: 32px;
+      font-weight: 900;
+      color: var(--blue);
+      margin: 6px 0 10px;
+    }
+    ul.clean {
+      margin: 12px 0;
+      padding-left: 22px;
+    }
+    ul.clean li { margin: 7px 0; }
+    .steps {
+      counter-reset: step;
+      display: grid;
+      gap: 10px;
+    }
+    .step {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 12px;
+      align-items: start;
+    }
+    .step::before {
+      counter-increment: step;
+      content: counter(step);
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--dark);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+    }
+    form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    label {
+      display: block;
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+    input, select, textarea {
+      width: 100%;
+      border: 2px solid #b9c7d6;
+      border-radius: 8px;
+      min-height: 46px;
+      padding: 10px;
+      font: inherit;
+      color: var(--ink);
+      background: #fff;
+    }
+    textarea { min-height: 110px; resize: vertical; }
+    .full { grid-column: 1 / -1; }
+    .choice-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 12px 0;
+    }
+    .choice-card {
+      border: 2px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      cursor: pointer;
+      background: #fff;
+    }
+    .choice-card:hover { border-color: #9bc8eb; background: #f3f9ff; }
+    .choice-card strong { display: block; margin-bottom: 3px; }
+    .help-box {
+      border: 1px solid #b7d7ee;
+      background: #f3f9ff;
+      border-radius: 8px;
+      padding: 12px;
+      color: #203244;
+      font-size: 15px;
+    }
+    .file-summary {
+      margin-top: 8px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 10px 12px;
+      font-size: 15px;
+      display: none;
+    }
+    .file-summary.is-visible { display: block; }
+    .file-summary strong { display: block; margin-bottom: 6px; }
+    .file-summary ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+    .file-summary li { margin: 4px 0; }
+    .footer {
+      color: #dce7f2;
+      background: var(--dark);
+      padding: 24px;
+      margin-top: 24px;
+    }
+    .footer-inner { max-width: 1180px; margin: 0 auto; }
+    .small { font-size: 13px; color: #6b7788; }
+    .footer .small { color: #b8c7d6; }
+    .sticky {
+      position: sticky;
+      bottom: 0;
+      z-index: 5;
+      background: rgba(7, 24, 39, .96);
+      color: #fff;
+      border-top: 1px solid rgba(255,255,255,.14);
+      padding: 10px 16px;
+    }
+    .sticky-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+    }
+    @media (max-width: 900px) {
+      .grid, .two, .path, .specs, form { grid-template-columns: 1fr; }
+      .choice-row { grid-template-columns: 1fr; }
+      .photo-grid { grid-template-columns: 1fr 1fr; }
+      .photo-grid img:first-child { grid-column: 1 / -1; height: 300px; }
+      .topbar { position: static; margin-bottom: 120px; }
+      .hero { padding: 18px; min-height: 92vh; }
+      main { padding: 14px; }
+      section { padding: 18px; }
+      .sticky-inner { display: block; }
+      .sticky .btn { width: 100%; margin-top: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="topbar">
+      <div class="brand">Auto prověřené před rozhodnutím</div>
+      <div class="source">Zdroj: OL | Ref. ID #11004535</div>
+    </div>
+    <div class="hero-inner">
+      <h1>Volkswagen Passat Variant 2.0 TDI Business</h1>
+      <p class="lead">Nejdřív rozhodnutí, potom peníze. U tohoto auta vidíte silné stránky, známá rizika a další bezpečný krok ještě před tím, než se zavážete k nákupu.</p>
+      <div class="hero-actions">
+        <a class="btn gold" href="#sluzby" data-choice="Detailní due diligence konkrétního auta" data-section="Hero" data-task="Klient chce prověřit konkrétní auto Ref. ID #11004535" data-button="Chci prověřit toto auto">Chci prověřit toto auto</a>
+        <a class="btn alt" href="#poptavka" data-choice="Vyhledání auta na míru" data-section="Hero" data-task="Klient nechce nutně toto auto, chce vyhledat auto podle zadání" data-button="Chci najít auto podle zadání">Chci najít auto podle zadání</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <div class="specs">
+        <div class="spec"><span>Rok / registrace</span><b>12/2022</b></div>
+        <div class="spec"><span>Nájezd</span><b>59 394 km</b></div>
+        <div class="spec"><span>Motor</span><b>2.0 TDI 110 kW</b></div>
+        <div class="spec"><span>Převodovka</span><b>Automatická</b></div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Proč jsem toto auto vybral k posouzení</h2>
+      <div class="grid">
+        <div class="card signal">
+          <strong>Rozumný nájezd a stáří</strong>
+          <p>Auto je z konce roku 2022 a má pod 60 tisíc km. To je kombinace, která může dávat smysl pro rodinu, firmu i další provoz.</p>
+        </div>
+        <div class="card signal">
+          <strong>Motorizace s poptávkou</strong>
+          <p>Passat Variant 2.0 TDI s automatem je praktická konfigurace, kterou český trh zná a umí ocenit.</p>
+        </div>
+        <div class="card signal">
+          <strong>Nejde o slepé doporučení</strong>
+          <p>Součástí posouzení jsou i vady, náklady, doklady, DPH a porovnání s českým trhem. Když čísla nevychází, doporučení je nekoupit.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Fotky a první dojem</h2>
+      <div class="photo-grid">
+        <img src="img/foto_01.jpg" alt="Volkswagen Passat Variant">
+        <img src="img/foto_02.jpg" alt="Volkswagen Passat detail">
+        <img src="img/foto_03.jpg" alt="Volkswagen Passat interiér">
+        <img src="img/foto_04.jpg" alt="Volkswagen Passat zadní část">
+        <img src="img/foto_05.jpg" alt="Volkswagen Passat detail karoserie">
+      </div>
+      <p class="small">Ukázkové fotky jsou součástí lokálního podkladu k vozu. Před závazným rozhodnutím se vždy kontroluje kompletní sada fotek a dostupná dokumentace.</p>
+    </section>
+
+    <section>
+      <h2 class="section-title">Co je potřeba ověřit před rozhodnutím</h2>
+      <div class="grid">
+        <div class="card risk">
+          <strong>Stav karoserie a opravy</strong>
+          <p>U auta jsou evidované kosmetické a opravitelné vady. Nejde je ignorovat, protože rozhodují o celkové ceně a bezpečné hranici nákupu.</p>
+        </div>
+        <div class="card risk">
+          <strong>Doklady a servis</strong>
+          <p>Kontroluje se země dokladů, servisní záznamy, počet klíčů a soulad informací mezi podklady.</p>
+        </div>
+        <div class="card risk">
+          <strong>Celková cena v ČR</strong>
+          <p>Důležitá není jen cena auta u zdroje. Rozhoduje celková cena po dopravě, registraci, servisu, DPH a rezervě na rizika.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="stop">
+      <h2 class="section-title">Největší hodnota služby: nekoupit špatné auto</h2>
+      <p>Levné auto může být drahé rozhodnutí. Proto moje služba nezačíná otázkou „jak ho koupit“, ale otázkou „má smysl ho koupit vůbec“. Pokud se po kontrole ukáže, že riziko převyšuje přínos, dostanete doporučení nepokračovat.</p>
+    </section>
+
+    <section class="safe-box">
+      <h2 class="section-title">Máte vlastní auto, které chcete posoudit?</h2>
+      <p>Nemusíte mít dokonalé podklady. Pošlete odkaz na inzerát, fotky, VIN, PDF report, screenshoty nebo jen popis auta. Nejdřív se podívám, jestli mám dost informací pro smysluplné posouzení. Když něco chybí, napíšu vám, co doplnit.</p>
+      <div class="grid">
+        <div class="card">
+          <strong>Pošlete odkaz</strong>
+          <p>Například Sauto, TipCars, bazar, dovozová nabídka nebo soukromý inzerát. Odkaz stačí pro první orientaci.</p>
+        </div>
+        <div class="card">
+          <strong>Přiložte, co máte</strong>
+          <p>Do formuláře napište, jaké podklady máte. Soubory pošlete následně e-mailem, přes sdílený odkaz nebo podle instrukcí, které vám pošlu v odpovědi.</p>
+        </div>
+        <div class="card">
+          <strong>Nejdřív potvrzení, potom platba</strong>
+          <p>Odesláním nic neplatíte. Teprve po potvrzení rozsahu dostanete cenu a platební údaje.</p>
+        </div>
+      </div>
+      <div class="actions" style="margin-top:14px;">
+        <a class="btn gold" href="#poptavka" data-choice="Kritický rozbor auta z českého bazaru" data-section="Vlastní auto klienta" data-task="Klient má vlastní auto nebo odkaz a chce posoudit rizika před koupí" data-button="Chci posoudit vlastní auto">Chci posoudit vlastní auto</a>
+        <a class="btn light" href="#poptavka" data-choice="Rychlé posouzení inzerátu" data-section="Vlastní auto klienta" data-task="Klient chce jen rychlé první síto k odkazu nebo inzerátu" data-button="Chci jen rychlý názor">Chci jen rychlý názor</a>
+      </div>
+    </section>
+
+    <section id="sluzby">
+      <h2 class="section-title">Vyberte si další bezpečný krok</h2>
+      <p class="muted">Cílem není zahltit vás pravidly nákupu auta. Cílem je dát vám jasné rozhodnutí, konkrétní náklady a postup, který zvládnete bez zbytečného rizika.</p>
+      <div class="card safe-box">
+        <strong>Odesláním poptávky nic neplatíte a nic závazně neobjednáváte</strong>
+        <p>Nejdřív mi pošlete auto nebo zadání. Já potvrdím, že si rozumíme v rozsahu, ceně a výstupu. Teprve potom dostanete platební údaje. Práci začínám až po vašem potvrzení a zaplacení domluvené služby.</p>
+      </div>
+      <div class="path">
+        <div class="path-card">
+          <strong>Rychlé posouzení inzerátu</strong>
+          <div class="price">490 Kč</div>
+          <p>Pro první síto u auta z českého bazaru, soukromé inzerce nebo dovozové nabídky.</p>
+          <ul class="clean">
+            <li>Rychlý názor, jestli nabídka stojí za další čas.</li>
+            <li>Kontrola ceny proti základnímu riziku a trhu.</li>
+            <li>Upozornění na červené signály v inzerátu.</li>
+            <li>Vhodné, když chcete prověřit více kandidátů levně.</li>
+          </ul>
+          <a class="btn light" href="#poptavka" data-choice="Rychlé posouzení inzerátu" data-section="Služby" data-task="Klient chce levné rychlé posouzení inzerátu nebo bazarového auta" data-button="Chci rychlé posouzení inzerátu">Chci rychlé posouzení</a>
+        </div>
+        <div class="path-card">
+          <strong>Kritický rozbor auta z českého bazaru</strong>
+          <div class="price">990 Kč</div>
+          <p>Pro konkrétní auto z české inzerce, když dodáte odkaz, fotky, VIN nebo dostupné podklady.</p>
+          <ul class="clean">
+            <li>Co pravděpodobně kupujete a co je potřeba ověřit.</li>
+            <li>Rizika ceny, nájezdu, historie, výbavy a prodejce.</li>
+            <li>Odhad rozumného cenového pásma.</li>
+            <li>Doporučení pokračovat / vyjednat / nekoupit.</li>
+          </ul>
+          <a class="btn light" href="#poptavka" data-choice="Kritický rozbor auta z českého bazaru" data-section="Služby" data-task="Klient chce kritický rozbor auta z českého bazaru nebo inzerce" data-button="Chci kritický rozbor bazarového auta">Chci kritický rozbor</a>
+        </div>
+        <div class="path-card featured">
+          <strong>Detailní due diligence konkrétního auta</strong>
+          <div class="price">2 500 Kč</div>
+          <p>Pro zákazníka, který chce písemné rozhodnutí k vybranému autu, včetně nákladů, rizik a doporučení dalšího postupu.</p>
+          <ul class="clean">
+            <li>Verdikt koupit / podmíněně / nekoupit.</li>
+            <li>Odhad celkových nákladů v ČR.</li>
+            <li>Rizika auta a doporučená hranice rozhodnutí.</li>
+            <li>Výstup do 24 hodin po dodání podkladů.</li>
+          </ul>
+          <a class="btn" href="#poptavka" data-choice="Detailní due diligence konkrétního auta" data-section="Služby" data-task="Připravit nabídku detailní due diligence konkrétního auta Ref. ID #11004535" data-button="Chci detailní due diligence tohoto auta">Chci detailní due diligence</a>
+        </div>
+        <div class="path-card">
+          <strong>Vyhledání auta podle zadání</strong>
+          <div class="price">5 000 Kč</div>
+          <p>Pro zákazníka, který nechce přesně toto auto, ale chce vybrat nejlepší možnost z trhu.</p>
+          <ul class="clean">
+            <li>Upřesnění rozpočtu, typu auta a priorit.</li>
+            <li>Výběr kandidátů z aktuální nabídky.</li>
+            <li>Porovnání rizik, cen a celkových nákladů.</li>
+            <li>Výstup do 48 hodin podle rozsahu zadání.</li>
+          </ul>
+          <a class="btn light" href="#poptavka" data-choice="Vyhledání auta na míru" data-section="Služby" data-task="Získat zadání klienta a nabídnout vyhledání auta na míru" data-button="Chci najít auto na míru">Chci najít auto na míru</a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Když se rozhodnete pokračovat</h2>
+      <div class="grid">
+        <div class="card">
+          <strong>Asistovaný nákup</strong>
+          <p>Vhodné, když chcete transparentní náklady a zastoupení v procesu. Orientační odměna u auta 300-600 tisíc Kč je 12-20 tisíc Kč podle rozsahu.</p>
+        </div>
+        <div class="card">
+          <strong>Nákup za dohodnutou cenu</strong>
+          <p>Vhodné, když chcete výsledek a nechcete řešit jednotlivé položky. Cena a rozsah se potvrdí písemně před zahájením.</p>
+        </div>
+        <div class="card">
+          <strong>Kontrola před závazkem</strong>
+          <p>Žádná platba za větší službu nedává smysl bez prvního rozhodovacího kroku. Proto začínáme expertizou nebo jasným zadáním.</p>
+        </div>
+        <div class="card">
+          <strong>Dohledání podkladů k autu</strong>
+          <p>Když nemáte dost informací, můžu za příplatek dohledat dostupné tržní reference, historii, srovnatelné nabídky a slabá místa konkrétního vozu.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Jak probíhá placená expertiza bezpečně</h2>
+      <div class="steps">
+        <div class="step"><div><strong>Pošlete nezávaznou poptávku.</strong><br><span class="muted">Kliknutím ani odesláním formuláře nic neplatíte a nic závazně neobjednáváte. Je to jen začátek domluvy.</span></div></div>
+        <div class="step"><div><strong>Pošlu instrukce k podkladům.</strong><br><span class="muted">Pokud bude potřeba poslat fotky, PDF nebo větší soubory, dostanete e-mail, kam je poslat nebo jak je bezpečně nasdílet.</span></div></div>
+        <div class="step"><div><strong>Potvrdím, že si rozumíme.</strong><br><span class="muted">Napíšu, jaký výstup dává smysl, co k tomu potřebuji, kolik to bude stát a kdy to dodám.</span></div></div>
+        <div class="step"><div><strong>Dostanete platební údaje.</strong><br><span class="muted">Teprve po vašem souhlasu posílám platební údaje. Bez vašeho potvrzení a platby práci nezahajuji.</span></div></div>
+        <div class="step"><div><strong>Po zaplacení začíná práce.</strong><br><span class="muted">Výstupem je jasné rozhodnutí: pokračovat, vyjednat, chtít další ověření, hledat jiné auto, nebo nekoupit.</span></div></div>
+        <div class="step"><div><strong>Další krok jen pokud dává smysl.</strong><br><span class="muted">Pokud chcete, navážu asistovaným nákupem, dohledáním podkladů nebo hledáním lepší alternativy.</span></div></div>
+      </div>
+    </section>
+
+    <section id="poptavka">
+      <h2 class="section-title">Napište, co chcete řešit</h2>
+      <p class="muted">Formulář se zapisuje do interní tabulky leadů včetně názvu stránky, auta, sekce, tlačítka a úkolu pro další odpověď.</p>
+      <form id="leadForm">
+        <div>
+          <label for="name">Jméno</label>
+          <input id="name" name="name" placeholder="Vaše jméno">
+        </div>
+        <div>
+          <label for="email">E-mail</label>
+          <input id="email" name="email" type="email" placeholder="vas@email.cz">
+        </div>
+        <div>
+          <label for="phone">Telefon</label>
+          <input id="phone" name="phone" placeholder="+420 ...">
+        </div>
+        <div>
+          <label for="service">Co chcete</label>
+          <select id="service" name="service">
+            <option>Rychlé posouzení inzerátu</option>
+            <option>Kritický rozbor auta z českého bazaru</option>
+            <option>Detailní due diligence konkrétního auta</option>
+            <option>Vyhledání auta na míru</option>
+            <option>Asistovaný nákup</option>
+            <option>Nákup za dohodnutou cenu</option>
+          </select>
+        </div>
+        <div>
+          <label for="budget">Rozpočet</label>
+          <input id="budget" name="budget" placeholder="Např. 450 000 až 600 000 Kč">
+        </div>
+        <div class="full">
+          <label for="carLink">Odkaz na auto nebo inzerát</label>
+          <input id="carLink" name="carLink" placeholder="Vložte odkaz na Sauto, TipCars, bazar, aukční nabídku nebo jiný inzerát">
+        </div>
+        <div class="full">
+          <label for="materials">Jaké podklady máte?</label>
+          <textarea id="materials" name="materials" placeholder="Např. VIN, fotky, servisní historie, Cebia, PDF report, screenshoty, komunikace s prodejcem, technický průkaz. Když něco nemáte, nevadí."></textarea>
+          <div class="help-box" style="margin-top:8px;">
+            Menší soubory můžete přiložit rovnou níže. Větší balík fotek nebo dokumentů pošlete raději sdíleným odkazem z Google Drive, OneDrive nebo úložiště.
+          </div>
+        </div>
+        <div class="full">
+          <label for="attachments">Přílohy k autu</label>
+          <input id="attachments" name="attachments" type="file" multiple accept=".jpg,.jpeg,.png,.webp,.pdf,.txt,.doc,.docx">
+          <div class="file-summary" id="attachmentSummary" aria-live="polite"></div>
+          <div class="help-box" style="margin-top:8px;">
+            Můžete přiložit až 5 menších souborů dohromady cca do 8 MB. Vhodné jsou fotky, PDF a běžné dokumenty. Pokud máte větší balík fotek, vložte raději sdílený odkaz výše.
+          </div>
+        </div>
+        <div class="full">
+          <label for="message">Zadání nebo poznámka</label>
+          <textarea id="message" name="message">Chci nezávazně posoudit auto před koupí. Prosím nejdřív potvrdit, jestli máte dost podkladů, jaký rozsah služby dává smysl a kolik bude stát.</textarea>
+        </div>
+        <div class="full actions">
+          <button class="btn gold" type="submit" id="submitLeadButton">Odeslat poptávku služby</button>
+          <a class="btn light" href="#sluzby">Ještě porovnat služby</a>
+        </div>
+        <div class="full">
+          <p class="small" id="leadStatus">Odesláním poptávky nic neplatíte. Nejdřív potvrdím rozsah, cenu a platební údaje.</p>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <div class="sticky">
+    <div class="sticky-inner">
+      <strong>Nezávazná poptávka. Platba až po potvrzení rozsahu a ceny.</strong>
+      <a class="btn gold" href="#poptavka" data-choice="Detailní due diligence konkrétního auta" data-section="Spodní lišta" data-task="Klient klikl na sticky CTA a chce bezpečně domluvit placené rozhodnutí k autu" data-button="Chci bezpečně domluvit posouzení">Chci bezpečně domluvit posouzení</a>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <strong>Jaroslav Batko</strong>
+      <p class="small">Poptávkové údaje slouží pouze pro vyřízení dotazu, přípravu nabídky a navazující komunikaci. Neprodávají se ani nepředávají třetím osobám bez právního důvodu nebo vašeho souhlasu.</p>
+      <p class="small">Tato stránka je veřejná zákaznická nabídka. Slouží k rozhodnutí o dalším kroku a neobsahuje neveřejné obchodní výpočty.</p>
+    </div>
+  </footer>
+
+  <script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwcFA8bRyHnBB_4XlgH5_IMR4IBqUfvTD8vScGZPiuCh0gR5f4Mp_9OjOAw1u3lNEjI/exec";
+    const PAGE_ID = "verejny_trychtyr_auto_sluzby_11004535";
+    const PAGE_TYPE = "verejna_nabidka_auto_a_sluzby";
+    const CAR_ID = "11004535";
+    const CAR_NAME = "VW Passat Variant 2.0 TDI Business";
+    const CAR_REF = "OL #11004535";
+    let lastCta = {
+      button: "Odeslat poptávku služby",
+      section: "Formulář poptávky",
+      task: "Klient odeslal hlavní formulář veřejného trychtýře",
+      choice: "Detailní due diligence konkrétního auta"
+    };
+
+    document.querySelectorAll("[data-choice]").forEach(button => {
+      button.addEventListener("click", () => {
+        const service = document.getElementById("service");
+        if (service) service.value = button.dataset.choice;
+        const message = document.getElementById("message");
+        if (message && button.dataset.section === "Vlastní auto klienta") {
+          message.value = "Chci nezávazně posoudit vlastní auto před koupí. Pošlu odkaz nebo podklady. Prosím nejdřív potvrdit, jestli je podkladů dost, jaký rozsah služby dává smysl a kolik bude stát.";
+        }
+        lastCta = {
+          button: button.dataset.button || button.textContent.trim(),
+          section: button.dataset.section || "Neurčená sekce",
+          task: button.dataset.task || "Navázat na kliknuté CTA",
+          choice: button.dataset.choice || service?.value || ""
+        };
+      });
+    });
+
+    function readFileAsBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const dataUrl = String(reader.result || "");
+          resolve({
+            name: file.name,
+            type: file.type || "application/octet-stream",
+            size: file.size,
+            data: dataUrl.includes(",") ? dataUrl.split(",").pop() : dataUrl
+          });
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function formatBytes(bytes) {
+      if (!bytes) return "0 KB";
+      const mb = bytes / (1024 * 1024);
+      if (mb >= 1) return mb.toFixed(mb >= 10 ? 0 : 1).replace(".", ",") + " MB";
+      return Math.max(1, Math.round(bytes / 1024)) + " KB";
+    }
+
+    function updateAttachmentSummary() {
+      const input = document.getElementById("attachments");
+      const summary = document.getElementById("attachmentSummary");
+      if (!input || !summary) return;
+      const files = Array.from(input.files || []);
+      if (!files.length) {
+        summary.classList.remove("is-visible");
+        summary.innerHTML = "";
+        return;
+      }
+      const totalBytes = files.reduce((sum, file) => sum + file.size, 0);
+      const list = files
+        .map(file => "<li>" + file.name + " (" + formatBytes(file.size) + ")</li>")
+        .join("");
+      summary.classList.add("is-visible");
+      summary.innerHTML = "<strong>Vybráno " + files.length + " souborů, celkem " + formatBytes(totalBytes) + ":</strong><ul>" + list + "</ul>";
+    }
+
+    document.getElementById("attachments")?.addEventListener("change", updateAttachmentSummary);
+
+    async function collectAttachments() {
+      const input = document.getElementById("attachments");
+      const files = input ? Array.from(input.files || []) : [];
+      const maxFiles = 5;
+      const maxBytes = 8 * 1024 * 1024;
+      if (files.length > maxFiles) {
+        throw new Error("Vyberte prosím maximálně " + maxFiles + " souborů. Větší balík pošlete sdíleným odkazem.");
+      }
+      const totalBytes = files.reduce((sum, file) => sum + file.size, 0);
+      if (totalBytes > maxBytes) {
+        throw new Error("Přílohy mají dohromady víc než 8 MB. Vložte raději sdílený odkaz z Drive/OneDrive.");
+      }
+      return Promise.all(files.map(readFileAsBase64));
+    }
+
+    document.getElementById("leadForm").addEventListener("submit", async event => {
+      event.preventDefault();
+      const status = document.getElementById("leadStatus");
+      const submit = document.getElementById("submitLeadButton");
+      const data = new FormData(event.currentTarget);
+      const service = data.get("service") || lastCta.choice || "";
+      let attachments = [];
+      try {
+        attachments = await collectAttachments();
+      } catch (err) {
+        status.textContent = err.message || "Přílohy se nepodařilo připravit.";
+        return;
+      }
+      const note = [
+        "Stránka: " + PAGE_ID,
+        "Typ stránky: " + PAGE_TYPE,
+        "Auto: " + CAR_NAME,
+        "Ref.: " + CAR_REF,
+        "Formulář: hlavní formulář veřejného trychtýře",
+        "Sekce: " + lastCta.section,
+        "Tlačítko: " + lastCta.button,
+        "Úkol: " + lastCta.task,
+        "Rozpočet: " + (data.get("budget") || ""),
+        "Odkaz na auto: " + (data.get("carLink") || ""),
+        "Podklady klienta: " + (data.get("materials") || ""),
+        "Zadání: " + (data.get("message") || "")
+      ].join(" | ");
+      const payload = {
+        source: PAGE_ID + " | " + CAR_REF,
+        formType: "Trychtýř služeb - " + service,
+        name: data.get("name") || "",
+        email: data.get("email") || "",
+        phone: data.get("phone") || "",
+        budget: "Rozpočet: " + (data.get("budget") || "") + " | Odkaz: " + (data.get("carLink") || ""),
+        note: note,
+        carInfo: CAR_REF + " | " + CAR_NAME + " | " + window.location.href,
+        url_aukce: CAR_REF + " | veřejná nabídka bez odkazu na zdroj",
+        button_text: lastCta.button,
+        unlock_section: lastCta.section,
+        lead_task: lastCta.task,
+        processing_status: "PRIJATO",
+        approval_required: "CEKA_NA_SCHVALENI",
+        sent_status: "NEODESLANO",
+        page_id: PAGE_ID,
+        page_type: PAGE_TYPE,
+        car_id: CAR_ID,
+        car_name: CAR_NAME,
+        selected_service: service,
+        car_link: data.get("carLink") || "",
+        materials: data.get("materials") || "",
+        podklady_info: "Text podkladů: " + (data.get("materials") || "") + " | Přiložené soubory: " + (attachments.length ? attachments.map(file => file.name).join(", ") : "žádné"),
+        attachments: attachments,
+        referrer: document.referrer || "",
+        current_url: window.location.href
+      };
+
+      submit.disabled = true;
+      status.textContent = "Odesílám poptávku do interní tabulky...";
+      fetch(SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload)
+      }).then(() => {
+        status.textContent = "Poptávka byla odeslána ke zpracování. Nic tím neplatíte ani závazně neobjednáváte. Ozvu se s potvrzením rozsahu, ceny a dalšího kroku.";
+        event.currentTarget.reset();
+        updateAttachmentSummary();
+      }).catch(() => {
+        status.textContent = "Poptávka byla odeslána ke zpracování. Lokální stránka neumí zápis spolehlivě potvrdit, ale e-mail se neotevírá a klient nic neplatí.";
+      }).finally(() => {
+        setTimeout(() => { submit.disabled = false; }, 1200);
+      });
+    });
+  </script>
+</body>
+</html>
+
