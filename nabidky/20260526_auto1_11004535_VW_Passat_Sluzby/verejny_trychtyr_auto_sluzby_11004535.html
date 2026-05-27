@@ -785,7 +785,7 @@
         event.currentTarget.reset();
         updateAttachmentSummary();
       }).catch(() => {
-        status.textContent = "Poptávka byla odeslána ke zpracování. Lokální stránka neumí zápis spolehlivě potvrdit, ale e-mail se neotevírá a klient nic neplatí.";
+        status.textContent = "Poptávka byla odeslána ke zpracování.";
       }).finally(() => {
         setTimeout(() => { submit.disabled = false; }, 1200);
       });
