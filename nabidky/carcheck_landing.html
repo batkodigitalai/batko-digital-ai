@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AutoCheck — Prověření auta před koupí | Ochrana před podvodem</title>
+<meta name="description" content="Pošlete odkaz nebo podklady k autu. Do 24 hodin dostanete zprávu: co auto je, co vám hrozí a jestli ho koupit. 790 Kč vč. DPH.">
+<style>
+  :root {
+    --red: #c0392b;
+    --dark: #1a1a2e;
+    --text: #222;
+    --muted: #666;
+    --border: #ddd;
+    --green: #27ae60;
+    --bg-light: #f8f8f8;
+    --accent: #e8f4f8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; color: var(--text); background: #fff; }
+  .hero { background: var(--dark); color: #fff; padding: 60px 20px 50px; text-align: center; }
+  .hero-eyebrow { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #f39c12; margin-bottom: 16px; font-weight: 600; }
+  .hero h1 { font-size: clamp(26px, 5vw, 48px); font-weight: 800; line-height: 1.15; margin-bottom: 20px; max-width: 780px; margin-left: auto; margin-right: auto; }
+  .hero h1 span { color: #f39c12; }
+  .hero-sub { font-size: clamp(16px, 2.5vw, 20px); color: #ccd; max-width: 620px; margin: 0 auto 32px; line-height: 1.6; }
+  .hero-cta-wrap { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .btn-primary { background: #f39c12; color: #1a1a2e; font-weight: 800; font-size: 18px; padding: 18px 40px; border: none; border-radius: 6px; cursor: pointer; text-decoration: none; display: inline-block; transition: background 0.2s; letter-spacing: 0.5px; }
+  .btn-primary:hover { background: #e67e22; }
+  .hero-note { font-size: 13px; color: #99a; }
+  .fear { background: #fff8f0; border-left: 5px solid var(--red); padding: 40px 20px; max-width: 760px; margin: 40px auto; border-radius: 0 8px 8px 0; }
+  .fear h2 { font-size: 22px; color: var(--red); margin-bottom: 16px; }
+  .fear ul { list-style: none; padding: 0; }
+  .fear ul li { padding: 8px 0 8px 28px; position: relative; font-size: 16px; border-bottom: 1px solid #fde; line-height: 1.5; }
+  .fear ul li:last-child { border-bottom: none; }
+  .fear ul li::before { content: "⚠️"; position: absolute; left: 0; }
+  .section { max-width: 760px; margin: 0 auto; padding: 40px 20px; }
+  .section-title { font-size: 26px; font-weight: 800; margin-bottom: 8px; color: var(--dark); }
+  .section-sub { color: var(--muted); margin-bottom: 28px; font-size: 15px; }
+  .checklist { list-style: none; padding: 0; }
+  .checklist li { padding: 12px 0 12px 36px; position: relative; border-bottom: 1px solid var(--border); font-size: 15px; line-height: 1.5; }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist li::before { content: "✓"; position: absolute; left: 0; color: var(--green); font-weight: 800; font-size: 18px; }
+  .checklist li strong { display: block; font-size: 16px; }
+  .verdict-box { background: var(--dark); color: #fff; border-radius: 10px; padding: 28px 24px; margin: 32px 0; text-align: center; }
+  .verdict-box .verdict-label { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: #aab; margin-bottom: 12px; }
+  .verdict-pills { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 12px; }
+  .pill { padding: 10px 20px; border-radius: 50px; font-weight: 700; font-size: 15px; }
+  .pill-green { background: #27ae60; color: #fff; }
+  .pill-yellow { background: #f39c12; color: #1a1a2e; }
+  .pill-red { background: #c0392b; color: #fff; }
+  .price-anchor { background: var(--accent); border-radius: 10px; padding: 32px 24px; text-align: center; margin: 32px 0; }
+  .price-compare { display: flex; gap: 20px; justify-content: center; align-items: center; flex-wrap: wrap; margin-bottom: 16px; }
+  .price-car { font-size: 15px; color: var(--muted); }
+  .price-car strong { display: block; font-size: 28px; color: var(--red); font-weight: 800; }
+  .price-vs { font-size: 20px; font-weight: 800; color: var(--muted); }
+  .price-service { font-size: 15px; color: var(--muted); }
+  .price-service strong { display: block; font-size: 36px; color: var(--green); font-weight: 800; }
+  .price-note { font-size: 13px; color: var(--muted); margin-top: 8px; }
+  .guarantee { background: #f0fff4; border: 2px solid var(--green); border-radius: 8px; padding: 20px 24px; margin: 20px 0; display: flex; gap: 16px; align-items: flex-start; }
+  .guarantee-icon { font-size: 32px; flex-shrink: 0; }
+  .guarantee-text h4 { font-size: 16px; margin-bottom: 6px; color: var(--dark); }
+  .guarantee-text p { font-size: 14px; color: var(--muted); line-height: 1.5; }
+  .form-section { background: var(--bg-light); padding: 50px 20px; text-align: center; }
+  .form-wrap { max-width: 600px; margin: 0 auto; background: #fff; border-radius: 12px; padding: 36px 32px; box-shadow: 0 4px 24px rgba(0,0,0,0.10); }
+  .form-wrap h2 { font-size: 24px; margin-bottom: 6px; color: var(--dark); }
+  .form-wrap .form-sub { font-size: 14px; color: var(--muted); margin-bottom: 28px; }
+  .form-group { margin-bottom: 18px; text-align: left; }
+  .form-group label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px; color: var(--dark); text-transform: uppercase; letter-spacing: 0.5px; }
+  .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px 14px; border: 2px solid var(--border); border-radius: 6px; font-size: 15px; font-family: inherit; transition: border 0.2s; background: #fff; }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: #f39c12; }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+  .form-required { color: var(--red); }
+  .form-hint { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .btn-submit { width: 100%; background: #f39c12; color: #1a1a2e; font-weight: 800; font-size: 18px; padding: 18px; border: none; border-radius: 6px; cursor: pointer; transition: background 0.2s; margin-top: 8px; }
+  .btn-submit:hover { background: #e67e22; }
+  .btn-submit:disabled { background: #ccc; cursor: not-allowed; }
+  .form-security { font-size: 12px; color: var(--muted); margin-top: 14px; display: flex; gap: 6px; justify-content: center; align-items: center; flex-wrap: wrap; }
+  #step-payment { display: none; text-align: center; padding: 20px 0; }
+  #step-payment h3 { font-size: 20px; margin-bottom: 12px; }
+  #step-payment p { font-size: 15px; color: var(--muted); margin-bottom: 20px; line-height: 1.6; }
+  .btn-pay { background: var(--green); color: #fff; font-weight: 800; font-size: 18px; padding: 18px 40px; border: none; border-radius: 6px; cursor: pointer; text-decoration: none; display: inline-block; transition: background 0.2s; }
+  .btn-pay:hover { background: #219a52; }
+  #step-success { display: none; text-align: center; padding: 20px 0; }
+  #step-success .success-icon { font-size: 60px; margin-bottom: 16px; }
+  #step-success h3 { font-size: 22px; margin-bottom: 10px; color: var(--green); }
+  #step-success p { font-size: 15px; color: var(--muted); line-height: 1.6; margin-bottom: 10px; }
+  .form-error { display: none; background: #fde8e8; border: 1px solid var(--red); color: var(--red); padding: 10px 14px; border-radius: 6px; font-size: 14px; margin-bottom: 14px; }
+  .steps { display: flex; gap: 20px; flex-wrap: wrap; margin: 24px 0; }
+  .step { flex: 1; min-width: 180px; text-align: center; padding: 20px 16px; background: var(--bg-light); border-radius: 8px; }
+  .step-num { width: 40px; height: 40px; background: var(--dark); color: #fff; border-radius: 50%; font-weight: 800; font-size: 18px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; }
+  .step h4 { font-size: 15px; margin-bottom: 6px; }
+  .step p { font-size: 13px; color: var(--muted); line-height: 1.4; }
+  footer { background: var(--dark); color: #aab; text-align: center; padding: 30px 20px; font-size: 13px; line-height: 1.8; }
+  footer a { color: #ccd; text-decoration: none; }
+  @media (max-width: 600px) { .form-wrap { padding: 24px 18px; } .price-compare { flex-direction: column; gap: 10px; } }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-eyebrow">Ochrana před podvodem při koupi ojetiny</div>
+  <h1>Než zaplatíte <span>300 000 Kč</span> za auto,<br>nechte ho prověřit</h1>
+  <p class="hero-sub">Pošlete nám odkaz nebo podklady k vyhlédnutému autu. Do 24 hodin dostanete zprávu: co auto skrývá, jaká rizika vám hrozí a jestli ho máte koupit.</p>
+  <div class="hero-cta-wrap">
+    <a href="#objednat" class="btn-primary">Chci prověřit auto — 790 Kč vč. DPH</a>
+    <span class="hero-note">⏱ Výsledek do 24 hodin · ✉ Doručení e-mailem</span>
+  </div>
+</section>
+
+<div class="section">
+  <div class="fear">
+    <h2>Co se lidem stává při koupi ojetiny bez prověření</h2>
+    <ul>
+      <li>Koupili auto, které bylo po těžké nehodě — prodejce to zamlčel. Oprava: 80 000 Kč.</li>
+      <li>Motor s nástřikem na tachometru — po třech měsících velká oprava. Ztráta: 120 000 Kč.</li>
+      <li>Převodovka s „drobnou závadou" skrytou v popisu — slíbená oprava nikdy neproběhla.</li>
+      <li>Auto evidované jako zástava u leasingové společnosti — po koupi zabaveno.</li>
+      <li>Fotky ze zahraničního inzerátu, auto fyzicky nikdy neexistovalo.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="section">
+  <h2 class="section-title">Co dostanete v reportu</h2>
+  <p class="section-sub">Kompletní analýza do 24 hodin na základě vašich podkladů</p>
+  <ul class="checklist">
+    <li><strong>Cenová analýza</strong>Je cena nad, pod nebo v tržním průměru? Kolik můžete reálně slevit a jak argumentovat?</li>
+    <li><strong>Riziková mapa modelu</strong>Nejčastější závady daného modelu, roku výroby a motoru — co si prohlédnout, na co se ptát.</li>
+    <li><strong>Analýza inzerátu a podkladů</strong>Nesrovnalosti ve fotografiích, textu, historii — červené vlajky, které laik přehlédne.</li>
+    <li><strong>Doporučení VIN prověrky</strong>Kde a jak si ověřit historii vozidla, na co se v záznamu zaměřit.</li>
+    <li><strong>Checklist pro fyzickou prohlídku</strong>Co přesně zkontrolovat před podpisem smlouvy — krok za krokem.</li>
+    <li><strong>Vyjednávací script</strong>Co říct prodejci, kde tlačit na slevu a jak ji zdůvodnit.</li>
+  </ul>
+  <div class="verdict-box">
+    <div class="verdict-label">Finální verdikt každého reportu</div>
+    <p style="color:#ccd; font-size:15px; margin-bottom: 4px;">Dostanete jasnou odpověď — ne jen seznam rizik</p>
+    <div class="verdict-pills">
+      <span class="pill pill-green">✓ Doporučuji koupit</span>
+      <span class="pill pill-yellow">⚠ Kupuji s výhradami</span>
+      <span class="pill pill-red">✕ Nedoporučuji koupit</span>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="background: var(--bg-light); border-radius: 12px; padding: 36px 24px; max-width: 760px;">
+  <h2 class="section-title" style="text-align:center;">Jak to funguje</h2>
+  <p class="section-sub" style="text-align:center;">Tři kroky — od objednávky po výsledek</p>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><h4>Vyplňte formulář</h4><p>Pošlete odkaz na inzerát, fotky nebo cokoliv co k autu máte. Zaplaťte 790 Kč kartou.</p></div>
+    <div class="step"><div class="step-num">2</div><h4>Zpracujeme analýzu</h4><p>Do 24 hodin prostudujeme vše co jste zaslali. Porovnáme, prověříme, vyhodnotíme.</p></div>
+    <div class="step"><div class="step-num">3</div><h4>Dostanete výsledek</h4><p>E-mailem přijde kompletní report s verdiktem a doporučením jak postupovat.</p></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="price-anchor">
+    <p style="font-size:15px; color: var(--muted); margin-bottom: 20px;">Pojistěte svoji investici za zlomek její hodnoty</p>
+    <div class="price-compare">
+      <div class="price-car">Cena auta<br><strong>200 000 – 400 000 Kč</strong></div>
+      <div class="price-vs">vs.</div>
+      <div class="price-service">Prověření auta<br><strong>790 Kč</strong></div>
+    </div>
+    <p class="price-note">790 Kč vč. DPH = 0,2–0,4 % z hodnoty vaší investice</p>
+  </div>
+  <div class="guarantee">
+    <div class="guarantee-icon">🛡️</div>
+    <div class="guarantee-text">
+      <h4>Záruka vrácení peněz</h4>
+      <p>Pokud report neobsáhne žádné konkrétní riziko nebo doporučení a vy budete mít pocit, že jsme nepomohli — do 48 hodin od doručení peníze vrátíme. Beze zbytečných otázek.</p>
+    </div>
+  </div>
+</div>
+
+<section class="form-section" id="objednat">
+  <div class="form-wrap">
+    <h2>Objednat prověření auta</h2>
+    <p class="form-sub">Vyplňte formulář · Zaplaťte 790 Kč · Do 24h máte výsledek</p>
+    <div class="form-error" id="form-error">Nastala chyba. Zkuste to prosím znovu nebo napište na batko.digital.ai@gmail.com</div>
+    <form id="carcheck-form">
+      <input type="hidden" name="formType" value="CarCheck_Objednavka">
+      <input type="hidden" name="source" value="carcheck_landing.html">
+      <input type="hidden" name="button" value="Objednat_hlavni_formular">
+      <input type="hidden" name="ukol" value="Zpracovat_CarCheck_report_a_odeslat_zakaznikovi_do_24h">
+      <div class="form-group"><label>Jméno a příjmení <span class="form-required">*</span></label><input type="text" name="jmeno" placeholder="Jan Novák" required></div>
+      <div class="form-group"><label>E-mail <span class="form-required">*</span></label><input type="email" name="email" placeholder="jan.novak@email.cz" required><p class="form-hint">Na tento e-mail pošleme výsledný report</p></div>
+      <div class="form-group"><label>Telefon</label><input type="tel" name="telefon" placeholder="+420 777 123 456"></div>
+      <div class="form-group"><label>Odkaz na inzerát <span class="form-required">*</span></label><input type="text" name="odkaz_inzerat" placeholder="https://www.tipcars.cz/..." required><p class="form-hint">Tipcars, AAA Auto, Sauto, Autobazar.eu nebo jiný zdroj</p></div>
+      <div class="form-group"><label>Popis a dotazy</label><textarea name="popis" placeholder="Co vás na autě nejvíce zajímá nebo znepokojuje? Máte podezření na něco konkrétního? Jaká je vaše situace?"></textarea></div>
+      <div class="form-group"><label>Podklady (fotky, dokumenty, PDF)</label><input type="text" name="podklady_info" placeholder="Popište co máte — fotky, PDF technické zprávy, servisní knížka..."><p class="form-hint">Po odeslání formuláře vám pošleme e-mail kam tyto soubory zaslat.</p></div>
+      <button type="submit" class="btn-submit" id="btn-submit">Odeslat a přejít k platbě →</button>
+    </form>
+    <div id="step-payment">
+      <h3>✅ Objednávka přijata</h3>
+      <p>Vaše údaje jsme zaznamenali. Posledním krokem je platba 790 Kč kartou přes zabezpečenou platební bránu Stripe.</p>
+      <p style="font-size:14px; color: #888;">Po zaplacení vám přijde e-mail s instrukcemi pro zaslání podkladů na <strong>batko.digital.ai@gmail.com</strong></p>
+      <br>
+      <a href="https://buy.stripe.com/00w7sLdCIegVbvt4Ep1kA00" class="btn-pay" id="stripe-link" target="_blank">💳 Zaplatit 790 Kč bezpečně kartou</a>
+      <p style="font-size:12px; color:#aaa; margin-top:14px;">🔒 Platba přes Stripe · Vaše karta je v bezpečí · PCI-DSS certified</p>
+    </div>
+    <div id="step-success">
+      <div class="success-icon">🎉</div>
+      <h3>Platba přijata – zpracováváme váš report</h3>
+      <p>Do 24 hodin vám přijde kompletní analýza na e-mail, který jste zadali.</p>
+      <p>Mezitím nám pošlete veškeré podklady k autu (fotky, PDF, dokumenty) na:<br><strong>batko.digital.ai@gmail.com</strong></p>
+      <p style="font-size:13px; color:#aaa;">Do předmětu e-mailu napište vaše jméno a „AutoCheck"</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><strong>Batko Digital AI</strong> · Zpracování poptávky a reportu</p>
+  <p style="margin-top: 8px; font-size: 12px; max-width: 600px; margin-left: auto; margin-right: auto;">
+    Údaje z formuláře jsou používány výhradně pro zpracování objednaného prověření vozidla a navazující komunikaci.
+    Nakládáme s nimi důvěrně v souladu s platnými předpisy. Nejsou prodávány ani předávány třetím osobám bez právního důvodu nebo vašeho souhlasu.
+  </p>
+  <p style="margin-top: 10px;"><a href="mailto:batko.digital.ai@gmail.com">batko.digital.ai@gmail.com</a></p>
+</footer>
+
+<script>
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwcFA8bRyHnBB_4XlgH5_IMR4IBqUfvTD8vScGZPiuCh0gR5f4Mp_9OjOAw1u3lNEjI/exec';
+  const STRIPE_URL      = 'https://buy.stripe.com/00w7sLdCIegVbvt4Ep1kA00';
+  const form       = document.getElementById('carcheck-form');
+  const btnSubmit  = document.getElementById('btn-submit');
+  const stepPay    = document.getElementById('step-payment');
+  const stepOK     = document.getElementById('step-success');
+  const errBox     = document.getElementById('form-error');
+  const stripeLink = document.getElementById('stripe-link');
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    errBox.style.display = 'none';
+    btnSubmit.disabled = true;
+    btnSubmit.textContent = 'Odesílám…';
+    const data = {};
+    new FormData(form).forEach((v, k) => data[k] = v);
+    data.timestamp = new Date().toISOString();
+    try {
+      await fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+    } catch(err) {}
+    stripeLink.href = STRIPE_URL + '?prefilled_email=' + encodeURIComponent(data.email || '') + '&client_reference_id=' + encodeURIComponent(data.email || 'unknown');
+    form.style.display = 'none';
+    stepPay.style.display = 'block';
+  });
+  stripeLink.addEventListener('click', function() {
+    setTimeout(function() { stepPay.style.display = 'none'; stepOK.style.display = 'block'; }, 3000);
+  });
+</script>
+</body>
+</html>
