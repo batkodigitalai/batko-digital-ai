@@ -6,16 +6,7 @@
 <title>AutoCheck — Prověření auta před koupí | Ochrana před podvodem</title>
 <meta name="description" content="Pošlete odkaz nebo podklady k autu. Do 24 hodin dostanete zprávu: co auto je, co vám hrozí a jestli ho koupit. 790 Kč vč. DPH.">
 <style>
-  :root {
-    --red: #c0392b;
-    --dark: #1a1a2e;
-    --text: #222;
-    --muted: #666;
-    --border: #ddd;
-    --green: #27ae60;
-    --bg-light: #f8f8f8;
-    --accent: #e8f4f8;
-  }
+  :root { --red: #c0392b; --dark: #1a1a2e; --text: #222; --muted: #666; --border: #ddd; --green: #27ae60; --bg-light: #f8f8f8; --accent: #e8f4f8; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Segoe UI', Arial, sans-serif; color: var(--text); background: #fff; }
   .hero { background: var(--dark); color: #fff; padding: 60px 20px 50px; text-align: center; }
@@ -27,6 +18,8 @@
   .btn-primary { background: #f39c12; color: #1a1a2e; font-weight: 800; font-size: 18px; padding: 18px 40px; border: none; border-radius: 6px; cursor: pointer; text-decoration: none; display: inline-block; transition: background 0.2s; letter-spacing: 0.5px; }
   .btn-primary:hover { background: #e67e22; }
   .hero-note { font-size: 13px; color: #99a; }
+  .positioning-box { background: #eaf6ff; border-left: 4px solid #2980b9; padding: 18px 24px; max-width: 760px; margin: 32px auto 0; border-radius: 0 8px 8px 0; }
+  .positioning-box p { font-size: 15px; color: #333; line-height: 1.7; margin: 0; }
   .fear { background: #fff8f0; border-left: 5px solid var(--red); padding: 40px 20px; max-width: 760px; margin: 40px auto; border-radius: 0 8px 8px 0; }
   .fear h2 { font-size: 22px; color: var(--red); margin-bottom: 16px; }
   .fear ul { list-style: none; padding: 0; }
@@ -41,6 +34,7 @@
   .checklist li:last-child { border-bottom: none; }
   .checklist li::before { content: "✓"; position: absolute; left: 0; color: var(--green); font-weight: 800; font-size: 18px; }
   .checklist li strong { display: block; font-size: 16px; }
+  .checklist li .note { font-size: 12px; color: var(--muted); margin-top: 3px; font-style: italic; }
   .verdict-box { background: var(--dark); color: #fff; border-radius: 10px; padding: 28px 24px; margin: 32px 0; text-align: center; }
   .verdict-box .verdict-label { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: #aab; margin-bottom: 12px; }
   .verdict-pills { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 12px; }
@@ -60,6 +54,14 @@
   .guarantee-icon { font-size: 32px; flex-shrink: 0; }
   .guarantee-text h4 { font-size: 16px; margin-bottom: 6px; color: var(--dark); }
   .guarantee-text p { font-size: 14px; color: var(--muted); line-height: 1.5; }
+  .faq { max-width: 760px; margin: 0 auto; padding: 40px 20px; }
+  .faq details { border-bottom: 1px solid var(--border); padding: 4px 0; }
+  .faq details:first-of-type { border-top: 1px solid var(--border); }
+  .faq summary { font-size: 16px; font-weight: 700; padding: 16px 0; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; color: var(--dark); }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; font-size: 22px; color: #f39c12; font-weight: 400; flex-shrink: 0; }
+  .faq details[open] summary::after { content: "−"; }
+  .faq details p { font-size: 15px; color: var(--muted); line-height: 1.7; padding: 0 0 16px 0; }
   .form-section { background: var(--bg-light); padding: 50px 20px; text-align: center; }
   .form-wrap { max-width: 600px; margin: 0 auto; background: #fff; border-radius: 12px; padding: 36px 32px; box-shadow: 0 4px 24px rgba(0,0,0,0.10); }
   .form-wrap h2 { font-size: 24px; margin-bottom: 6px; color: var(--dark); }
@@ -74,7 +76,6 @@
   .btn-submit { width: 100%; background: #f39c12; color: #1a1a2e; font-weight: 800; font-size: 18px; padding: 18px; border: none; border-radius: 6px; cursor: pointer; transition: background 0.2s; margin-top: 8px; }
   .btn-submit:hover { background: #e67e22; }
   .btn-submit:disabled { background: #ccc; cursor: not-allowed; }
-  .form-security { font-size: 12px; color: var(--muted); margin-top: 14px; display: flex; gap: 6px; justify-content: center; align-items: center; flex-wrap: wrap; }
   #step-payment { display: none; text-align: center; padding: 20px 0; }
   #step-payment h3 { font-size: 20px; margin-bottom: 12px; }
   #step-payment p { font-size: 15px; color: var(--muted); margin-bottom: 20px; line-height: 1.6; }
@@ -107,6 +108,10 @@
   </div>
 </section>
 
+<div class="positioning-box">
+  <p>🔍 <strong>Co je CarCheck?</strong> Nejsme fyzická prohlídka — tu dělají mechanici přímo v autobazaru za ~4 000 Kč. My jsme <strong>první krok</strong>: vzdálená analýza inzerátu, rizik modelu a ceny. Za 790 Kč zjistíš, jestli má vůbec smysl jet se na auto podívat — nebo ušetříš cestu k autu, které nestojí za to.</p>
+</div>
+
 <div class="section">
   <div class="fear">
     <h2>Co se lidem stává při koupi ojetiny bez prověření</h2>
@@ -127,7 +132,7 @@
     <li><strong>Cenová analýza</strong>Je cena nad, pod nebo v tržním průměru? Kolik můžete reálně slevit a jak argumentovat?</li>
     <li><strong>Riziková mapa modelu</strong>Nejčastější závady daného modelu, roku výroby a motoru — co si prohlédnout, na co se ptát.</li>
     <li><strong>Analýza inzerátu a podkladů</strong>Nesrovnalosti ve fotografiích, textu, historii — červené vlajky, které laik přehlédne.</li>
-    <li><strong>Doporučení VIN prověrky</strong>Kde a jak si ověřit historii vozidla, na co se v záznamu zaměřit.</li>
+    <li><strong>Návod na VIN prověrku</strong>Kde si historii vozidla ověřit nejlevněji a na co se v záznamu zaměřit.<span class="note">Samotná VIN prověrka není součástí CarChecku — doporučíme vám kde ji udělat (Cebia, Carfax) a co v ní hledat.</span></li>
     <li><strong>Checklist pro fyzickou prohlídku</strong>Co přesně zkontrolovat před podpisem smlouvy — krok za krokem.</li>
     <li><strong>Vyjednávací script</strong>Co říct prodejci, kde tlačit na slevu a jak ji zdůvodnit.</li>
   </ul>
@@ -165,10 +170,35 @@
   <div class="guarantee">
     <div class="guarantee-icon">🛡️</div>
     <div class="guarantee-text">
-      <h4>Záruka vrácení peněz</h4>
-      <p>Pokud report neobsáhne žádné konkrétní riziko nebo doporučení a vy budete mít pocit, že jsme nepomohli — do 48 hodin od doručení peníze vrátíme. Beze zbytečných otázek.</p>
+      <h4>Záruka spokojenosti</h4>
+      <p>Pokud budete mít pocit, že report nepomohl nebo nesplnil očekávání, napište nám na batko.digital.ai@gmail.com — situaci okamžitě vyřešíme.</p>
     </div>
   </div>
+</div>
+
+<div class="faq">
+  <h2 class="section-title">Časté otázky</h2>
+  <p class="section-sub">Co zákazníci nejčastěji řeší</p>
+  <details>
+    <summary>Je CarCheck fyzická prohlídka auta?</summary>
+    <p>Ne. CarCheck je vzdálená analýza — nepotřebujeme auto vidět fyzicky. Pracujeme s podklady, které nám pošlete: odkaz na inzerát, fotky, popis. Pokud chcete fyzickou prohlídku mechanikem přímo v autobazaru, doporučujeme služby jako Automato.cz (~4 000 Kč). CarCheck je ideální první krok — zjistíte, jestli má vůbec smysl fyzickou prohlídku objednávat.</p>
+  </details>
+  <details>
+    <summary>Co potřebujete pro analýzu?</summary>
+    <p>Minimálně odkaz na inzerát. Čím více podkladů pošlete (fotky, PDF technické zprávy, servisní záznamy, komunikaci s prodejcem), tím přesnější analýzu dostanete. Stačí nám ale i jen URL z TipCars, Sauto, AAA Auto nebo zahraničního portálu.</p>
+  </details>
+  <details>
+    <summary>Do kdy dostanu report?</summary>
+    <p>Do 24 hodin od přijetí objednávky a podkladů. V pracovní dny zpravidla dříve. Po odeslání formuláře vám pošleme e-mail s instrukcemi, kam zaslat případné přílohy.</p>
+  </details>
+  <details>
+    <summary>Provedete i VIN prověrku?</summary>
+    <p>Samotnou VIN prověrku v databázi neprovádíme — to vyžaduje placený přístup k Cebia nebo Carfax. V reportu ale dostanete přesný návod, kde prověrku udělat nejlevněji a na co konkrétně se v záznamu zaměřit.</p>
+  </details>
+  <details>
+    <summary>Co když auto koupím a pak zjistím problém?</summary>
+    <p>CarCheck je preventivní analýza na základě dostupných podkladů — není to fyzická inspekce a nemůžeme zaručit odhalení závad skrytých prodejcem. Pokud jste měli pocit, že report nepomohl, napište nám — situaci vyřešíme.</p>
+  </details>
 </div>
 
 <section class="form-section" id="objednat">
