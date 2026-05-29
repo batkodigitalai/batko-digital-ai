@@ -268,6 +268,8 @@ const AUCTION_CONFIG = {
     deliveryDaysMax: 5,       // max. dny (přepis + STK)
     carScore:       72,       // skóre vozu 0–100 (z KRITÉRIA_VYHODNOSTI_VOZU.md)
     scoreLabel:     "Doporučeno",  // Doporučeno / Zvážit / Pozor
+    commissionMin:  8000,     // odměna zpracovatele min Kč (pro kalkulačku)
+    commissionMax:  12000,    // odměna zpracovatele max Kč (pro kalkulačku)
     // B2B blok — pro autobazary (prázdné = skryje blok)
     b2bMarketLow:   420000,   // spodní tržní ref. pro autobazar
     b2bSaleTarget:  460000,   // odhadovaná prod. cena
@@ -829,14 +831,29 @@ function initExtras() {
 }
 
 function updateCalc() {
-  const bid = parseInt(document.getElementById('calc-bid').value, 10);
-  const R   = AUCTION_CONFIG.roi || {};
-  if (!bid || bid < 1000) { document.getElementById('calcResult').style.display = 'none'; return; }
-  document.getElementById('cr-bid').textContent   = fKc(bid);
+  const raw = document.getElementById('calc-bid').value;
+  const bid = parseInt(raw, 10);
+  const C   = AUCTION_CONFIG;
+  const R   = C.roi || {};
+  const res = document.getElementById('calcResult');
+  if (!bid || bid < 1000) { res.style.display = 'none'; return; }
+
+  // Doprava: 0 pokud auto v ČR (deliveryDaysMin===0), jinak odhad
+  const transport = (R.deliveryDaysMin === 0) ? 0 : (R.transportEstimate || 15000);
+  // Registrace + STK
   const extras = R.extrasAmount || 0;
-  document.getElementById('cr-total').textContent =
-    `${fKc(bid + extras + 8000)} – ${fKc(bid + extras + 12000)}`;
-  document.getElementById('calcResult').style.display = 'block';
+  // Odměna zpracovatele — min/max z commissionNote nebo pevná čísla
+  const commMin = R.commissionMin || 8000;
+  const commMax = R.commissionMax || 12000;
+
+  document.getElementById('cr-bid').textContent        = fKc(bid);
+  document.getElementById('cr-transport').textContent  = fKc(transport);
+  document.getElementById('cr-reg').textContent        = fKc(extras);
+  document.getElementById('cr-commission').textContent = `${fKc(commMin)} – ${fKc(commMax)}`;
+  document.getElementById('cr-total').textContent      =
+    `${fKc(bid + transport + extras + commMin)} – ${fKc(bid + transport + extras + commMax)}`;
+
+  res.style.display = 'block';
 }
 
 // ════════════════════════════════════════════════════════
