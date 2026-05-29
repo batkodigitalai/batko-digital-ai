@@ -365,7 +365,7 @@ const AUCTION_CONFIG = {
 <!-- Odpočet -->
 <div class="urgency-block" id="urgencyBlock">
   <div class="urgency-inner">
-    <div class="urgency-label">Aukce končí za</div>
+    <div class="urgency-label" id="urgencyLabel">Aukce končí za</div>
     <div class="urgency-headline" id="urgencyHeadline">Přihazujte nyní!</div>
     <div class="countdown" id="countdown">
       <div class="cd-unit"><div class="cd-num" id="cd-d">--</div><div class="cd-label">Dny</div></div>
@@ -788,8 +788,10 @@ function updateCountdown() {
   const end  = new Date(AUCTION_CONFIG.endTime).getTime();
   const diff = end - Date.now();
   if (diff <= 0) {
-    document.getElementById('countdown').style.display   = 'none';
-    document.getElementById('urgencyEnded').style.display = 'block';
+    document.getElementById('countdown').style.display      = 'none';
+    document.getElementById('urgencyHeadline').style.display = 'none';
+    document.getElementById('urgencyLabel').style.display   = 'none';
+    document.getElementById('urgencyEnded').style.display   = 'block';
     if (auctionStatus === 'active') { auctionStatus = 'ended'; lockForm('Čas aukce vypršel.'); }
     return;
   }
