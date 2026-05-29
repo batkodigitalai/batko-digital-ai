@@ -1033,4 +1033,33 @@ if (IS_DEMO) {
         document.getElementById('bidSuccess').style.display = 'block';
         this.reset();
         btn.textContent='✅ Příhoz přijat';
-        setTimeout(()=>{ btn.disabled=false; btn.textConte
+        setTimeout(()=>{ btn.disabled=false; btn.textContent='🔨 Přihodit znovu'; }, 3000);
+      } catch(err) {
+        errEl.textContent='Příhoz se nepodařilo odeslat. Zkuste znovu nebo napište e-mailem.';
+        errEl.style.display='block';
+        btn.disabled=false; btn.textContent='🔨 Přihodit';
+      }
+    });
+
+  } catch(firebaseErr) {
+    console.error('Firebase chyba:', firebaseErr);
+    document.getElementById('bidError').textContent = 'Chyba připojení k databázi. Kontaktujte zpracovatele.';
+    document.getElementById('bidError').style.display = 'block';
+  }
+}
+
+// ════════════════════════════════════════════════════════
+// SPUŠTĚNÍ
+// ════════════════════════════════════════════════════════
+function lockForm(reason) {
+  const btn = document.getElementById('btnBid');
+  if (btn) { btn.disabled=true; btn.textContent=reason; }
+}
+
+initPage();
+initExtras();
+updateCountdown();
+setInterval(updateCountdown, 1000);
+</script>
+</body>
+</html>
