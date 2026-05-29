@@ -970,7 +970,6 @@ if (IS_DEMO) {
           endEl.textContent = ed.toLocaleDateString('cs',{day:'numeric',month:'long',year:'numeric'}) + ' ' + ed.toLocaleTimeString('cs',{hour:'2-digit',minute:'2-digit'});
         }
       }
-      startCountdown(); // spusť countdown až po načtení Firebase dat
     });
 
     // Status listener
@@ -1033,4 +1032,5 @@ if (IS_DEMO) {
 
         document.getElementById('bidSuccess').style.display = 'block';
         this.reset();
-        btn.textContent='✅ Př
+        btn.textContent='✅ Příhoz přijat';
+        setTimeout(()=>{ btn.disabled=false; btn.textConte
