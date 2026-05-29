@@ -987,6 +987,21 @@ if (IS_DEMO) {
       renderBids(bids);
     });
 
+    // Polling fallback — pro případ přerušení WebSocket spojení (GitHub Pages)
+    setInterval(() => {
+      auctionRef.child('bids').once('value', snap => {
+        const bids = [];
+        snap.forEach(child => bids.push({...child.val(), _key: child.key}));
+        renderBids(bids);
+      });
+      auctionRef.child('status').once('value', snap => {
+        const st = snap.val() || 'active';
+        if (st !== 'active') {
+          auctionRef.child('cancelReason').once('value', cr => applyStatus(st, cr.val() || ''));
+        }
+      });
+    }, 10000); // každých 10 sekund
+
     // Submit
     document.getElementById('bidForm').addEventListener('submit', async function(e) {
       e.preventDefault();
