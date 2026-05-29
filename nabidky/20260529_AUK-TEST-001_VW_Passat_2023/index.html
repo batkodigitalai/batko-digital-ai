@@ -251,7 +251,7 @@ const AUCTION_CONFIG = {
   // ── Aukce ──
   startPrice:   380000,
   minIncrement: 1000,
-  endTime:      "2026-05-30T12:37:00",   // přepsáno z Firebase při načtení — viz Firebase listener níže
+  endTime:      "2026-06-30T21:00:00",   // testovací prodloužení — změň zpět nebo nastav přes Firebase
   auctionRef:   "SAUTO-210458921",
   depositNote:  "10 000 Kč",
   commissionNote: "8 000–12 000 Kč",
@@ -262,9 +262,8 @@ const AUCTION_CONFIG = {
   // ── ROI & tržní data (z ROI nástroje nebo Katalogu nákladů) ──
   roi: {
     marketPriceCZ:  450000,   // tržní cena v ČR (z tipcars/AutoScout24)
-    transportCZ:    0,        // auto je v ČR — žádná doprava
-    registrationCZ: 7500,     // přepis + poplatky
-    stkCZ:          1200,     // STK
+    extrasLabel:    "STK + přepis",  // popis dalších nákladů — zobrazí se zákazníkovi; "" = skryje sloupec
+    extrasAmount:   8700,            // celková částka dalších nákladů v Kč; 0 = skryje sloupec
     deliveryDaysMin: 0,       // auto v ČR — přepis hned
     deliveryDaysMax: 5,       // max. dny (přepis + STK)
     carScore:       72,       // skóre vozu 0–100 (z KRITÉRIA_VYHODNOSTI_VOZU.md)
@@ -420,9 +419,9 @@ const AUCTION_CONFIG = {
       <div class="mb-val green" id="mb-saving">—</div>
       <div class="mb-lbl">Vaše potenciální úspora</div>
     </div>
-    <div class="mb-item">
+    <div class="mb-item" id="mb-costs-wrap">
       <div class="mb-val orange" id="mb-costs">—</div>
-      <div class="mb-lbl">Náklady dovozu (STK+přepis)</div>
+      <div class="mb-lbl" id="mb-costs-lbl">Další náklady</div>
     </div>
   </div>
   <div class="mb-note" id="mb-note"></div>
@@ -729,13 +728,28 @@ function initExtras() {
 
   // ① Tržní srovnání
   if (R.marketPriceCZ) {
-    const costs  = (R.transportCZ||0) + (R.registrationCZ||0) + (R.stkCZ||0);
-    const saving = R.marketPriceCZ - C.startPrice - costs;
-    document.getElementById('mb-market').textContent  = fKc(R.marketPriceCZ);
-    document.getElementById('mb-saving').textContent  = saving > 0 ? 'až ' + fKc(saving) : 'závisí na příhozu';
-    document.getElementById('mb-costs').textContent   = fKc(costs);
-    document.getElementById('mb-note').textContent    =
-      `Při výhře za vyvolávací cenu ${fKc(C.startPrice)} a nákladech dovozu ${fKc(costs)} ušetříte oproti tržní ceně přibližně ${saving > 0 ? fKc(saving) : 'dle výhry'}.`;
+    const extras  = R.extrasAmount || 0;
+    const saving  = R.marketPriceCZ - C.startPrice - extras;
+    document.getElementById('mb-market').textContent = fKc(R.marketPriceCZ);
+    document.getElementById('mb-saving').textContent = saving > 0 ? 'až ' + fKc(saving) : 'závisí na příhozu';
+
+    // Sloupec "Další náklady" — skryje se pokud je extrasAmount 0 nebo chybí
+    const costsWrap = document.getElementById('mb-costs-wrap');
+    if (extras > 0) {
+      document.getElementById('mb-costs').textContent   = fKc(extras);
+      document.getElementById('mb-costs-lbl').textContent = R.extrasLabel || 'Další náklady';
+      costsWrap.style.display = '';
+    } else {
+      costsWrap.style.display = 'none';
+    }
+
+    // Poznámka pod tabulkou
+    const extrasNote = extras > 0
+      ? ` a dalších nákladech ${fKc(extras)}${R.extrasLabel ? ' (' + R.extrasLabel + ')' : ''}`
+      : '';
+    document.getElementById('mb-note').textContent =
+      `Při výhře za vyvolávací cenu ${fKc(C.startPrice)}${extrasNote} ušetříte oproti tržní ceně přibližně ${saving > 0 ? fKc(saving) : 'dle výhry'}.`;
+
     document.getElementById('marketBlock').style.display = 'block';
   }
 
@@ -793,19 +807,19 @@ function initExtras() {
   }
 
   // ⑤ Provizní kalkulačka
-  document.getElementById('cr-transport').textContent  = fKc(R.transportCZ || 8000);
-  document.getElementById('cr-reg').textContent        = fKc((R.registrationCZ||7500) + (R.stkCZ||1200));
+  document.getElementById('cr-transport').textContent  = fKc(0);
+  document.getElementById('cr-reg').textContent        = fKc(R.extrasAmount || 0);
   document.getElementById('cr-commission').textContent = C.commissionNote || '8 000–12 000 Kč';
   document.getElementById('calcBlock').style.display   = 'block';
 
   // ⑥ B2B blok
   if (R.b2bMarketLow && R.b2bSaleTarget) {
-    const buyCost  = (R.transportCZ||8000) + (R.registrationCZ||7500) + (R.stkCZ||1200) + 8000;
+    const buyCost  = (R.extrasAmount || 0) + 8000;
     const b2bGross = R.b2bSaleTarget - C.startPrice - buyCost;
     const b2bROI   = ((b2bGross / (C.startPrice + buyCost)) * 100 / (R.b2bDaysSale||20)).toFixed(2);
     document.getElementById('b2bGrid').innerHTML = `
       <div class="b2b-item"><div class="bi-val">${fKc(C.startPrice)}</div><div class="bi-lbl">Vyvolávací cena</div></div>
-      <div class="b2b-item"><div class="bi-val">${fKc(buyCost)}</div><div class="bi-lbl">Náklady dovozu</div></div>
+      <div class="b2b-item"><div class="bi-val">${fKc(buyCost)}</div><div class="bi-lbl">Další náklady</div></div>
       <div class="b2b-item"><div class="bi-val">${fKc(R.b2bSaleTarget)}</div><div class="bi-lbl">Ref. prod. cena CZ</div></div>
       <div class="b2b-item"><div class="bi-val" style="color:#2ecc71">${fKc(Math.max(0,b2bGross))}</div><div class="bi-lbl">Hrubá marže</div></div>`;
     document.getElementById('b2bNote').innerHTML =
@@ -819,8 +833,9 @@ function updateCalc() {
   const R   = AUCTION_CONFIG.roi || {};
   if (!bid || bid < 1000) { document.getElementById('calcResult').style.display = 'none'; return; }
   document.getElementById('cr-bid').textContent   = fKc(bid);
+  const extras = R.extrasAmount || 0;
   document.getElementById('cr-total').textContent =
-    `${fKc(bid + (R.transportCZ||8000) + (R.registrationCZ||7500) + (R.stkCZ||1200) + 8000)} – ${fKc(bid + (R.transportCZ||8000) + (R.registrationCZ||7500) + (R.stkCZ||1200) + 12000)}`;
+    `${fKc(bid + extras + 8000)} – ${fKc(bid + extras + 12000)}`;
   document.getElementById('calcResult').style.display = 'block';
 }
 
