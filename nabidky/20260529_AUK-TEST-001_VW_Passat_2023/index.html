@@ -980,49 +980,33 @@ if (IS_DEMO) {
       }
     });
 
-    // Okamžité načtení bidů při startu
-    auctionRef.child('bids').once('value', snap => {
-      const bids = [];
-      snap.forEach(child => bids.push({...child.val(), _key: child.key}));
-      renderBids(bids);
-    });
-
-    // Realtime listener (WebSocket)
+    // Bids listener (WebSocket realtime)
     auctionRef.child('bids').on('value', snap => {
       const bids = [];
       snap.forEach(child => bids.push({...child.val(), _key: child.key}));
       renderBids(bids);
     });
 
-    // Polling fallback každých 10s (záloha pokud WebSocket selže)
-    setInterval(() => {
-      auctionRef.child('bids').once('value', snap => {
-        const bids = [];
-        snap.forEach(child => bids.push({...child.val(), _key: child.key}));
-        renderBids(bids);
-      });
-      auctionRef.child('status').once('value', snap => {
-        const st = snap.val() || 'active';
-        if (st !== 'active') {
-          auctionRef.child('cancelReason').once('value', cr => applyStatus(st, cr.val() || ''));
-        }
-      });
-    }, 10000);
-
-    // Polling fallback — pro případ přerušení WebSocket spojení (GitHub Pages)
-    setInterval(() => {
-      auctionRef.child('bids').once('value', snap => {
-        const bids = [];
-        snap.forEach(child => bids.push({...child.val(), _key: child.key}));
-        renderBids(bids);
-      });
-      auctionRef.child('status').once('value', snap => {
-        const st = snap.val() || 'active';
-        if (st !== 'active') {
-          auctionRef.child('cancelReason').once('value', cr => applyStatus(st, cr.val() || ''));
-        }
-      });
-    }, 10000); // každých 10 sekund
+    // Polling fallback — force server fetch každých 8s (obchází IndexedDB cache i WebSocket problémy)
+    function pollFirebase() {
+      db.goOffline();
+      setTimeout(() => {
+        db.goOnline();
+        auctionRef.child('bids').once('value', snap => {
+          const bids = [];
+          snap.forEach(child => bids.push({...child.val(), _key: child.key}));
+          renderBids(bids);
+        });
+        auctionRef.child('status').once('value', snap => {
+          const st = snap.val() || 'active';
+          if (st !== 'active') {
+            auctionRef.child('cancelReason').once('value', cr => applyStatus(st, cr.val() || ''));
+          }
+        });
+      }, 500);
+    }
+    setTimeout(pollFirebase, 2000);   // první poll za 2s
+    setInterval(pollFirebase, 10000); // pak každých 10s
 
     // Submit
     document.getElementById('bidForm').addEventListener('submit', async function(e) {
