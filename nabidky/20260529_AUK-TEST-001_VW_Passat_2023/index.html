@@ -1090,7 +1090,6 @@ if (IS_DEMO) {
 
       try {
         await auctionRef.child('bids').push(bidData);
-        saveBidderContact(name, email, phone);
         // Sheet záloha
         fetch(AUCTION_CONFIG.sheetUrl, {
           method:'POST', mode:'no-cors',
@@ -1110,7 +1109,6 @@ if (IS_DEMO) {
 
         document.getElementById('bidSuccess').style.display = 'block';
         this.reset();
-        prefillBidderContact();   // kontakt zůstane, jen částka se smaže
         btn.textContent='✅ Příhoz přijat';
         setTimeout(()=>{ btn.disabled=false; btn.textContent='🔨 Přihodit znovu'; }, 3000);
       } catch(err) {
