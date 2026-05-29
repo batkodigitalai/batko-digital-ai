@@ -279,15 +279,21 @@ const AUCTION_CONFIG = {
   photos: [
     "img/foto_01.jpg",
     "img/foto_02.jpg",
-    "img/foto_03.jpg"
+    "img/foto_03.jpg",
+    "img/foto_04.jpg",
+    "img/foto_05.jpg",
+    "img/foto_06.jpg",
+    "img/foto_07.jpg",
+    "img/foto_08.jpg",
+    "img/foto_09.jpg"
   ],
 
   // ── Rizika (max 4) ──
   risks: [
-    "Vyšší nájezd — doporučena prohlídka rozvodů před koupí",
-    "Importované vozidlo — STK a přepis v ceně zákazníka",
+    "Vyšší nájezd — doporučena prohlídka před koupí",
+    "Původ DE — ověřte servisní historii a stav vozu",
     "Aukce se může zrušit, pokud auto nezíská dostatečnou nabídku",
-    "Fotodokumentace z aukčního katalogu — detailní prohlídka DE možná za příplatek"
+    "Cena bez poplatků za přepis a STK"
   ],
 
   // ── Specifikace ──
@@ -946,6 +952,26 @@ if (IS_DEMO) {
     const db         = firebase.database();
     const auctionRef = db.ref('auctions/' + AUCTION_CONFIG.auctionId);
 
+    // Načti dynamická data z Firebase (endTime, startPrice, minIncrement)
+    auctionRef.once('value', snap => {
+      const d = snap.val();
+      if (d) {
+        if (d.endTime)      AUCTION_CONFIG.endTime      = d.endTime;
+        if (d.startPrice)   AUCTION_CONFIG.startPrice   = d.startPrice;
+        if (d.minIncrement) AUCTION_CONFIG.minIncrement = d.minIncrement;
+        if (d.make)         AUCTION_CONFIG.make         = d.make;
+        if (d.model)        AUCTION_CONFIG.model        = d.model;
+        if (d.year)         AUCTION_CONFIG.year         = d.year;
+        if (d.km)           AUCTION_CONFIG.km           = d.km;
+        // Překresli statické texty s novými daty
+        const endEl = document.getElementById('h-end');
+        if (endEl && d.endTime) {
+          const ed = new Date(d.endTime);
+          endEl.textContent = ed.toLocaleDateString('cs',{day:'numeric',month:'long',year:'numeric'}) + ' ' + ed.toLocaleTimeString('cs',{hour:'2-digit',minute:'2-digit'});
+        }
+      }
+    });
+
     // Status listener
     auctionRef.child('status').on('value', snap => {
       const st = snap.val() || 'active';
@@ -1008,32 +1034,4 @@ if (IS_DEMO) {
         this.reset();
         btn.textContent='✅ Příhoz přijat';
         setTimeout(()=>{ btn.disabled=false; btn.textContent='🔨 Přihodit znovu'; }, 3000);
-      } catch(err) {
-        errEl.textContent='Příhoz se nepodařilo odeslat. Zkuste znovu nebo napište e-mailem.';
-        errEl.style.display='block';
-        btn.disabled=false; btn.textContent='🔨 Přihodit';
-      }
-    });
-
-  } catch(firebaseErr) {
-    console.error('Firebase chyba:', firebaseErr);
-    document.getElementById('bidError').textContent = 'Chyba připojení k databázi. Kontaktujte zpracovatele.';
-    document.getElementById('bidError').style.display = 'block';
-  }
-}
-
-// ════════════════════════════════════════════════════════
-// SPUŠTĚNÍ
-// ════════════════════════════════════════════════════════
-function lockForm(reason) {
-  const btn = document.getElementById('btnBid');
-  if (btn) { btn.disabled=true; btn.textContent=reason; }
-}
-
-initPage();
-initExtras();
-setInterval(updateCountdown, 1000);
-updateCountdown();
-</script>
-</body>
-</ht
+     
