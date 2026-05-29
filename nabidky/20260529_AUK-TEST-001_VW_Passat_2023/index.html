@@ -542,11 +542,11 @@ const AUCTION_CONFIG = {
   </div>
 
   <!-- ── PROVIZNÍ KALKULAČKA ── -->
-  <div class="calc-block" id="calcBlock" style="display:none">
+  <div class="calc-block" id="calcBlock">
     <h2>🧮 Kalkulačka celkové ceny</h2>
     <div class="calc-row">
       <label>Můj příhoz (Kč)</label>
-      <input class="calc-input" type="number" id="calc-bid" placeholder="350 000" step="1000" oninput="updateCalc()">
+      <input class="calc-input" type="text" inputmode="numeric" id="calc-bid" placeholder="např. 380 000" oninput="updateCalc()" autocomplete="off" style="width:160px">
     </div>
     <div class="calc-result" id="calcResult" style="display:none">
       <div class="cr-row"><span class="cr-label">Vítězná nabídka</span><span class="cr-val" id="cr-bid">—</span></div>
@@ -813,6 +813,9 @@ function initExtras() {
   document.getElementById('cr-reg').textContent        = fKc(R.extrasAmount || 0);
   document.getElementById('cr-commission').textContent = C.commissionNote || '8 000–12 000 Kč';
   document.getElementById('calcBlock').style.display   = 'block';
+  // předvyplň kalkulačku vyvolávací cenou
+  const calcIn = document.getElementById('calc-bid');
+  if (calcIn && !calcIn.value) { calcIn.value = C.startPrice; updateCalc(); }
 
   // ⑥ B2B blok
   if (R.b2bMarketLow && R.b2bSaleTarget) {
@@ -831,29 +834,35 @@ function initExtras() {
 }
 
 function updateCalc() {
-  const raw = document.getElementById('calc-bid').value;
-  const bid = parseInt(raw, 10);
-  const C   = AUCTION_CONFIG;
-  const R   = C.roi || {};
-  const res = document.getElementById('calcResult');
-  if (!bid || bid < 1000) { res.style.display = 'none'; return; }
+  try {
+    const raw = (document.getElementById('calc-bid').value || '').replace(/\s/g,'').replace(/[^0-9]/g,'');
+    const bid = parseInt(raw, 10);
+    const C   = AUCTION_CONFIG || {};
+    const R   = C.roi || {};
+    const res = document.getElementById('calcResult');
+    if (!res) return;
+    if (!bid || bid < 1000) { res.style.display = 'none'; return; }
 
-  // Doprava: 0 pokud auto v ČR (deliveryDaysMin===0), jinak odhad
-  const transport = (R.deliveryDaysMin === 0) ? 0 : (R.transportEstimate || 15000);
-  // Registrace + STK
-  const extras = R.extrasAmount || 0;
-  // Odměna zpracovatele — min/max z commissionNote nebo pevná čísla
-  const commMin = R.commissionMin || 8000;
-  const commMax = R.commissionMax || 12000;
+    const transport = (R.deliveryDaysMin === 0) ? 0 : (R.transportEstimate || 0);
+    const extras    = R.extrasAmount    || 0;
+    const commMin   = R.commissionMin   || 8000;
+    const commMax   = R.commissionMax   || 12000;
 
-  document.getElementById('cr-bid').textContent        = fKc(bid);
-  document.getElementById('cr-transport').textContent  = fKc(transport);
-  document.getElementById('cr-reg').textContent        = fKc(extras);
-  document.getElementById('cr-commission').textContent = `${fKc(commMin)} – ${fKc(commMax)}`;
-  document.getElementById('cr-total').textContent      =
-    `${fKc(bid + transport + extras + commMin)} – ${fKc(bid + transport + extras + commMax)}`;
+    const elBid   = document.getElementById('cr-bid');
+    const elTrans = document.getElementById('cr-transport');
+    const elReg   = document.getElementById('cr-reg');
+    const elComm  = document.getElementById('cr-commission');
+    const elTotal = document.getElementById('cr-total');
 
-  res.style.display = 'block';
+    if (elBid)   elBid.textContent   = fKc(bid);
+    if (elTrans) elTrans.textContent = fKc(transport);
+    if (elReg)   elReg.textContent   = fKc(extras);
+    if (elComm)  elComm.textContent  = `${fKc(commMin)} – ${fKc(commMax)}`;
+    if (elTotal) elTotal.textContent =
+      `${fKc(bid + transport + extras + commMin)} – ${fKc(bid + transport + extras + commMax)}`;
+
+    res.style.display = 'block';
+  } catch(e) { /* kalk nepadne stránku */ }
 }
 
 // ════════════════════════════════════════════════════════
