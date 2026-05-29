@@ -262,11 +262,11 @@ const AUCTION_CONFIG = {
   // ── ROI & tržní data (z ROI nástroje nebo Katalogu nákladů) ──
   roi: {
     marketPriceCZ:  450000,   // tržní cena v ČR (z tipcars/AutoScout24)
-    transportCZ:    8000,     // doprava DE→CZ
+    transportCZ:    0,        // auto je v ČR — žádná doprava
     registrationCZ: 7500,     // přepis + poplatky
     stkCZ:          1200,     // STK
-    deliveryDaysMin: 14,      // min. dny od aukce → auto v ČR
-    deliveryDaysMax: 21,      // max. dny
+    deliveryDaysMin: 0,       // auto v ČR — přepis hned
+    deliveryDaysMax: 5,       // max. dny (přepis + STK)
     carScore:       72,       // skóre vozu 0–100 (z KRITÉRIA_VYHODNOSTI_VOZU.md)
     scoreLabel:     "Doporučeno",  // Doporučeno / Zvážit / Pozor
     // B2B blok — pro autobazary (prázdné = skryje blok)
@@ -1059,7 +1059,4 @@ function lockForm(reason) {
 initPage();
 initExtras();
 updateCountdown();
-setInterval(updateCountdown, 1000);
-</script>
-</body>
-</html>
+setInterval(updateCountdown, 100
