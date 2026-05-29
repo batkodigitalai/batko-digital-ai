@@ -980,13 +980,6 @@ if (IS_DEMO) {
       }
     });
 
-    // Bids listener (WebSocket realtime)
-    auctionRef.child('bids').on('value', snap => {
-      const bids = [];
-      snap.forEach(child => bids.push({...child.val(), _key: child.key}));
-      renderBids(bids);
-    });
-
     // REST API polling — obchází SDK cache i WebSocket problémy
     const REST_BASE = 'https://batko-aukce-default-rtdb.europe-west1.firebasedatabase.app';
     function restPoll() {
