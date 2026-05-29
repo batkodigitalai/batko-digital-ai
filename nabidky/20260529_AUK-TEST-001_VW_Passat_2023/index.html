@@ -987,26 +987,27 @@ if (IS_DEMO) {
       renderBids(bids);
     });
 
-    // Polling fallback — force server fetch každých 8s (obchází IndexedDB cache i WebSocket problémy)
-    function pollFirebase() {
-      db.goOffline();
-      setTimeout(() => {
-        db.goOnline();
-        auctionRef.child('bids').once('value', snap => {
-          const bids = [];
-          snap.forEach(child => bids.push({...child.val(), _key: child.key}));
+    // REST API polling — obchází SDK cache i WebSocket problémy
+    const REST_BASE = 'https://batko-aukce-default-rtdb.europe-west1.firebasedatabase.app';
+    function restPoll() {
+      fetch(`${REST_BASE}/auctions/${AUCTION_CONFIG.auctionId}/bids.json?_=${Date.now()}`)
+        .then(r => r.json())
+        .then(data => {
+          if (!data) return;
+          const bids = Object.values(data);
           renderBids(bids);
-        });
-        auctionRef.child('status').once('value', snap => {
-          const st = snap.val() || 'active';
-          if (st !== 'active') {
-            auctionRef.child('cancelReason').once('value', cr => applyStatus(st, cr.val() || ''));
+        }).catch(() => {});
+      fetch(`${REST_BASE}/auctions/${AUCTION_CONFIG.auctionId}/status.json?_=${Date.now()}`)
+        .then(r => r.json())
+        .then(st => {
+          if (st && st !== 'active') {
+            fetch(`${REST_BASE}/auctions/${AUCTION_CONFIG.auctionId}/cancelReason.json?_=${Date.now()}`)
+              .then(r => r.json()).then(cr => applyStatus(st, cr || '')).catch(() => {});
           }
-        });
-      }, 500);
+        }).catch(() => {});
     }
-    setTimeout(pollFirebase, 2000);   // první poll za 2s
-    setInterval(pollFirebase, 10000); // pak každých 10s
+    restPoll();                        // okamžitě při načtení
+    setInterval(restPoll, 8000);       // pak každých 8s
 
     // Submit
     document.getElementById('bidForm').addEventListener('submit', async function(e) {
