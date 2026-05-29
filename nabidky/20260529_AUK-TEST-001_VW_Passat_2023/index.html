@@ -980,12 +980,34 @@ if (IS_DEMO) {
       }
     });
 
-    // Bids listener
+    // Okamžité načtení bidů při startu
+    auctionRef.child('bids').once('value', snap => {
+      const bids = [];
+      snap.forEach(child => bids.push({...child.val(), _key: child.key}));
+      renderBids(bids);
+    });
+
+    // Realtime listener (WebSocket)
     auctionRef.child('bids').on('value', snap => {
       const bids = [];
       snap.forEach(child => bids.push({...child.val(), _key: child.key}));
       renderBids(bids);
     });
+
+    // Polling fallback každých 10s (záloha pokud WebSocket selže)
+    setInterval(() => {
+      auctionRef.child('bids').once('value', snap => {
+        const bids = [];
+        snap.forEach(child => bids.push({...child.val(), _key: child.key}));
+        renderBids(bids);
+      });
+      auctionRef.child('status').once('value', snap => {
+        const st = snap.val() || 'active';
+        if (st !== 'active') {
+          auctionRef.child('cancelReason').once('value', cr => applyStatus(st, cr.val() || ''));
+        }
+      });
+    }, 10000);
 
     // Polling fallback — pro případ přerušení WebSocket spojení (GitHub Pages)
     setInterval(() => {
