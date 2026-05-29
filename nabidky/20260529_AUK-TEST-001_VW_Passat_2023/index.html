@@ -467,14 +467,17 @@ const AUCTION_CONFIG = {
 
     <form id="bidForm">
       <div class="bfb-row">
-        <input class="bfb-input" type="text" id="bf-name" placeholder="Jméno a příjmení *" required>
-        <input class="bfb-input" type="email" id="bf-email" placeholder="E-mail *" required>
+        <input class="bfb-input" type="text" id="bf-name" placeholder="Jméno a příjmení *" required autocomplete="name">
+        <input class="bfb-input" type="email" id="bf-email" placeholder="E-mail *" required autocomplete="email">
       </div>
       <div class="bfb-row">
-        <input class="bfb-input" type="tel" id="bf-phone" placeholder="Telefon *" required>
-        <div class="bfb-amount-wrap">
-          <input class="bfb-input bfb-amount" type="number" id="bf-amount" placeholder="Výše příhozu (Kč) *" required min="0" step="1000">
-          <span class="currency">Kč</span>
+        <input class="bfb-input" type="tel" id="bf-phone" placeholder="Telefon *" required autocomplete="tel">
+        <div class="bfb-amount-wrap" style="display:flex;gap:6px;align-items:center">
+          <input class="bfb-input bfb-amount" type="number" id="bf-amount" placeholder="Výše příhozu (Kč) *" required min="0" step="1000" style="flex:1">
+          <button type="button" id="btnPlusIncrement" onclick="addIncrement()"
+            style="white-space:nowrap;background:#f39c12;color:#fff;border:none;border-radius:8px;padding:12px 14px;font-size:.85rem;font-weight:800;cursor:pointer;flex-shrink:0">
+            +<span id="incrementLabel">1 000</span> Kč
+          </button>
         </div>
       </div>
       <div class="bfb-check">
@@ -648,6 +651,10 @@ function initPage() {
   document.getElementById('bf-amount').min         = C.startPrice;
   document.getElementById('bf-amount').placeholder = `Min. ${fKc(C.startPrice)}`;
 
+  // Předvyplnit kontakt z minulého příhozu
+  prefillBidderContact();
+  updateIncrementLabel();
+
   // Gallery
   const gMain  = document.getElementById('galleryMain');
   const thumbs = document.getElementById('thumbsRow');
@@ -675,6 +682,42 @@ function initPage() {
   document.getElementById('riskList').innerHTML = C.risks.map(r =>
     `<div class="risk-item"><span class="risk-icon">⚠</span><span>${r}</span></div>`
   ).join('');
+}
+
+// ════════════════════════════════════════════════════════
+// ZAPAMATOVÁNÍ KONTAKTU (localStorage) + TLAČÍTKO +příhoz
+// ════════════════════════════════════════════════════════
+const BIDDER_KEY = 'batko_bidder_contact';
+
+function saveBidderContact(name, email, phone) {
+  localStorage.setItem(BIDDER_KEY, JSON.stringify({ name, email, phone }));
+}
+
+function prefillBidderContact() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(BIDDER_KEY) || 'null');
+    if (!saved) return;
+    const n = document.getElementById('bf-name');
+    const e = document.getElementById('bf-email');
+    const p = document.getElementById('bf-phone');
+    if (n && !n.value) n.value = saved.name  || '';
+    if (e && !e.value) e.value = saved.email || '';
+    if (p && !p.value) p.value = saved.phone || '';
+  } catch(e) {}
+}
+
+// Tlačítko +příhoz — zvýší hodnotu o minIncrement (nebo nastaví minimum pokud je pole prázdné)
+function addIncrement() {
+  const inp  = document.getElementById('bf-amount');
+  const minV = parseInt(inp.min, 10) || AUCTION_CONFIG.startPrice;
+  const cur  = parseInt(inp.value, 10);
+  inp.value  = isNaN(cur) || cur < minV ? minV : cur + AUCTION_CONFIG.minIncrement;
+}
+
+// Aktualizuje popisek tlačítka při změně minIncrement
+function updateIncrementLabel() {
+  const el = document.getElementById('incrementLabel');
+  if (el) el.textContent = AUCTION_CONFIG.minIncrement.toLocaleString('cs');
 }
 
 // ════════════════════════════════════════════════════════
@@ -922,6 +965,7 @@ if (IS_DEMO) {
     btn.disabled = true; btn.textContent = 'Odesílám…';
 
     lsSaveBid({ name, email, phone, amount, timestamp: Date.now() });
+    saveBidderContact(name, email, phone);
 
     // Sheet záloha
     if (AUCTION_CONFIG.sheetUrl && !AUCTION_CONFIG.sheetUrl.includes('TVOJE_ID')) {
@@ -943,6 +987,7 @@ if (IS_DEMO) {
 
     document.getElementById('bidSuccess').style.display = 'block';
     this.reset();
+    prefillBidderContact();   // kontakt zůstane, jen částka se smaže
     btn.textContent = '✅ Příhoz přijat';
     setTimeout(() => { btn.disabled=false; btn.textContent='🔨 Přihodit znovu'; }, 3000);
   });
@@ -1030,6 +1075,7 @@ if (IS_DEMO) {
 
       try {
         await auctionRef.child('bids').push(bidData);
+        saveBidderContact(name, email, phone);
         // Sheet záloha
         fetch(AUCTION_CONFIG.sheetUrl, {
           method:'POST', mode:'no-cors',
@@ -1049,6 +1095,7 @@ if (IS_DEMO) {
 
         document.getElementById('bidSuccess').style.display = 'block';
         this.reset();
+        prefillBidderContact();   // kontakt zůstane, jen částka se smaže
         btn.textContent='✅ Příhoz přijat';
         setTimeout(()=>{ btn.disabled=false; btn.textContent='🔨 Přihodit znovu'; }, 3000);
       } catch(err) {
