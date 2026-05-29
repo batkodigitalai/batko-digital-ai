@@ -552,12 +552,12 @@ const AUCTION_CONFIG = {
         <span class="cr-label">Můj příhoz</span>
         <span class="cr-val"><input class="calc-inline" type="text" inputmode="numeric" id="calc-bid" placeholder="380 000" oninput="updateCalc()" autocomplete="off"> Kč</span>
       </div>
-      <div class="cr-row">
-        <span class="cr-label">Doprava DE→ČR (odhad)</span>
+      <div class="cr-row" id="calc-row-transport">
+        <span class="cr-label" id="calc-label-transport">Další náklady (odhad)</span>
         <span class="cr-val"><input class="calc-inline" type="text" inputmode="numeric" id="calc-transport" oninput="updateCalc()" autocomplete="off"> Kč</span>
       </div>
-      <div class="cr-row">
-        <span class="cr-label">STK + přepis (odhad)</span>
+      <div class="cr-row" id="calc-row-reg">
+        <span class="cr-label" id="calc-label-reg">Registrace / STK</span>
         <span class="cr-val"><input class="calc-inline" type="text" inputmode="numeric" id="calc-reg" oninput="updateCalc()" autocomplete="off"> Kč</span>
       </div>
       <div class="cr-row">
@@ -837,6 +837,14 @@ function initExtras() {
   setCalcField('calc-transport', R2.deliveryDaysMin === 0 ? 0 : (R2.transportEstimate || ''));
   setCalcField('calc-reg',       R2.extrasAmount || '');
   setCalcField('calc-comm',      R2.commissionMin || 8000);
+  // labely kalkulačky z konfigurace
+  const lbTrans = document.getElementById('calc-label-transport');
+  const lbReg   = document.getElementById('calc-label-reg');
+  if (lbTrans && R2.transportLabel) lbTrans.textContent = R2.transportLabel;
+  if (lbReg   && R2.extrasLabel)    lbReg.textContent   = R2.extrasLabel;
+  // skryj řádek pokud je hodnota 0 a label prázdný
+  const rowTrans = document.getElementById('calc-row-transport');
+  if (rowTrans && R2.deliveryDaysMin === 0 && !R2.transportLabel) rowTrans.style.display = 'none';
   updateCalc();
 
   // ⑥ B2B blok
@@ -1001,9 +1009,11 @@ if (IS_DEMO) {
     const name   = document.getElementById('bf-name').value.trim();
     const email  = document.getElementById('bf-email').value.trim();
     const phone  = document.getElementById('bf-phone').value.trim();
-    const amount = parseInt(document.getElementById('bf-amount').value, 10);
+    const rawAmt = (document.getElementById('bf-amount').value || '').replace(/\s/g,'').replace(/[^0-9]/g,'');
+    const amount = parseInt(rawAmt, 10);
     const minReq = currentTopBid > 0 ? currentTopBid + AUCTION_CONFIG.minIncrement : AUCTION_CONFIG.startPrice;
     const errEl  = document.getElementById('bidError');
+    if (!amount || isNaN(amount)) { errEl.textContent = 'Zadejte platnou číselnou částku.'; errEl.style.display='block'; return; }
     if (amount < minReq) { errEl.textContent = `Příhoz musí být minimálně ${fKc(minReq)}.`; errEl.style.display='block'; return; }
     if (lsGetStatus() !== 'active' || Date.now() > new Date(AUCTION_CONFIG.endTime).getTime()) {
       errEl.textContent = 'Aukce již není aktivní.'; errEl.style.display='block'; return;
@@ -1104,9 +1114,11 @@ if (IS_DEMO) {
       const name   = document.getElementById('bf-name').value.trim();
       const email  = document.getElementById('bf-email').value.trim();
       const phone  = document.getElementById('bf-phone').value.trim();
-      const amount = parseInt(document.getElementById('bf-amount').value, 10);
+      const rawAmt = (document.getElementById('bf-amount').value || '').replace(/\s/g,'').replace(/[^0-9]/g,'');
+      const amount = parseInt(rawAmt, 10);
       const minReq = currentTopBid > 0 ? currentTopBid + AUCTION_CONFIG.minIncrement : AUCTION_CONFIG.startPrice;
       const errEl  = document.getElementById('bidError');
+      if (!amount || isNaN(amount)) { errEl.textContent = 'Zadejte platnou číselnou částku.'; errEl.style.display='block'; return; }
       if (amount < minReq) { errEl.textContent = `Příhoz musí být minimálně ${fKc(minReq)}.`; errEl.style.display='block'; return; }
       if (auctionStatus !== 'active' || Date.now() > new Date(AUCTION_CONFIG.endTime).getTime()) {
         errEl.textContent='Aukce již není aktivní.'; errEl.style.display='block'; return;
@@ -1154,22 +1166,4 @@ if (IS_DEMO) {
   } catch(firebaseErr) {
     console.error('Firebase chyba:', firebaseErr);
     document.getElementById('bidError').textContent = 'Chyba připojení k databázi. Kontaktujte zpracovatele.';
-    document.getElementById('bidError').style.display = 'block';
-  }
-}
-
-// ════════════════════════════════════════════════════════
-// SPUŠTĚNÍ
-// ════════════════════════════════════════════════════════
-function lockForm(reason) {
-  const btn = document.getElementById('btnBid');
-  if (btn) { btn.disabled=true; btn.textContent=reason; }
-}
-
-initPage();
-initExtras();
-updateCountdown();
-setInterval(updateCountdown, 1000);
-</script>
-</body>
-</html>
+    document.getElementById('bidError').style.display =
