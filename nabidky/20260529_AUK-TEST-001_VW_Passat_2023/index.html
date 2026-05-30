@@ -1166,4 +1166,23 @@ if (IS_DEMO) {
   } catch(firebaseErr) {
     console.error('Firebase chyba:', firebaseErr);
     document.getElementById('bidError').textContent = 'Chyba připojení k databázi. Kontaktujte zpracovatele.';
-    document.getElementById('bidError').style.display =
+    document.getElementById('bidError').textContent = 'Chyba připojení k databázi. Kontaktujte zpracovatele.';
+    document.getElementById('bidError').style.display = 'block';
+  }
+}
+
+// ════════════════════════════════════════════════════════
+// SPUŠTĚNÍ
+// ════════════════════════════════════════════════════════
+function lockForm(reason) {
+  const btn = document.getElementById('btnBid');
+  if (btn) { btn.disabled=true; btn.textContent=reason; }
+}
+
+initPage();
+initExtras();
+updateCountdown();
+setInterval(updateCountdown, 1000);
+</script>
+</body>
+</html>
