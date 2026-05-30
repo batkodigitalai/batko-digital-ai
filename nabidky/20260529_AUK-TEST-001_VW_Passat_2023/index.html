@@ -1061,9 +1061,22 @@ if (IS_DEMO) {
     auctionRef.once('value', snap => {
       const d = snap.val();
       if (d) {
-        // endTime z Firebase VŽDY přepíše lokální config (aukce může být i v minulosti = skončená)
+        // endTime z Firebase VŽDY přepíše lokální config
         if (d.endTime) {
           AUCTION_CONFIG.endTime = d.endTime;
+          // Pokud je endTime v budoucnosti, odblokuj countdown (mohl být předčasně zastaven starým fallbackem)
+          if (new Date(d.endTime).getTime() > Date.now()) {
+            const cd = document.getElementById('countdown');
+            const uh = document.getElementById('urgencyHeadline');
+            const ul = document.getElementById('urgencyLabel');
+            const ue = document.getElementById('urgencyEnded');
+            if (cd) cd.style.display = '';
+            if (uh) uh.style.display = '';
+            if (ul) ul.style.display = '';
+            if (ue) ue.style.display = 'none';
+            if (auctionStatus === 'ended') { auctionStatus = 'active'; unlockForm(); }
+          }
+          updateCountdown();
         }
         if (d.startPrice)   AUCTION_CONFIG.startPrice   = d.startPrice;
         if (d.minIncrement) AUCTION_CONFIG.minIncrement = d.minIncrement;
@@ -1180,6 +1193,10 @@ if (IS_DEMO) {
 function lockForm(reason) {
   const btn = document.getElementById('btnBid');
   if (btn) { btn.disabled=true; btn.textContent=reason; }
+}
+function unlockForm() {
+  const btn = document.getElementById('btnBid');
+  if (btn) { btn.disabled=false; btn.textContent='Přihodit'; }
 }
 
 initPage();
