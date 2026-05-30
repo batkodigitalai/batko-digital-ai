@@ -1061,7 +1061,10 @@ if (IS_DEMO) {
     auctionRef.once('value', snap => {
       const d = snap.val();
       if (d) {
-        if (d.endTime)      AUCTION_CONFIG.endTime      = d.endTime;
+        // endTime z Firebase přijmout jen pokud je v budoucnosti
+        if (d.endTime && new Date(d.endTime).getTime() > Date.now()) {
+          AUCTION_CONFIG.endTime = d.endTime;
+        }
         if (d.startPrice)   AUCTION_CONFIG.startPrice   = d.startPrice;
         if (d.minIncrement) AUCTION_CONFIG.minIncrement = d.minIncrement;
         if (d.make)         AUCTION_CONFIG.make         = d.make;
@@ -1181,8 +1184,18 @@ function lockForm(reason) {
 
 initPage();
 initExtras();
+// Spusť countdown okamžitě z config hodnoty, pak každou sekundu
 updateCountdown();
 setInterval(updateCountdown, 1000);
+</script>
+
+<script>
+// Záchranný countdown — spustí se z DOMContentLoaded nezávisle na Firebase
+document.addEventListener('DOMContentLoaded', function() {
+  if (typeof updateCountdown === 'function') {
+    updateCountdown();
+  }
+});
 </script>
 </body>
 </html>
