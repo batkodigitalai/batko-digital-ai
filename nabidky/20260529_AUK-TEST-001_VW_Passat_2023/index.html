@@ -823,10 +823,12 @@ function initExtras() {
   }
 
   // ⑤ Provizní kalkulačka
-  document.getElementById('cr-transport').textContent  = fKc(0);
-  document.getElementById('cr-reg').textContent        = fKc(R.extrasAmount || 0);
-  document.getElementById('cr-commission').textContent = C.commissionNote || '8 000–12 000 Kč';
-  document.getElementById('calcBlock').style.display   = 'block';
+  const setTxt = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+  const setDisp = (id, val) => { const el = document.getElementById(id); if (el) el.style.display = val; };
+  setTxt('cr-transport', fKc(0));
+  setTxt('cr-reg', fKc(R.extrasAmount || 0));
+  setTxt('cr-commission', C.commissionNote || '8 000–12 000 Kč');
+  setDisp('calcBlock', 'block');
   // předvyplň kalkulačku výchozími hodnotami
   function setCalcField(id, val) {
     const el = document.getElementById(id);
@@ -1211,7 +1213,7 @@ function unlockForm() {
 }
 
 initPage();
-initExtras();
+try { initExtras(); } catch(e) { console.warn('initExtras err (nezastavuje countdown):', e); }
 // Spusť countdown okamžitě z config hodnoty, pak každou sekundu
 updateCountdown();
 setInterval(updateCountdown, 1000);
