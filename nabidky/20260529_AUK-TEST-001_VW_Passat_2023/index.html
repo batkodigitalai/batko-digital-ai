@@ -884,29 +884,40 @@ function updateCalc() {
 // ODPOČET
 // ════════════════════════════════════════════════════════
 function updateCountdown() {
-  const end  = new Date(AUCTION_CONFIG.endTime).getTime();
-  const diff = end - Date.now();
-  if (diff <= 0) {
-    document.getElementById('countdown').style.display      = 'none';
-    document.getElementById('urgencyHeadline').style.display = 'none';
-    document.getElementById('urgencyLabel').style.display   = 'none';
-    document.getElementById('urgencyEnded').style.display   = 'block';
-    if (auctionStatus === 'active') { auctionStatus = 'ended'; lockForm('Čas aukce vypršel.'); }
-    return;
-  }
-  const d = Math.floor(diff / 86400000);
-  const h = Math.floor((diff % 86400000) / 3600000);
-  const m = Math.floor((diff % 3600000) / 60000);
-  const s = Math.floor((diff % 60000) / 1000);
-  document.getElementById('cd-d').textContent = String(d).padStart(2,'0');
-  document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
-  document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
-  document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
-  const uh = document.getElementById('urgencyHeadline');
-  if (d === 0 && h < 1)  uh.textContent = '⚡ Méně než 1 hodina do konce!';
-  else if (d === 0)       uh.textContent = `Dnes v ${new Date(AUCTION_CONFIG.endTime).toLocaleTimeString('cs',{hour:'2-digit',minute:'2-digit'})} aukce končí!`;
-  else if (d === 1)       uh.textContent = 'Zítra aukce končí — přihoďte nyní!';
-  else                    uh.textContent = `Aukce končí za ${d} ${d===1?'den':d<5?'dny':'dní'}`;
+  try {
+    const end  = new Date(AUCTION_CONFIG.endTime).getTime();
+    if (isNaN(end)) return;
+    const diff = end - Date.now();
+    const setEl = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+    if (diff <= 0) {
+      setEl('cd-d','00'); setEl('cd-h','00'); setEl('cd-m','00'); setEl('cd-s','00');
+      const cd = document.getElementById('countdown');
+      const uh = document.getElementById('urgencyHeadline');
+      const ul = document.getElementById('urgencyLabel');
+      const ue = document.getElementById('urgencyEnded');
+      if (cd) cd.style.display = 'none';
+      if (uh) uh.style.display = 'none';
+      if (ul) ul.style.display = 'none';
+      if (ue) ue.style.display = 'block';
+      if (auctionStatus === 'active') { auctionStatus = 'ended'; lockForm('Čas aukce vypršel.'); }
+      return;
+    }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    setEl('cd-d', String(d).padStart(2,'0'));
+    setEl('cd-h', String(h).padStart(2,'0'));
+    setEl('cd-m', String(m).padStart(2,'0'));
+    setEl('cd-s', String(s).padStart(2,'0'));
+    const uh = document.getElementById('urgencyHeadline');
+    if (uh) {
+      if (d === 0 && h < 1)  uh.textContent = '⚡ Méně než 1 hodina do konce!';
+      else if (d === 0)       uh.textContent = `Dnes v ${new Date(AUCTION_CONFIG.endTime).toLocaleTimeString('cs',{hour:'2-digit',minute:'2-digit'})} aukce končí!`;
+      else if (d === 1)       uh.textContent = 'Zítra aukce končí — přihoďte nyní!';
+      else                    uh.textContent = `Aukce končí za ${d} ${d===1?'den':d<5?'dny':'dní'}`;
+    }
+  } catch(e) { console.error('countdown err:', e); }
 }
 
 // ════════════════════════════════════════════════════════
