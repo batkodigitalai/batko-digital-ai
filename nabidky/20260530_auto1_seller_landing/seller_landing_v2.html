@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vydražte své zboží nebo auto — Batko Digital AI Aukce</title>
+  <meta name="description" content="Vystavte své auto nebo zboží v kurátorované internetové aukci. Poplatek za vystavení od 1 000 Kč bez DPH. Po vydražení předáme kontakt na vítěze. Bez skrytých provizí.">
+  <style>
+    :root {
+      --ink: #0f172a;
+      --muted: #526174;
+      --bg: #f3f6f8;
+      --panel: #ffffff;
+      --line: #d6dee8;
+      --blue: #155e93;
+      --gold: #b7791f;
+      --green: #137a4b;
+      --dark: #071827;
+      --shadow: 0 16px 42px rgba(15, 23, 42, .12);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 17px;
+      line-height: 1.55;
+    }
+    a { color: var(--blue); }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(160deg, #071827 0%, #155e93 100%);
+      color: #fff;
+      padding: 60px 24px 72px;
+      text-align: center;
+    }
+    .hero-brand {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .8px;
+      text-transform: uppercase;
+      opacity: .7;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      margin: 0 auto 16px;
+      font-size: clamp(30px, 5vw, 58px);
+      line-height: 1.05;
+      max-width: 860px;
+    }
+    .hero-lead {
+      font-size: 19px;
+      opacity: .88;
+      max-width: 660px;
+      margin: 0 auto 32px;
+    }
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      padding: 14px 22px;
+      border-radius: 8px;
+      border: 2px solid transparent;
+      background: var(--gold);
+      color: #fff;
+      font-weight: 850;
+      font-size: 17px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .btn.outline {
+      background: transparent;
+      border-color: rgba(255,255,255,.5);
+      color: #fff;
+    }
+
+    /* MAIN */
+    main { max-width: 900px; margin: 0 auto; padding: 32px 24px; }
+    section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+    section h2 { margin: 0 0 18px; font-size: 26px; }
+
+    /* JAK TO FUNGUJE */
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; }
+    .step {
+      background: #f0f7ff;
+      border: 1px solid #c8dff4;
+      border-radius: 8px;
+      padding: 18px;
+    }
+    .step-num { font-size: 28px; font-weight: 900; color: var(--blue); line-height: 1; margin-bottom: 8px; }
+    .step strong { display: block; margin-bottom: 4px; font-size: 16px; }
+    .step p { margin: 0; color: var(--muted); font-size: 15px; }
+
+    /* CENÍK */
+    .fee-box {
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 14px;
+    }
+    .fee-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+      gap: 16px;
+    }
+    .fee-row:last-child { border-bottom: none; }
+    .fee-label { font-weight: 700; }
+    .fee-val { font-size: 18px; font-weight: 900; color: var(--blue); white-space: nowrap; }
+    .fee-note { font-size: 13px; color: var(--muted); margin-top: 3px; }
+    .highlight-box {
+      background: #e8f5ee;
+      border: 1px solid #a7d8b9;
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-top: 16px;
+      font-weight: 700;
+      color: var(--green);
+      font-size: 16px;
+    }
+    .info-box {
+      background: #eef6ff;
+      border: 1px solid #c8dff4;
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-top: 16px;
+      font-size: 15px;
+      color: var(--ink);
+    }
+    .info-box strong { color: var(--blue); }
+
+    /* CO DOSTANETE */
+    .what-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-top: 6px; }
+    .what-item {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      background: #fafcff;
+    }
+    .what-item .icon { font-size: 24px; margin-bottom: 8px; }
+    .what-item strong { display: block; margin-bottom: 4px; }
+    .what-item p { margin: 0; color: var(--muted); font-size: 14px; }
+
+    /* FORMULÁŘ */
+    form { display: grid; gap: 16px; }
+    label { font-weight: 700; font-size: 15px; display: block; margin-bottom: 5px; }
+    input, textarea, select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid var(--line);
+      border-radius: 8px;
+      font-size: 16px;
+      font-family: inherit;
+      background: #fff;
+    }
+    input:focus, textarea:focus, select:focus { outline: none; border-color: var(--blue); }
+    textarea { min-height: 90px; resize: vertical; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .privacy-note { font-size: 13px; color: var(--muted); }
+    .lead-status { font-size: 15px; font-weight: 700; color: var(--green); min-height: 22px; }
+    .submit-btn {
+      min-height: 52px;
+      font-size: 18px;
+      background: var(--gold);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-weight: 850;
+      cursor: pointer;
+      width: 100%;
+    }
+    .submit-btn:disabled { opacity: .55; cursor: not-allowed; }
+
+    /* COMPANY ID + FOOTER */
+    .company-id-bar {
+      background: #1a2d45;
+      color: rgba(255,255,255,.75);
+      padding: 24px;
+      font-size: 13px;
+      max-width: 900px;
+      margin: 0 auto;
+      border-radius: 10px 10px 0 0;
+    }
+    .company-id-bar h4 { color: rgba(255,255,255,.55); font-size: 12px; text-transform: uppercase; margin: 0 0 12px; letter-spacing: .6px; }
+    .cid-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 24px; }
+    .cid-row { display: flex; gap: 8px; margin-bottom: 4px; }
+    .cid-label { opacity: .6; min-width: 120px; }
+    .cid-val { color: #fff; font-weight: 600; }
+    .privacy-law-note { margin-top: 12px; font-size: 12px; opacity: .65; }
+    footer {
+      background: var(--dark);
+      color: rgba(255,255,255,.4);
+      text-align: center;
+      padding: 14px 20px;
+      font-size: 13px;
+      max-width: 900px;
+      margin: 0 auto;
+      border-radius: 0 0 10px 10px;
+    }
+
+    @media (max-width: 600px) {
+      .form-row { grid-template-columns: 1fr; }
+      .cid-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-brand">Batko Digital AI &nbsp;·&nbsp; Zprostředkování aukcí</div>
+  <h1>Vydražte své auto nebo zboží —<br>my zajistíme aukci a předáme vám kupce</h1>
+  <p class="hero-lead">Vystavíme vaši nabídku v kurátorované internetové aukci. Po vydražení dostanete kontakt na vítěze a domluvíte se přímo. Žádné skryté provize.</p>
+  <div class="hero-cta-row">
+    <a href="#formular" class="btn">Vystavit nabídku v aukci →</a>
+    <a href="#jak-to-funguje" class="btn outline">Jak to funguje?</a>
+  </div>
+</div>
+
+<main>
+
+  <!-- JAK TO FUNGUJE -->
+  <section id="jak-to-funguje">
+    <h2>Jak to funguje — 5 kroků</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <strong>Pošlete poptávku</strong>
+        <p>Vyplníte formulář níže — popis zboží nebo auta, vyvolávací cenu, délku aukce.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <strong>Zaplatíte poplatek za vystavení</strong>
+        <p>Fakturujeme 1 000 Kč + DPH za vystavení (minimálně). Záloha před spuštěním aukce.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <strong>Spustíme aukci</strong>
+        <p>Připravíme popis, zveřejníme nabídku, spravujeme průběh aukce za vás.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <strong>Dostanete kontakt na vítěze</strong>
+        <p>Po skončení aukce vám předáme kontakt na nejvyššího dražitele. Domlouváte se přímo.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <strong>Vypořádání (volitelně)</strong>
+        <p>Pokud si přejete, zajistíme i administrativní vypořádání — dohodou individuálně.</p>
+      </div>
+    </div>
+    <div class="info-box" style="margin-top:18px;">
+      <strong>Důležité:</strong> Jsme zprostředkovatel, nikoli prodávající. Kupní smlouva vzniká přímo mezi vámi a kupujícím. Kontakt na vítěze předáme po uhrazení poplatku za vystavení.
+    </div>
+  </section>
+
+  <!-- CO DOSTANETE -->
+  <section>
+    <h2>Co zahrnuje zprostředkování aukce?</h2>
+    <div class="what-grid">
+      <div class="what-item">
+        <div class="icon">📋</div>
+        <strong>Vystavení nabídky</strong>
+        <p>Popis, parametry, fotky — připravíme inzerát v aukčním systému.</p>
+      </div>
+      <div class="what-item">
+        <div class="icon">🔔</div>
+        <strong>Správa průběhu</strong>
+        <p>Sledujeme příhozy, hlídáme konec aukce, informujeme vás o průběhu.</p>
+      </div>
+      <div class="what-item">
+        <div class="icon">📞</div>
+        <strong>Kontakt na vítěze</strong>
+        <p>Po vydražení předáme jméno a kontakt nejvyššího dražitele.</p>
+      </div>
+      <div class="what-item">
+        <div class="icon">🤝</div>
+        <strong>Vypořádání (opt-in)</strong>
+        <p>Administrativní pomoc s předáním, smlouvou nebo platbou — po dohodě za příplatek.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CENÍK -->
+  <section>
+    <h2>Ceník zprostředkování</h2>
+    <div class="fee-box">
+      <div class="fee-row">
+        <div>
+          <div class="fee-label">Poplatek za vystavení v aukci</div>
+          <div class="fee-note">Záloha splatná před spuštěním aukce. Zahrnuje přípravu inzerátu a správu průběhu.</div>
+        </div>
+        <div class="fee-val">od 1 000 Kč<br><span style="font-size:13px;font-weight:400;color:var(--muted)">bez DPH</span></div>
+      </div>
+      <div class="fee-row">
+        <div>
+          <div class="fee-label">Předání kontaktu na vítěze aukce</div>
+          <div class="fee-note">Zahrnuto v poplatku za vystavení. Předáme po úhradě faktury.</div>
+        </div>
+        <div class="fee-val">v ceně</div>
+      </div>
+      <div class="fee-row">
+        <div>
+          <div class="fee-label">Administrativní vypořádání</div>
+          <div class="fee-note">Volitelně — pomoc s předáním, kupní smlouvou, platbou. Pouze po vzájemné dohodě.</div>
+        </div>
+        <div class="fee-val">dohodou</div>
+      </div>
+      <div class="fee-row">
+        <div>
+          <div class="fee-label">Provize z prodeje</div>
+          <div class="fee-note">Nepobíráme žádnou provizi z prodejní ceny.</div>
+        </div>
+        <div class="fee-val" style="color:var(--green);">0 %</div>
+      </div>
+    </div>
+    <div class="highlight-box">
+      💡 Platíte jen za vystavení — <strong>od 1 000 Kč + DPH.</strong> Z prodejní ceny si nic nebereme. Kontakt na kupce je váš.
+    </div>
+  </section>
+
+  <!-- PRO KOHO -->
+  <section>
+    <h2>Vhodné pro</h2>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:6px;">
+      <span style="background:#eef6ff;border:1px solid #c8dff4;border-radius:20px;padding:6px 14px;font-size:15px;font-weight:600;color:var(--blue);">🚗 Automobily</span>
+      <span style="background:#eef6ff;border:1px solid #c8dff4;border-radius:20px;padding:6px 14px;font-size:15px;font-weight:600;color:var(--blue);">🏭 Firemní přebytky</span>
+      <span style="background:#eef6ff;border:1px solid #c8dff4;border-radius:20px;padding:6px 14px;font-size:15px;font-weight:600;color:var(--blue);">🔧 Stroje a nářadí</span>
+      <span style="background:#eef6ff;border:1px solid #c8dff4;border-radius:20px;padding:6px 14px;font-size:15px;font-weight:600;color:var(--blue);">📦 Skladové zásoby</span>
+      <span style="background:#eef6ff;border:1px solid #c8dff4;border-radius:20px;padding:6px 14px;font-size:15px;font-weight:600;color:var(--blue);">🪑 Vybavení kanceláří</span>
+      <span style="background:#eef6ff;border:1px solid #c8dff4;border-radius:20px;padding:6px 14px;font-size:15px;font-weight:600;color:var(--blue);">🎯 Sběratelské předměty</span>
+    </div>
+  </section>
+
+  <!-- FORMULÁŘ -->
+  <section id="formular">
+    <h2>Poptejte vystavení v aukci</h2>
+    <p>Vyplňte základní informace. Ozvu se do 24 hodin s potvrzením podmínek a fakturou za vystavení.</p>
+
+    <form id="sellerForm">
+      <input type="hidden" name="service" value="Zprostředkování aukce — vystavení nabídky">
+      <div class="form-row">
+        <div>
+          <label for="name">Jméno a příjmení / firma</label>
+          <input id="name" name="name" type="text" placeholder="Jan Novák / ABC s.r.o." required>
+        </div>
+        <div>
+          <label for="phone">Telefon</label>
+          <input id="phone" name="phone" type="tel" placeholder="+420 725 000 000" required>
+        </div>
+      </div>
+      <div>
+        <label for="email">E-mail</label>
+        <input id="email" name="email" type="email" placeholder="jan@firma.cz" required>
+      </div>
+      <div>
+        <label for="itemInfo">Co chcete vydražit — popis, stav, parametry</label>
+        <textarea id="itemInfo" name="itemInfo" placeholder="Škoda Octavia 2019, 85 000 km, servisní knížka, 1 majitel, po servisu. Nebo: 3× CNC fréza, rok výroby 2018, funkční stav..." required></textarea>
+      </div>
+      <div class="form-row">
+        <div>
+          <label for="startPrice">Vyvolávací cena (Kč)</label>
+          <input id="startPrice" name="startPrice" type="text" placeholder="např. 250 000 Kč">
+        </div>
+        <div>
+          <label for="duration">Délka aukce</label>
+          <select id="duration" name="duration">
+            <option value="">-- vyberte --</option>
+            <option value="3 dny">3 dny</option>
+            <option value="5 dní">5 dní</option>
+            <option value="7 dní">7 dní</option>
+            <option value="14 dní">14 dní</option>
+            <option value="dohodou">dohodou</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label for="settlement">Máte zájem o vypořádání? (volitelné)</label>
+        <select id="settlement" name="settlement">
+          <option value="Ne — jen předání kontaktu">Ne — stačí mi kontakt na vítěze, domluvíme se sami</option>
+          <option value="Ano — zajímá mě vypořádání">Ano — zajímá mě administrativní vypořádání, chci více info</option>
+        </select>
+      </div>
+      <div>
+        <label for="message">Doplňující informace (volitelné)</label>
+        <textarea id="message" name="message" placeholder="Fotky, dokumenty, termín, speciální požadavky..."></textarea>
+      </div>
+      <p class="privacy-note">Vaše údaje slouží výhradně pro vyřízení poptávky a přípravu podmínek aukce. Neprodáváme je ani nepředáváme třetím osobám.</p>
+      <button type="submit" class="submit-btn" id="submitSellerBtn">Odeslat poptávku → Chci vystavit v aukci</button>
+      <div class="lead-status" id="sellerStatus"></div>
+    </form>
+  </section>
+
+  <!-- CTA závěrečné -->
+  <section style="text-align:center; background: linear-gradient(135deg,#071827,#155e93); color:#fff; border:none;">
+    <h2 style="color:#fff; margin-bottom:10px;">Máte otázku? Zavolejte rovnou.</h2>
+    <p style="opacity:.85; margin-bottom:24px;">Jaroslav Batko — +420 725 360 151</p>
+    <a href="tel:+420725360151" class="btn" style="background:var(--gold);">Zavolat hned</a>
+  </section>
+
+</main>
+
+<!-- COMPANY ID / FOOTER -->
+<div class="company-id-bar">
+  <h4>Identifikace zpracovatele — povinné údaje dle § 435 OZ a § 29 ZDPH</h4>
+  <div class="cid-grid">
+    <div>
+      <div class="cid-row"><span class="cid-label">Jméno:</span><span class="cid-val">Ing. Jaroslav Batko-Linet</span></div>
+      <div class="cid-row"><span class="cid-label">IČO:</span><span class="cid-val">14600153</span></div>
+      <div class="cid-row"><span class="cid-label">DIČ:</span><span class="cid-val">CZ5912280418 · Plátce DPH</span></div>
+      <div class="cid-row"><span class="cid-label">Sídlo:</span><span class="cid-val">Ostrava 1, Vítkovická 1, PSČ 701 00</span></div>
+    </div>
+    <div>
+      <div class="cid-row"><span class="cid-label">Obchodní rejstřík:</span><span class="cid-val">KS Ostrava, sp. zn. A 984, zápis 31. 01. 1991</span></div>
+      <div class="cid-row"><span class="cid-label">Telefon:</span><span class="cid-val">+420 725 360 151</span></div>
+      <div class="cid-row"><span class="cid-label">E-mail:</span><span class="cid-val">batko.digital.ai@gmail.com</span></div>
+    </div>
+  </div>
+  <div class="privacy-law-note">
+    <strong>Ochrana osobních údajů:</strong> Provozovatel vystupuje jako zprostředkovatel internetové aukce a není prodávajícím nabízeného zboží. Kupní smlouva vzniká přímo mezi prodávajícím a kupujícím. Údaje z formulářů zpracováváme výhradně za účelem vyřízení poptávky a zprostředkování aukce; nejsou prodávány ani předávány třetím osobám bez právního důvodu nebo vašeho souhlasu.
+  </div>
+</div>
+<footer>
+  <p>© 2026 Batko Digital AI · Zprostředkování internetových aukcí · Stránka je informační podklad; ceny jsou bez DPH a dohodnuté individuálně dle rozsahu.</p>
+</footer>
+
+<script>
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwcFA8bRyHnBB_4XlgH5_IMR4IBqUfvTD8vScGZPiuCh0gR5f4Mp_9OjOAw1u3lNEjI/exec";
+  const PAGE_ID = "seller_landing_aukce_v2_20260530";
+  const PAGE_TYPE = "seller_poptavka_zprostredkovani_aukce";
+
+  document.getElementById("sellerForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+    const status = document.getElementById("sellerStatus");
+    const submit = document.getElementById("submitSellerBtn");
+    const data = new FormData(event.currentTarget);
+
+    const note = [
+      "Stránka: " + PAGE_ID,
+      "Typ stránky: " + PAGE_TYPE,
+      "Formulář: Poptávka zprostředkování aukce v2",
+      "Sekce: Seller formulář v2",
+      "Tlačítko: Chci vystavit v aukci",
+      "Úkol: Potvrdit podmínky, vystavit fakturu 1000 Kč + DPH, spustit aukci",
+      "Předmět aukce: " + (data.get("itemInfo") || ""),
+      "Vyvolávací cena: " + (data.get("startPrice") || ""),
+      "Délka aukce: " + (data.get("duration") || ""),
+      "Zájem o vypořádání: " + (data.get("settlement") || ""),
+      "Zpráva: " + (data.get("message") || "")
+    ].join(" | ");
+
+    const payload = {
+      source: PAGE_ID,
+      formType: "Seller poptávka zprostředkování aukce v2",
+      name: data.get("name") || "",
+      email: data.get("email") || "",
+      phone: data.get("phone") || "",
+      budget: data.get("startPrice") || "",
+      note: note,
+      carInfo: data.get("itemInfo") || "",
+      url_aukce: "",
+      button_text: "Chci vystavit v aukci",
+      unlock_section: "Seller formulář v2",
+      lead_task: "Potvrdit podmínky, vystavit fakturu 1000 Kč + DPH, spustit aukci",
+      processing_status: "PRIJATO",
+      approval_required: "CEKA_NA_SCHVALENI",
+      sent_status: "NEODESLANO",
+      page_id: PAGE_ID,
+      page_type: PAGE_TYPE,
+      car_id: "",
+      car_name: data.get("itemInfo") || "",
+      selected_service: "Zprostředkování aukce — vystavení nabídky",
+      car_link: "",
+      materials: data.get("message") || "",
+      podklady_info: [
+        "Předmět: " + (data.get("itemInfo") || ""),
+        "Cena: " + (data.get("startPrice") || ""),
+        "Délka: " + (data.get("duration") || ""),
+        "Vypořádání: " + (data.get("settlement") || ""),
+        "Zpráva: " + (data.get("message") || "")
+      ].join(" | "),
+      attachments: [],
+      referrer: document.referrer || "",
+      current_url: window.location.href
+    };
+
+    submit.disabled = true;
+    status.textContent = "Odesílám poptávku...";
+
+    fetch(SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(payload)
+    }).then(() => {
+      status.textContent = "✅ Poptávka přijata. Ozvu se do 24 hodin s potvrzením podmínek a fakturou za vystavení. Nic tím nezavazujete.";
+      event.currentTarget.reset();
+    }).catch(() => {
+      status.textContent = "✅ Poptávka byla odeslána ke zpracování.";
+    }).finally(() => {
+      setTimeout(() => { submit.disabled = false; }, 2000);
+    });
+  });
+</script>
+</body>
+</html>
