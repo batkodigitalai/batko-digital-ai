@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Správa aukcí — BATKO.DIGITAL.AI</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#1a1a1a;min-height:100vh}
+.login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;background:#0d1f3c}
+.login-box{background:#fff;border-radius:14px;padding:40px;width:360px;text-align:center}
+.login-box h1{font-size:1.3rem;color:#1a2a4a;margin-bottom:6px}
+.login-box p{font-size:.82rem;color:#888;margin-bottom:24px}
+.login-box input{width:100%;padding:12px 14px;border:1.5px solid #c8d6f0;border-radius:8px;font-size:.9rem;margin-bottom:12px}
+.btn-primary{width:100%;background:linear-gradient(135deg,#1a2a4a,#2c4a7c);color:#fff;border:none;padding:13px;border-radius:8px;font-size:.95rem;font-weight:700;cursor:pointer}
+.btn-primary:hover{opacity:.9}
+.btn-danger{background:linear-gradient(135deg,#c0392b,#e74c3c);color:#fff;border:none;padding:10px 20px;border-radius:8px;font-size:.85rem;font-weight:700;cursor:pointer}
+.btn-danger:hover{opacity:.9}
+.btn-success{background:linear-gradient(135deg,#1e8449,#27ae60);color:#fff;border:none;padding:10px 20px;border-radius:8px;font-size:.85rem;font-weight:700;cursor:pointer}
+.btn-success:hover{opacity:.9}
+.btn-warn{background:linear-gradient(135deg,#b7770d,#f39c12);color:#fff;border:none;padding:10px 20px;border-radius:8px;font-size:.85rem;font-weight:700;cursor:pointer}
+.btn-warn:hover{opacity:.9}
+.btn-sm{padding:6px 14px;font-size:.78rem;border-radius:6px}
+
+/* ── ADMIN LAYOUT ── */
+.admin-wrap{display:none}
+.admin-header{background:linear-gradient(135deg,#0d1f3c,#1a2a4a);color:#fff;padding:16px 28px;display:flex;justify-content:space-between;align-items:center}
+.admin-header h1{font-size:1.1rem;font-weight:800}
+.admin-header .ah-right{font-size:.78rem;opacity:.65}
+.admin-body{max-width:1100px;margin:0 auto;padding:24px 18px;display:grid;grid-template-columns:380px 1fr;gap:20px}
+@media(max-width:800px){.admin-body{grid-template-columns:1fr}}
+
+/* ── PANELS ── */
+.panel{background:#fff;border-radius:12px;padding:22px;box-shadow:0 2px 8px rgba(0,0,0,.06);margin-bottom:20px}
+.panel h2{font-size:.95rem;font-weight:800;color:#1a2a4a;margin-bottom:16px;border-bottom:2px solid #e8ecf2;padding-bottom:8px}
+.form-group{margin-bottom:12px}
+.form-group label{display:block;font-size:.75rem;font-weight:700;color:#555;margin-bottom:4px;text-transform:uppercase;letter-spacing:.3px}
+.form-group input,.form-group textarea,.form-group select{width:100%;padding:10px 13px;border:1.5px solid #c8d6f0;border-radius:7px;font-size:.87rem;font-family:inherit}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{outline:none;border-color:#2c4a7c}
+.form-group textarea{height:72px;resize:vertical}
+.fg-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fg-hint{font-size:.7rem;color:#aaa;margin-top:3px}
+
+/* ── FIREBASE CONFIG ── */
+.fb-config-block{background:#f5f8ff;border:1.5px solid #c8d6f0;border-radius:8px;padding:14px;margin-bottom:14px}
+.fb-config-block p{font-size:.75rem;color:#888;margin-bottom:10px}
+.fb-config-block input{width:100%;padding:8px 11px;border:1.5px solid #dde5f5;border-radius:6px;font-size:.8rem;font-family:monospace;background:#fff;margin-bottom:7px}
+
+/* ── STATUS BADGE ── */
+.status-pill{display:inline-block;padding:3px 12px;border-radius:20px;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.sp-active{background:#d4edda;color:#155724}
+.sp-ended{background:#cce5ff;color:#004085}
+.sp-cancelled{background:#f5c6cb;color:#721c24}
+.sp-none{background:#e2e3e5;color:#383d41}
+
+/* ── BID TABLE ── */
+.bid-table{width:100%;border-collapse:collapse;font-size:.83rem}
+.bid-table th{background:#f5f7fb;padding:8px 12px;text-align:left;font-size:.72rem;color:#888;text-transform:uppercase;letter-spacing:.3px;border-bottom:2px solid #e8ecf2}
+.bid-table td{padding:9px 12px;border-bottom:1px solid #f0f2f5;vertical-align:top}
+.bid-table tr:first-child td{background:#fff8ec;font-weight:700}
+.bid-table .amt{font-weight:800;color:#c0392b}
+.bid-table .pos1{color:#f39c12;font-weight:900}
+.no-data{text-align:center;color:#aaa;font-style:italic;padding:20px}
+
+/* ── AUCTION LIST ── */
+.auction-card{border:1.5px solid #e8ecf2;border-radius:10px;padding:14px 16px;margin-bottom:10px;cursor:pointer;transition:border-color .2s,background .2s}
+.auction-card:hover,.auction-card.selected{border-color:#2c4a7c;background:#f5f8ff}
+.ac-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px}
+.ac-title{font-size:.92rem;font-weight:800;color:#1a2a4a}
+.ac-meta{font-size:.73rem;color:#888;margin-top:2px}
+.ac-bids{font-size:.78rem;color:#2c4a7c;font-weight:700;margin-top:4px}
+
+/* ── ACTIONS ── */
+.action-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.action-sep{border:none;border-top:1px solid #e8ecf2;margin:14px 0}
+.restart-help{background:#f8fbff;border:1.5px solid #d7e5fb;border-radius:10px;padding:14px 16px;margin:14px 0}
+.restart-help h3{font-size:.85rem;font-weight:800;color:#1a2a4a;margin-bottom:8px}
+.restart-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.restart-option{background:#fff;border:1px solid #e4ebf6;border-radius:8px;padding:10px}
+.restart-option strong{display:block;font-size:.78rem;color:#1a2a4a;margin-bottom:4px}
+.restart-option p{font-size:.72rem;line-height:1.35;color:#666;margin-bottom:8px}
+.restart-option button{width:100%;border:none;border-radius:7px;padding:8px 10px;font-size:.76rem;font-weight:800;cursor:pointer}
+.restart-note{font-size:.72rem;line-height:1.4;color:#666;background:#fff;border-radius:7px;padding:9px 10px;margin-top:10px}
+@media(max-width:800px){.restart-grid{grid-template-columns:1fr}}
+
+/* ── STATS ── */
+.stats-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-bottom:16px}
+.stat-box{background:#f5f7fb;border-radius:8px;padding:12px;text-align:center}
+.stat-box .sv{font-size:1.5rem;font-weight:900;color:#1a2a4a}
+.stat-box .sl{font-size:.68rem;color:#888;text-transform:uppercase;letter-spacing:.3px;margin-top:3px}
+
+/* ── ALERTS ── */
+.alert{padding:12px 16px;border-radius:8px;font-size:.83rem;margin-bottom:12px;display:none}
+.alert-ok{background:#d4edda;color:#155724;border:1px solid #c3e6cb}
+.alert-err{background:#f8d7da;color:#721c24;border:1px solid #f5c6cb}
+
+/* ── WINNER NOTIFY PANEL ── */
+.winner-notify-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9000;align-items:center;justify-content:center}
+.winner-notify-overlay.active{display:flex}
+.winner-notify-box{background:#fff;border-radius:14px;padding:28px;max-width:520px;width:94%;box-shadow:0 8px 40px rgba(0,0,0,.25)}
+.wnb-title{font-size:1.05rem;font-weight:800;color:#1a2a4a;margin-bottom:4px}
+.wnb-sub{font-size:.8rem;color:#888;margin-bottom:16px}
+.wnb-winner-row{background:#f5f8ff;border-radius:8px;padding:12px 14px;margin-bottom:14px;font-size:.83rem}
+.wnb-winner-row strong{color:#1a2a4a}
+.wnb-msg-label{font-size:.72rem;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.3px;margin-bottom:6px}
+.wnb-msg{width:100%;height:160px;padding:10px 12px;border:1.5px solid #c8d6f0;border-radius:8px;font-size:.82rem;font-family:inherit;resize:vertical}
+.wnb-msg:focus{outline:none;border-color:#2c4a7c}
+.wnb-countdown{text-align:center;font-size:.8rem;color:#c0392b;font-weight:700;margin:10px 0 16px;padding:8px;background:#fff5f5;border-radius:6px}
+.wnb-actions{display:flex;gap:10px}
+.wnb-actions .btn-success{flex:1}
+.wnb-actions .btn-warn{flex:0 0 auto}
+</style>
+</head>
+<body>
+
+<!-- ════ LOGIN ════ -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-box">
+    <h1>🔒 Správa aukcí</h1>
+    <p>BATKO.DIGITAL.AI — interní přístup</p>
+    <input type="password" id="adminPass" placeholder="Heslo" onkeydown="if(event.key==='Enter')login()">
+    <button class="btn-primary" onclick="login()">Přihlásit</button>
+    <div style="font-size:.72rem;color:#e74c3c;margin-top:10px;display:none" id="loginErr">Nesprávné heslo.</div>
+  </div>
+</div>
+
+<!-- ════ ADMIN ════ -->
+<div class="admin-wrap" id="adminWrap">
+
+  <div class="admin-header">
+    <h1>⚙️ Správa aukcí — BATKO.DIGITAL.AI</h1>
+    <div class="ah-right">Přihlášen | <a href="#" onclick="logout()" style="color:#74b9ff">Odhlásit</a></div>
+  </div>
+
+  <div class="admin-body">
+
+    <!-- LEVÝ PANEL: Firebase config + nová aukce -->
+    <div>
+
+      <!-- Firebase konfigurace -->
+      <div class="panel">
+        <h2>🔥 Firebase připojení</h2>
+        <div class="fb-config-block">
+          <p>Vyplň jednou — uloží se v prohlížeči. Získáš v Firebase Console → Nastavení projektu → Webová aplikace.</p>
+          <input type="text" id="fb-apiKey" placeholder="apiKey">
+          <input type="text" id="fb-authDomain" placeholder="authDomain (PROJEKT.firebaseapp.com)">
+          <input type="text" id="fb-databaseURL" placeholder="databaseURL (https://PROJEKT-rtdb.europe-west1...)">
+          <input type="text" id="fb-projectId" placeholder="projectId">
+          <input type="text" id="fb-appId" placeholder="appId">
+        </div>
+        <div class="fg-row" style="margin-bottom:12px">
+          <button class="btn-primary" onclick="saveFirebaseConfig()">Uložit a připojit</button>
+          <button style="background:#e8ecf2;border:none;border-radius:8px;padding:10px;font-size:.83rem;cursor:pointer" onclick="loadFirebaseConfig()">Načíst uložené</button>
+        </div>
+        <div class="alert alert-ok" id="fbOk">✅ Připojeno k Firebase.</div>
+        <div class="alert alert-err" id="fbErr">❌ Chyba připojení — zkontroluj údaje.</div>
+      </div>
+
+      <!-- Nová aukce -->
+      <div class="panel">
+        <h2>➕ Nová aukce / upravit</h2>
+        <button onclick="prefillTestAuction()" style="background:#e8f5e9;border:1.5px solid #27ae60;color:#1e8449;border-radius:7px;padding:7px 14px;font-size:.78rem;font-weight:700;cursor:pointer;margin-bottom:14px">🧪 Předvyplnit testovací data</button>
+
+        <div class="form-group">
+          <label>ID aukce *</label>
+          <input type="text" id="f-auctionId" placeholder="např. AUK-002" value="AUK-TEST-001">
+          <div class="fg-hint">Unikátní, bez mezer. Stejné ID použij v aukce_TEMPLATE.html.</div>
+        </div>
+
+        <div class="fg-row">
+          <div class="form-group">
+            <label>Značka *</label>
+            <input type="text" id="f-make" placeholder="Volkswagen" value="Volkswagen">
+          </div>
+          <div class="form-group">
+            <label>Model *</label>
+            <input type="text" id="f-model" placeholder="Passat Variant" value="Passat Variant">
+          </div>
+        </div>
+
+        <div class="fg-row">
+          <div class="form-group">
+            <label>Rok</label>
+            <input type="number" id="f-year" placeholder="2023" value="2023">
+          </div>
+          <div class="form-group">
+            <label>Km</label>
+            <input type="number" id="f-km" placeholder="168517" value="168517">
+          </div>
+        </div>
+
+        <div class="fg-row">
+          <div class="form-group">
+            <label>Vyvolávací cena (Kč) *</label>
+            <input type="number" id="f-startPrice" placeholder="380000" step="500" value="380000">
+          </div>
+          <div class="form-group">
+            <label>Min. příhoz (Kč) *</label>
+            <input type="number" id="f-minIncrement" placeholder="1000" step="500" value="1000">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Konec aukce (datum a čas) *</label>
+          <input type="datetime-local" id="f-endTime" value="2026-05-30T21:00">
+          <div class="fg-hint">⚠️ Musí být skutečný čas — NESMÍ se hádat!</div>
+        </div>
+
+        <div class="form-group">
+          <label>Reference (interní)</label>
+          <input type="text" id="f-ref" placeholder="SAUTO-210458921" value="SAUTO-210458921">
+        </div>
+
+        <div class="form-group">
+          <label>Google Sheet URL (záloha bidů)</label>
+          <input type="text" id="f-sheetUrl" placeholder="https://script.google.com/macros/s/AKfycbwcFA8bRyHnBB_4XlgH5_IMR4IBqUfvTD8vScGZPiuCh0gR5f4Mp_9OjOAw1u3lNEjI/exec">
+        </div>
+
+        <!-- ── ROI KALKULAČKA ── -->
+        <div style="background:#f0f6ff;border:1.5px solid #c8d6f0;border-radius:8px;padding:14px;margin-bottom:14px">
+          <div style="font-size:.75rem;font-weight:800;color:#2c4a7c;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">📊 ROI kalkulačka — určí min. přijatelnou cenu</div>
+          <div class="fg-row">
+            <div class="form-group">
+              <label>Bid EUR (aukce)</label>
+              <input type="number" id="roi-bidEur" placeholder="14000" step="100" oninput="calcROI()">
+            </div>
+            <div class="form-group">
+              <label>Kurz EUR/CZK</label>
+              <input type="number" id="roi-eurRate" placeholder="24.80" step="0.01" value="24.80" oninput="calcROI()">
+            </div>
+          </div>
+          <div class="fg-row">
+            <div class="form-group">
+              <label>Opravy Kč (max. scénář)</label>
+              <input type="number" id="roi-repairs" placeholder="40000" step="1000" oninput="calcROI()">
+            </div>
+            <div class="form-group">
+              <label>Doprava DE→CZ (Kč)</label>
+              <input type="number" id="roi-transport" placeholder="8000" step="500" value="8000" oninput="calcROI()">
+            </div>
+          </div>
+          <div class="fg-row">
+            <div class="form-group">
+              <label>Tržní cena CZ (Kč)</label>
+              <input type="number" id="roi-marketCZ" placeholder="450000" step="1000" oninput="calcROI()">
+            </div>
+            <div class="form-group">
+              <label>Můj cílový zisk (Kč)</label>
+              <input type="number" id="roi-targetProfit" placeholder="30000" step="1000" value="30000" oninput="calcROI()">
+            </div>
+          </div>
+
+          <!-- Výsledek ROI kalkulačky -->
+          <div id="roiResult" style="display:none;background:#1a2a4a;border-radius:8px;padding:12px;color:#fff;font-size:.8rem;margin-top:8px">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+              <div><span style="opacity:.6">Nákupní cena (vč. popl.):</span><br><strong id="roi-buyTotal" style="color:#f39c12"></strong></div>
+              <div><span style="opacity:.6">Celkové náklady:</span><br><strong id="roi-totalCosts" style="color:#f39c12"></strong></div>
+              <div><span style="opacity:.6">Max. bezpečný bid CZ:</span><br><strong id="roi-maxBidCZ" style="color:#2ecc71"></strong></div>
+              <div><span style="opacity:.6">Reserve price (floor):</span><br><strong id="roi-reserve" style="color:#e74c3c"></strong></div>
+            </div>
+            <div style="margin-top:8px;font-size:.72rem;opacity:.7">Reserve price = nákupní cena + náklady + cílový zisk. Aukce pod touto cenou se auto-zruší.</div>
+          </div>
+        </div>
+
+        <!-- Reserve price (skrytý floor) -->
+        <div class="form-group">
+          <label>Reserve price — skrytý floor (Kč)</label>
+          <input type="number" id="f-reservePrice" placeholder="0 = vypnutý" step="1000" oninput="">
+          <div class="fg-hint">⚠️ Zákazníci tuto cenu nevidí. Pokud aukce skončí pod touto hodnotou, automaticky se zruší.</div>
+        </div>
+
+        <div class="form-group">
+          <label>Poznámka (interní)</label>
+          <textarea id="f-note" placeholder="Interní poznámky k aukci..."></textarea>
+        </div>
+
+        <button class="btn-primary" onclick="createAuction()" style="width:100%">💾 Vytvořit / Uložit aukci</button>
+        <div class="alert alert-ok" id="createOk">✅ Aukce uložena do Firebase.</div>
+        <div class="alert alert-err" id="createErr"></div>
+      </div>
+
+    </div><!-- /left -->
+
+    <!-- PRAVÝ PANEL: přehled aukcí + bidy -->
+    <div>
+
+      <!-- Seznam aukcí -->
+      <div class="panel">
+        <h2>📋 Aukce v systému</h2>
+        <div id="auctionList"><div class="no-data">Načítám aukce…</div></div>
+      </div>
+
+      <!-- Detail vybrané aukce -->
+      <div class="panel" id="auctionDetail" style="display:none">
+        <h2>🏆 Detail aukce: <span id="detail-id"></span> <span id="detail-status"></span></h2>
+
+        <div class="stats-row" id="detailStats"></div>
+
+        <!-- Akce -->
+        <div class="action-row">
+          <button class="btn-danger btn-sm" onclick="cancelAuction()">🚫 Zrušit aukci</button>
+          <button class="btn-success btn-sm" onclick="endAuction()">🏁 Ukončit a vybrat vítěze</button>
+          <button class="btn-warn btn-sm" onclick="exportBids()">📥 Export bidů (CSV)</button>
+          <button class="btn-sm" onclick="reactivateAuction()" style="background:linear-gradient(135deg,#1a4a7c,#2c6baf);color:#fff;border:none;cursor:pointer">🔄 Reaktivovat</button>
+        </div>
+
+        <div class="restart-help">
+          <h3>Restart / nastaveni ve Firebase</h3>
+          <div class="restart-grid">
+            <div class="restart-option">
+              <strong>Navazat na stare prihozy</strong>
+              <p>Nastavi aukci na active a novy konec. Bidy zustanou, dalsi prihoz jde od aktualni nejvyssi ceny.</p>
+              <button onclick="reactivateAuction()" style="background:#2c6baf;color:#fff">Prodlouzit / reaktivovat</button>
+            </div>
+            <div class="restart-option">
+              <strong>Cisty restart od nove ceny</strong>
+              <p>Nejdrive archivuje stare leady/bidy. Pak smaze aktivni bids, winner a endedAt. Nova aukce vezme vsechny hodnoty z formulare vlevo.</p>
+              <button onclick="cleanRestartAuction()" style="background:#c0392b;color:#fff">Cisty restart</button>
+            </div>
+          </div>
+          <div class="restart-note">
+            Rucne ve Firebase je to stejne: pro navazani nastav <strong>status="active"</strong> a novy <strong>endTime</strong>.
+            Pro cisty restart nejdrive archivuj leady, potom smaz <strong>bids</strong>, <strong>winner</strong>, <strong>endedAt</strong> a nastav nove hodnoty aukce.
+          </div>
+        </div>
+
+        <hr class="action-sep">
+
+        <h3 style="font-size:.88rem;font-weight:800;color:#1a2a4a;margin-bottom:12px">Příhozy (živě)</h3>
+        <div style="overflow-x:auto">
+        <table class="bid-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Jméno</th>
+              <th>E-mail</th>
+              <th>Telefon</th>
+              <th>Nabídka</th>
+              <th>Čas</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="bidTableBody"><tr><td colspan="7" class="no-data">Načítám…</td></tr></tbody>
+        </table>
+        </div>
+
+      </div><!-- /detail -->
+
+    </div><!-- /right -->
+
+  </div><!-- /admin-body -->
+</div><!-- /admin-wrap -->
+
+<!-- Firebase SDK odstraněn — admin panel používá REST API, funguje z file:/// -->
+<script>
+// ── REST API — Firebase Realtime DB (bez SDK, funguje z file:///) ──
+const REST_BASE = 'https://batko-aukce-default-rtdb.europe-west1.firebasedatabase.app';
+
+async function restGet(path) {
+  const r = await fetch(`${REST_BASE}${path}.json?_=${Date.now()}`);
+  if (!r.ok) throw new Error(`HTTP ${r.status}`);
+  return r.json();
+}
+async function restPatch(path, data) {
+  const r = await fetch(`${REST_BASE}${path}.json`, {
+    method: 'PATCH', headers: {'Content-Type':'application/json'}, body: JSON.stringify(data)
+  });
+  if (!r.ok) throw new Error(`HTTP ${r.status}`);
+  return r.json();
+}
+async function restPost(path, data) {
+  const r = await fetch(`${REST_BASE}${path}.json`, {
+    method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(data)
+  });
+  if (!r.ok) throw new Error(`HTTP ${r.status}`);
+  return r.json();
+}
+
+// ── Heslo (hash) ──
+const PASS_HASH = '048fbc4780f7945aaf8b397ec4e4c27b803dab4507b0c6235e26aab022cc0a8f';
+
+let IS_DEMO_ADMIN = false;
+let selectedAuctionId = null;
+let bidsListener = null;   // clearInterval handle
+let selectedFormFilledFor = null;
+
+// ── SHA-256 ──
+async function sha256(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+// ── Login / logout ──
+async function login() {
+  const pass = document.getElementById('adminPass').value;
+  const hash = await sha256(pass);
+  if (hash === PASS_HASH) {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminWrap').style.display  = 'block';
+    prefillTestAuction();
+    initAdmin();
+  } else {
+    document.getElementById('loginErr').style.display = 'block';
+  }
+}
+function logout() {
+  if (bidsListener) { clearInterval(bidsListener); bidsListener = null; }
+  document.getElementById('adminWrap').style.display = 'none';
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('adminPass').value = '';
+}
+
+// ── Init — test Firebase REST, pak načti aukce ──
+async function initAdmin() {
+  try {
+    await restGet('/auctions');          // jednoduchý ping
+    show('fbOk'); hide('fbErr');
+    IS_DEMO_ADMIN = false;
+    loadAuctions();
+  } catch(e) {
+    console.error('Firebase REST nedostupný:', e);
+    enableDemoMode();
+  }
+}
+
+// ── Firebase config panel — jen UI (databaseURL se nastavuje v REST_BASE nahoře) ──
+function saveFirebaseConfig() {
+  // REST_BASE je hardcoded — panel slouží jen pro referenci
+  show('fbOk'); hide('fbErr');
+  loadAuctions();
+}
+function loadFirebaseConfig() {
+  const saved = localStorage.getItem('batko_fb_cfg');
+  if (saved) {
+    try {
+      const cfg = JSON.parse(saved);
+      const set = (id, val) => { const el=document.getElementById(id); if(el) el.value=val||''; };
+      set('fb-apiKey', cfg.apiKey); set('fb-authDomain', cfg.authDomain);
+      set('fb-databaseURL', cfg.databaseURL); set('fb-projectId', cfg.projectId);
+      set('fb-appId', cfg.appId);
+    } catch(e) {}
+  }
+}
+
+// ── Předvyplnění testovací aukce ──
+function prefillTestAuction() {
+  const set = (id, val) => { const el = document.getElementById(id); if (el) el.value = val; };
+  set('f-auctionId',    'AUK-TEST-001');
+  set('f-make',         'Volkswagen');
+  set('f-model',        'Passat Variant');
+  set('f-year',         '2023');
+  set('f-km',           '168517');
+  set('f-startPrice',   '380000');
+  set('f-minIncrement', '1000');
+  set('f-endTime',      '2026-05-30T21:00');
+  set('f-ref',          'SAUTO-210458921');
+  set('f-sheetUrl',     'https://script.google.com/macros/s/AKfycbwcFA8bRyHnBB_4XlgH5_IMR4IBqUfvTD8vScGZPiuCh0gR5f4Mp_9OjOAw1u3lNEjI/exec');
+}
+
+// ── DEMO MODE (localStorage fallback) ──
+function enableDemoMode() {
+  IS_DEMO_ADMIN = true;
+  const fbOk = document.getElementById('fbOk');
+  fbOk.textContent = '⚙️ DEMO REŽIM — Firebase nedostupný. Data se ukládají lokálně v prohlížeči.';
+  fbOk.style.display = 'block';
+  fbOk.style.background = '#fff3cd';
+  fbOk.style.borderColor = '#f39c12';
+  fbOk.style.color = '#856404';
+  hide('fbErr');
+  loadAuctions();
+}
+function lsGetAuctions() {
+  try { return JSON.parse(localStorage.getItem('batko_admin_auctions') || '{}'); } catch(e) { return {}; }
+}
+function lsSaveAuctions(obj) { localStorage.setItem('batko_admin_auctions', JSON.stringify(obj)); }
+function lsGetBids(auctionId) {
+  try { return JSON.parse(localStorage.getItem(`batko_bids_${auctionId}`) || '[]'); } catch(e) { return []; }
+}
+
+// ── Render seznam aukcí ──
+function renderAuctionList(auctionsObj) {
+  const list = document.getElementById('auctionList');
+  const keys = Object.keys(auctionsObj);
+  if (!keys.length) { list.innerHTML = '<div class="no-data">Žádné aukce zatím. Vytvořte první výše.</div>'; return; }
+  list.innerHTML = keys.map(key => {
+    const a    = auctionsObj[key];
+    const bids = a.bids ? Object.values(a.bids) : [];
+    const top  = bids.length > 0 ? Math.max(...bids.map(b=>b.amount)) : 0;
+    const st   = a.status || 'active';
+    const carTitle = [a.make, a.model, a.year].filter(Boolean).join(' ') || key;
+    return `<div class="auction-card ${selectedAuctionId===key?'selected':''}" onclick="selectAuction('${key}')">
+      <div class="ac-top">
+        <div>
+          <div class="ac-title">${carTitle}</div>
+          <div class="ac-meta">${key} | Konec: ${a.endTime ? new Date(a.endTime).toLocaleString('cs') : '—'}</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span class="status-pill sp-${st}">${st}</span>
+          <button onclick="event.stopPropagation();deleteAuction('${key}')" title="Smazat aukci"
+            style="background:none;border:1px solid #e74c3c;color:#e74c3c;border-radius:6px;padding:2px 8px;font-size:.72rem;cursor:pointer">🗑</button>
+        </div>
+      </div>
+      <div class="ac-bids">${bids.length} příhozů${top > 0 ? ` | Nejvyšší: ${top.toLocaleString('cs')} Kč` : ''}</div>
+    </div>`;
+  }).join('');
+}
+
+// ── Načti seznam aukcí ──
+async function loadAuctions() {
+  if (IS_DEMO_ADMIN) {
+    renderAuctionList(lsGetAuctions());
+    return;
+  }
+  try {
+    const data = await restGet('/auctions');
+    renderAuctionList(data || {});
+  } catch(e) {
+    document.getElementById('auctionList').innerHTML = '<div class="no-data" style="color:#e74c3c">Chyba načítání aukcí.</div>';
+  }
+}
+
+// ── Předvyplní formulář daty zvolené aukce ──
+function prefillFormFromAuction(id, a) {
+  selectedFormFilledFor = id;
+  document.getElementById('f-auctionId').value   = id;
+  document.getElementById('f-make').value        = a.make         || '';
+  document.getElementById('f-model').value       = a.model        || '';
+  document.getElementById('f-year').value        = a.year         || '';
+  document.getElementById('f-km').value          = a.km           || '';
+  document.getElementById('f-startPrice').value  = a.startPrice   || '';
+  document.getElementById('f-minIncrement').value= a.minIncrement || 1000;
+  document.getElementById('f-ref').value         = a.ref          || '';
+  document.getElementById('f-sheetUrl').value    = a.sheetUrl     || '';
+  document.getElementById('f-reservePrice').value= a.reservePrice || '';
+  document.getElementById('f-note').value        = a.note         || '';
+  if (a.endTime) {
+    // převod ISO → datetime-local (YYYY-MM-DDTHH:MM)
+    const dt = new Date(a.endTime);
+    const pad = n => String(n).padStart(2,'0');
+    document.getElementById('f-endTime').value =
+      `${dt.getFullYear()}-${pad(dt.getMonth()+1)}-${pad(dt.getDate())}T${pad(dt.getHours())}:${pad(dt.getMinutes())}`;
+  } else {
+    document.getElementById('f-endTime').value = '';
+  }
+  if (a.roi) {
+    if (a.roi.bidEur)       document.getElementById('roi-bidEur').value       = a.roi.bidEur;
+    if (a.roi.eurRate)      document.getElementById('roi-eurRate').value      = a.roi.eurRate;
+    if (a.roi.repairs)      document.getElementById('roi-repairs').value      = a.roi.repairs;
+    if (a.roi.marketCZ)     document.getElementById('roi-marketCZ').value     = a.roi.marketCZ;
+    if (a.roi.targetProfit) document.getElementById('roi-targetProfit').value = a.roi.targetProfit;
+  }
+  // Scrolluj na formulář
+}
+
+// ── Smazat aukci z Firebase ──
+async function deleteAuction(id) {
+  if (!confirm(`Opravdu smazat aukci ${id}? Tato akce je nevratná.`)) return;
+  try {
+    if (IS_DEMO_ADMIN) {
+      const all = lsGetAuctions(); delete all[id]; lsSaveAuctions(all);
+    } else {
+      await fetch(`${REST_BASE}/auctions/${id}.json`, { method: 'DELETE' });
+    }
+    if (selectedAuctionId === id) {
+      selectedAuctionId = null;
+      document.getElementById('auctionDetail').style.display = 'none';
+    }
+    loadAuctions();
+    alert(`✅ Aukce ${id} smazána.`);
+  } catch(e) { alert('❌ Chyba: ' + e.message); }
+}
+
+// ── Reaktivovat zrušenou aukci ──
+async function reactivateAuction() {
+  if (!selectedAuctionId) return;
+  const newEnd = prompt('Zadej nový konec aukce (YYYY-MM-DDTHH:MM):',
+    new Date(Date.now() + 86400000).toISOString().slice(0,16));
+  if (!newEnd) return;
+  const upd = {
+    status: 'active',
+    cancelReason: null,
+    cancelledAt: null,
+    cancelType: null,
+    winner: null,
+    endedAt: null,
+    endTime: new Date(newEnd).toISOString()
+  };
+  try {
+    if (IS_DEMO_ADMIN) {
+      const all = lsGetAuctions();
+      const a = Object.assign(all[selectedAuctionId]||{}, upd);
+      delete a.cancelReason;
+      delete a.cancelledAt;
+      delete a.cancelType;
+      delete a.winner;
+      delete a.endedAt;
+      all[selectedAuctionId] = a;
+      lsSaveAuctions(all);
+    } else {
+      await restPatch(`/auctions/${selectedAuctionId}`, upd);
+    }
+    alert('✅ Aukce reaktivována do: ' + newEnd);
+    loadAuctions();
+    selectAuction(selectedAuctionId);
+  } catch(e) {
+    alert('❌ Chyba: ' + e.message);
+  }
+}
+
+function collectAuctionFormData() {
+  const endTime = document.getElementById('f-endTime').value;
+  return {
+    make:         document.getElementById('f-make').value.trim(),
+    model:        document.getElementById('f-model').value.trim(),
+    year:         parseInt(document.getElementById('f-year').value, 10) || null,
+    km:           parseInt(document.getElementById('f-km').value, 10) || null,
+    startPrice:   parseInt(document.getElementById('f-startPrice').value, 10) || 0,
+    minIncrement: parseInt(document.getElementById('f-minIncrement').value, 10) || 1000,
+    endTime:      endTime ? new Date(endTime).toISOString() : '',
+    ref:          document.getElementById('f-ref').value.trim(),
+    sheetUrl:     document.getElementById('f-sheetUrl').value.trim(),
+    reservePrice: parseInt(document.getElementById('f-reservePrice').value, 10) || 0,
+    note:         document.getElementById('f-note').value.trim(),
+    roi: {
+      bidEur:       parseFloat(document.getElementById('roi-bidEur').value) || null,
+      eurRate:      parseFloat(document.getElementById('roi-eurRate').value) || null,
+      repairs:      parseFloat(document.getElementById('roi-repairs').value) || null,
+      marketCZ:     parseFloat(document.getElementById('roi-marketCZ').value) || null,
+      targetProfit: parseFloat(document.getElementById('roi-targetProfit').value) || 30000
+    }
+  };
+}
+
+// ── Cisty restart aukce: smaze stare bidy a zacne od ceny ve formulari ──
+async function cleanRestartAuction() {
+  if (!selectedAuctionId) return;
+
+  const endTime = document.getElementById('f-endTime').value;
+  const formData = collectAuctionFormData();
+
+  if (!endTime) {
+    alert('Nejdrive vypln novy konec aukce ve formulari vlevo.');
+    return;
+  }
+  if (!formData.startPrice) {
+    alert('Nejdrive vypln vyvolavaci cenu ve formulari vlevo.');
+    return;
+  }
+
+  const msg =
+    `CISTY RESTART AUKCE ${selectedAuctionId}\n\n` +
+    `Nejdrive se archivuje:\n` +
+    `- bids/leady (jmeno, email, telefon, nabidka, cas)\n\n` +
+    `Potom se z aktivni aukce smaze:\n` +
+    `- bids\n` +
+    `- winner\n` +
+    `- endedAt\n` +
+    `- cancelReason\n\n` +
+    `Z formulare vlevo se nastavi:\n` +
+    `- auto = ${formData.make || '-'} ${formData.model || '-'} ${formData.year || ''}\n` +
+    `- status = active\n` +
+    `- startPrice = ${formData.startPrice.toLocaleString('cs')} Kc\n` +
+    `- minIncrement = ${formData.minIncrement.toLocaleString('cs')} Kc\n` +
+    `- endTime = ${endTime}\n\n` +
+    `Pokracovat?`;
+
+  if (!confirm(msg)) return;
+
+  const upd = {
+    ...formData,
+    status: 'active',
+    restartedAt: Date.now(),
+    bids: null,
+    winner: null,
+    endedAt: null,
+    cancelReason: null,
+    cancelledAt: null,
+    cancelType: null
+  };
+
+  try {
+    if (IS_DEMO_ADMIN) {
+      const all = lsGetAuctions();
+      const oldA = all[selectedAuctionId] || {};
+      const archive = JSON.parse(localStorage.getItem('batko_auction_archives') || '{}');
+      const archiveKey = `${selectedAuctionId}_${new Date().toISOString().replace(/[:.]/g, '-')}`;
+      archive[archiveKey] = {
+        auctionId: selectedAuctionId,
+        archivedAt: new Date().toISOString(),
+        reason: 'clean_restart',
+        previousAuction: oldA,
+        previousBids: oldA.bids || {},
+        localBids: lsGetBids(selectedAuctionId),
+        restartValues: formData
+      };
+      localStorage.setItem('batko_auction_archives', JSON.stringify(archive));
+
+      const a = Object.assign(oldA, upd);
+      delete a.bids;
+      delete a.winner;
+      delete a.endedAt;
+      delete a.cancelReason;
+      delete a.cancelledAt;
+      delete a.cancelType;
+      all[selectedAuctionId] = a;
+      lsSaveAuctions(all);
+      localStorage.removeItem(`batko_bids_${selectedAuctionId}`);
+      localStorage.setItem(`batko_status_${selectedAuctionId}`, 'active');
+    } else {
+      const oldA = await restGet(`/auctions/${selectedAuctionId}`) || {};
+      await restPost(`/auctionArchives/${selectedAuctionId}`, {
+        auctionId: selectedAuctionId,
+        archivedAt: new Date().toISOString(),
+        reason: 'clean_restart',
+        previousAuction: oldA,
+        previousBids: oldA.bids || {},
+        restartValues: formData
+      });
+      await restPatch(`/auctions/${selectedAuctionId}`, upd);
+    }
+    alert('✅ Aukce byla ciste restartovana. Stare bidy/leady jsou ulozene v archivu auctionArchives.');
+    loadAuctions();
+    selectAuction(selectedAuctionId);
+  } catch(e) {
+    alert('❌ Chyba restartu: ' + e.message);
+  }
+}
+
+// ── Vyber aukci + polling detailu ──
+function selectAuction(id) {
+  selectedAuctionId = id;
+  selectedFormFilledFor = null;
+  if (bidsListener) { clearInterval(bidsListener); bidsListener = null; }
+  document.getElementById('auctionDetail').style.display = 'block';
+  document.getElementById('detail-id').textContent = id;
+
+  if (IS_DEMO_ADMIN) {
+    function pollDetailDemo() {
+      const auctions = lsGetAuctions();
+      const a = auctions[id] || {};
+      a.bids = {};
+      lsGetBids(id).forEach((b, i) => { a.bids[`bid${i}`] = b; });
+      renderDetail(id, a);
+      if (selectedFormFilledFor !== id) prefillFormFromAuction(id, a);
+    }
+    pollDetailDemo();
+    bidsListener = setInterval(pollDetailDemo, 2000);
+    return;
+  }
+
+  // Firebase REST polling — každých 5s
+  async function pollDetail() {
+    try {
+      const a = await restGet(`/auctions/${id}`);
+      renderDetail(id, a || {});
+      // Pre-fill formuláře jen při prvním načtení (ne každých 5s)
+      if (!pollDetail._filled) { prefillFormFromAuction(id, a || {}); pollDetail._filled = true; }
+    } catch(e) { console.warn('Poll detail error:', e); }
+  }
+  pollDetail();
+  bidsListener = setInterval(pollDetail, 5000);
+}
+
+// ── Sdílený render detailu ──
+function renderDetail(id, a) {
+  const bids     = a.bids ? Object.entries(a.bids).map(([k,v])=>({...v,_key:k})).sort((x,y)=>y.amount-x.amount) : [];
+  const top      = bids.length > 0 ? bids[0].amount : 0;
+  const st       = a.status || 'active';
+  const reserve  = a.reservePrice || 0;
+  const reserveOk = top >= reserve && reserve > 0;
+  const roiSnap  = a.roi || {};
+  const timeLeft = a.endTime ? Math.max(0, new Date(a.endTime) - Date.now()) : 0;
+  const dLeft    = Math.floor(timeLeft / 86400000);
+  const hLeft    = Math.floor(timeLeft / 3600000);
+  const timeStr  = timeLeft <= 0 ? 'Vypršel' : dLeft > 0
+    ? `${dLeft}d ${hLeft % 24}h`
+    : `${hLeft}h ${Math.floor((timeLeft % 3600000)/60000)}m`;
+
+  document.getElementById('detail-status').innerHTML = `<span class="status-pill sp-${st}">${st}</span>`;
+  document.getElementById('detailStats').innerHTML = `
+    <div class="stat-box"><div class="sv">${bids.length}</div><div class="sl">Příhozů</div></div>
+    <div class="stat-box"><div class="sv" style="color:#c0392b">${top>0?top.toLocaleString('cs')+' Kč':'—'}</div><div class="sl">Nejvyšší bid</div></div>
+    <div class="stat-box"><div class="sv">${a.startPrice?a.startPrice.toLocaleString('cs')+' Kč':'—'}</div><div class="sl">Vyvolávací cena</div></div>
+    <div class="stat-box" title="Skrytý floor — zákazníci nevidí">
+      <div class="sv" style="color:${reserve>0?(reserveOk?'#27ae60':'#e74c3c'):'#aaa'}">${reserve>0?reserve.toLocaleString('cs')+' Kč':'—'}</div>
+      <div class="sl">Reserve ${reserve>0?(reserveOk?'✅ OK':'❌ Neplněna'):''}</div>
+    </div>
+    <div class="stat-box"><div class="sv">${timeStr}</div><div class="sl">Zbývá</div></div>
+    ${roiSnap.bidEur?`<div class="stat-box"><div class="sv" style="font-size:.85rem">${Math.round(roiSnap.bidEur*(roiSnap.eurRate||24.8)).toLocaleString('cs')} Kč</div><div class="sl">Nákup (bid EUR)</div></div>`:''}
+  `;
+
+  const tbody = document.getElementById('bidTableBody');
+  if (!bids.length) { tbody.innerHTML='<tr><td colspan="6" class="no-data">Zatím žádné příhozy.</td></tr>'; return; }
+  tbody.innerHTML = bids.map((b,i) => `
+    <tr style="${typeof b.amount!=='number'?'background:#fff5f5':''}">
+      <td class="${i===0?'pos1':''}">${i===0?'🥇':'#'+(i+1)}</td>
+      <td>${b.name||'—'}${typeof b.amount!=='number'?'<span style="color:#e74c3c;font-size:.7rem;margin-left:4px">⚠ neplatná částka</span>':''}</td>
+      <td><a href="mailto:${b.email||''}">${b.email||'—'}</a></td>
+      <td><a href="tel:${b.phone||''}">${b.phone||'—'}</a></td>
+      <td class="amt" style="${typeof b.amount!=='number'?'color:#e74c3c':''}">${typeof b.amount==='number'?(b.amount||0).toLocaleString('cs')+' Kč':String(b.amount||'—')}</td>
+      <td>${b.timestamp?new Date(b.timestamp).toLocaleString('cs'):'—'}</td>
+      <td><button onclick="deleteBid('${b._key}')" title="Smazat příhoz"
+        style="background:none;border:none;cursor:pointer;font-size:1rem;padding:2px 6px;border-radius:4px;color:#c0392b" 
+        onmouseover="this.style.background='#ffe'" onmouseout="this.style.background='none'">🗑</button></td>
+    </tr>`).join('');
+}
+
+// ── ROI Kalkulačka ──
+function calcROI() {
+  const bidEur    = parseFloat(document.getElementById('roi-bidEur').value) || 0;
+  const eurRate   = parseFloat(document.getElementById('roi-eurRate').value) || 24.80;
+  const repairs   = parseFloat(document.getElementById('roi-repairs').value) || 0;
+  const transport = parseFloat(document.getElementById('roi-transport').value) || 8000;
+  const marketCZ  = parseFloat(document.getElementById('roi-marketCZ').value) || 0;
+  const profit    = parseFloat(document.getElementById('roi-targetProfit').value) || 30000;
+
+  if (!bidEur) { document.getElementById('roiResult').style.display = 'none'; return; }
+
+  // Katalog nákladů — fixní defaulty (KATALOG_NAKLADU_DOVOZ_AUT)
+  const feeCorrection = Math.round(bidEur * eurRate * 0.05); // odhad platformního poplatku ~5%
+  const registration  = 7500;
+  const stk           = 1200;
+  const salesPrep     = 8000;
+  const warrantyRes   = 25000;
+
+  const buyTotal   = Math.round(bidEur * eurRate + feeCorrection);
+  const totalCosts = buyTotal + transport + registration + stk + salesPrep + repairs + warrantyRes;
+  const reservePrice = totalCosts + profit;
+  const maxBidCZ   = marketCZ > 0 ? marketCZ - totalCosts - profit : 0;
+
+  const fmt = n => n.toLocaleString('cs') + ' Kč';
+  document.getElementById('roi-buyTotal').textContent   = fmt(buyTotal);
+  document.getElementById('roi-totalCosts').textContent = fmt(totalCosts);
+  document.getElementById('roi-reserve').textContent    = fmt(reservePrice);
+  document.getElementById('roi-maxBidCZ').textContent   = maxBidCZ > 0 ? fmt(maxBidCZ) : '— (doplň tržní cenu)';
+  document.getElementById('roiResult').style.display    = 'block';
+
+  // Auto-vyplnit reserve price do pole
+  document.getElementById('f-reservePrice').value = reservePrice;
+}
+
+// ── Vytvoření aukce ──
+async function createAuction() {
+  const id = document.getElementById('f-auctionId').value.trim();
+  if (!id) { showErr('createErr', 'ID aukce je povinné.'); return; }
+  const endTime = document.getElementById('f-endTime').value;
+  if (!endTime) { showErr('createErr', 'Konec aukce je povinný — NESMÍ se hádat!'); return; }
+
+  const data = {
+    make:         document.getElementById('f-make').value.trim(),
+    model:        document.getElementById('f-model').value.trim(),
+    year:         parseInt(document.getElementById('f-year').value) || null,
+    km:           parseInt(document.getElementById('f-km').value) || null,
+    startPrice:   parseInt(document.getElementById('f-startPrice').value) || 0,
+    minIncrement: parseInt(document.getElementById('f-minIncrement').value) || 1000,
+    endTime:      new Date(endTime).toISOString(),
+    ref:          document.getElementById('f-ref').value.trim(),
+    sheetUrl:     document.getElementById('f-sheetUrl').value.trim(),
+    reservePrice: parseInt(document.getElementById('f-reservePrice').value) || 0,
+    note:         document.getElementById('f-note').value.trim(),
+    roi: {
+      bidEur:       parseFloat(document.getElementById('roi-bidEur').value) || null,
+      eurRate:      parseFloat(document.getElementById('roi-eurRate').value) || null,
+      repairs:      parseFloat(document.getElementById('roi-repairs').value) || null,
+      marketCZ:     parseFloat(document.getElementById('roi-marketCZ').value) || null,
+      targetProfit: parseFloat(document.getElementById('roi-targetProfit').value) || 30000
+    },
+    status:    'active',
+    createdAt: Date.now()
+  };
+
+  try {
+    if (IS_DEMO_ADMIN) {
+      const all = lsGetAuctions();
+      all[id] = Object.assign(all[id] || {}, data);
+      lsSaveAuctions(all);
+    } else {
+      await restPatch(`/auctions/${id}`, data);
+    }
+    show('createOk'); hide('createErr');
+    setTimeout(() => hide('createOk'), 3000);
+    loadAuctions();
+  } catch(e) {
+    showErr('createErr', 'Chyba uložení: ' + e.message);
+  }
+}
+
+// ── Zrušit aukci ──
+async function cancelAuction() {
+  if (!selectedAuctionId) return;
+  const reason = prompt('Důvod zrušení (zobrazí se na veřejné stránce):',
+    'Vozidlo se nepodařilo zajistit za přijatelnou cenu. Všem zájemcům děkujeme.');
+  if (reason === null) return;
+  const upd = { status:'cancelled', cancelReason: reason||'Aukce zrušena.', cancelledAt: Date.now() };
+  try {
+    if (IS_DEMO_ADMIN) {
+      const all = lsGetAuctions();
+      all[selectedAuctionId] = Object.assign(all[selectedAuctionId]||{}, upd);
+      lsSaveAuctions(all);
+      localStorage.setItem(`batko_status_${selectedAuctionId}`, 'cancelled');
+      localStorage.setItem(`batko_cancel_${selectedAuctionId}`, upd.cancelReason);
+    } else {
+      await restPatch(`/auctions/${selectedAuctionId}`, upd);
+    }
+    alert('✅ Aukce zrušena. Veřejná stránka okamžitě zobrazí oznámení.');
+    loadAuctions();
+  } catch(e) {
+    alert('❌ Chyba: ' + e.message);
+  }
+}
+
+// ── Zkontrolovat reserve price ──
+async function checkReserveOnEnd(a) {
+  const reserve = a.reservePrice || 0;
+  if (!reserve) return false;
+
+  const bids = a.bids ? Object.values(a.bids).sort((x,y) => y.amount - x.amount) : [];
+  const topBid = bids.length > 0 ? bids[0].amount : 0;
+
+  if (topBid < reserve) {
+    const reason = `Aukce zrušena — nabídka (${topBid.toLocaleString('cs')} Kč) nedosáhla minimální ceny. Děkujeme všem zájemcům.`;
+    const upd = { status:'cancelled', cancelReason:reason, cancelledAt:Date.now(), cancelType:'reserve_not_met' };
+    if (IS_DEMO_ADMIN) {
+      const all = lsGetAuctions();
+      all[selectedAuctionId] = Object.assign(all[selectedAuctionId]||{}, upd);
+      lsSaveAuctions(all);
+      localStorage.setItem(`batko_status_${selectedAuctionId}`, 'cancelled');
+      localStorage.setItem(`batko_cancel_${selectedAuctionId}`, reason);
+    } else {
+      await restPatch(`/auctions/${selectedAuctionId}`, upd);
+    }
+    alert(`⚠️ Reserve price nenaplněna (${reserve.toLocaleString('cs')} Kč).\nNejvyšší bid: ${topBid.toLocaleString('cs')} Kč.\n\nAukce automaticky zrušena.`);
+    loadAuctions();
+    return true;
+  }
+  return false;
+}
+
+// ── Ukončit aukci ──
+async function endAuction() {
+  if (!selectedAuctionId) return;
+  let a;
+  if (IS_DEMO_ADMIN) {
+    a = lsGetAuctions()[selectedAuctionId] || {};
+    a.bids = {};
+    lsGetBids(selectedAuctionId).forEach((b,i) => { a.bids[`bid${i}`] = b; });
+  } else {
+    a = await restGet(`/auctions/${selectedAuctionId}`) || {};
+  }
+
+  // Zkontroluj reserve price
+  const wasAutoCancel = await checkReserveOnEnd(a);
+  if (wasAutoCancel) return;
+
+  const bids = a.bids ? Object.values(a.bids).sort((x,y) => y.amount - x.amount) : [];
+  if (bids.length === 0) {
+    if (!confirm('Žádné příhozy. Opravdu ukončit?')) return;
+    const noUpd = { status:'ended', endedAt:Date.now() };
+    if (IS_DEMO_ADMIN) { const all=lsGetAuctions(); all[selectedAuctionId]=Object.assign(all[selectedAuctionId]||{},noUpd); lsSaveAuctions(all); }
+    else await restPatch(`/auctions/${selectedAuctionId}`, noUpd);
+    loadAuctions(); return;
+  }
+
+  const winner = bids[0];
+  const confirm1 = confirm(
+    `🏆 Vítěz aukce:\n\nJméno: ${winner.name}\nE-mail: ${winner.email}\nTelefon: ${winner.phone}\nNabídka: ${winner.amount.toLocaleString('cs')} Kč\n\nUkončit aukci a odeslat vítěze do Google Sheet?`
+  );
+  if (!confirm1) return;
+
+  // Uložit vítěze
+  const winnerUpd = {
+    status: 'ended', endedAt: Date.now(),
+    winner: { name:winner.name, email:winner.email, phone:winner.phone, amount:winner.amount, timestamp:winner.timestamp }
+  };
+  if (IS_DEMO_ADMIN) {
+    const all = lsGetAuctions();
+    all[selectedAuctionId] = Object.assign(all[selectedAuctionId]||{}, winnerUpd);
+    lsSaveAuctions(all);
+    localStorage.setItem(`batko_status_${selectedAuctionId}`, 'ended');
+  } else {
+    await restPatch(`/auctions/${selectedAuctionId}`, winnerUpd);
+  }
+
+  // Vítěz → Google Sheet s povinnými lead pipeline poli (POSTUP_LEADS.md)
+  const sheetUrl = a.sheetUrl || '';
+  if (sheetUrl) {
+    try {
+      await fetch(sheetUrl, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({
+          formType:        'aukce_winner',
+          source:          `Aukce ${selectedAuctionId} — výsledek`,
+          tlacitko:        'Ukončit aukci (admin)',
+          sekce:           `Aukce ${selectedAuctionId}`,
+          ukol:            `Kontaktovat vítěze, potvrdit zálohu, zahájit nákup v evropské aukci`,
+          stav_zpracovani: 'CEKA_NA_SCHVALENI',
+          note:            `TLAČÍTKO: Ukončit aukci | SEKCE: Aukce ${selectedAuctionId} | UKOL: Zavolat vítězi ${winner.phone}, potvrdit zálohu, poté jít do evropské aukce, ref. ${a.ref || '—'}`,
+          jmeno:           winner.name,
+          email:           winner.email,
+          telefon:         winner.phone,
+          nabidka_kc:      winner.amount,
+          auto:            `${a.year || ''} ${a.make || ''} ${a.model || ''}`.trim(),
+          auctionId:       selectedAuctionId,
+          auctionRef:      a.ref || '',
+          celkem_bidu:     bids.length,
+          datum:           new Date().toISOString()
+        })
+      });
+      console.log('Vítěz odeslán do Sheet:', winner.name);
+    } catch(e) {
+      console.warn('Sheet zápis selhal:', e);
+    }
+  }
+  showWinnerNotifyPanel(winner, a, selectedAuctionId);
+}
+
+// ── Export CSV ──
+async function exportBids() {
+  if (!selectedAuctionId) return;
+  let a;
+  if (IS_DEMO_ADMIN) {
+    a = lsGetAuctions()[selectedAuctionId] || {};
+    a.bids = {};
+    lsGetBids(selectedAuctionId).forEach((b,i) => { a.bids[`bid${i}`] = b; });
+  } else {
+    a = await restGet(`/auctions/${selectedAuctionId}`) || {};
+  }
+  const bidsObj = a.bids || {};
+  if (Object.keys(bidsObj).length === 0) { alert('Žádné příhozy.'); return; }
+
+  const bids = Object.values(bidsObj).sort((x,y) => y.amount - x.amount);
+  const reserve = a.reservePrice || 0;
+  const roi = a.roi || {};
+
+  // Hlavička s metadaty aukce
+  const meta = [
+    ['# EXPORT AUKCE', selectedAuctionId, '', '', '', '', ''],
+    ['# Auto', `${a.year||''} ${a.make||''} ${a.model||''}`.trim(), '', '', '', '', ''],
+    ['# Stav', a.status || '', '', '', '', '', ''],
+    ['# Konec aukce', a.endTime ? new Date(a.endTime).toLocaleString('cs') : '', '', '', '', '', ''],
+    ['# Reserve price', reserve > 0 ? reserve.toLocaleString('cs') + ' Kč' : 'Nenastaveno', '', '', '', '', ''],
+    ['# Bid EUR (aukce)', roi.bidEur ? `${roi.bidEur} EUR @ ${roi.eurRate} = ${Math.round(roi.bidEur * roi.eurRate).toLocaleString('cs')} Kč` : '', '', '', '', '', ''],
+    ['# Cílový zisk', roi.targetProfit ? roi.targetProfit.toLocaleString('cs') + ' Kč' : '', '', '', '', '', ''],
+    ['', '', '', '', '', '', ''],
+    ['Pořadí', 'Jméno', 'Email', 'Telefon', 'Nabídka Kč', 'Čas', 'Stav pipeline']
+  ];
+
+  const rows = bids.map((b, i) => [
+    i + 1,
+    b.name || '',
+    b.email || '',
+    b.phone || '',
+    b.amount || 0,
+    b.timestamp ? new Date(b.timestamp).toLocaleString('cs') : '',
+    i === 0 ? (a.status === 'ended' ? 'VÍTĚZ — CEKA_NA_SCHVALENI' : 'Aktuálně nejvyšší') : 'PRIJATO'
+  ]);
+
+  const allRows = [...meta, ...rows];
+  const csv = '﻿' + allRows.map(r => r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(';')).join('\n');
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+  const el = document.createElement('a');
+  el.href = URL.createObjectURL(blob);
+  el.download = `aukce_${selectedAuctionId}_bidy_${new Date().toISOString().slice(0, 10)}.csv`;
+  el.click();
+}
+
+
+// ════════════════════════════════════════
+// WINNER NOTIFY PANEL
+// ════════════════════════════════════════
+let _wnbTimer = null;
+let _wnbSecondsLeft = 600;
+let _wnbWinner = null;
+let _wnbAuction = null;
+let _wnbAuctionId = null;
+
+function showWinnerNotifyPanel(winner, auction, auctionId) {
+  _wnbWinner    = winner;
+  _wnbAuction   = auction;
+  _wnbAuctionId = auctionId;
+
+  const car    = `${auction.year || ''} ${auction.make || ''} ${auction.model || ''}`.trim();
+  const amount = (winner.amount || 0).toLocaleString('cs');
+  const dep    = auction.depositNote || '10 000 Kč';
+  const ref    = auction.ref || auctionId;
+
+  document.getElementById('wnbWinnerInfo').innerHTML =
+    `<strong>${winner.name}</strong> &nbsp;|&nbsp; ${winner.email} &nbsp;|&nbsp; ${winner.phone}<br>
+     <span style="color:#c0392b;font-weight:700">${amount} Kč</span> &nbsp;·&nbsp; ${car}`;
+
+  const msgText =
+`Dobrý den, ${winner.name},
+
+gratulujeme! Vaše nabídka ${amount} Kč byla nejvyšší — vyhráli jste aukci vozidla ${car} (ref. ${ref}).
+
+Další postup:
+1. Záloha ${dep} — po potvrzení vám zašleme platební údaje nebo QR kód.
+2. Teprve po přijetí zálohy přistoupíme k nákupu v aukci.
+3. Po nákupu vás budeme kontaktovat ohledně termínu předání.
+
+Kontaktujte nás na: info@batko.digital.ai
+nebo odpovězte na tuto zprávu.
+
+BATKO.DIGITAL.AI`;
+
+  document.getElementById('wnbMsgText').value = msgText;
+
+  // Spusť odpočet
+  _wnbSecondsLeft = 600;
+  clearInterval(_wnbTimer);
+  _wnbTimer = setInterval(() => {
+    _wnbSecondsLeft--;
+    const m = String(Math.floor(_wnbSecondsLeft / 60)).padStart(2,'0');
+    const s = String(_wnbSecondsLeft % 60).padStart(2,'0');
+    const el = document.getElementById('wnbTimer');
+    if (el) el.textContent = `${m}:${s}`;
+    if (_wnbSecondsLeft <= 0) {
+      clearInterval(_wnbTimer);
+      sendWinnerNotify(true); // auto-send
+    }
+  }, 1000);
+
+  document.getElementById('winnerNotifyOverlay').classList.add('active');
+}
+
+async function sendWinnerNotify(auto) {
+  clearInterval(_wnbTimer);
+  const w  = _wnbWinner;
+  const a  = _wnbAuction;
+  const id = _wnbAuctionId;
+  const msgText = document.getElementById('wnbMsgText').value;
+  const car = `${a.year||''} ${a.make||''} ${a.model||''}`.trim();
+
+  const sheetUrl = a.sheetUrl || '';
+  if (sheetUrl) {
+    try {
+      await fetch(sheetUrl, {
+        method: 'POST', mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({
+          formType:        'aukce_winner_notify',
+          source:          `Aukce ${id} — oznámení vítězi${auto ? ' (auto)' : ''}`,
+          tlacitko:        auto ? 'Auto-odeslání (10 min)' : 'Odeslat nyní (admin)',
+          sekce:           `Aukce ${id} — winner notify`,
+          ukol:            `Potvrdit zálohu a zahájit nákup — auto: ${car}`,
+          stav_zpracovani: 'ODESLANO',
+          note:            msgText,
+          jmeno:           w.name, email: w.email, telefon: w.phone,
+          nabidka_kc:      w.amount,
+          auto:            car,
+          auctionId:       id,
+          datum:           new Date().toISOString()
+        })
+      });
+    } catch(e) { console.warn('Winner notify sheet err:', e); }
+  }
+
+  document.getElementById('winnerNotifyOverlay').classList.remove('active');
+  alert(`📨 Oznámení vítězi odesláno${auto ? ' automaticky' : ''}.\n\n${w.name} | ${w.email}\n\nDalší kroky:\n1. Zavolej vítězi — ${w.phone}\n2. Potvrď zálohu\n3. Teprve pak jdi do evropské aukce`);
+}
+
+function cancelWinnerNotify() {
+  clearInterval(_wnbTimer);
+  document.getElementById('winnerNotifyOverlay').classList.remove('active');
+  alert('Oznámení nebylo odesláno. Kontakty vítěze jsou uloženy v Google Sheet.');
+}
+
+
+async function deleteBid(key) {
+  if (!key || !selectedAuctionId) return;
+  if (!confirm('Smazat tento příhoz z Firebase?')) return;
+  if (IS_DEMO_ADMIN) {
+    alert('Demo režim — mazání není podporováno.');
+    return;
+  }
+  try {
+    const r = await fetch(`${REST_BASE}/auctions/${selectedAuctionId}/bids/${key}.json`, { method: 'DELETE' });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    alert('✅ Příhoz smazán.');
+    loadAuctionDetail(selectedAuctionId);
+  } catch(e) {
+    alert('Chyba mazání: ' + e.message);
+  }
+}
+
+// ── Utils ──
+function show(id){ const el=document.getElementById(id); if(el) el.style.display='block'; }
+function hide(id){ const el=document.getElementById(id); if(el) el.style.display='none'; }
+function showErr(id, msg){ const el=document.getElementById(id); if(el){el.textContent=msg; el.style.display='block';} }
+</script>
+
+
+<!-- ── WINNER NOTIFY PANEL ── -->
+<div class="winner-notify-overlay" id="winnerNotifyOverlay">
+  <div class="winner-notify-box">
+    <div class="wnb-title">🏆 Oznámení vítězi</div>
+    <div class="wnb-sub">Zkontrolujte zprávu a odešlete, nebo počkejte na automatické odeslání.</div>
+    <div class="wnb-winner-row" id="wnbWinnerInfo">—</div>
+    <div class="wnb-msg-label">Text zprávy (editovatelný)</div>
+    <textarea class="wnb-msg" id="wnbMsgText"></textarea>
+    <div class="wnb-countdown" id="wnbCountdown">Automatické odeslání za <span id="wnbTimer">10:00</span></div>
+    <div class="wnb-actions">
+      <button class="btn-success" onclick="sendWinnerNotify()">📨 Odeslat nyní</button>
+      <button class="btn-warn" onclick="cancelWinnerNotify()">✕ Nezasílat</button>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
