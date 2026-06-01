@@ -664,22 +664,24 @@ function galleryMove(dir) {
 // ════════════════════════════════════════════════════════
 // INICIALIZACE STRÁNKY (nezávislá na Firebase)
 // ════════════════════════════════════════════════════════
+function setEl(id, prop, val) { const el = document.getElementById(id); if (el) el[prop] = val; }
+
 function initPage() {
   const C = AUCTION_CONFIG;
   document.title = `Aukce: ${C.year} ${C.make} ${C.model} — BATKO.DIGITAL.AI`;
-  document.getElementById('pageDesc').content = `Přihoďte na ${C.year} ${C.make} ${C.model}. Živá internetová aukce.`;
-  document.getElementById('h-title').innerHTML = `${C.year} <span>${C.make} ${C.model}</span>`;
-  document.getElementById('h-sub').textContent  = `${C.engine} | ${C.transmission} | ${C.km.toLocaleString('cs')} km`;
-  document.getElementById('h-spec').textContent = `Barva: ${C.color} | Aukce: ${C.auctionRef}`;
-  document.getElementById('h-ref').textContent  = `Ref. ${C.auctionId}`;
-  document.getElementById('footer-ref').textContent = C.auctionId;
-  const _dep = document.getElementById('depositLabel'); if (_dep) _dep.textContent = C.depositNote || '';
-  document.getElementById('how-increment').textContent = C.minIncrement.toLocaleString('cs');
-  const _howDep = document.getElementById('how-deposit'); if (_howDep) _howDep.textContent = C.depositNote || '';
-  document.getElementById('cond-commission').textContent = 'Poplatek za zpracování aukce (2 490 Kč) hradí prodávající předem. Kupující platí pouze dohodnutou kupní cenu přímo majiteli vozidla.';
-  document.getElementById('minBidDisplay').textContent = fKc(C.startPrice);
-  document.getElementById('bf-amount').min         = C.startPrice;
-  document.getElementById('bf-amount').placeholder = `Min. ${fKc(C.startPrice)}`;
+  setEl('pageDesc', 'content', `Přihoďte na ${C.year} ${C.make} ${C.model}. Živá internetová aukce.`);
+  setEl('h-title', 'innerHTML', `${C.year} <span>${C.make} ${C.model}</span>`);
+  setEl('h-sub', 'textContent', `${C.engine} | ${C.transmission} | ${C.km.toLocaleString('cs')} km`);
+  setEl('h-spec', 'textContent', `Barva: ${C.color} | Aukce: ${C.auctionRef}`);
+  setEl('h-ref', 'textContent', `Ref. ${C.auctionId}`);
+  setEl('footer-ref', 'textContent', C.auctionId);
+  setEl('depositLabel', 'textContent', C.depositNote || '');
+  setEl('how-increment', 'textContent', C.minIncrement.toLocaleString('cs'));
+  setEl('how-deposit', 'textContent', C.depositNote || '');
+  setEl('cond-commission', 'textContent', 'Poplatek za zpracování aukce (2 490 Kč) hradí prodávající předem. Kupující platí pouze dohodnutou kupní cenu přímo majiteli vozidla.');
+  setEl('minBidDisplay', 'textContent', fKc(C.startPrice));
+  setEl('bf-amount', 'min', C.startPrice);
+  setEl('bf-amount', 'placeholder', `Min. ${fKc(C.startPrice)}`);
 
   // Předvyplnit kontakt z minulého příhozu
   prefillBidderContact();
