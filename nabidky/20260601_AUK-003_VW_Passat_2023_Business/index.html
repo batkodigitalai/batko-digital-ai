@@ -1249,5 +1249,11 @@ setInterval(updateCountdown, 1000);
 
 <script>
 // Záchranný countdown — spustí se z DOMContentLoaded nezávisle na Firebase
-document.addEventListener('DOMContentLoaded', f
-<!-- cache-bust: 1780318256 -->
+document.addEventListener('DOMContentLoaded', function() {
+  if (typeof updateCountdown === 'function') {
+    updateCountdown();
+  }
+});
+</script>
+</body>
+</html>
