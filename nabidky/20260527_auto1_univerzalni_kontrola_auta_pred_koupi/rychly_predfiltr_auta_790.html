@@ -170,7 +170,7 @@
         phone: data.get("phone")||"",
         budget: "Rychlý předfiltr 790 Kč | Cena auta: "+(data.get("budget")||"")+" | Odkaz: "+carLink,
         note: note,
-        carInfo: vehicleName+" | "+carLink,
+        carInfo: vehicleName,
         url_aukce: carLink || "vlastní odkaz klienta",
         button_text: lastCta.button,
         unlock_section: lastCta.section,
@@ -186,6 +186,10 @@
         car_link: carLink,
         materials: data.get("materials")||"",
         podklady_info: "Text podkladů: "+(data.get("materials")||""),
+        utm_source: utm.source,
+        utm_medium: utm.medium,
+        utm_campaign: utm.campaign,
+        utm_content: utm.content,
         referrer: document.referrer||"",
         current_url: window.location.href
       };
