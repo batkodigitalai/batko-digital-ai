@@ -673,9 +673,9 @@ function initPage() {
   document.getElementById('h-spec').textContent = `Barva: ${C.color} | Aukce: ${C.auctionRef}`;
   document.getElementById('h-ref').textContent  = `Ref. ${C.auctionId}`;
   document.getElementById('footer-ref').textContent = C.auctionId;
-  document.getElementById('depositLabel').textContent  = C.depositNote;
+  const _dep = document.getElementById('depositLabel'); if (_dep) _dep.textContent = C.depositNote || '';
   document.getElementById('how-increment').textContent = C.minIncrement.toLocaleString('cs');
-  document.getElementById('how-deposit').textContent   = C.depositNote;
+  const _howDep = document.getElementById('how-deposit'); if (_howDep) _howDep.textContent = C.depositNote || '';
   document.getElementById('cond-commission').textContent = 'Poplatek za zpracování aukce (2 490 Kč) hradí prodávající předem. Kupující platí pouze dohodnutou kupní cenu přímo majiteli vozidla.';
   document.getElementById('minBidDisplay').textContent = fKc(C.startPrice);
   document.getElementById('bf-amount').min         = C.startPrice;
