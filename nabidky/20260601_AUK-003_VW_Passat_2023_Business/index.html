@@ -480,7 +480,7 @@ const AUCTION_CONFIG = {
   <div class="bid-form-box" id="bidFormBox">
     <div class="bfb-label">Zadejte svůj příhoz</div>
     <div class="bfb-title">Přihodit na toto vozidlo</div>
-    <div class="bfb-sub">Příhoz je závazný. Po skončení aukce vítěze kontaktujeme pro složení zálohy a dohodnutí dalšího postupu.</div>
+    <div class="bfb-sub">Příhoz vyjadřuje váš zájem o koupi za danou cenu. Aukce slouží ke zjištění reálné tržní ceny — není závaznou smlouvou. K prodeji dojde přímou dohodou s prodávajícím.</div>
 
     <form id="bidForm">
       <div class="bfb-row">
@@ -499,7 +499,7 @@ const AUCTION_CONFIG = {
       </div>
       <div class="bfb-check">
         <input type="checkbox" id="bf-terms" required>
-        <label for="bf-terms">Rozumím, že příhoz je závazný závazek. Pokud vyhraji, složím zálohu <strong id="depositLabel"></strong> a postupuji dle podmínek aukce. Souhlasím se zpracováním osobních údajů za účelem vyřízení aukce.</label>
+        <label for="bf-terms">Rozumím, že příhoz vyjadřuje můj zájem o koupi za tuto cenu. Aukce není závazná smlouva — k prodeji dojde přímou dohodou s prodávajícím. Zavazuji se jednat v dobré víře. Souhlasím se zpracováním osobních údajů za účelem vyřízení aukce.</label>
       </div>
       <!-- Honeypot (proti botům) -->
       <input type="text" name="_hp" style="display:none" tabindex="-1" autocomplete="off">
@@ -526,7 +526,7 @@ const AUCTION_CONFIG = {
       <div class="how-item">
         <div class="how-num">1</div>
         <div class="how-title">Přihodíte</div>
-        <div class="how-desc">Zadáte jméno, e-mail, telefon a svou nabídku v Kč. Příhoz je závazný závazek. Minimální příhoz je <strong id="how-increment"></strong> Kč nad aktuální nejvyšší nabídku.</div>
+        <div class="how-desc">Zadáte jméno, e-mail, telefon a svou nabídku v Kč. Příhoz vyjadřuje váš zájem — není závaznou smlouvou. Minimální příhoz je <strong id="how-increment"></strong> Kč nad aktuální nejvyšší nabídku.</div>
       </div>
       <div class="how-item">
         <div class="how-num">2</div>
@@ -535,8 +535,8 @@ const AUCTION_CONFIG = {
       </div>
       <div class="how-item">
         <div class="how-num">3</div>
-        <div class="how-title">Vítěz složí zálohu</div>
-        <div class="how-desc">Po skončení aukce kontaktujeme vítěze do 24 hod. Záloha <strong id="how-deposit"></strong> potvrzuje zájem. Zbylá částka se platí při převzetí vozidla.</div>
+        <div class="how-title">Vítěz dostane kontakt</div>
+        <div class="how-desc">Po skončení aukce předáme vítězi kontakt na prodávajícího do 24 hod. Prodej, cena a podmínky se dohodnou přímo mezi vami — bez prostředníka.</div>
       </div>
     </div>
     <div class="info-box" style="margin-top:16px">
@@ -603,13 +603,14 @@ const AUCTION_CONFIG = {
   <div class="section">
     <h2>📋 Podmínky aukce</h2>
     <ul class="cond-list">
-      <li>Příhoz je závazný závazek k odkupu vozidla při výhře v aukci.</li>
-      <li>Vítěz složí zálohu do 48 hodin od ukončení aukce — teprve poté se zahajuje zajištění vozidla.</li>
-      <li>Zpracovatel (Ing. Jaroslav Batko – Linet, IČO 14600153) jedná jako zprostředkovatel a agenturní zástupce kupujícího.</li>
-      <li>Vozidlo je zajišťováno z evropského trhu. Doprava, STK a přepis jsou v ceně zákazníka nad rámec vítězné nabídky, pokud není dohodnuto jinak.</li>
-      <li>Zpracovatel si vyhrazuje právo aukci zrušit bez udání důvodu. Zálohy se v takovém případě nevyžadují.</li>
-      <li>Nejsme autobazar. Vozidlo neprodáváme ze skladu — zajišťujeme ho na základě vítězné nabídky.</li>
-      <li id="cond-commission">Odměna zpracovatele za agenturní nákup je splatná při předání vozidla.</li>
+      <li>Tato aukce <strong>není veřejná dražba</strong> ani závazná smlouva. Slouží ke zjištění reálné tržní ceny formou časově omezené online nabídky.</li>
+      <li>Příhoz vyjadřuje zájem kupujícího o koupi za danou cenu. <strong>Nezakládá právní závazek</strong> ani kupujícímu, ani prodávajícímu.</li>
+      <li>Po skončení aukce prodávající sám rozhodne zda za vydraženou cenu prodá. Pokud ano, vítěz dostane jeho kontakt přímo.</li>
+      <li>Prodávající se zavazuje jednat s vítězem v dobré víře pokud vydražená cena dosáhne jeho stanoveného minima.</li>
+      <li>Kupující se zavazuje jednat v dobré víře — spekulativní příhozy bez zájmu o koupi jsou porušením podmínek.</li>
+      <li>Zprostředkovatel (Ing. Jaroslav Batko – Linet, IČO 14600153) organizuje aukci a zajišťuje propagaci. <strong>Neúčastní se finančního vypořádání</strong> mezi stranami.</li>
+      <li>Zprostředkovatel si vyhrazuje právo aukci zrušit bez udání důvodu.</li>
+      <li>Osobní údaje jsou zpracovávány výhradně za účelem vedení aukce v souladu s GDPR (Nařízení EU 2016/679).</li>
     </ul>
   </div>
 
