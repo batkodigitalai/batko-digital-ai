@@ -573,16 +573,12 @@ const AUCTION_CONFIG = {
         <span class="cr-label" id="calc-label-reg">Registrace / STK</span>
         <span class="cr-val"><input class="calc-inline" type="text" inputmode="numeric" id="calc-reg" oninput="updateCalc()" autocomplete="off"> Kč</span>
       </div>
-      <div class="cr-row">
-        <span class="cr-label">Odměna zpracovatele</span>
-        <span class="cr-val"><input class="calc-inline" type="text" inputmode="numeric" id="calc-comm" oninput="updateCalc()" autocomplete="off"> Kč</span>
-      </div>
       <div class="cr-row" style="border-top:2px solid rgba(255,255,255,.25);margin-top:4px;padding-top:8px">
         <span class="cr-label cr-total">Celkem odhadem</span>
         <span class="cr-val cr-total" id="cr-total">—</span>
       </div>
     </div>
-    <div style="font-size:.72rem;color:#aaa;margin-top:10px">* Kalkulačka je orientační. Přesná cena závisí na skutečné výši příhozu a dohodnutých podmínkách. Odměna zpracovatele se platí při předání vozidla.</div>
+    <div style="font-size:.72rem;color:#aaa;margin-top:10px">* Kalkulačka je orientační. Přesná cena závisí na skutečné výši příhozu. Poplatek za zpracování aukce hradí prodávající — kupující platí pouze dohodnutou kupní cenu.</div>
   </div>
 
   <!-- ── B2B BLOK PRO AUTOBAZARY ── -->
@@ -680,8 +676,7 @@ function initPage() {
   document.getElementById('depositLabel').textContent  = C.depositNote;
   document.getElementById('how-increment').textContent = C.minIncrement.toLocaleString('cs');
   document.getElementById('how-deposit').textContent   = C.depositNote;
-  document.getElementById('cond-commission').textContent =
-    `Odměna zpracovatele za agenturní nákup (orientačně ${C.commissionNote}) je splatná při předání vozidla.`;
+  document.getElementById('cond-commission').textContent = 'Poplatek za zpracování aukce (2 490 Kč) hradí prodávající předem. Kupující platí pouze dohodnutou kupní cenu přímo majiteli vozidla.';
   document.getElementById('minBidDisplay').textContent = fKc(C.startPrice);
   document.getElementById('bf-amount').min         = C.startPrice;
   document.getElementById('bf-amount').placeholder = `Min. ${fKc(C.startPrice)}`;
@@ -873,7 +868,6 @@ function initExtras() {
   setCalcField('calc-bid',       C.startPrice || '');
   setCalcField('calc-transport', R2.deliveryDaysMin === 0 ? 0 : (R2.transportEstimate || ''));
   setCalcField('calc-reg',       R2.extrasAmount || '');
-  setCalcField('calc-comm',      R2.commissionMin || 8000);
   // labely kalkulačky z konfigurace
   const lbTrans = document.getElementById('calc-label-transport');
   const lbReg   = document.getElementById('calc-label-reg');
@@ -909,11 +903,10 @@ function updateCalc() {
     const bid      = parseKc('calc-bid');
     const transport= parseKc('calc-transport');
     const reg      = parseKc('calc-reg');
-    const comm     = parseKc('calc-comm');
-    const total    = document.getElementById('cr-total');
+        const total    = document.getElementById('cr-total');
     if (!total) return;
     if (bid < 1000) { total.textContent = '—'; return; }
-    total.textContent = fKc(bid + transport + reg + comm);
+    total.textContent = fKc(bid + transport + reg);
   } catch(e) {}
 }
 
@@ -1082,7 +1075,7 @@ if (IS_DEMO) {
           formType:'aukce_bid', source:`Aukce ${AUCTION_CONFIG.auctionId} — tlačítko Přihodit`,
           tlacitko:'Přihodit', sekce:`Aukční formulář`, ukol:'Kontaktovat při výhře',
           stav_zpracovani:'PRIJATO',
-          note:`TLAČÍTKO: Přihodit | SEKCE: Aukce ${AUCTION_CONFIG.auctionId} | UKOL: Záloha ${AUCTION_CONFIG.depositNote}`,
+          note:`TLAČÍTKO: Přihodit | SEKCE: Aukce ${AUCTION_CONFIG.auctionId} | UKOL: Kontaktovat vítěze, domluvit podmínky prodeje`,
           jmeno:name, email, telefon:phone, nabidka_kc:amount,
           auto:`${AUCTION_CONFIG.year} ${AUCTION_CONFIG.make} ${AUCTION_CONFIG.model}`,
           carId:AUCTION_CONFIG.carId, auctionId:AUCTION_CONFIG.auctionId,
@@ -1207,7 +1200,7 @@ if (IS_DEMO) {
             formType:'aukce_bid', source:`Aukce ${AUCTION_CONFIG.auctionId} — tlačítko Přihodit`,
             tlacitko:'Přihodit', sekce:'Aukční formulář', ukol:'Kontaktovat při výhře',
             stav_zpracovani:'PRIJATO',
-            note:`TLAČÍTKO: Přihodit | SEKCE: Aukce ${AUCTION_CONFIG.auctionId} | UKOL: Záloha ${AUCTION_CONFIG.depositNote}`,
+            note:`TLAČÍTKO: Přihodit | SEKCE: Aukce ${AUCTION_CONFIG.auctionId} | UKOL: Kontaktovat vítěze, domluvit podmínky prodeje`,
             jmeno:name, email, telefon:phone, nabidka_kc:amount,
             auto:`${AUCTION_CONFIG.year} ${AUCTION_CONFIG.make} ${AUCTION_CONFIG.model}`,
             carId:AUCTION_CONFIG.carId, auctionId:AUCTION_CONFIG.auctionId,
