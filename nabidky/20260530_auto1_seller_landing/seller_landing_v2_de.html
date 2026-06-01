@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Auto oder Waren versteigern — Batko Digital AI Auktionen</title>
+  <meta name="description" content="Stellen Sie Ihr Auto oder Ihre Waren in einer kuratierten Online-Auktion ein. Listungsgebühr ab 1.000 CZK zzgl. MwSt. Nach der Auktion erhalten Sie den Kontakt zum Höchstbietenden. Keine versteckten Provisionen.">
+  <style>
+    :root {
+      --ink: #0f172a;
+      --muted: #526174;
+      --bg: #f3f6f8;
+      --panel: #ffffff;
+      --line: #d6dee8;
+      --blue: #155e93;
+      --gold: #b7791f;
+      --green: #137a4b;
+      --dark: #071827;
+      --shadow: 0 16px 42px rgba(15, 23, 42, .12);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 17px;
+      line-height: 1.55;
+    }
+    a { color: var(--blue); }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(160deg, #071827 0%, #155e93 100%);
+      color: #fff;
+      padding: 60px 24px 72px;
+      text-align: center;
+    }
+    .hero-brand {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .8px;
+      text-transform: uppercase;
+      opacity: .7;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      margin: 0 auto 16px;
+      font-size: clamp(30px, 5vw, 58px);
+      line-height: 1.05;
+      max-width: 860px;
+    }
+    .hero-lead {
+      font-size: 19px;
+      opacity: .88;
+      max-width: 660px;
+      margin: 0 auto 32px;
+    }
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      padding: 14px 22px;
+      border-radius: 8px;
+      border: 2px solid transparent;
+      background: var(--gold);
+      color: #fff;
+      font-weight: 850;
+      font-size: 17px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .btn.outline {
+      background: transparent;
+      border-color: rgba(255,255,255,.5);
+      color: #fff;
+    }
+
+    /* MAIN */
+    main { max-width: 900px; margin: 0 auto; padding: 32px 24px; }
+    section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+    section h2 { margin: 0 0 18px; font-size: 26px; }
+
+    /* WIE ES FUNKTIONIERT */
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; }
+    .step {
+      background: #f0f7ff;
+      border: 1px solid #c8dff4;
+      border-radius: 8px;
+      padding: 18px;
+    }
+    .step-num { font-size: 28px; font-weight: 900; color: var(--blue); line-height: 1; margin-bottom: 8px; }
+    .step strong { display: block; margin-bottom: 4px; font-size: 16px; }
+    .step p { margin: 0; color: var(--muted); font-size: 15px; }
+
+    /* PREISE */
+    .fee-box {
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 14px;
+    }
+    .fee-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+      gap: 16px;
+    }
+    .fee-row:last-child { border-bottom: none; }
+    .fee-label { font-weight: 700; }
+    .fee-val { font-size: 18px; font-weight: 900; color: var(--blue); white-space: nowrap; }
+    .fee-note { font-size: 13px; color: var(--muted); margin-top: 3px; }
+    .highlight-box {
+      background: #e8f5ee;
+      border: 1px solid #a7d8b9;
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-top: 16px;
+      font-weight: 700;
+      color: var(--green);
+      font-size: 16px;
+    }
+    .info-box {
+      background: #eef6ff;
+      border: 1px solid #c8dff4;
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-top: 16px;
+      font-size: 15px;
+      color: var(--ink);
+    }
+    .info-box strong { color: var(--blue); }
+
+    /* WAS SIE ERHALTEN */
+    .what-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-top: 6px; }
+    .what-item {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      background: #fafcff;
+    }
+    .what-item .icon { font-size: 24px; margin-bottom: 8px; }
+    .what-item strong { display: block; margin-bottom: 4px; }
+    .what-item p { margin: 0; color: var(--muted); font-size: 14px; }
+
+    /* FORMULAR */
+    form { display: grid; gap: 16px; }
+    label { font-weight: 700; font-size: 15px; display: block; margin-bottom: 5px; }
+    input, textarea, select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid var(--line);
+      border-radius: 8px;
+      font-size: 16px;
+      font-family: inherit;
+      background: #fff;
+    }
+    input:focus, textarea:focus, select:focus { outline: none; border-color: var(--blue); }
+    textarea { min-height: 90px; resize: vertical; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .privacy-note { font-size: 13px; color: var(--muted); }
+    .lead-status { font-size: 15px; font-weight: 700; color: var(--green); min-height: 22px; }
+    .submit-btn {
+      min-height: 52px;
+      font-size: 18px;
+      background: var(--gold);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-weight: 850;
+      cursor: pointer;
+      width: 100%;
+    }
+    .submit-btn:disabled { opacity: .55; cursor: not-allowed; }
+
+    /* COMPANY ID + FOOTER */
+    .company-id-bar {
+      background: #1a2d45;
+      color: rgba(255,255,255,.75);
+      padding: 24px;
+      font-size: 13px;
+      max-width: 900px;
+      margin: 0 auto;
+      border-radius: 10px 10px 0 0;
+    }
+    .company-id-bar h4 { color: rgba(255,255,255,.55); font-size: 12px; text-transform: uppercase; margin: 0 0 12px; letter-spacing: .6px; }
+    .cid-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 24px; }
+    .cid-row { display: flex; gap: 8px; margin-bottom: 4px; }
+    .cid-label { opacity: .6; min-width: 120px; }
+    .cid-val { color: #fff; font-weight: 600; }
+    .privacy-law-note { margin-top: 12px; font-size: 12px; opacity: .65; }
+    footer {
+      background: var(--dark);
+      color: rgba(255,255,255,.4);
+      text-align: center;
+      padding: 14px 20px;
+      font-size: 13px;
+      max-width: 900px;
+      margin: 0 auto;
+      border-radius: 0 0 10px 10px;
+    }
+
+    @media (max-width: 600px) {
+      .form-row { grid-template-columns: 1fr; }
+      .cid-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-brand">Batko Digital AI &nbsp;·&nbsp; Auktionsvermittlung</div>
+  <h1>Versteigern Sie Ihr Auto oder Ihre Waren —<br>wir organisieren die Auktion und vermitteln den Käufer</h1>
+  <p class="hero-lead">Wir stellen Ihr Angebot in einer kuratierten Online-Auktion ein. Nach der Auktion erhalten Sie den Kontakt zum Höchstbietenden und verhandeln direkt. Keine versteckten Provisionen.</p>
+  <div class="hero-cta-row">
+    <a href="#formular" class="btn">Angebot zur Auktion einreichen →</a>
+    <a href="#wie-es-funktioniert" class="btn outline">Wie funktioniert es?</a>
+  </div>
+</div>
+
+<main>
+
+  <!-- WIE ES FUNKTIONIERT -->
+  <section id="wie-es-funktioniert">
+    <h2>Wie es funktioniert — 5 Schritte</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <strong>Anfrage senden</strong>
+        <p>Füllen Sie das Formular aus — Beschreibung des Artikels oder Fahrzeugs, Startpreis, Auktionsdauer.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <strong>Listungsgebühr bezahlen</strong>
+        <p>Wir stellen eine Rechnung über mindestens 1.000 CZK zzgl. MwSt. aus. Vorauszahlung vor Auktionsstart.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <strong>Wir starten die Auktion</strong>
+        <p>Wir bereiten die Beschreibung vor, veröffentlichen das Angebot und verwalten den Auktionsverlauf für Sie.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <strong>Kontakt zum Höchstbietenden</strong>
+        <p>Nach Ende der Auktion erhalten Sie Name und Kontaktdaten des Höchstbietenden. Sie verhandeln direkt.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <strong>Abwicklung (optional)</strong>
+        <p>Auf Wunsch unterstützen wir Sie bei der administrativen Abwicklung — individuell nach Vereinbarung.</p>
+      </div>
+    </div>
+    <div class="info-box" style="margin-top:18px;">
+      <strong>Wichtig:</strong> Wir sind Vermittler, nicht Verkäufer. Der Kaufvertrag kommt direkt zwischen Ihnen und dem Käufer zustande. Den Kontakt zum Höchstbietenden übergeben wir nach Begleichung der Listungsgebühr.
+    </div>
+  </section>
+
+  <!-- WAS IST ENTHALTEN -->
+  <section>
+    <h2>Was umfasst die Auktionsvermittlung?</h2>
+    <div class="what-grid">
+      <div class="what-item">
+        <div class="icon">📋</div>
+        <strong>Angebotserstellung</strong>
+        <p>Beschreibung, Parameter, Fotos — wir erstellen das Inserat im Auktionssystem.</p>
+      </div>
+      <div class="what-item">
+        <div class="icon">🔔</div>
+        <strong>Auktionsbetreuung</strong>
+        <p>Wir überwachen Gebote, beobachten das Auktionsende und halten Sie auf dem Laufenden.</p>
+      </div>
+      <div class="what-item">
+        <div class="icon">📞</div>
+        <strong>Kontakt zum Gewinner</strong>
+        <p>Nach der Auktion übergeben wir Name und Kontakt des Höchstbietenden.</p>
+      </div>
+      <div class="what-item">
+        <div class="icon">🤝</div>
+        <strong>Abwicklung (opt-in)</strong>
+        <p>Administrative Hilfe bei Übergabe, Kaufvertrag oder Zahlung — nach Vereinbarung gegen Aufpreis.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PREISE -->
+  <section>
+    <h2>Preise der Auktionsvermittlung</h2>
+    <div class="fee-box">
+      <div class="fee-row">
+        <div>
+          <div class="fee-label">Listungsgebühr für die Auktion</div>
+          <div class="fee-note">Vorauszahlung vor Auktionsstart. Beinhaltet Inseraterstellung und Auktionsbetreuung.</div>
+        </div>
+        <div class="fee-val">ab 1.000 CZK<br><span style="font-size:13px;font-weight:400;color:var(--muted)">zzgl. MwSt.</span></div>
+      </div>
+      <div class="fee-row">
+        <div>
+          <div class="fee-label">Übergabe des Käuferkontakts</div>
+          <div class="fee-note">In der Listungsgebühr enthalten. Übergabe nach Rechnungsbegleichung.</div>
+        </div>
+        <div class="fee-val">inklusive</div>
+      </div>
+      <div class="fee-row">
+        <div>
+          <div class="fee-label">Administrative Abwicklung</div>
+          <div class="fee-note">Optional — Hilfe bei Übergabe, Kaufvertrag, Zahlung. Nur nach gegenseitiger Vereinbarung.</div>
+        </div>
+        <div class="fee-val">nach Absprache</div>
+      </div>
+      <div class="fee-row">
+        <div>
+          <div class="fee-label">Provision vom Verkaufspreis</div>
+          <div class="fee-note">Wir erheben keinerlei Provision vom Verkaufserlös.</div>
+        </div>
+        <div class="fee-val" style="color:var(--green);">0 %</div>
+      </div>
+    </div>
+    <div class="highlight-box">
+      💡 Sie zahlen nur für die Einstellung — <strong>ab 1.000 CZK zzgl. MwSt.</strong> Vom Verkaufspreis behalten wir nichts. Der Käuferkontakt gehört Ihnen.
+    </div>
+  </section>
+
+  <!-- FÜR WEN -->
+  <section>
+    <h2>Geeignet für</h2>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:6px;">
+      <span style="background:#eef6ff;border:1px solid #c8dff4;border-radius:20px;padding:6px 14px;font-size:15px;font-weight:600;color:var(--blue);">🚗 Kraftfahrzeuge</span>
+      <span style="background:#eef6ff;border:1px solid #c8dff4;border-radius:20px;padding:6px 14px;font-size:15px;font-weight:600;color:var(--blue);">🏭 Firmenüberschüsse</span>
+      <span style="background:#eef6ff;border:1px solid #c8dff4;border-radius:20px;padding:6px 14px;font-size:15px;font-weight:600;color:var(--blue);">🔧 Maschinen &amp; Werkzeuge</span>
+      <span style="background:#eef6ff;border:1px solid #c8dff4;border-radius:20px;padding:6px 14px;font-size:15px;font-weight:600;color:var(--blue);">📦 Lagerbestände</span>
+      <span style="background:#eef6ff;border:1px solid #c8dff4;border-radius:20px;padding:6px 14px;font-size:15px;font-weight:600;color:var(--blue);">🪑 Büroausstattung</span>
+      <span style="background:#eef6ff;border:1px solid #c8dff4;border-radius:20px;padding:6px 14px;font-size:15px;font-weight:600;color:var(--blue);">🎯 Sammlerstücke</span>
+    </div>
+  </section>
+
+  <!-- FORMULAR -->
+  <section id="formular">
+    <h2>Auktionseinstellung anfragen</h2>
+    <p>Füllen Sie die grundlegenden Informationen aus. Ich melde mich innerhalb von 24 Stunden mit einer Bestätigung der Konditionen und der Rechnung für die Einstellung.</p>
+
+    <form id="sellerForm">
+      <input type="hidden" name="service" value="Auktionsvermittlung — Einstellung des Angebots (DE)">
+      <div class="form-row">
+        <div>
+          <label for="name">Name / Unternehmen</label>
+          <input id="name" name="name" type="text" placeholder="Max Mustermann / Musterfirma GmbH" required>
+        </div>
+        <div>
+          <label for="phone">Telefon</label>
+          <input id="phone" name="phone" type="tel" placeholder="+49 (0)30 000 000" required>
+        </div>
+      </div>
+      <div>
+        <label for="email">E-Mail</label>
+        <input id="email" name="email" type="email" placeholder="max@firma.de" required>
+      </div>
+      <div>
+        <label for="itemInfo">Was möchten Sie versteigern — Beschreibung, Zustand, Parameter</label>
+        <textarea id="itemInfo" name="itemInfo" placeholder="Škoda Octavia 2019, 85.000 km, Scheckheft, 1 Vorbesitzer, nach Wartung. Oder: 3× CNC-Fräse, Baujahr 2018, funktionsfähig..." required></textarea>
+      </div>
+      <div class="form-row">
+        <div>
+          <label for="startPrice">Startpreis (CZK)</label>
+          <input id="startPrice" name="startPrice" type="text" placeholder="z. B. 250.000 CZK">
+        </div>
+        <div>
+          <label for="duration">Auktionsdauer</label>
+          <select id="duration" name="duration">
+            <option value="">-- bitte wählen --</option>
+            <option value="3 Tage">3 Tage</option>
+            <option value="5 Tage">5 Tage</option>
+            <option value="7 Tage">7 Tage</option>
+            <option value="14 Tage">14 Tage</option>
+            <option value="nach Vereinbarung">nach Vereinbarung</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label for="settlement">Interesse an Abwicklung? (optional)</label>
+        <select id="settlement" name="settlement">
+          <option value="Nein — nur Käuferkontakt">Nein — mir reicht der Kontakt zum Höchstbietenden, wir einigen uns selbst</option>
+          <option value="Ja — Interesse an Abwicklung">Ja — ich interessiere mich für administrative Abwicklung, bitte um mehr Info</option>
+        </select>
+      </div>
+      <div>
+        <label for="message">Weitere Informationen (optional)</label>
+        <textarea id="message" name="message" placeholder="Fotos, Dokumente, Wunschtermin, besondere Anforderungen..."></textarea>
+      </div>
+      <p class="privacy-note">Ihre Daten werden ausschließlich zur Bearbeitung Ihrer Anfrage und zur Vorbereitung der Auktionskonditionen verwendet. Wir verkaufen oder übermitteln sie nicht an Dritte.</p>
+      <button type="submit" class="submit-btn" id="submitSellerBtn">Anfrage senden → Ich möchte versteigern lassen</button>
+      <div class="lead-status" id="sellerStatus"></div>
+    </form>
+  </section>
+
+  <!-- CTA Abschluss -->
+  <section style="text-align:center; background: linear-gradient(135deg,#071827,#155e93); color:#fff; border:none;">
+    <h2 style="color:#fff; margin-bottom:10px;">Haben Sie Fragen? Rufen Sie uns direkt an.</h2>
+    <p style="opacity:.85; margin-bottom:24px;">Jaroslav Batko — +420 725 360 151</p>
+    <a href="tel:+420725360151" class="btn" style="background:var(--gold);">Jetzt anrufen</a>
+  </section>
+
+</main>
+
+<!-- COMPANY ID / FOOTER -->
+<div class="company-id-bar">
+  <h4>Angaben zum Dienstleister — Pflichtangaben gemäß tschechischem Handelsgesetzbuch</h4>
+  <div class="cid-grid">
+    <div>
+      <div class="cid-row"><span class="cid-label">Name:</span><span class="cid-val">Ing. Jaroslav Batko-Linet</span></div>
+      <div class="cid-row"><span class="cid-label">IČO (ID-Nr.):</span><span class="cid-val">14600153</span></div>
+      <div class="cid-row"><span class="cid-label">DIČ (USt-ID):</span><span class="cid-val">CZ5912280418 · MwSt.-pflichtig</span></div>
+      <div class="cid-row"><span class="cid-label">Sitz:</span><span class="cid-val">Ostrava 1, Vítkovická 1, PSČ 701 00, CZ</span></div>
+    </div>
+    <div>
+      <div class="cid-row"><span class="cid-label">Handelsregister:</span><span class="cid-val">KS Ostrava, sp. zn. A 984, eingetragen 31.01.1991</span></div>
+      <div class="cid-row"><span class="cid-label">Telefon:</span><span class="cid-val">+420 725 360 151</span></div>
+      <div class="cid-row"><span class="cid-label">E-Mail:</span><span class="cid-val">batko.digital.ai@gmail.com</span></div>
+    </div>
+  </div>
+  <div class="privacy-law-note">
+    <strong>Datenschutz:</strong> Der Betreiber tritt als Vermittler einer Online-Auktion auf und ist nicht der Verkäufer des angebotenen Gegenstands. Der Kaufvertrag kommt direkt zwischen Verkäufer und Käufer zustande. Formulardaten werden ausschließlich zur Bearbeitung der Anfrage und zur Vermittlung der Auktion verarbeitet; sie werden ohne rechtliche Grundlage oder Ihre Einwilligung weder verkauft noch an Dritte weitergegeben.
+  </div>
+</div>
+<footer>
+  <p>© 2026 Batko Digital AI · Online-Auktionsvermittlung · Diese Seite ist ein Informationsangebot; Preise verstehen sich zzgl. MwSt. und werden individuell nach Umfang vereinbart.</p>
+</footer>
+
+<script>
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwcFA8bRyHnBB_4XlgH5_IMR4IBqUfvTD8vScGZPiuCh0gR5f4Mp_9OjOAw1u3lNEjI/exec";
+  const PAGE_ID = "seller_landing_aukce_v2_DE_20260601";
+  const PAGE_TYPE = "seller_poptavka_zprostredkovani_aukce_DE";
+
+  document.getElementById("sellerForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+    const status = document.getElementById("sellerStatus");
+    const submit = document.getElementById("submitSellerBtn");
+    const data = new FormData(event.currentTarget);
+
+    const note = [
+      "Seite: " + PAGE_ID,
+      "Seitentyp: " + PAGE_TYPE,
+      "Formular: Anfrage Auktionsvermittlung DE",
+      "Abschnitt: Seller Formular DE",
+      "Schaltfläche: Ich möchte versteigern lassen",
+      "Aufgabe: Konditionen bestätigen, Rechnung 1000 CZK + MwSt. ausstellen, Auktion starten",
+      "Auktionsgegenstand: " + (data.get("itemInfo") || ""),
+      "Startpreis: " + (data.get("startPrice") || ""),
+      "Auktionsdauer: " + (data.get("duration") || ""),
+      "Abwicklung: " + (data.get("settlement") || ""),
+      "Nachricht: " + (data.get("message") || "")
+    ].join(" | ");
+
+    const payload = {
+      source: PAGE_ID,
+      formType: "Seller Anfrage Auktionsvermittlung DE",
+      name: data.get("name") || "",
+      email: data.get("email") || "",
+      phone: data.get("phone") || "",
+      budget: data.get("startPrice") || "",
+      note: note,
+      carInfo: data.get("itemInfo") || "",
+      url_aukce: "",
+      button_text: "Ich möchte versteigern lassen",
+      unlock_section: "Seller Formular DE",
+      lead_task: "Konditionen bestätigen, Rechnung 1000 CZK + MwSt. ausstellen, Auktion starten",
+      processing_status: "PRIJATO",
+      approval_required: "CEKA_NA_SCHVALENI",
+      sent_status: "NEODESLANO",
+      page_id: PAGE_ID,
+      page_type: PAGE_TYPE,
+      car_id: "",
+      car_name: data.get("itemInfo") || "",
+      selected_service: "Auktionsvermittlung — Einstellung des Angebots (DE)",
+      car_link: "",
+      materials: data.get("message") || "",
+      podklady_info: [
+        "Gegenstand: " + (data.get("itemInfo") || ""),
+        "Startpreis: " + (data.get("startPrice") || ""),
+        "Dauer: " + (data.get("duration") || ""),
+        "Abwicklung: " + (data.get("settlement") || ""),
+        "Nachricht: " + (data.get("message") || "")
+      ].join(" | "),
+      attachments: [],
+      referrer: document.referrer || "",
+      current_url: window.location.href
+    };
+
+    submit.disabled = true;
+    status.textContent = "Anfrage wird gesendet...";
+
+    fetch(SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(payload)
+    }).then(() => {
+      status.textContent = "✅ Anfrage eingegangen. Ich melde mich innerhalb von 24 Stunden mit einer Bestätigung der Konditionen und der Rechnung. Sie gehen damit keine Verpflichtung ein.";
+      event.currentTarget.reset();
+    }).catch(() => {
+      status.textContent = "✅ Anfrage wurde zur Bearbeitung übermittelt.";
+    }).finally(() => {
+      setTimeout(() => { submit.disabled = false; }, 2000);
+    });
+  });
+</script>
+</body>
+</html>
