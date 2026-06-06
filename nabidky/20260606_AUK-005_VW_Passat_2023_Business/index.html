@@ -519,15 +519,15 @@ const AUCTION_CONFIG = {
     <div class="bfb-title">Přihodit na toto vozidlo</div>
     <div class="bfb-sub">Příhoz vyjadřuje váš zájem o koupi za danou cenu. Aukce slouží ke zjištění reálné tržní ceny — není závaznou smlouvou. K prodeji dojde přímou dohodou s prodávajícím.</div>
 
-    <form id="bidForm">
+    <form id="bidForm" autocomplete="off" data-no-autofill="true">
       <div class="bfb-row">
-        <input class="bfb-input" type="text" id="bf-name" placeholder="Jméno a příjmení *" required autocomplete="name">
-        <input class="bfb-input" type="email" id="bf-email" placeholder="E-mail *" required autocomplete="email">
+        <input class="bfb-input" type="text" id="bf-name" name="auk005_bidder_name" placeholder="Jméno a příjmení *" required autocomplete="new-password" readonly onfocus="this.removeAttribute('readonly')">
+        <input class="bfb-input" type="email" id="bf-email" name="auk005_bidder_email" placeholder="E-mail *" required autocomplete="new-password" readonly onfocus="this.removeAttribute('readonly')">
       </div>
       <div class="bfb-row">
-        <input class="bfb-input" type="tel" id="bf-phone" placeholder="Telefon *" required autocomplete="tel">
+        <input class="bfb-input" type="tel" id="bf-phone" name="auk005_bidder_phone" placeholder="Telefon *" required autocomplete="new-password" readonly onfocus="this.removeAttribute('readonly')">
         <div class="bfb-amount-wrap" style="display:flex;gap:6px;align-items:center">
-          <input class="bfb-input bfb-amount" type="number" id="bf-amount" placeholder="Výše příhozu (Kč) *" required min="0" step="1000" style="flex:1">
+          <input class="bfb-input bfb-amount" type="number" id="bf-amount" name="auk005_bid_amount" placeholder="Výše příhozu (Kč) *" required min="0" step="1000" autocomplete="off" style="flex:1">
           <button type="button" id="btnPlusIncrement" onclick="addIncrement()"
             style="white-space:nowrap;background:#f39c12;color:#fff;border:none;border-radius:8px;padding:12px 14px;font-size:.85rem;font-weight:800;cursor:pointer;flex-shrink:0">
             +<span id="incrementLabel">1 000</span> Kč
@@ -721,7 +721,9 @@ function initPage() {
   setEl('bf-amount', 'placeholder', `Min. ${fKc(C.startPrice)}`);
 
   // Předvyplnit kontakt z minulého příhozu
-  prefillBidderContact();
+  clearBidFormPersonalData(true);
+  setTimeout(() => clearBidFormPersonalData(false), 250);
+  setTimeout(() => clearBidFormPersonalData(false), 1000);
   updateIncrementLabel();
 
   // Gallery
@@ -774,20 +776,21 @@ function initPage() {
 const BIDDER_KEY = 'batko_bidder_contact';
 
 function saveBidderContact(name, email, phone) {
-  localStorage.setItem(BIDDER_KEY, JSON.stringify({ name, email, phone }));
+  // Verejna aukce nesmi predvyplnovat osobni udaje mezi navstevniky/prohlizenimi.
+  try { localStorage.removeItem(BIDDER_KEY); } catch(e) {}
 }
 
 function prefillBidderContact() {
-  try {
-    const saved = JSON.parse(localStorage.getItem(BIDDER_KEY) || 'null');
-    if (!saved) return;
-    const n = document.getElementById('bf-name');
-    const e = document.getElementById('bf-email');
-    const p = document.getElementById('bf-phone');
-    if (n && !n.value) n.value = saved.name  || '';
-    if (e && !e.value) e.value = saved.email || '';
-    if (p && !p.value) p.value = saved.phone || '';
-  } catch(e) {}
+  // Zamerne vypnuto: formular musi byt pri publikaci vzdy prazdny.
+  clearBidFormPersonalData();
+}
+
+function clearBidFormPersonalData(force = false) {
+  try { localStorage.removeItem(BIDDER_KEY); } catch(e) {}
+  ['bf-name','bf-email','bf-phone'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el && (force || document.activeElement !== el)) el.value = '';
+  });
 }
 
 // Tlačítko +příhoz — zvýší hodnotu o minIncrement (nebo nastaví minimum pokud je pole prázdné)
@@ -1125,7 +1128,7 @@ if (IS_DEMO) {
 
     document.getElementById('bidSuccess').style.display = 'block';
     this.reset();
-    prefillBidderContact();   // kontakt zůstane, jen částka se smaže
+    clearBidFormPersonalData();
     btn.textContent = '✅ Příhoz přijat';
     setTimeout(() => { btn.disabled=false; btn.textContent='🔨 Přihodit znovu'; }, 3000);
   });
