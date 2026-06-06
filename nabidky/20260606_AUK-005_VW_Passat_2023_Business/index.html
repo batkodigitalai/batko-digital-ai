@@ -275,8 +275,10 @@ const AUCTION_CONFIG = {
     vatRate:        0.21,
     marketPriceCZ:  550000,  // verejne trzni srovnani v CR vc. DPH
     marketPriceNetCZ: 454545, // interni netto srovnani pro platce DPH
-    extrasLabel:    "Doprava + přepis + příprava + servis",
+    extrasLabel:    "Doprava + přepis + příprava + servis bez DPH",
     extrasAmount:   37273,
+    processingCostLabel: "Zpracování / provize bez DPH",
+    processingCostAmount: 8000,
     deliveryDaysMin: 25,
     deliveryDaysMax: 36,
     carScore:       68,
@@ -585,7 +587,7 @@ const AUCTION_CONFIG = {
     </div>
     <div class="info-box">
       <strong>DPH</strong>
-      Vyvolávací cena a příhozy jsou v této aukci posuzované jako částky bez DPH pro plátce DPH. Srovnání s českým trhem je orientačně vč. DPH; interní B2B výpočet marže pracuje s cenami bez DPH.
+      Vyvolávací cena, příhozy a náklady v kalkulačce jsou posuzované jako částky bez DPH pro plátce DPH. Srovnání s českým trhem je orientačně vč. DPH; interní B2B výpočet marže pracuje s cenami bez DPH.
     </div>
   </div>
 
@@ -609,20 +611,20 @@ const AUCTION_CONFIG = {
         <span class="cr-label">Můj příhoz</span>
         <span class="cr-val"><input class="calc-inline" type="text" inputmode="numeric" id="calc-bid" placeholder="380 000" oninput="updateCalc()" autocomplete="off"> Kč</span>
       </div>
-      <div class="cr-row" id="calc-row-transport">
-        <span class="cr-label" id="calc-label-transport">Další náklady (odhad)</span>
-        <span class="cr-val"><input class="calc-inline" type="text" inputmode="numeric" id="calc-transport" oninput="updateCalc()" autocomplete="off"> Kč</span>
-      </div>
       <div class="cr-row" id="calc-row-reg">
-        <span class="cr-label" id="calc-label-reg">Registrace / STK</span>
+        <span class="cr-label" id="calc-label-reg">Doprava + přepis + příprava + servis bez DPH</span>
         <span class="cr-val"><input class="calc-inline" type="text" inputmode="numeric" id="calc-reg" oninput="updateCalc()" autocomplete="off"> Kč</span>
       </div>
+      <div class="cr-row" id="calc-row-processing">
+        <span class="cr-label" id="calc-label-processing">Zpracování / provize bez DPH</span>
+        <span class="cr-val"><input class="calc-inline" type="text" inputmode="numeric" id="calc-processing" oninput="updateCalc()" autocomplete="off"> Kč</span>
+      </div>
       <div class="cr-row" style="border-top:2px solid rgba(255,255,255,.25);margin-top:4px;padding-top:8px">
-        <span class="cr-label cr-total">Celkem odhadem</span>
+        <span class="cr-label cr-total">Celkem odhadem bez DPH</span>
         <span class="cr-val cr-total" id="cr-total">—</span>
       </div>
     </div>
-    <div style="font-size:.72rem;color:#aaa;margin-top:10px">* Kalkulačka je orientační. Přesná cena závisí na skutečné výši příhozu. Poplatek za zpracování aukce hradí prodávající — kupující platí pouze dohodnutou kupní cenu.</div>
+    <div style="font-size:.72rem;color:#aaa;margin-top:10px">* Kalkulačka je orientační a v tomto režimu počítá bez DPH. Přesná cena závisí na skutečné výši příhozu a finálním daňovém režimu prodeje.</div>
   </div>
 
   <!-- ── B2B BLOK PRO AUTOBAZARY ── -->
@@ -645,7 +647,7 @@ const AUCTION_CONFIG = {
     <ul class="cond-list">
       <li>Tato aukce <strong>není veřejná dražba</strong> ani závazná smlouva. Slouží ke zjištění reálné tržní ceny formou časově omezené online nabídky.</li>
       <li>Příhoz vyjadřuje zájem kupujícího o koupi za danou cenu. <strong>Nezakládá právní závazek</strong> ani kupujícímu, ani prodávajícímu.</li>
-      <li>DPH: vyvolávací cena a příhozy jsou posuzované jako částky bez DPH pro plátce DPH; české tržní srovnání je orientačně vč. DPH.</li>
+      <li>DPH: vyvolávací cena, příhozy a náklady v kalkulačce jsou posuzované jako částky bez DPH pro plátce DPH; české tržní srovnání je orientačně vč. DPH.</li>
       <li>Po skončení aukce prodávající sám rozhodne zda za vydraženou cenu prodá. Pokud ano, vítěz dostane jeho kontakt přímo.</li>
       <li>Prodávající se zavazuje jednat s vítězem v dobré víře pokud vydražená cena dosáhne jeho stanoveného minima.</li>
       <li>Kupující se zavazuje jednat v dobré víře — spekulativní příhozy bez zájmu o koupi jsou porušením podmínek.</li>
@@ -925,9 +927,6 @@ function initExtras() {
   // ⑤ Provizní kalkulačka
   const setTxt = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
   const setDisp = (id, val) => { const el = document.getElementById(id); if (el) el.style.display = val; };
-  setTxt('cr-transport', fKc(0));
-  setTxt('cr-reg', fKc(R.extrasAmount || 0));
-  setTxt('cr-commission', C.commissionNote || '8 000–12 000 Kč');
   setDisp('calcBlock', 'block');
   // předvyplň kalkulačku výchozími hodnotami
   function setCalcField(id, val) {
@@ -936,21 +935,18 @@ function initExtras() {
   }
   const R2 = C.roi || {};
   setCalcField('calc-bid',       C.startPrice || '');
-  setCalcField('calc-transport', R2.deliveryDaysMin === 0 ? 0 : (R2.transportEstimate || ''));
   setCalcField('calc-reg',       R2.extrasAmount || '');
+  setCalcField('calc-processing', R2.processingCostAmount || '');
   // labely kalkulačky z konfigurace
-  const lbTrans = document.getElementById('calc-label-transport');
   const lbReg   = document.getElementById('calc-label-reg');
-  if (lbTrans && R2.transportLabel) lbTrans.textContent = R2.transportLabel;
   if (lbReg   && R2.extrasLabel)    lbReg.textContent   = R2.extrasLabel;
-  // skryj řádek pokud je hodnota 0 a label prázdný
-  const rowTrans = document.getElementById('calc-row-transport');
-  if (rowTrans && R2.deliveryDaysMin === 0 && !R2.transportLabel) rowTrans.style.display = 'none';
+  const lbProcessing = document.getElementById('calc-label-processing');
+  if (lbProcessing && R2.processingCostLabel) lbProcessing.textContent = R2.processingCostLabel;
   updateCalc();
 
   // ⑥ B2B blok
   if (R.b2bMarketLow && R.b2bSaleTarget) {
-    const buyCost  = (R.extrasAmount || 0) + 8000;
+    const buyCost  = (R.extrasAmount || 0) + (R.processingCostAmount || 0);
     const b2bGross = R.b2bSaleTarget - C.startPrice - buyCost;
     const b2bROI   = ((b2bGross / (C.startPrice + buyCost)) * 100 / (R.b2bDaysSale||20)).toFixed(2);
     document.getElementById('b2bGrid').innerHTML = `
@@ -971,12 +967,12 @@ function updateCalc() {
       return parseInt(raw.replace(/\s/g,'').replace(/[^0-9]/g,''), 10) || 0;
     }
     const bid      = parseKc('calc-bid');
-    const transport= parseKc('calc-transport');
     const reg      = parseKc('calc-reg');
+    const processing = parseKc('calc-processing');
         const total    = document.getElementById('cr-total');
     if (!total) return;
     if (bid < 1000) { total.textContent = '—'; return; }
-    total.textContent = fKc(bid + transport + reg);
+    total.textContent = fKc(bid + reg + processing);
   } catch(e) {}
 }
 
