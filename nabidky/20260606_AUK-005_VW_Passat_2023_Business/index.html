@@ -260,7 +260,7 @@ const AUCTION_CONFIG = {
 
   // -- Aukce --
   startPrice:   400000,
-  minIncrement: 2000,
+  minIncrement: 1000,
   endTime:      "2026-06-08T10:30:00",   // fallback - Firebase endTime ma VZDY prednost
   auctionRef:   "OPENLANE-11067201",
   depositNote:  "10 000 Kč",
@@ -721,9 +721,9 @@ function initPage() {
   setEl('bf-amount', 'placeholder', `Min. ${fKc(C.startPrice)}`);
 
   // Předvyplnit kontakt z minulého příhozu
-  clearBidFormPersonalData(true);
-  setTimeout(() => clearBidFormPersonalData(false), 250);
-  setTimeout(() => clearBidFormPersonalData(false), 1000);
+  prefillBidderContact();
+  setTimeout(prefillBidderContact, 250);
+  setTimeout(prefillBidderContact, 1000);
   updateIncrementLabel();
 
   // Gallery
@@ -773,26 +773,39 @@ function initPage() {
 // ════════════════════════════════════════════════════════
 // ZAPAMATOVÁNÍ KONTAKTU (localStorage) + TLAČÍTKO +příhoz
 // ════════════════════════════════════════════════════════
-const BIDDER_KEY = 'batko_bidder_contact';
+const LEGACY_BIDDER_KEY = 'batko_bidder_contact';
+const BIDDER_KEY = 'batko_bidder_contact_' + AUCTION_CONFIG.auctionId;
 
 function saveBidderContact(name, email, phone) {
-  // Verejna aukce nesmi predvyplnovat osobni udaje mezi navstevniky/prohlizenimi.
-  try { localStorage.removeItem(BIDDER_KEY); } catch(e) {}
+  try {
+    localStorage.removeItem(LEGACY_BIDDER_KEY);
+    localStorage.setItem(BIDDER_KEY, JSON.stringify({ name, email, phone }));
+  } catch(e) {}
 }
 
 function prefillBidderContact() {
-  // Zamerne vypnuto: formular musi byt pri publikaci vzdy prazdny.
-  clearBidFormPersonalData();
+  try { localStorage.removeItem(LEGACY_BIDDER_KEY); } catch(e) {}
+  let saved = null;
+  try { saved = JSON.parse(localStorage.getItem(BIDDER_KEY) || 'null'); } catch(e) {}
+  if (!saved) {
+    clearBidFormPersonalData(true);
+    return;
+  }
+  const n = document.getElementById('bf-name');
+  const e = document.getElementById('bf-email');
+  const p = document.getElementById('bf-phone');
+  if (n) n.value = saved.name || '';
+  if (e) e.value = saved.email || '';
+  if (p) p.value = saved.phone || '';
 }
 
 function clearBidFormPersonalData(force = false) {
-  try { localStorage.removeItem(BIDDER_KEY); } catch(e) {}
+  try { localStorage.removeItem(LEGACY_BIDDER_KEY); } catch(e) {}
   ['bf-name','bf-email','bf-phone'].forEach(id => {
     const el = document.getElementById(id);
     if (el && (force || document.activeElement !== el)) el.value = '';
   });
 }
-
 // Tlačítko +příhoz — zvýší hodnotu o minIncrement (nebo nastaví minimum pokud je pole prázdné)
 function addIncrement() {
   const inp  = document.getElementById('bf-amount');
@@ -1126,9 +1139,10 @@ if (IS_DEMO) {
       }).catch(()=>{});
     }
 
-    document.getElementById('bidSuccess').style.display = 'block';
+    saveBidderContact(name, email, phone);
+        document.getElementById('bidSuccess').style.display = 'block';
     this.reset();
-    clearBidFormPersonalData();
+    prefillBidderContact();
     btn.textContent = '✅ Příhoz přijat';
     setTimeout(() => { btn.disabled=false; btn.textContent='🔨 Přihodit znovu'; }, 3000);
   });
@@ -1251,8 +1265,10 @@ if (IS_DEMO) {
           })
         }).catch(()=>{});
 
+        saveBidderContact(name, email, phone);
         document.getElementById('bidSuccess').style.display = 'block';
         this.reset();
+        prefillBidderContact();
         btn.textContent='✅ Příhoz přijat';
         setTimeout(()=>{ btn.disabled=false; btn.textContent='🔨 Přihodit znovu'; }, 3000);
       } catch(err) {
