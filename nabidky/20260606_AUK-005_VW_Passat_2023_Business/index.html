@@ -271,7 +271,10 @@ const AUCTION_CONFIG = {
 
   // -- ROI & trzni data --
   roi: {
-    marketPriceCZ:  550000,
+    vatPayerMode:   true,
+    vatRate:        0.21,
+    marketPriceCZ:  550000,  // verejne trzni srovnani v CR vc. DPH
+    marketPriceNetCZ: 454545, // interni netto srovnani pro platce DPH
     extrasLabel:    "Doprava + přepis + příprava + servis",
     extrasAmount:   37273,
     deliveryDaysMin: 25,
@@ -280,8 +283,8 @@ const AUCTION_CONFIG = {
     scoreLabel:     "Zvážit",
     commissionMin:  8000,
     commissionMax:  12000,
-    b2bMarketLow:   529000,
-    b2bSaleTarget:  550000,
+    b2bMarketLow:   437190,
+    b2bSaleTarget:  454545,
     b2bDaysSale:    30
   },
 
@@ -830,7 +833,11 @@ function initExtras() {
   // ① Tržní srovnání
   if (R.marketPriceCZ) {
     const extras  = R.extrasAmount || 0;
-    const saving  = R.marketPriceCZ - C.startPrice - extras;
+    const vatRate = R.vatRate || 0.21;
+    const marketGross = R.marketPriceCZ;
+    const marketNet = R.marketPriceNetCZ || Math.round(marketGross / (1 + vatRate));
+    const compareBase = R.vatPayerMode ? marketNet : marketGross;
+    const saving  = compareBase - C.startPrice - extras;
     document.getElementById('mb-market').textContent = fKc(R.marketPriceCZ);
     document.getElementById('mb-saving').textContent = saving > 0 ? 'až ' + fKc(saving) : 'závisí na příhozu';
 
@@ -848,8 +855,11 @@ function initExtras() {
     const extrasNote = extras > 0
       ? ` a dalších nákladech ${fKc(extras)}${R.extrasLabel ? ' (' + R.extrasLabel + ')' : ''}`
       : '';
+    const vatNote = R.vatPayerMode
+      ? ` Tržní cena ČR je uvedena vč. DPH; pro plátce DPH se interně porovnává netto cca ${fKc(marketNet)}.`
+      : '';
     document.getElementById('mb-note').textContent =
-      `Při výhře za vyvolávací cenu ${fKc(C.startPrice)}${extrasNote} ušetříte oproti tržní ceně přibližně ${saving > 0 ? fKc(saving) : 'dle výhry'}.`;
+      `Při výhře za vyvolávací cenu ${fKc(C.startPrice)}${extrasNote} vychází rozdíl proti srovnávací ceně přibližně ${saving > 0 ? fKc(saving) : 'dle výhry'}.${vatNote}`;
 
     document.getElementById('marketBlock').style.display = 'block';
   }
@@ -941,10 +951,10 @@ function initExtras() {
     document.getElementById('b2bGrid').innerHTML = `
       <div class="b2b-item"><div class="bi-val">${fKc(C.startPrice)}</div><div class="bi-lbl">Vyvolávací cena</div></div>
       <div class="b2b-item"><div class="bi-val">${fKc(buyCost)}</div><div class="bi-lbl">Další náklady</div></div>
-      <div class="b2b-item"><div class="bi-val">${fKc(R.b2bSaleTarget)}</div><div class="bi-lbl">Ref. prod. cena CZ</div></div>
+      <div class="b2b-item"><div class="bi-val">${fKc(R.b2bSaleTarget)}</div><div class="bi-lbl">Ref. prod. cena CZ bez DPH</div></div>
       <div class="b2b-item"><div class="bi-val" style="color:#2ecc71">${fKc(Math.max(0,b2bGross))}</div><div class="bi-lbl">Hrubá marže</div></div>`;
     document.getElementById('b2bNote').innerHTML =
-      `Při koupi za vyvolávací cenu a prodeji do ${R.b2bDaysSale||20} dní: ROI přibližně <strong>${b2bROI} %/den</strong>. Kalkulace dle katalogu nákladů — přesný výpočet na vyžádání.`;
+      `Při koupi za vyvolávací cenu a prodeji do ${R.b2bDaysSale||20} dní: ROI přibližně <strong>${b2bROI} %/den</strong>. B2B kalkulace je pro plátce DPH počítaná bez DPH; veřejné tržní srovnání výše je vč. DPH.`;
     document.getElementById('b2bBlock').style.display = 'block';
   }
 }
