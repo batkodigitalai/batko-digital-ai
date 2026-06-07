@@ -938,6 +938,12 @@ function initCzMarketAuction(C) {
     ${audioShort}
     ${audioLong}`;
 
+  // Exkluzivní přehrávání — spuštění jednoho pozastaví druhý
+  const _audioEls = document.getElementById('sellerEducationBlock').querySelectorAll('audio');
+  _audioEls.forEach(a => a.addEventListener('play', () => {
+    _audioEls.forEach(b => { if (b !== a) b.pause(); });
+  }));
+
   document.getElementById('czBuyerPanel').innerHTML = `
     <h3>Pro kupujícího</h3>
     <div class="czm-line"><span>Když vydraží za</span><strong>${fKc(bid)}</strong></div>
