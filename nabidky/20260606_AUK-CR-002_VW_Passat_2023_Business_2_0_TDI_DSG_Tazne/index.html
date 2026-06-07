@@ -344,8 +344,8 @@ const AUCTION_CONFIG = {
       timeCost: 0
     },
     sellerEducationAudio: {
-      shortSrc: "",
-      longSrc: ""
+      shortSrc: "https://batkodigitalai.github.io/batko-digital-ai/nabidky/assets/audio/cekani_na_kupce_vas_stoji_penize.m4a",
+      longSrc: "https://batkodigitalai.github.io/batko-digital-ai/nabidky/assets/audio/nejdrazsi_auto_je_to_neprodane.m4a"
     },
     notes: [
       "Zdrojové auto: Sauto 210458921, požadovaná cena 399 000 Kč, najeto 168 517 km, uvedení do provozu 03/2023.",
@@ -916,7 +916,7 @@ function initCzMarketAuction(C) {
     ? `<details><summary>Krátký zvuk 90 sekund</summary><audio controls preload="none" src="${audio.shortSrc}"></audio></details>`
     : '';
   const audioLong = audio.longSrc
-    ? `<details><summary>Delší zvuk přibližně 3 minuty</summary><audio controls preload="none" src="${audio.longSrc}"></audio></details>`
+    ? `<details><summary>Delší audio (21 minut)</summary><audio controls preload="none" src="${audio.longSrc}"></audio></details>`
     : '';
   document.getElementById('sellerEducationBlock').innerHTML = `
     <div class="motto">Nejdražší auto bývá často to, které se neprodá včas.</div>
