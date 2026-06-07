@@ -859,7 +859,7 @@ function initCzMarketAuction(C) {
   if (!block || !M.enabled) return;
 
   const sumObj = obj => Object.values(obj || {}).reduce((a, b) => a + (parseInt(b, 10) || 0), 0);
-  const auctionStart = Math.round((M.marketLowestPrice || C.startPrice || 0) * (1 - (M.auctionStartDiscountPct || 10) / 100));
+  const auctionStart = M.marketLowestPrice || C.startPrice || 0;
   if (auctionStart > 0 && (!C.startPrice || C.startPrice === 400000)) {
     C.startPrice = auctionStart;
     const minBid = document.getElementById('minBidDisplay');
@@ -889,7 +889,7 @@ function initCzMarketAuction(C) {
   const desiredSellerNet = M.desiredSellerNet || 0;
   const idealByBuyer = low - buyerMaxCosts;
   const idealBySeller = desiredSellerNet || Math.max(0, ask - dailyCost * (M.targetMeetingDay || 30));
-  const idealMeeting = Math.round((idealByBuyer + idealBySeller) / 2);
+  const idealMeeting = Math.round((ask + low) / 2);
   const likelyDay = M.expectedSaleDaysAtSellerPrice || 60;
 
   const diff = (market, total) => market - total;
@@ -903,7 +903,7 @@ function initCzMarketAuction(C) {
 
   document.getElementById('czMarketExplain').innerHTML =
     `Prodávající dnes chce <strong>${fKc(ask)}</strong>. Nejlevnější srovnatelné auto na trhu je <strong>${fKc(low)}</strong>. ` +
-    `Aukce proto začíná na <strong>${fKc(auctionStart)}</strong>, tedy ${M.auctionStartDiscountPct || 10} % pod nejlevnější tržní cenou. ` +
+    `Aukce začíná na <strong>${fKc(auctionStart)}</strong> — nejnižší srovnatelné ceně v ČR. ` +
     buyerVerdict;
 
   document.getElementById('czMarketCards').innerHTML = `
