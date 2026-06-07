@@ -261,7 +261,7 @@ var AUCTION_CONFIG = {
   // -- Aukce --
   startPrice:   420000,
   minIncrement: 1000,
-  endTime:      "2026-06-14T20:00:00",   // fallback - Firebase endTime ma VZDY prednost; potvrď datum s uzivatelem
+  endTime:      "2026-06-09T20:00:00",   // fallback - Firebase endTime ma VZDY prednost; konec OPENLANE x-Time ~ 9.6.2026
   auctionRef:   "OPENLANE-11063538",
   depositNote:  "10 000 Kč",
   commissionNote: "8 000-12 000 Kč",
@@ -273,20 +273,21 @@ var AUCTION_CONFIG = {
   roi: {
     vatPayerMode:   true,
     vatRate:        0.21,
-    marketPriceCZ:  490000,    // orientacni CZ trh vc. DPH (NEOVERENO - sauto median 2022 Karoq TDI DSG)
-    marketPriceNetCZ: 404959,  // interni netto pro platce DPH
+    marketPriceCZ:  549000,    // orient. Sauto, 2022 Karoq 2WD TDI DSG nizky najezd 40k km
+    marketPriceNetCZ: 453719,  // 549000/1.21 – netto pro platce DPH
     extrasLabel:    "Doprava CZ + přepis + příprava + servis+STK bez DPH",
     extrasAmount:   41026,     // doprava 10526 + prepis 7500 + priprava 8000 + servis+STK 15000
     processingCostLabel: "Zpracování / provize bez DPH",
     processingCostAmount: 8000,
-    deliveryDaysMin: 24,
-    deliveryDaysMax: 33,
+    openlanePrice:  343143,    // 14 200 EUR × 24,165 Kč (CNB 5.6.2026)
+    deliveryDaysMin: 22,       // OPRAVENO: doprava do CZ centra od 9.6. = 22 dni (1.7.)
+    deliveryDaysMax: 31,       // OPRAVENO: max 31 dni (10.7.) – kod prida +5 STK/prepis
     carScore:       75,
     scoreLabel:     "Dobrý stav",
-    commissionMin:  8000,
+    commissionMin:  5000,
     commissionMax:  12000,
-    b2bMarketLow:   380000,
-    b2bSaleTarget:  404959,
+    b2bMarketLow:   430000,    // OPRAVENO: netto low-end
+    b2bSaleTarget:  453719,    // OPRAVENO: netto median Sauto
     b2bDaysSale:    30
   },
 
@@ -932,11 +933,12 @@ function initExtras() {
 
   // ⑥ B2B blok
   if (R.b2bMarketLow && R.b2bSaleTarget) {
+    const acquiPrice = R.openlanePrice || C.startPrice;  // porizovaci cena z OPENLANE aukce, ne CZ startPrice
     const buyCost  = (R.extrasAmount || 0) + (R.processingCostAmount || 0);
-    const b2bGross = R.b2bSaleTarget - C.startPrice - buyCost;
-    const b2bROI   = ((b2bGross / (C.startPrice + buyCost)) * 100 / (R.b2bDaysSale||20)).toFixed(2);
+    const b2bGross = R.b2bSaleTarget - acquiPrice - buyCost;
+    const b2bROI   = ((b2bGross / (acquiPrice + buyCost)) * 100 / (R.b2bDaysSale||20)).toFixed(2);
     document.getElementById('b2bGrid').innerHTML = `
-      <div class="b2b-item"><div class="bi-val">${fKc(C.startPrice)}</div><div class="bi-lbl">Vyvolávací cena</div></div>
+      <div class="b2b-item"><div class="bi-val">${fKc(acquiPrice)}</div><div class="bi-lbl">Pořizovací cena (OPENLANE)</div></div>
       <div class="b2b-item"><div class="bi-val">${fKc(buyCost)}</div><div class="bi-lbl">Další náklady</div></div>
       <div class="b2b-item"><div class="bi-val">${fKc(R.b2bSaleTarget)}</div><div class="bi-lbl">Ref. prod. cena CZ bez DPH</div></div>
       <div class="b2b-item"><div class="bi-val" style="color:#2ecc71">${fKc(Math.max(0,b2bGross))}</div><div class="bi-lbl">Hrubá marže</div></div>`;
