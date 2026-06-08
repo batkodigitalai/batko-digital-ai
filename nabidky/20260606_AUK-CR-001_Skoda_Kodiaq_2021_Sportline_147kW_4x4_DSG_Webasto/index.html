@@ -931,10 +931,10 @@ function initCzMarketAuction(C) {
 
   const audio = M.sellerEducationAudio || {};
   const audioShort = audio.shortSrc
-    ? `<details><summary>Krátký zvuk 90 sekund</summary><audio controls preload="none" src="${audio.shortSrc}"></audio></details>`
+    ? `<details><summary>Krátký zvuk 90 sekund</summary><audio id="audioShortEl" controls preload="none" src="${audio.shortSrc}"></audio></details>`
     : '';
   const audioLong = audio.longSrc
-    ? `<details><summary>Delší zvuk přibližně 3 minuty</summary><audio controls preload="none" src="${audio.longSrc}"></audio></details>`
+    ? `<details><summary>Delší zvuk přibližně 3 minuty</summary><audio id="audioLongEl" controls preload="none" src="${audio.longSrc}"></audio></details>`
     : '';
   document.getElementById('sellerEducationBlock').innerHTML = `
     <div class="motto">Nejdražší auto bývá často to, které se neprodá včas.</div>
@@ -955,6 +955,16 @@ function initCzMarketAuction(C) {
     </details>
     ${audioShort}
     ${audioLong}`;
+
+  // Zabrání simultánnímu přehrávání — při play jednoho se druhý zastaví
+  setTimeout(() => {
+    const aS = document.getElementById('audioShortEl');
+    const aL = document.getElementById('audioLongEl');
+    if (aS && aL) {
+      aS.addEventListener('play', () => { if (!aL.paused) { aL.pause(); aL.currentTime = 0; } });
+      aL.addEventListener('play', () => { if (!aS.paused) { aS.pause(); aS.currentTime = 0; } });
+    }
+  }, 300);
 
   document.getElementById('czBuyerPanel').innerHTML = `
     <h3>Pro kupujícího</h3>
