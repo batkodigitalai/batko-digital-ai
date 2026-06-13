@@ -259,7 +259,7 @@ var AUCTION_CONFIG = {
 
   // -- Aukce --
   startPrice:   570000,
-  openlaneNextBidKc: 473222,   // OPENLANE next bid 19 000 EUR = 473 222 Kc (stav 2026-06-13)
+  openlaneNextBidKc: 473222,   // Vstupní příhoz 19 000 EUR = 473 222 Kc (stav 2026-06-13)
   minIncrement: 1000,
   endTime:      "2026-06-22T20:00:00",   // fallback - Firebase endTime ma VZDY prednost
   auctionRef:   "evropska-aukce-11099224",
@@ -290,7 +290,7 @@ var AUCTION_CONFIG = {
     b2bDaysSale:    30
   },
 
-  // -- Fotky (stazeno 43 URL z OPENLANE, skutecny pocet po download_fotky_AUK-008.bat) --
+  // -- Fotky (stazeno 43 URL z Aukce, skutecny pocet po download_fotky_AUK-008.bat) --
   photos: [
     "img/foto_01.jpg","img/foto_02.jpg","img/foto_03.jpg","img/foto_04.jpg","img/foto_05.jpg",
     "img/foto_06.jpg","img/foto_07.jpg","img/foto_08.jpg","img/foto_09.jpg","img/foto_10.jpg",
@@ -303,7 +303,7 @@ var AUCTION_CONFIG = {
     "img/foto_41.jpg","img/foto_42.jpg"
   ],
 
-  // -- Rizika (ze DEKRA reportu a OPENLANE analyzy) --
+  // -- Rizika (ze DEKRA reportu a Aukce analyzy) --
   risks: [
     "Servis 60 000 km ihned po koupi: vymena oleje v DSG prevodovce a motorovy servis jsou nezbytne — zanedbani znamena riziko padu mechatroniky.",
     "Sjeté pneumatiky na vsech kolech: hloubka vzorku 4,0 mm na vsech ctyrech kolech — okamzita nutnost vymeny pri prodeji.",
@@ -890,7 +890,7 @@ function initExtras() {
     var colMed   = grossMed >= 0 ? '#2ecc71' : '#e74c3c';
 
     document.getElementById('b2bGrid').innerHTML =
-      '<div class="b2b-item"><div class="bi-val">' + fKc(b2bBidPrice) + '</div><div class="bi-lbl">OPENLANE next bid</div></div>' +
+      '<div class="b2b-item"><div class="bi-val">' + fKc(b2bBidPrice) + '</div><div class="bi-lbl">Vstupní příhoz</div></div>' +
       '<div class="b2b-item"><div class="bi-val">' + fKc(buyCost) + '</div><div class="bi-lbl">N\u00e1klady (doprava + p\u0159\u00edprava + provize)</div></div>' +
       '<div class="b2b-item" style="grid-column:span 2"><div class="bi-val" style="color:#e67e22">' + fKc(totalEntry) + '</div><div class="bi-lbl">Celkem vstup (bid + n\u00e1klady)</div></div>' +
       '<div style="grid-column:1/-1;border-top:1px solid rgba(255,255,255,.2);margin:4px 0;padding-top:6px;font-size:.62rem;opacity:.5;text-align:center;letter-spacing:.05em">ZISK PODLE PRODEJN\u00cd CENY NA CZ TRHU (bez DPH)</div>' +
@@ -898,7 +898,7 @@ function initExtras() {
       '<div class="b2b-item" style="grid-column:span 2"><div class="bi-val" style="color:' + colMed + '">' + (grossMed >= 0 ? '+' : '') + fKc(grossMed) + '</div><div class="bi-lbl">Hrub\u00fd zisk \u2014 MEDI\u00c1N CZ trh<br><small style="opacity:.75;font-size:.6rem">' + fKc(R.b2bSaleTarget) + ' K\u010d bez DPH &nbsp;\u00b7&nbsp; ROI ~' + roiMed + ' %/den</small></div></div>';
 
     document.getElementById('b2bNote').innerHTML =
-      'P\u0159i koupi za OPENLANE next bid (' + fKc(b2bBidPrice) + ') a prodeji do ' + days + ' dn\u00ed \u2014 ' +
+      'P\u0159i koupi za Vstupní příhoz (' + fKc(b2bBidPrice) + ') a prodeji do ' + days + ' dn\u00ed \u2014 ' +
       'vs MIN CZ trh: ROI <strong>' + roiMin + ' %/den</strong> | ' +
       'vs MEDI\u00c1N CZ trh: ROI <strong>' + roiMed + ' %/den</strong>. ' +
       'B2B kalkulace je pro pl\u00e1tce DPH po\u010d\u00edt\u00e1na bez DPH; ve\u0159ejn\u00e9 tr\u017en\u00ed srovn\u00e1n\u00ed v\u00fd\u0161e je vc. DPH.';
