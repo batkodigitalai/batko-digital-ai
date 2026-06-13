@@ -259,6 +259,7 @@ var AUCTION_CONFIG = {
 
   // -- Aukce --
   startPrice:   570000,
+  openlaneNextBidKc: 473222,   // OPENLANE next bid 19 000 EUR = 473 222 Kc (stav 2026-06-13)
   minIncrement: 1000,
   endTime:      "2026-06-22T20:00:00",   // fallback - Firebase endTime ma VZDY prednost
   auctionRef:   "evropska-aukce-11099224",
@@ -566,8 +567,8 @@ var AUCTION_CONFIG = {
     <h2>&#x1F9EE; Kalkulacka celkove ceny</h2>
     <div class="calc-result" id="calcResult">
       <div class="cr-row">
-        <span class="cr-label">Muj prihod</span>
-        <span class="cr-val"><input class="calc-inline" type="text" inputmode="numeric" id="calc-bid" placeholder="570 000" oninput="updateCalc()" autocomplete="off"> Kc</span>
+        <span class="cr-label">Příhoz</span>
+        <span class="cr-val"><input class="calc-inline" type="text" inputmode="numeric" id="calc-bid" placeholder="473 000" oninput="updateCalc()" autocomplete="off"> Kc</span>
       </div>
       <div class="cr-row" id="calc-row-reg">
         <span class="cr-label" id="calc-label-reg">Doprava + přepis + příprava + servis bez DPH
@@ -864,7 +865,7 @@ function initExtras() {
     var el = document.getElementById(id);
     if (el && !el.value && val) el.value = val;
   }
-  setCalcField('calc-bid',        C.startPrice || '');
+  setCalcField('calc-bid',        C.openlaneNextBidKc || C.startPrice || '');
   setCalcField('calc-reg',        R.extrasAmount || '');
   setCalcField('calc-processing', R.processingCostAmount || '');
   var lbReg = document.getElementById('calc-label-reg');
@@ -876,14 +877,15 @@ function initExtras() {
   // B2B blok
   if (R.b2bMarketLow && R.b2bSaleTarget) {
     var buyCost  = (R.extrasAmount || 0) + (R.processingCostAmount || 0);
-    var b2bGross = R.b2bSaleTarget - C.startPrice - buyCost;
-    var b2bROI   = ((b2bGross / (C.startPrice + buyCost)) * 100 / (R.b2bDaysSale||20)).toFixed(2);
+    var b2bBidPrice = C.openlaneNextBidKc || C.startPrice;
+    var b2bGross = R.b2bSaleTarget - b2bBidPrice - buyCost;
+    var b2bROI   = ((b2bGross / (b2bBidPrice + buyCost)) * 100 / (R.b2bDaysSale||20)).toFixed(2);
     document.getElementById('b2bGrid').innerHTML =
-      '<div class="b2b-item"><div class="bi-val">' + fKc(C.startPrice) + '</div><div class="bi-lbl">Vyvolavaci cena</div></div>' +
+      '<div class="b2b-item"><div class="bi-val">' + fKc(b2bBidPrice) + '</div><div class="bi-lbl">OPENLANE next bid</div></div>' +
       '<div class="b2b-item"><div class="bi-val">' + fKc(buyCost) + '</div><div class="bi-lbl">Dalsi naklady</div></div>' +
       '<div class="b2b-item"><div class="bi-val">' + fKc(R.b2bSaleTarget) + '</div><div class="bi-lbl">Ref. prod. cena CZ bez DPH</div></div>' +
       '<div class="b2b-item"><div class="bi-val" style="color:#2ecc71">' + fKc(Math.max(0,b2bGross)) + '</div><div class="bi-lbl">Hruba marze</div></div>';
-    document.getElementById('b2bNote').innerHTML = 'Pri koupi za vyvolavaci cenu a prodeji do ' + (R.b2bDaysSale||20) + ' dni: ROI priblizne <strong>' + b2bROI + ' %/den</strong>. B2B kalkulace je pro platce DPH pocitana bez DPH; verejne trzni srovnani vyse je vc. DPH.';
+    document.getElementById('b2bNote').innerHTML = 'Pri koupi za OPENLANE next bid (' + fKc(b2bBidPrice) + ') a prodeji do ' + (R.b2bDaysSale||20) + ' dni: ROI priblizne <strong>' + b2bROI + ' %/den</strong>. B2B kalkulace je pro platce DPH pocitana bez DPH; verejne trzni srovnani vyse je vc. DPH.';
     document.getElementById('b2bBlock').style.display = 'block';
   }
 }
