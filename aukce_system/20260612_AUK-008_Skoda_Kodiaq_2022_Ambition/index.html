@@ -259,12 +259,12 @@ var AUCTION_CONFIG = {
 
   // -- Aukce --
   startPrice:   570000,
-  openlaneNextBidKc: 473222,   // Vstupní příhoz 19 000 EUR = 473 222 Kc (stav 2026-06-13)
+  openlaneNextBidKc: 473222,   // Vstupní příhoz 19 000 EUR = 473 222 Kč (stav 2026-06-13)
   minIncrement: 1000,
   endTime:      "2026-06-22T20:00:00",   // fallback - Firebase endTime ma VZDY prednost
   auctionRef:   "evropska-aukce-11099224",
-  depositNote:  "10 000 Kc",
-  commissionNote: "8 000-12 000 Kc",
+  depositNote:  "10 000 Kč",
+  commissionNote: "8 000–12 000 Kč",
 
   // -- Odkaz na detailni stranku --
   detailPageUrl: "",
@@ -274,15 +274,15 @@ var AUCTION_CONFIG = {
     vatPayerMode:   true,
     vatRate:        0.21,
     marketPriceCZ:  730000,    // CZ trh vc. DPH — srovnatelny Kodiaq 2.0 TDI Ambition
-    marketPriceNetCZ: 603306,  // bez DPH pro platce DPH (730000/1.21)
+    marketPriceNetCZ: 603306,  // bez DPH pro plátce DPH (730000/1.21)
     extrasLabel:    "Doprava + přepis + příprava + servis bez DPH",
     extrasAmount:   72930,     // nejhorsi scenar B (plny servis 60k + pneu + logistika z BE)
-    processingCostLabel: "Zpracovani / provize bez DPH",
+    processingCostLabel: "Zpracování / provize bez DPH",
     processingCostAmount: 8000,
     deliveryDaysMin: 14,
     deliveryDaysMax: 21,
     carScore:       80,
-    scoreLabel:     "Doporuceno koupit",
+    scoreLabel:     "Doporučeno koupit",
     commissionMin:  8000,
     commissionMax:  12000,
     b2bMarketLow:   650000,
@@ -305,24 +305,24 @@ var AUCTION_CONFIG = {
 
   // -- Rizika (ze DEKRA reportu a Aukce analyzy) --
   risks: [
-    "Servis 60 000 km ihned po koupi: vymena oleje v DSG prevodovce a motorovy servis jsou nezbytne — zanedbani znamena riziko padu mechatroniky.",
-    "Sjeté pneumatiky na vsech kolech: hloubka vzorku 4,0 mm na vsech ctyrech kolech — okamzita nutnost vymeny pri prodeji.",
-    "Delsi logistika z Belgie: vozidlo stoji v hubu Bilzen (BE); Gatepass muze zdrzet uvolneni, pocitejte realné 14–21 dni dopravy.",
-    "Chybi papirova servisni kniha: historii je nutne overit elektronicky v databazi Skody pres VIN TMBJJ7NSXN8049428."
+    "Servis 60 000 km ihned po koupi: výměna oleje v DSG převodovce a motorový servis jsou nezbytné — zanedbání znamená riziko pádu mechatroniky.",
+    "Sjeté pneumatiky na všech kolech: hloubka vzorku 4,0 mm na všech čtyřech kolech — okamžitá nutnost výměny při prodeji.",
+    "Delší logistika z Belgie: vozidlo stojí v hubu Bilzen (BE); Gatepass může zdržet uvolnění, počítejte reálné 14–21 dní dopravy.",
+    "Chybí papírová servisní kniha: historii je nutné ověřit elektronicky v databázi Škody přes VIN TMBJJ7NSXN8049428."
   ],
 
   // -- Specifikace --
   specs: {
-    "Rok vyroby":    "2022 (EZ 03/2022)",
+    "Rok výroby":    "2022 (EZ 03/2022)",
     "Najeto":        "57 445 km",
     "Motor":         "2.0 TDI 110 kW (150 PS)",
-    "Prevodovka":    "DSG automat 7st.",
+    "Převodovka":    "DSG automat 7st.",
     "Palivo":        "Diesel / Euro 6d",
-    "Karoserie":     "SUV (5dverove)",
-    "Vybava":        "Ambition",
+    "Karoserie":     "SUV (5dveřové)",
+    "Výbava":        "Ambition",
     "VIN":           "TMBJJ7NSXN8049428",
     "Lokace":        "Bilzen, Belgie",
-    "Zdroj":         "Evropska aukce ref. 11099224"
+    "Zdroj":         "Evropská aukce ref. 11099224"
   },
 
   // -- Firebase --
@@ -398,7 +398,7 @@ var AUCTION_CONFIG = {
   </div>
 </div>
 
-<!-- Aktualni nejvyssi prihod -->
+<!-- Aktuální nejvyšší příhoz -->
 <div class="bid-hero">
   <div class="bid-hero-left">
     <div class="bh-label">Aktuální nejvyšší nabídka</div>
@@ -494,7 +494,7 @@ var AUCTION_CONFIG = {
           <input class="bfb-input bfb-amount" type="number" id="bf-amount" name="auk008_bid_amount" placeholder="Vyse prihozu (Kc) *" required min="0" step="1000" autocomplete="off" style="flex:1">
           <button type="button" id="btnPlusIncrement" onclick="addIncrement()"
             style="white-space:nowrap;background:#f39c12;color:#fff;border:none;border-radius:8px;padding:12px 14px;font-size:.85rem;font-weight:800;cursor:pointer;flex-shrink:0">
-            +<span id="incrementLabel">1 000</span> Kc
+            +<span id="incrementLabel">1 000</span> Kč
           </button>
         </div>
       </div>
@@ -527,7 +527,7 @@ var AUCTION_CONFIG = {
       <div class="how-item">
         <div class="how-num">1</div>
         <div class="how-title">Přihodíte</div>
-        <div class="how-desc">Zadejte jméno, e-mail, telefon a svou nabídku v Kč. Příhoz vyjadřuje váš zájem — není závaznou smlouvou. Minimální příhoz je <strong id="how-increment"></strong> Kc nad aktualni nejvyssi nabidku.</div>
+        <div class="how-desc">Zadejte jméno, e-mail, telefon a svou nabídku v Kč. Příhoz vyjadřuje váš zájem — není závaznou smlouvou. Minimální příhoz je <strong id="how-increment"></strong> Kč nad aktuální nejvyšší nabídku.</div>
       </div>
       <div class="how-item">
         <div class="how-num">2</div>
@@ -568,14 +568,14 @@ var AUCTION_CONFIG = {
     <div class="calc-result" id="calcResult">
       <div class="cr-row">
         <span class="cr-label">Příhoz</span>
-        <span class="cr-val"><input class="calc-inline" type="text" inputmode="numeric" id="calc-bid" placeholder="473 000" oninput="updateCalc()" autocomplete="off"> Kc</span>
+        <span class="cr-val"><input class="calc-inline" type="text" inputmode="numeric" id="calc-bid" placeholder="473 000" oninput="updateCalc()" autocomplete="off"> Kč</span>
       </div>
       <div class="cr-row" id="calc-row-reg" style="flex-wrap:wrap">
         <span style="display:flex;align-items:center;gap:6px;flex:1">
           <span class="cr-label" id="calc-label-reg">Doprava + přepis + příprava + servis bez DPH</span>
           <span id="extras-toggle" onclick="var d=document.getElementById('extras-detail');d.style.display=d.style.display==='none'?'block':'none';this.textContent=this.textContent.trim()==='▸ rozpad'?'▾ skrýt':'▸ rozpad'" style="cursor:pointer;font-size:.75rem;color:#f39c12;user-select:none;text-decoration:underline dotted;white-space:nowrap">▸ rozpad</span>
         </span>
-        <span class="cr-val"><input class="calc-inline" type="text" inputmode="numeric" id="calc-reg" oninput="updateCalc()" autocomplete="off"> Kc</span>
+        <span class="cr-val"><input class="calc-inline" type="text" inputmode="numeric" id="calc-reg" oninput="updateCalc()" autocomplete="off"> Kč</span>
         <div id="extras-detail" style="display:none;width:100%;background:rgba(0,0,0,.18);border-radius:6px;padding:8px 12px;margin-top:6px;font-size:.78rem;line-height:1.9">
           <div style="display:flex;justify-content:space-between"><span>Doprava BE→CR (logistika z Bilzenu)</span><span style="font-weight:700">~28 000 Kč</span></div>
           <div style="display:flex;justify-content:space-between"><span>Přepis + STK</span><span style="font-weight:700">~7 500 Kč</span></div>
@@ -588,7 +588,7 @@ var AUCTION_CONFIG = {
       </div>
       <div class="cr-row" id="calc-row-processing">
         <span class="cr-label" id="calc-label-processing">Zpracování / provize bez DPH</span>
-        <span class="cr-val"><input class="calc-inline" type="text" inputmode="numeric" id="calc-processing" oninput="updateCalc()" autocomplete="off"> Kc</span>
+        <span class="cr-val"><input class="calc-inline" type="text" inputmode="numeric" id="calc-processing" oninput="updateCalc()" autocomplete="off"> Kč</span>
       </div>
       <div class="cr-row" style="border-top:2px solid rgba(255,255,255,.25);margin-top:4px;padding-top:8px">
         <span class="cr-label cr-total">Celkem odhadem bez DPH</span>
@@ -782,7 +782,7 @@ function initExtras() {
   var C = AUCTION_CONFIG;
   var R = C.roi || {};
 
-  // Trzni srovnani
+  // Tržní srovnani
   if (R.marketPriceCZ) {
     var extras  = R.extrasAmount || 0;
     var vatRate = R.vatRate || 0.21;
@@ -803,8 +803,8 @@ function initExtras() {
     }
 
     var extrasNote = extras > 0 ? ' a dalších nákladech ' + fKc(extras) + (R.extrasLabel ? ' (' + R.extrasLabel + ')' : '') : '';
-    var vatNote = R.vatPayerMode ? ' Trzni cena CR je uvedena vc. DPH; pro platce DPH se interni porovnava netto cca ' + fKc(marketNet) + '.' : '';
-    document.getElementById('mb-note').textContent = 'Pri vyhre za vyvolavaci cenu ' + fKc(C.startPrice) + extrasNote + ' vychazi rozdil proti srovnavaci cene priblizne ' + (saving > 0 ? fKc(saving) : 'dle vyhry') + '.' + vatNote;
+    var vatNote = R.vatPayerMode ? ' Tržní cena ČR je uvedena vč. DPH; pro plátce DPH se interně porovnává netto cca ' + fKc(marketNet) + '.' : '';
+    document.getElementById('mb-note').textContent = 'Při výhře za vyvolávací cenu ' + fKc(C.startPrice) + extrasNote + ' vychází rozdíl proti srovnávací ceně přibližně ' + (saving > 0 ? fKc(saving) : 'dle vyhry') + '.' + vatNote;
     document.getElementById('marketBlock').style.display = 'block';
   }
 
@@ -820,9 +820,9 @@ function initExtras() {
       '<div class="db-arrow">&#x2192;</div>' +
       '<div class="db-step"><div class="ds-date">+' + R.deliveryDaysMin + '&#x2013;' + R.deliveryDaysMax + ' dni</div><div class="ds-lbl">Doprava BE&#x2192;CR</div></div>' +
       '<div class="db-arrow">&#x2192;</div>' +
-      '<div class="db-step"><div class="ds-date">+5 dni</div><div class="ds-lbl">STK + prepis</div></div>' +
+      '<div class="db-step"><div class="ds-date">+5 dní</div><div class="ds-lbl">STK + přepis</div></div>' +
       '<div class="db-arrow">&#x2192;</div>' +
-      '<div class="db-result"><div class="dr-date">cca ' + fdl(minReady) + '&#x2013;' + fdl(maxReady) + '</div><div class="dr-lbl">Auto pripravene v CR</div></div>';
+      '<div class="db-result"><div class="dr-date">cca ' + fdl(minReady) + '&#x2013;' + fdl(maxReady) + '</div><div class="dr-lbl">Auto připravené v ČR</div></div>';
     document.getElementById('deliveryBlock').style.display = 'block';
   }
 
