@@ -491,7 +491,7 @@ var AUCTION_CONFIG = {
       <div class="bfb-row">
         <input class="bfb-input" type="tel" id="bf-phone" name="auk008_bidder_phone" placeholder="Telefon *" required autocomplete="new-password" readonly onfocus="this.removeAttribute('readonly')">
         <div class="bfb-amount-wrap" style="display:flex;gap:6px;align-items:center">
-          <input class="bfb-input bfb-amount" type="number" id="bf-amount" name="auk008_bid_amount" placeholder="Vyse prihozu (Kc) *" required min="0" step="1000" autocomplete="off" style="flex:1">
+          <input class="bfb-input bfb-amount" type="number" id="bf-amount" name="auk008_bid_amount" placeholder="Výše příhozu (Kč) *" required min="0" step="1000" autocomplete="off" style="flex:1">
           <button type="button" id="btnPlusIncrement" onclick="addIncrement()"
             style="white-space:nowrap;background:#f39c12;color:#fff;border:none;border-radius:8px;padding:12px 14px;font-size:.85rem;font-weight:800;cursor:pointer;flex-shrink:0">
             +<span id="incrementLabel">1 000</span> Kč
@@ -976,7 +976,7 @@ function renderBids(bids) {
     setEl('bf-amount', 'placeholder', 'Min. ' + fKc(nextMin));
   } else {
     currentTopBid = 0;
-    document.getElementById('currentBid').innerHTML = '<span class="no-bids-note">Zatim zadne prihozy</span>';
+    document.getElementById('currentBid').innerHTML = '<span class="no-bids-note">Zatím žádné příhozy</span>';
     setEl('bidCount', 'textContent', '');
     setEl('minBidDisplay', 'textContent', fKc(AUCTION_CONFIG.startPrice));
     setEl('bf-amount', 'min', AUCTION_CONFIG.startPrice);
@@ -1086,7 +1086,7 @@ if (IS_DEMO) {
     this.reset();
     prefillBidderContact();
     btn.textContent = 'Příhoz přijat';
-    setTimeout(function(){ btn.disabled=false; btn.textContent='Prihodit znovu'; }, 3000);
+    setTimeout(function(){ btn.disabled=false; btn.textContent='Příhodit znovu'; }, 3000);
   });
 
 } else {
@@ -1178,7 +1178,7 @@ if (IS_DEMO) {
         this.reset();
         prefillBidderContact();
         btn.textContent = 'Příhoz přijat';
-        setTimeout(function(){ btn.disabled=false; btn.textContent='Prihodit znovu'; }, 3000);
+        setTimeout(function(){ btn.disabled=false; btn.textContent='Příhodit znovu'; }, 3000);
       } catch(err) {
         errEl.textContent = 'Chyba při odesílání: ' + err.message;
         errEl.style.display = 'block';
