@@ -312,12 +312,16 @@ var countdownTimers = {};
 // ════════════════════════════════════════════════
 async function fetchAllLiveData() {
   try {
-    var r = await fetch(REST_BASE + '/auctions.json?_=' + Date.now());
-    if (!r.ok) return;
-    var all = await r.json();
-    if (!all) return;
-    for (var [id, data] of Object.entries(all)) {
-      var bids   = data.bids ? Object.values(data.bids) : [];
+    var ts = '?_=' + Date.now();
+    var [rA, rB] = await Promise.all([
+      fetch(REST_BASE + '/auctions.json' + ts),
+      fetch(REST_BASE + '/bids.json' + ts)
+    ]);
+    var allAuctions = rA.ok ? (await rA.json() || {}) : {};
+    var allBids     = rB.ok ? (await rB.json() || {}) : {};
+    for (var id of Object.keys(allAuctions)) {
+      var data   = allAuctions[id] || {};
+      var bids   = allBids[id] ? Object.values(allBids[id]) : [];
       var sorted = bids.sort(function(a,b){ return (b.amount||0)-(a.amount||0); });
       liveData[id] = {
         topBid:   sorted[0]?.amount || 0,
