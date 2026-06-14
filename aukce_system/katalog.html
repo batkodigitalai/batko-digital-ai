@@ -241,7 +241,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#1a1a1a;mi
       </div>
       <div class="sf-group">
         <label>Vaše cena / poznámka</label>
-        <textarea id="sf-note" placeholder="Požaduji min. 350 000 Kč, auto je ve vùborném stavu..."></textarea>
+        <textarea id="sf-note" placeholder="Požaduji min. 350 000 Kč, auto je ve výborném stavu..."></textarea>
       </div>
       <button class="btn-seller" onclick="submitSeller()">Chci zjistit reálnou cenu →</button>
       <div class="sf-ok" id="sf-ok">✓ Poptávka odeslána. Ozveme se do 24 hodin.</div>
@@ -358,14 +358,17 @@ let countdownTimers = {};
 // ════════════════════════════════════════════════
 async function fetchAllLiveData() {
   try {
-    const r = await fetch(`${REST_BASE}/auctions.json?_=${Date.now()}`);
-    if (!r.ok) return;
-    const all = await r.json();
-    if (!all) return;
-
-    for (const [id, data] of Object.entries(all)) {
-      const bids   = data.bids ? Object.values(data.bids) : [];
-      const sorted = bids.sort((a, b) => (b.amount || 0) - (a.amount || 0));
+    var ts = '?_=' + Date.now();
+    var [rA, rB] = await Promise.all([
+      fetch(REST_BASE + '/auctions.json' + ts),
+      fetch(REST_BASE + '/bids.json' + ts)
+    ]);
+    var allAuctions = rA.ok ? (await rA.json() || {}) : {};
+    var allBids     = rB.ok ? (await rB.json() || {}) : {};
+    for (var id of Object.keys(allAuctions)) {
+      var data   = allAuctions[id] || {};
+      var bids   = allBids[id] ? Object.values(allBids[id]) : [];
+      var sorted = bids.sort((a, b) => (b.amount || 0) - (a.amount || 0));
       liveData[id] = {
         topBid:    sorted[0]?.amount || 0,
         bidCount:  bids.length,
@@ -461,7 +464,7 @@ function buildCard(auction) {
     : `<div class="ac-bid-right" style="font-size:.72rem;color:#aaa">archiv</div>`;
 
   const waBtn = active
-    ? `<button class="btn-wa" onclick="event.preventDefault();event.stopPropagation();copyWA('${auction.auctionId}')">📲 Kopírovat zprávu investorům8/button>`
+    ? `<button class="btn-wa" onclick="event.preventDefault();event.stopPropagation();copyWA('${auction.auctionId}')">📲 Kopírovat zprávu investorům</button>`
     : '';
 
   return `
