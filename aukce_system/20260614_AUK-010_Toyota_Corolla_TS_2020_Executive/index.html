@@ -263,8 +263,8 @@ var AUCTION_CONFIG = {
     vatRate:             0.21,
     marketPriceCZ:       445000,
     marketPriceNetCZ:    367769,
-    extrasLabel:         "Přepis + STK + základní příprava bez DPH",
-    extrasAmount:        16000,
+    extrasLabel:         "Doprava + přepis + příprava + servis bez DPH",
+    extrasAmount:        55500,
     processingCostLabel: "Zpracování / provize bez DPH",
     processingCostAmount: 9900,
     deliveryDaysMin:     18,
@@ -541,7 +541,7 @@ var AUCTION_CONFIG = {
 
   <!-- Technicka specifikace -->
   <div class="section">
-    <h2>Technicka specifikace</h2>
+    <h2>Technická specifikace</h2>
     <div class="specs-grid" id="specsGrid"><!-- vlozi JS --></div>
   </div>
 
@@ -559,9 +559,20 @@ var AUCTION_CONFIG = {
         <span class="cr-label">Můj příhoz</span>
         <span class="cr-val"><input class="calc-inline" type="text" inputmode="numeric" id="calc-bid" placeholder="369 000" oninput="updateCalc()" autocomplete="off"> Kč</span>
       </div>
-      <div class="cr-row" id="calc-row-reg">
-        <span class="cr-label" id="calc-label-reg">Přepis + STK + základní příprava bez DPH</span>
+      <div class="cr-row" id="calc-row-reg" style="flex-wrap:wrap">
+        <span style="display:flex;align-items:center;gap:6px;flex:1">
+          <span class="cr-label" id="calc-label-reg">Doprava + přepis + příprava + servis bez DPH</span>
+          <span id="extras-toggle" onclick="var d=document.getElementById('extras-detail');d.style.display=d.style.display==='none'?'block':'none';this.textContent=this.textContent.trim()==='▸ rozpad'?'▾ skrýt':'▸ rozpad'" style="cursor:pointer;font-size:.75rem;color:#f39c12;user-select:none;text-decoration:underline dotted;white-space:nowrap">▸ rozpad</span>
+        </span>
         <span class="cr-val"><input class="calc-inline" type="text" inputmode="numeric" id="calc-reg" oninput="updateCalc()" autocomplete="off"> Kč</span>
+        <div id="extras-detail" style="display:none;width:100%;background:rgba(0,0,0,.18);border-radius:6px;padding:8px 12px;margin-top:6px;font-size:.78rem;line-height:1.9">
+          <div style="display:flex;justify-content:space-between"><span>Doprava BE→CR (logistika z Bilzenu)</span><span style="font-weight:700">~28 000 Kč</span></div>
+          <div style="display:flex;justify-content:space-between"><span>Přepis + STK</span><span style="font-weight:700">~7 500 Kč</span></div>
+          <div style="display:flex;justify-content:space-between"><span>Příprava / detailing</span><span style="font-weight:700">~8 000 Kč</span></div>
+          <div style="display:flex;justify-content:space-between"><span>Servis Toyota hybrid (60 000 km)</span><span style="font-weight:700">~12 000 Kč</span></div>
+          <div style="display:flex;justify-content:space-between;border-top:1px solid rgba(255,255,255,.2);margin-top:4px;padding-top:4px;font-weight:700"><span>Celkem</span><span>55 500 Kč</span></div>
+          <div style="font-size:.68rem;opacity:.55;margin-top:4px">* Nejhorší scénář — plný servis. Rezerva na reklamace ani cílový zisk nejsou v tomto čísle zahrnuty.</div>
+        </div>
       </div>
       <div class="cr-row" id="calc-row-processing">
         <span class="cr-label" id="calc-label-processing">Zpracování / provize bez DPH</span>
@@ -585,7 +596,7 @@ var AUCTION_CONFIG = {
 
   <!-- Dokumenty ke stazeni -->
   <div class="section" id="docsSection" style="display:none">
-    <h2>Dokumenty ke stazeni</h2>
+    <h2>Dokumenty ke stažení</h2>
     <div class="doc-list" id="docList"><!-- vlozi JS --></div>
   </div>
 
@@ -618,7 +629,7 @@ var AUCTION_CONFIG = {
     <div class="cid-row"><span class="cid-label">Sídlo:</span><span class="cid-val">Klimkovice, Česká republika</span></div>
     <div class="cid-row"><span class="cid-label">E-mail:</span><span class="cid-val">batko.digital.ai@gmail.com</span></div>
     <div class="cid-row"><span class="cid-label">Telefon:</span><span class="cid-val">+420 725 360 151</span></div>
-    <div class="cid-row"><span class="cid-label">Znacka:</span><span class="cid-val">BATKO.DIGITAL.AI</span></div>
+    <div class="cid-row"><span class="cid-label">Značka:</span><span class="cid-val">BATKO.DIGITAL.AI | Plátce DPH</span></div>
     <div class="cid-row"><span class="cid-label">Reference aukce:</span><span class="cid-val" id="footer-ref">—</span></div>
   </div>
   <div class="privacy-law-note">
