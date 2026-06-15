@@ -348,7 +348,7 @@ var AUCTION_CONFIG = {
 
   // -- Dokumenty ke stažení --
   documents: [
-    { label: "TÜV SÜD protokol 45451555 — TMBJJ8NXXRY130131 (8. 5. 2026)", file: "docs/TUV_45451555_TMBJJ8NXXRY130131.pdf", icon: "📋" }
+    { label: "TÜV SÜD protokol 45451555 — TMBJJ8NXXRY130131 (8. 5. 2026)", file: "docs/TUV_45451555_TMBJJ8NXXRY130131.pdf", icon: "📋" },
     { label: "OPENLANE CarReport 11090976", file: "docs/OPENLANE_CarReport_11090976.pdf", icon: "📄" }
   ]
 };
@@ -1065,7 +1065,7 @@ function applyStatus(status, cancelReason) {
 // ════════════════════════════════════════════════════════
 initPage();
 
-      const IS_DEMO = AUCTION_CONFIG.firebase.apiKey.startsWith('VLOŽ') ||
+const IS_DEMO = AUCTION_CONFIG.firebase.apiKey.startsWith('VLOŽ') ||
                 AUCTION_CONFIG.firebase.apiKey === '';
 
 if (IS_DEMO) {
@@ -1148,16 +1148,16 @@ if (IS_DEMO) {
       const d = snap.val();
       if (d) {
         if (d.endTime) {
-          AUCTION_CONFIG.endTime = d.endTime;
+          AUCTION_CONFIG.endTime = d.endTime;   // Firebase endTime má VŽDY přednost
           const cd = document.getElementById('countdown');
-            const uh = document.getElementById('urgencyHeadline');
-            const ul = document.getElementById('urgencyLabel');
-            const ue = document.getElementById('urgencyEnded');
-            if (cd) cd.style.display = '';
-            if (uh) uh.style.display = '';
-            if (ul) ul.style.display = '';
-            if (ue) ue.style.display = 'none';
-            if (auctionStatus === 'ended') { auctionStatus = 'active'; unlockForm(); }
+          const uh = document.getElementById('urgencyHeadline');
+          const ul = document.getElementById('urgencyLabel');
+          const ue = document.getElementById('urgencyEnded');
+          if (cd) cd.style.display = '';
+          if (uh) uh.style.display = '';
+          if (ul) ul.style.display = '';
+          if (ue) ue.style.display = 'none';
+          if (auctionStatus === 'ended') { auctionStatus = 'active'; unlockForm(); }
           updateCountdown();
         }
         if (d.startPrice)   AUCTION_CONFIG.startPrice   = d.startPrice;
