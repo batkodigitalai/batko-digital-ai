@@ -251,6 +251,7 @@ var AUCTION_CONFIG = {
   color:        "Černá metalíza",
 
   startPrice:   369000,
+  openlaneNextBidKc: 369000,
   minIncrement: 1000,
   endTime:      "2026-06-14T22:58:00",
   auctionRef:   "OPENLANE-11090843",
@@ -872,16 +873,31 @@ function initExtras() {
 
   // B2B blok
   if (R.b2bMarketLow && R.b2bSaleTarget) {
-    var buyCost  = (R.extrasAmount || 0) + (R.processingCostAmount || 0);
-    var b2bGross = R.b2bSaleTarget - C.startPrice - buyCost;
-    var b2bROI   = ((b2bGross / (C.startPrice + buyCost)) * 100 / (R.b2bDaysSale||20)).toFixed(2);
+    var buyCost     = (R.extrasAmount || 0) + (R.processingCostAmount || 0);
+    var b2bBidPrice = C.openlaneNextBidKc || C.startPrice;
+    var totalEntry  = b2bBidPrice + buyCost;
+
+    var grossMin = R.b2bMarketLow  - totalEntry;
+    var grossMed = R.b2bSaleTarget - totalEntry;
+    var days     = R.b2bDaysSale || 30;
+    var roiMin   = (grossMin / totalEntry * 100 / days).toFixed(2);
+    var roiMed   = (grossMed / totalEntry * 100 / days).toFixed(2);
+    var colMin   = grossMin >= 0 ? '#2ecc71' : '#e74c3c';
+    var colMed   = grossMed >= 0 ? '#2ecc71' : '#e74c3c';
+
     document.getElementById('b2bGrid').innerHTML =
-      '<div class="b2b-item"><div class="bi-val">' + fKc(C.startPrice) + '</div><div class="bi-lbl">Vyvolávací cena</div></div>' +
-      '<div class="b2b-item"><div class="bi-val">' + fKc(buyCost) + '</div><div class="bi-lbl">Další náklady</div></div>' +
-      '<div class="b2b-item"><div class="bi-val">' + fKc(R.b2bSaleTarget) + '</div><div class="bi-lbl">Ref. prod. cena CZ bez DPH</div></div>' +
-      '<div class="b2b-item"><div class="bi-val" style="color:#2ecc71">' + fKc(Math.max(0,b2bGross)) + '</div><div class="bi-lbl">Hrubá marže</div></div>';
+      '<div class="b2b-item"><div class="bi-val">' + fKc(b2bBidPrice) + '</div><div class="bi-lbl">Vstupní příhoz</div></div>' +
+      '<div class="b2b-item"><div class="bi-val">' + fKc(buyCost) + '</div><div class="bi-lbl">N\u00e1klady (doprava + p\u0159\u00edprava + provize)</div></div>' +
+      '<div class="b2b-item" style="grid-column:span 2"><div class="bi-val" style="color:#e67e22">' + fKc(totalEntry) + '</div><div class="bi-lbl">Celkem vstup (bid + n\u00e1klady)</div></div>' +
+      '<div style="grid-column:1/-1;border-top:1px solid rgba(255,255,255,.2);margin:4px 0;padding-top:6px;font-size:.62rem;opacity:.5;text-align:center;letter-spacing:.05em">ZISK PODLE PRODEJN\u00cd CENY NA CZ TRHU (bez DPH)</div>' +
+      '<div class="b2b-item" style="grid-column:span 2"><div class="bi-val" style="color:' + colMin + '">' + (grossMin >= 0 ? '+' : '') + fKc(grossMin) + '</div><div class="bi-lbl">Hrub\u00fd zisk \u2014 MIN CZ trh<br><small style="opacity:.75;font-size:.6rem">' + fKc(R.b2bMarketLow) + ' K\u010d bez DPH &nbsp;\u00b7&nbsp; ROI ~' + roiMin + ' %/den</small></div></div>' +
+      '<div class="b2b-item" style="grid-column:span 2"><div class="bi-val" style="color:' + colMed + '">' + (grossMed >= 0 ? '+' : '') + fKc(grossMed) + '</div><div class="bi-lbl">Hrub\u00fd zisk \u2014 MEDI\u00c1N CZ trh<br><small style="opacity:.75;font-size:.6rem">' + fKc(R.b2bSaleTarget) + ' K\u010d bez DPH &nbsp;\u00b7&nbsp; ROI ~' + roiMed + ' %/den</small></div></div>';
+
     document.getElementById('b2bNote').innerHTML =
-      'Při koupi za vyvolávací cenu a prodeji do ' + (R.b2bDaysSale||20) + ' dni: ROI přibližně <strong>' + b2bROI + ' %/den</strong>. B2B kalkulace je pro plátce DPH počítána bez DPH; veřejné tržní srovnání výše je vč. DPH.';
+      'P\u0159i koupi za Vstupní příhoz (' + fKc(b2bBidPrice) + ') a prodeji do ' + days + ' dn\u00ed \u2014 ' +
+      'vs MIN CZ trh: ROI <strong>' + roiMin + ' %/den</strong> | ' +
+      'vs MEDI\u00c1N CZ trh: ROI <strong>' + roiMed + ' %/den</strong>. ' +
+      'B2B kalkulace je pro pl\u00e1tce DPH po\u010d\u00edt\u00e1na bez DPH; ve\u0159ejn\u00e9 tr\u017en\u00ed srovn\u00e1n\u00ed v\u00fd\u0161e je vc. DPH.';
     document.getElementById('b2bBlock').style.display = 'block';
   }
 }
