@@ -5,19 +5,19 @@ import streamlit as st
 from openai import OpenAI
 
 
-APP_TITLE = "Decision Strategist"
+APP_TITLE = "Strategický verdikt"
 DEFAULT_ACCESS_CODE = ""
 DEFAULT_PAYMENT_LINK = "https://buy.stripe.com/your-payment-link"
 DEFAULT_OPENAI_MODEL = "gpt-4.1-mini"
 DEFAULT_ALLOW_LOCAL_FALLBACK = "true"
 
 DEMO_ANSWERS = {
-    "commitment": "Online kurz pro podnikatele, ve kterem jsem 18 mesicu.",
-    "changed": "Posledni tri mesice neprichazeji nove prodeje a zacina mi byt jasne, ze me to brzdi.",
-    "sunk_costs": "Zhruba 220 hodin prace, 3 500 EUR za nastroje a reklamu, ego a strach priznat si omyl.",
-    "live_signals": "Mailing list obcas odpovida a par lidi ma zajem o konzultaci, ale kurz samotny se neprodava.",
-    "continuing_cost": "Bere mi to vecery, blokuje B2B sluzbu a odklada rozhodnuti, ktere uz stejne tusim.",
-    "make_it_yes": "Musel by se z toho stat maly B2B workshop s jasnou nabidkou, cenou a prodejem do 30 dni.",
+    "commitment": "Online kurz pro podnikatele, ve kterém jsem 18 měsíců.",
+    "changed": "Poslední tři měsíce nepřicházejí nové prodeje a začíná mi být jasné, že mě to brzdí.",
+    "sunk_costs": "Zhruba 220 hodin práce, 85 000 Kč za nástroje a reklamu, ego a strach přiznat si omyl.",
+    "live_signals": "Mailing list občas odpovídá a pár lidí má zájem o konzultaci, ale kurz samotný se neprodává.",
+    "continuing_cost": "Bere mi to večery, blokuje B2B službu a odkládá rozhodnutí, které už stejně tuším.",
+    "make_it_yes": "Musel by se z toho stát malý B2B workshop s jasnou nabídkou, cenou a prodejem do 30 dnů.",
 }
 
 
@@ -38,52 +38,52 @@ STEPS: List[Dict[str, str]] = [
         "key": "commitment",
         "label": "Krok 1",
         "prompt": (
-            "Pojmenujte jeden zavazek, u ktereho si nejste jisty. Muze to byt projekt, "
-            "byznys, studium, vztah k praci nebo dlouhodoby plan. Jak dlouho v nem jste?"
+            "Pojmenujte jeden závazek, u kterého si nejste jistý. Může to být projekt, "
+            "byznys, studium, vztah k práci nebo dlouhodobý plán. Jak dlouho v něm jste?"
         ),
-        "placeholder": "Napriklad: 18 mesicu rozjizdim online kurz, investoval jsem do nej...",
+        "placeholder": "Například: 18 měsíců rozjíždím online kurz, investoval jsem do něj...",
     },
     {
         "key": "changed",
         "label": "Krok 2",
-        "prompt": "Co se zmenilo? Proc to resite prave ted, a ne pred pul rokem?",
-        "placeholder": "Co vas donutilo se na to podivat znovu?",
+        "prompt": "Co se změnilo? Proč to řešíte právě teď, a ne před půl rokem?",
+        "placeholder": "Co vás donutilo se na to podívat znovu?",
     },
     {
         "key": "sunk_costs",
         "label": "Krok 3",
         "prompt": (
-            "Vycislete utopene naklady: cas, penize, ego, reputaci, energii. "
-            "Neposuzujte je, jen je co nejkonkretneji pojmenujte."
+            "Vyčíslete utopené náklady: čas, peníze, ego, reputaci, energii. "
+            "Neposuzujte je, jen je co nejkonkrétněji pojmenujte."
         ),
-        "placeholder": "Napriklad: 220 hodin, 3 500 EUR, strach priznat si omyl...",
+        "placeholder": "Například: 220 hodin, 85 000 Kč, strach přiznat si omyl...",
     },
     {
         "key": "live_signals",
         "label": "Krok 4",
         "prompt": (
-            "Jake realne signaly ukazuji, ze na projektu neco funguje prave ted? "
-            "Ignorujte minulost, zajima nas soucasnost."
+            "Jaké reálné signály ukazují, že na projektu něco funguje právě teď? "
+            "Ignorujte minulost, zajímá nás současnost."
         ),
-        "placeholder": "Zakaznici, prijmy, tah, energie, data, konkretni poptavka...",
+        "placeholder": "Zákazníci, příjmy, tah, energie, data, konkrétní poptávka...",
     },
     {
         "key": "continuing_cost",
         "label": "Krok 5",
         "prompt": (
-            "Jaka je budouci cena za pokracovani? Zahrnte energii, usle prilezitosti "
-            "a veci, ktere tento zavazek blokuje."
+            "Jaká je budoucí cena za pokračování? Zahrňte energii, ušlé příležitosti "
+            "a věci, které tento závazek blokuje."
         ),
-        "placeholder": "Co vas to bude stat behem dalsich 3 az 6 mesicu?",
+        "placeholder": "Co vás to bude stát během dalších 3 až 6 měsíců?",
     },
     {
         "key": "make_it_yes",
         "label": "Krok 7",
         "prompt": (
-            "Co by se muselo zmenit ve strukture, formatu, rozsahu, lidech nebo case, "
-            "aby odpoved byla jasne Ano?"
+            "Co by se muselo změnit ve struktuře, formátu, rozsahu, lidech nebo čase, "
+            "aby odpověď byla jasné Ano?"
         ),
-        "placeholder": "Jake podminky by z toho udelaly zdrave rozhodnuti?",
+        "placeholder": "Jaké podmínky by z toho udělaly zdravé rozhodnutí?",
     },
 ]
 
@@ -107,7 +107,7 @@ def render_history() -> None:
     if not answers and st.session_state.from_scratch_answer is None:
         return
 
-    with st.expander("Dosavadni odpovedi", expanded=False):
+    with st.expander("Dosavadní odpovědi", expanded=False):
         for step in STEPS[:5]:
             answer = answers.get(step["key"])
             if answer:
@@ -179,52 +179,52 @@ def get_openai_client() -> Optional[OpenAI]:
 def generate_local_report() -> str:
     answers = st.session_state.answers
     from_scratch = st.session_state.from_scratch_answer or "NEZODPOVEZENO"
-    commitment = answers.get("commitment", "Zavazek nebyl pojmenovan.")
-    sunk_costs = answers.get("sunk_costs", "Utopene naklady nebyly vycisleny.")
-    live_signals = answers.get("live_signals", "Nejsou uvedene jasne zive signaly.")
-    continuing_cost = answers.get("continuing_cost", "Budouci cena nebyla popsana.")
-    make_it_yes = answers.get("make_it_yes", "Neni popsano, co by z toho udelalo jasne Ano.")
+    commitment = answers.get("commitment", "Závazek nebyl pojmenován.")
+    sunk_costs = answers.get("sunk_costs", "Utopené náklady nebyly vyčísleny.")
+    live_signals = answers.get("live_signals", "Nejsou uvedené jasné živé signály.")
+    continuing_cost = answers.get("continuing_cost", "Budoucí cena nebyla popsána.")
+    make_it_yes = answers.get("make_it_yes", "Není popsáno, co by z toho udělalo jasné Ano.")
 
     if from_scratch == "ANO":
-        verdict = "Recommit"
+        verdict = "Znovu se zavázat (Recommit)"
         verdict_text = (
-            "Znovu se zavazat, ale jen s tvrdym deadlinem 30 dni a jednim meritelnym "
-            "dukazem, ze projekt ma tah."
+            "Znovu se zavázat, ale jen s tvrdým deadlinem 30 dní a jedním měřitelným "
+            "důkazem, že projekt má tah."
         )
-        first_move = "Do 48 hodin si nastavte 30denni checkpoint a jednu metriku, podle ktere rozhodnete."
+        first_move = "Do 48 hodin si nastavte 30denní kontrolní bod a jednu metriku, podle které rozhodnete."
     elif len(live_signals.strip()) > 40 and len(make_it_yes.strip()) > 40:
-        verdict = "Restructure"
+        verdict = "Restrukturalizovat (Restructure)"
         verdict_text = (
-            "Restrukturalizovat presne podle podminky, kterou jste popsali. Pokracovani "
-            "ve stare podobe neni schvalene."
+            "Restrukturalizovat přesně podle podmínky, kterou jste popsali. Pokračování "
+            "ve staré podobě není schválené."
         )
-        first_move = "Do 48 hodin prepisete projekt do nove mensi varianty a zrusite vse, co do ni nepatri."
+        first_move = "Do 48 hodin přepište projekt do nové menší varianty a zrušte vše, co do ní nepatří."
     else:
-        verdict = "Cut"
+        verdict = "Ukončit (Cut)"
         verdict_text = (
-            "Ukoncit. Soucasna podoba neprosla testem od nuly a minulost neni argument "
-            "pro dalsi investici."
+            "Ukončit. Současná podoba neprošla testem od nuly a minulost není argument "
+            "pro další investici."
         )
-        first_move = "Do 48 hodin napiste jednu zpravu nebo rozhodnuti, ktere projekt formalne ukonci."
+        first_move = "Do 48 hodin napište jednu zprávu nebo rozhodnutí, které projekt formálně ukončí."
 
     return f"""**Závazek (The Commitment):** {commitment}
 
-**Utopené náklady stranou (Sunk Cost, Set Aside):** {sunk_costs}. Tyto naklady jsou pryc a nejsou relevantni pro dalsi rozhodovani.
+**Utopené náklady stranou (Sunk Cost, Set Aside):** {sunk_costs}. Tyto náklady jsou pryč a nejsou relevantní pro další rozhodování.
 
 **Co je živé vs. co jen dobíhá (What's Live vs. Fading):**
 Živé:
 - {live_signals}
 
 Dobíhá:
-- Setrvacnost, ego a potreba ospravedlnit minule investice nejsou dukaz, ze ma projekt pokracovat.
+- Setrvačnost, ego a potřeba ospravedlnit minulé investice nejsou důkaz, že má projekt pokračovat.
 
 **Cena pokračování (The Cost of Continuing):** {continuing_cost}
 
-**Test od nuly (The From-Scratch Test):** Odpoved: {from_scratch}. To je hlavni signal, jestli byste projekt zvolili i bez historie.
+**Test od nuly (The From-Scratch Test):** Odpověď: {from_scratch}. To je hlavní signál, jestli byste projekt zvolili i bez historie.
 
 **Verdikt (The Verdict):** {verdict}. {verdict_text}
 
-**Emoční kontrola (The Emotional Check):** Pravdepodobne je pritomna vina, strach z omylu nebo neochota zavrit neco, co uz stalo cas a penize. Verdikt temto emocim odolava, protoze se opira o budoucnost, ne o minulost.
+**Emoční kontrola (The Emotional Check):** Pravděpodobně je přítomná vina, strach z omylu nebo neochota zavřít něco, co už stálo čas a peníze. Verdikt těmto emocím odolává, protože se opírá o budoucnost, ne o minulost.
 
 **První tah v dalších 48 hodinách (First Move, Next 48 Hours):** {first_move}
 """
@@ -236,7 +236,7 @@ def generate_final_report() -> str:
         if get_bool_config("ALLOW_LOCAL_FALLBACK", DEFAULT_ALLOW_LOCAL_FALLBACK):
             return generate_local_report()
         raise RuntimeError(
-            "Chybi OPENAI_API_KEY. Pridejte ho do Streamlit secrets nebo jako environment variable."
+            "Chybí OPENAI_API_KEY. Přidejte ho do Streamlit secrets nebo jako environment variable."
         )
 
     system_prompt = """
@@ -302,8 +302,8 @@ def render_current_step() -> None:
         return
 
     if idx == 3 and not st.session_state.sunk_cost_acknowledged:
-        st.info("Tyto naklady jsou pryc a nebudou se pocitat do dalsiho rozhodovani.")
-        if st.button("Potvrzuji, nebudu je pocitat do dalsiho rozhodovani", type="primary"):
+        st.info("Tyto náklady jsou pryč a nebudou se počítat do dalšího rozhodování.")
+        if st.button("Potvrzuji, nebudu je počítat do dalšího rozhodování", type="primary"):
             st.session_state.sunk_cost_acknowledged = True
             st.rerun()
         return
@@ -315,8 +315,8 @@ def render_current_step() -> None:
     if idx == 5 and st.session_state.from_scratch_answer is None:
         st.markdown("**Krok 6**")
         st.write(
-            "Kdybyste dnes nemel zadnou historii v tomto projektu a zadne utracene penize, "
-            "zacal byste s nim dnes znovu v jeho soucasne podobe?"
+            "Kdybyste dnes neměl žádnou historii v tomto projektu a žádné utracené peníze, "
+            "začal byste s ním dnes znovu v jeho současné podobě?"
         )
         col_yes, col_no = st.columns(2)
         with col_yes:
@@ -344,16 +344,16 @@ def render_text_step(step: Dict[str, str]) -> None:
 
     with st.form(f"form_{step['key']}", clear_on_submit=True):
         answer = st.text_area(
-            "Vase odpoved",
+            "Vaše odpověď",
             placeholder=step["placeholder"],
             height=150,
             label_visibility="collapsed",
         )
-        submitted = st.form_submit_button("Pokracovat", type="primary")
+        submitted = st.form_submit_button("Pokračovat", type="primary")
 
     if submitted:
         if not answer.strip():
-            st.warning("Napiste prosim aspon kratkou odpoved.")
+            st.warning("Napište prosím aspoň krátkou odpověď.")
             return
         save_answer(step["key"], answer)
 
@@ -362,21 +362,21 @@ def render_paywall() -> None:
     payment_link = get_config("PAYMENT_LINK", DEFAULT_PAYMENT_LINK)
     access_code = get_config("ACCESS_CODE", DEFAULT_ACCESS_CODE)
 
-    st.markdown("**Strategicka analyza**")
+    st.markdown("**Strategická analýza**")
     if not access_code:
-        st.error("Pristupovy kod neni nastaveny. Pridejte ACCESS_CODE do Streamlit Secrets.")
+        st.error("Přístupový kód není nastavený. Přidejte ACCESS_CODE do Streamlit Secrets.")
         return
 
     st.write(
-        "Vase data jsou pripravena k finalni strategicke analyze. Pro zobrazeni tvrdeho "
-        "verdiktu a akcniho planu zadejte pristupovy kod."
+        "Vaše data jsou připravena k finální strategické analýze. Pro zobrazení tvrdého "
+        "verdiktu a akčního plánu zadejte přístupový kód."
     )
     st.markdown(f"[Koupit přístupový kód za 199 Kč včetně DPH]({payment_link})")
 
-    code = st.text_input("Pristupovy kod", type="password")
+    code = st.text_input("Přístupový kód", type="password")
     if st.button("Odemknout verdikt", type="primary"):
         if code.strip() != access_code:
-            st.error("Pristupovy kod nesouhlasi.")
+            st.error("Přístupový kód nesouhlasí.")
             return
         st.session_state.unlocked = True
         st.rerun()
@@ -384,7 +384,7 @@ def render_paywall() -> None:
 
 def render_final_report() -> None:
     if st.session_state.final_report is None:
-        with st.spinner("Pripravuji tvrdy verdikt..."):
+        with st.spinner("Připravuji tvrdý verdikt..."):
             try:
                 st.session_state.final_report = generate_final_report()
                 st.session_state.last_error = None
@@ -412,11 +412,11 @@ def main() -> None:
         load_demo_case()
 
     st.title(APP_TITLE)
-    st.caption("Klidny test zavazku, ve kterych muze byt schovana past utopenych nakladu.")
+    st.caption("Klidný test závazků, ve kterých může být schovaná past utopených nákladů.")
 
     col_reset, col_demo = st.columns(2)
     with col_reset:
-        if st.button("Zacit znovu", use_container_width=True):
+        if st.button("Začít znovu", use_container_width=True):
             reset_app()
     with col_demo:
         if st.button("Vyplnit demo a ukázat verdikt", type="primary", use_container_width=True):
