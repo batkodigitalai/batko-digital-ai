@@ -2,6 +2,12 @@
 
 Streamlit mikroaplikace pro prodávající aut, jejichž inzerát visí dlouho bez výsledku.
 
+Ostrá veřejná URL:
+
+```text
+https://batkodigitalai-bat-90-labcar-sale-diagnosis-streamlitapp-3hw8bj.streamlit.app/
+```
+
 Vychází ze zlatého vzoru `sunk_cost_decision_app`, ale je přepsaná pro Sauto oslovení:
 
 - auto se předvyplní z URL parametrů,
@@ -97,9 +103,23 @@ Před slovem hotovo ověřit:
 
 - veřejná URL jde otevřít anonymně,
 - předvyplněné auto se správně zobrazí z parametrů,
+- interní HTML vlna neobsahuje `localhost:8501`,
+- tlačítko `Diagnóza auta` míří na veřejnou Streamlit URL,
 - doplňující 3 otázky fungují,
 - paywall ukazuje cenu v Kč včetně DPH,
+- Stripe checkout ukazuje `Plná diagnóza neprodaného auta` za 199 Kč,
+- Stripe URL obsahuje `client_reference_id`,
 - špatný / expirovaný kód je odmítnut,
 - správný kód nebo token odemkne plnou diagnózu,
 - výstup je česky,
 - stažení Markdownu funguje.
+
+## Provozní funnel
+
+1. Oslovit prodávajícího krátce a lidsky; neposílat rovnou platební odkaz.
+2. Po reakci poslat diagnostiku konkrétního auta.
+3. Získat kontakt přes Streamlit.
+4. Zobrazit bezplatný předverdikt.
+5. Prodat plnou diagnózu za 199 Kč včetně DPH.
+6. Spárovat platbu přes e-mail a `client_reference_id`.
+7. Navázat vyšší službou: 790 Kč, 1 490 Kč nebo 2 490 Kč včetně DPH.

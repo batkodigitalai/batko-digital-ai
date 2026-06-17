@@ -28,7 +28,7 @@
 - Cena plné diagnózy: zatím 199 Kč včetně DPH.
 - Stripe Payment Link: `https://buy.stripe.com/9B6cN61bIcyH7l95sv3VC03`.
 - Přístupový kód: nastavit jen v Secrets.
-- Veřejná Streamlit URL: doplnit po deployi.
+- Veřejná Streamlit URL: `https://batkodigitalai-bat-90-labcar-sale-diagnosis-streamlitapp-3hw8bj.streamlit.app/`.
 - Lead webhook: `https://script.google.com/macros/s/AKfycbwcFA8bRyHnBB_4XlgH5_IMR4IBqUfvTD8vScGZPiuCh0gR5f4Mp_9OjOAw1u3lNEjI/exec`.
 - V produkci zapnout `REQUIRE_LEAD_WEBHOOK = "true"`.
 
@@ -36,8 +36,8 @@
 
 - Soubor `C:\Users\tomas\OneDrive\Dokumenty\Claude\Projects\auto1\docs\20260617 1048 osloveni vlna 012.html` má doplněné tlačítko `Diagnóza auta`.
 - Odkaz se skládá automaticky z karty auta.
-- Konstanta `DIAGNOSIS_APP_URL` je zatím `http://localhost:8501/`.
-- Po produkčním deployi změnit `DIAGNOSIS_APP_URL` na veřejnou Streamlit URL.
+- Konstanta `DIAGNOSIS_APP_URL` je v aktuální vlně nastavena na veřejnou Streamlit URL.
+- Nikdy ji nevracet na `http://localhost:8501/` u souboru určeného k reálnému oslovování.
 - Apps Script webhook byl nahrán přes `clasp push --force` a redeploynut na `@20`.
 - Testovací POST `Diagnoza_Neprodaneho_Auta` vrátil `{"ok":true}`.
 
@@ -98,3 +98,31 @@ Google Apps Script webhook pro Stripe:
 
 Streamlit už počítá s `UNLOCK_VERIFY_URL`. Pokud je nastavené, nepoužije statický `ACCESS_CODE`,
 ale pošle `lead_id + token` do Apps Scriptu a čeká odpověď `{ "valid": true }`.
+
+## Denní postup oslovování klientů
+
+1. V interním HTML seznamu otevřít původní Sauto inzerát.
+2. Ověřit, že inzerát je živý, sedí cena/nájezd a kontakt je vhodný.
+3. Kliknout `Diagnóza auta` a ověřit, že veřejná aplikace ukazuje správný model, cenu, km a dny v inzerci.
+4. Poslat první krátké oslovení. Cíl není prodat 199 Kč hned, ale získat reakci:
+
+```text
+Dobrý den, narazil jsem na váš inzerát [auto].
+U dlouho běžících inzerátů často nejde o špatné auto, ale o cenu, důvěru nebo prezentaci.
+Můžu vám poslat krátký nezávazný pohled, proč se to může brzdit?
+```
+
+5. Po kladné reakci poslat odkaz na diagnózu konkrétního auta.
+6. Zákazník vyplní kontakt a dostane bezplatný předverdikt.
+7. Plnou diagnózu objedná přes Stripe za 199 Kč včetně DPH.
+8. Platbu dohledat podle e-mailu a `client_reference_id`.
+9. Po předverdiktu nebo platbě navázat vyšší službou: 790 Kč, 1 490 Kč nebo 2 490 Kč včetně DPH.
+10. Po odeslání zprávy zaškrtnout `Odesláno`; po dokončení vlny zapsat odeslání do Sheetu.
+
+## Smoke test před předáním
+
+- Anonymní Chrome otevře veřejnou Streamlit URL bez loginu.
+- URL s parametry auta zobrazí správný model, cenu, nájezd a dny.
+- Stripe checkout ukáže `Plná diagnóza neprodaného auta` za 199 Kč.
+- Stripe URL obsahuje `client_reference_id=sauto-...`.
+- HTML vlna neobsahuje `localhost:8501`.
