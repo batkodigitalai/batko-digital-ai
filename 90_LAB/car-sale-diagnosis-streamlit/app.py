@@ -182,13 +182,32 @@ def render_car_context() -> None:
     price = format_int(car.get("price", ""))
     km = format_int(car.get("km", ""))
     days = format_int(car.get("days", ""))
+    title = car_title(car)
 
     st.markdown("**Auto z inzerátu**")
-    cols = st.columns(4)
-    cols[0].metric("Model", car_title(car))
-    cols[1].metric("Cena", f"{price} Kč" if price else "nezadáno")
-    cols[2].metric("Nájezd", f"{km} km" if km else "nezadáno")
-    cols[3].metric("Dní v inzerci", days if days else "nezadáno")
+    st.markdown(
+        f"""
+        <div style="padding:16px 18px;border:1px solid #e6e8ee;border-radius:10px;background:#fff;margin:8px 0 14px;">
+          <div style="font-size:1rem;color:#6b7280;margin-bottom:4px;">Model</div>
+          <div style="font-size:1.55rem;font-weight:750;line-height:1.25;color:#2f2f3d;margin-bottom:14px;overflow-wrap:anywhere;">{title}</div>
+          <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;">
+            <div>
+              <div style="font-size:.88rem;color:#6b7280;">Cena</div>
+              <div style="font-size:1.25rem;font-weight:650;color:#2f2f3d;">{f"{price} Kč" if price else "nezadáno"}</div>
+            </div>
+            <div>
+              <div style="font-size:.88rem;color:#6b7280;">Nájezd</div>
+              <div style="font-size:1.25rem;font-weight:650;color:#2f2f3d;">{f"{km} km" if km else "nezadáno"}</div>
+            </div>
+            <div>
+              <div style="font-size:.88rem;color:#6b7280;">Dní v inzerci</div>
+              <div style="font-size:1.25rem;font-weight:650;color:#2f2f3d;">{days if days else "nezadáno"}</div>
+            </div>
+          </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
     if car.get("sauto_url"):
         st.markdown(f"[Otevřít původní inzerát]({car['sauto_url']})")
