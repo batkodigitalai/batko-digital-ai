@@ -38,7 +38,7 @@ Skutečné hodnoty patří jen do `.streamlit/secrets.toml` lokálně a do Strea
 ```toml
 OPENAI_API_KEY = "placeholder-openai-key"
 ACCESS_CODE = "placeholder"
-PAYMENT_LINK = "https://buy.stripe.com/your-payment-link"
+PAYMENT_LINK = "https://buy.stripe.com/9B6cN61bIcyH7l95sv3VC03"
 OPENAI_MODEL = "gpt-4.1-mini"
 ALLOW_LOCAL_FALLBACK = "false"
 PRICE_TEXT = "199 Kč včetně DPH"

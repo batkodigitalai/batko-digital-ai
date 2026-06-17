@@ -26,7 +26,7 @@
 ## Otevřené rozhodnutí
 
 - Cena plné diagnózy: zatím 199 Kč včetně DPH.
-- Stripe Payment Link: doplnit po vytvoření produktu.
+- Stripe Payment Link: `https://buy.stripe.com/9B6cN61bIcyH7l95sv3VC03`.
 - Přístupový kód: nastavit jen v Secrets.
 - Veřejná Streamlit URL: doplnit po deployi.
 - Lead webhook: `https://script.google.com/macros/s/AKfycbwcFA8bRyHnBB_4XlgH5_IMR4IBqUfvTD8vScGZPiuCh0gR5f4Mp_9OjOAw1u3lNEjI/exec`.
