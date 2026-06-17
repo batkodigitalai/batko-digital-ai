@@ -588,8 +588,8 @@ def render_paywall() -> None:
     )
 
     st.markdown("**Objednávka plné diagnózy**")
-    if not access_code and not unlock_verify_url:
-        st.error("Odemykání není nastavené. Přidejte ACCESS_CODE nebo UNLOCK_VERIFY_URL do Streamlit Secrets.")
+    if payment_link == DEFAULT_PAYMENT_LINK:
+        st.error("Platební odkaz není nastavený. Přidejte PAYMENT_LINK do Streamlit Secrets.")
         return
 
     st.write(
@@ -602,13 +602,15 @@ def render_paywall() -> None:
     )
     st.markdown(f"[Objednat plnou diagnózu za {price_text}]({payment_url})")
 
-    code = st.text_input("Odemykací kód z potvrzení platby", type="password")
-    if st.button("Odemknout plnou diagnózu", type="primary"):
-        if not verify_unlock_token(code):
-            st.error("Odemykací kód nesouhlasí nebo už vypršel.")
-            return
-        st.session_state.unlocked = True
-        st.rerun()
+    if access_code or unlock_verify_url:
+        with st.expander("Už máte odemykací kód?"):
+            code = st.text_input("Odemykací kód z potvrzení platby", type="password")
+            if st.button("Odemknout plnou diagnózu", type="primary"):
+                if not verify_unlock_token(code):
+                    st.error("Odemykací kód nesouhlasí nebo už vypršel.")
+                    return
+                st.session_state.unlocked = True
+                st.rerun()
 
 
 def render_final_report() -> None:
