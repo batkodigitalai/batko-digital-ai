@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: rozmluv-me-s-tim
+    runtime: python
+    region: frankfurt
+    plan: starter
+    branch: main
+    rootDir: 90_LAB/rozmluv-me-s-tim
+    buildCommand: pip install -r requirements.txt
+    startCommand: streamlit run app.py --server.address 0.0.0.0 --server.port $PORT
+    healthCheckPath: /
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPENAI_MODEL
+        value: gpt-4.1-mini
+      - key: ACCESS_CODE
+        sync: false
+      - key: PAYMENT_LINK
+        sync: false
