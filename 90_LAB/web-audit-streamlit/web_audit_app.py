@@ -1,17 +1,18 @@
 """
 web_audit_app.py – SEO Audit webu jako Streamlit SaaS
 
-Vzor: stejná struktura jako diagnóza neprodaného auta.
 Použití:
     streamlit run web_audit_app.py
 
 Secrets (Streamlit Cloud nebo .streamlit/secrets.toml):
-    OPENAI_API_KEY = "sk-..."
-    PAYMENT_LINK   = "https://buy.stripe.com/..."
-    ACCESS_CODE    = "tajnykod123"        # volitelné – manuální odemčení
-    UNLOCK_VERIFY_URL = "https://..."     # volitelné – webhook ověření kódu
-    LEAD_WEBHOOK_URL  = "https://..."     # volitelné – zápis leadu
-    PRICE_TEXT     = "499 Kč včetně DPH"
+    OPENAI_API_KEY = "sk-..."   ← JEDINÝ POVINNÝ SECRET
+
+Volitelné přepsání přes Secrets (jinak se použijí hodnoty z kódu níže):
+    PAYMENT_LINK      = "https://buy.stripe.com/..."
+    PRICE_TEXT        = "499 Kč včetně DPH"
+    ACCESS_CODE       = "tajnykod123"
+    UNLOCK_VERIFY_URL = "https://..."
+    LEAD_WEBHOOK_URL  = "https://..."
 """
 
 import json
@@ -34,8 +35,13 @@ from openai import OpenAI
 APP_TITLE    = "SEO Audit webu"
 APP_SUBTITLE = "Zjistěte za 2 minuty, proč váš web nenachází zákazníky na Googlu."
 
-DEFAULT_PAYMENT_LINK          = "https://buy.stripe.com/your-payment-link"
-DEFAULT_PRICE_TEXT            = "499 Kč včetně DPH"
+# ── EDITUJ TADY při změně ceny / Stripe linku ─────────────────────────────────
+PAYMENT_LINK_DEFAULT  = "https://buy.stripe.com/8x25kEcUq8iraxlbQT3VC04"
+PRICE_TEXT_DEFAULT    = "499 Kč včetně DPH"
+# ──────────────────────────────────────────────────────────────────────────────
+
+DEFAULT_PAYMENT_LINK          = PAYMENT_LINK_DEFAULT
+DEFAULT_PRICE_TEXT            = PRICE_TEXT_DEFAULT
 DEFAULT_ACCESS_CODE           = ""
 DEFAULT_OPENAI_MODEL          = "gpt-4.1-mini"
 DEFAULT_ALLOW_LOCAL_FALLBACK  = "true"
