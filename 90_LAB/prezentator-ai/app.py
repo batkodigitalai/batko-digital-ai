@@ -73,6 +73,9 @@ PRAVIDLA VÝSTUPU — NESMÍŠ porušit ANI JEDNO:
      cur = Math.max(0, Math.min(n, slides.length - 1));
      slides[cur].classList.add('active');
      prog.style.width = ((cur + 1) / slides.length * 100) + '%';
+     document.getElementById('slide-counter').textContent = (cur + 1) + ' / ' + slides.length;
+     document.getElementById('btn-prev').style.opacity = cur === 0 ? '0.3' : '1';
+     document.getElementById('btn-next').style.opacity = cur === slides.length - 1 ? '0.3' : '1';
      gsap.fromTo(slides[cur],
        {{ opacity: 0, y: 40 }},
        {{ opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }}
@@ -89,6 +92,29 @@ PRAVIDLA VÝSTUPU — NESMÍŠ porušit ANI JEDNO:
    }});
 
    window.onload = function() {{ show(0); }};  // NUTNO volat přes window.onload!
+
+4b. POVINNÁ NAVIGAČNÍ LIŠTA (vlož těsně před </body>):
+   <nav id="nav-bar">
+     <button id="btn-prev" onclick="show(cur-1)">&#8592; Zpět</button>
+     <span id="slide-counter">1 / ?</span>
+     <button id="btn-next" onclick="show(cur+1)">Další &#8594;</button>
+   </nav>
+
+   CSS pro navigační lištu (přidej do <style>):
+   #nav-bar {{
+     position: fixed; bottom: 12px; left: 50%; transform: translateX(-50%);
+     display: flex; align-items: center; gap: 1.5rem;
+     background: rgba(15,23,42,0.85); backdrop-filter: blur(10px);
+     border: 1px solid rgba(124,58,237,0.4); border-radius: 999px;
+     padding: 0.5rem 1.5rem; z-index: 60;
+   }}
+   #nav-bar button {{
+     background: none; border: none; color: #f1f5f9; font-size: 1rem;
+     cursor: pointer; padding: 0.3rem 0.6rem; border-radius: 6px;
+     transition: background 0.2s;
+   }}
+   #nav-bar button:hover {{ background: rgba(124,58,237,0.3); }}
+   #slide-counter {{ color: #94a3b8; font-size: 0.9rem; min-width: 4rem; text-align: center; }}
 
 5. Design:
    - CSS :root proměnné pro barvy — žádné hardcoded hex mimo :root.
@@ -171,6 +197,20 @@ p  { font-size: clamp(1rem, 2vw, 1.4rem); color: var(--muted); max-width: 60ch; 
 #presenter p { color: #e2e8f0; font-size: 1.2rem; line-height: 1.8; max-width: 70ch; margin: auto; }
 #presenter .close { position: fixed; top: 1rem; right: 1.5rem; font-size: 1.5rem;
   cursor: pointer; color: var(--muted); }
+#nav-bar {
+  position: fixed; bottom: 12px; left: 50%; transform: translateX(-50%);
+  display: flex; align-items: center; gap: 1.5rem;
+  background: rgba(15,23,42,0.85); backdrop-filter: blur(10px);
+  border: 1px solid rgba(124,58,237,0.4); border-radius: 999px;
+  padding: 0.5rem 1.5rem; z-index: 60;
+}
+#nav-bar button {
+  background: none; border: none; color: #f1f5f9; font-size: 1rem;
+  cursor: pointer; padding: 0.3rem 0.6rem; border-radius: 6px;
+  transition: background 0.2s;
+}
+#nav-bar button:hover { background: rgba(124,58,237,0.3); }
+#slide-counter { color: #94a3b8; font-size: 0.9rem; min-width: 4rem; text-align: center; }
 </style>
 </head>
 <body>
@@ -195,6 +235,12 @@ p  { font-size: clamp(1rem, 2vw, 1.4rem); color: var(--muted); max-width: 60ch; 
 <div id="progress"></div>
 <div id="presenter"><span class="close" onclick="togglePresenter()">✕</span><p id="notesText"></p></div>
 
+<nav id="nav-bar">
+  <button id="btn-prev" onclick="show(cur-1)">&#8592; Zpět</button>
+  <span id="slide-counter">1 / 2</span>
+  <button id="btn-next" onclick="show(cur+1)">Další &#8594;</button>
+</nav>
+
 <script>
 let cur = 0;
 const slides = document.querySelectorAll('.slide');
@@ -206,6 +252,9 @@ function show(n) {
   cur = Math.max(0, Math.min(n, slides.length - 1));
   slides[cur].classList.add('active');
   prog.style.width = ((cur + 1) / slides.length * 100) + '%';
+  document.getElementById('slide-counter').textContent = (cur + 1) + ' / ' + slides.length;
+  document.getElementById('btn-prev').style.opacity = cur === 0 ? '0.3' : '1';
+  document.getElementById('btn-next').style.opacity = cur === slides.length - 1 ? '0.3' : '1';
   gsap.fromTo(slides[cur],
     { opacity: 0, y: 40 },
     { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }
@@ -498,7 +547,9 @@ def main():
             <strong>3 jednoduché kroky:</strong><br>
             1. Klikněte na zelené tlačítko níže a stáhněte soubor <code>prezentace.html</code><br>
             2. Dvojklikem otevřete soubor v <strong>Google Chrome</strong><br>
-            3. <kbd>→</kbd> pohyb mezi slidy &nbsp;·&nbsp; <kbd>S</kbd> zobrazí řečnické poznámky
+            3. Navigujte pomocí tlačítek <strong>← Zpět / Další →</strong> ve spodní části prezentace
+               &nbsp;·&nbsp; nebo klávesy <kbd>←</kbd> <kbd>→</kbd>
+               &nbsp;·&nbsp; <kbd>S</kbd> zobrazí řečnické poznámky
                &nbsp;·&nbsp; <kbd>Esc</kbd> zavře Presenter Mode
           </p>
         </div>
