@@ -325,6 +325,126 @@ def extract_html(text: str) -> str:
     return text.strip()
 
 
+def fix_presentation_html(html: str) -> str:
+    """
+    Post-procesuje AI-generovaný HTML:
+    1. Vynucuje správnou CSS architekturu slidů (opacity, ne display:none)
+    2. Injektuje viditelnou navigační lištu ← / →
+    3. Přidává spolehlivý JS kontroler slidů
+    Funguje bez ohledu na to, co AI vygenerovalo.
+    """
+    override_css = """
+<style id="prez-fix">
+/* ── Vynucená architektura slidů ── */
+.slide {
+  position: absolute !important;
+  top: 0 !important; left: 0 !important;
+  width: 100% !important; height: 100% !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: opacity 0s;
+}
+.slide.active {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+.slide-wrapper, body > div:first-of-type {
+  position: relative !important;
+  overflow: hidden !important;
+}
+/* ── Navigační lišta ── */
+#_prez_nav {
+  position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
+  display: flex; align-items: center; gap: 1.2rem;
+  background: rgba(10,15,30,0.92); backdrop-filter: blur(12px);
+  border: 1px solid rgba(124,58,237,0.55); border-radius: 999px;
+  padding: 0.45rem 1.4rem; z-index: 99999;
+  font-family: system-ui, -apple-system, sans-serif;
+  user-select: none;
+}
+#_prez_nav button {
+  background: none; border: none; color: #f1f5f9; font-size: 1.05rem;
+  cursor: pointer; padding: 0.35rem 0.7rem; border-radius: 6px;
+  transition: background 0.18s;
+}
+#_prez_nav button:hover { background: rgba(124,58,237,0.38); }
+#_prez_ctr { color: #94a3b8; font-size: 0.88rem; min-width: 3.5rem; text-align: center; }
+</style>
+"""
+
+    nav_and_js = """
+<nav id="_prez_nav">
+  <button id="_prez_prev" onclick="_prezPrev()">&#8592; Zpět</button>
+  <span id="_prez_ctr">1 / ?</span>
+  <button id="_prez_next" onclick="_prezNext()">Další &#8594;</button>
+</nav>
+
+<script>
+(function(){
+  var _c = 0;
+  var _slides, _prog, _ctr, _btnP, _btnN;
+
+  function _init() {
+    _slides = document.querySelectorAll('.slide');
+    _prog   = document.getElementById('progress');
+    _ctr    = document.getElementById('_prez_ctr');
+    _btnP   = document.getElementById('_prez_prev');
+    _btnN   = document.getElementById('_prez_next');
+    _prezGo(0);
+  }
+
+  function _prezGo(n) {
+    if (!_slides || !_slides.length) return;
+    if (_slides[_c]) _slides[_c].classList.remove('active');
+    _c = Math.max(0, Math.min(n, _slides.length - 1));
+    _slides[_c].classList.add('active');
+    if (_prog) _prog.style.width = ((_c + 1) / _slides.length * 100) + '%';
+    if (_ctr)  _ctr.textContent  = (_c + 1) + ' / ' + _slides.length;
+    if (_btnP) _btnP.style.opacity = _c === 0 ? '0.35' : '1';
+    if (_btnN) _btnN.style.opacity = _c === _slides.length - 1 ? '0.35' : '1';
+    if (typeof gsap !== 'undefined') {
+      gsap.fromTo(_slides[_c],
+        { opacity: 0, y: 35 },
+        { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out' }
+      );
+    }
+  }
+
+  window._prezNext = function() { _prezGo(_c + 1); };
+  window._prezPrev = function() { _prezGo(_c - 1); };
+  window._prezGo   = _prezGo;
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === 'Enter') _prezGo(_c + 1);
+    if (e.key === 'ArrowLeft')  _prezGo(_c - 1);
+  });
+
+  if (document.readyState === 'loading') {
+    window.addEventListener('DOMContentLoaded', _init);
+  } else {
+    _init();
+  }
+})();
+</script>
+"""
+
+    if '</head>' in html:
+        html = html.replace('</head>', override_css + '</head>', 1)
+    else:
+        html = override_css + html
+
+    if '</body>' in html:
+        html = html.replace('</body>', nav_and_js + '</body>', 1)
+    else:
+        html += nav_and_js
+
+    return html
+
+
 # ─── UI ────────────────────────────────────────────────────────────────────────
 def main():
     st.set_page_config(
@@ -514,12 +634,12 @@ def main():
                                     st.session_state.user_input,
                                     st.session_state.pres_type,
                                 )
-                                html = extract_html(raw)
+                                html = fix_presentation_html(extract_html(raw))
                             else:
-                                html = _local_presentation()
+                                html = fix_presentation_html(_local_presentation())
                         except Exception as e:
                             if allow_fallback:
-                                html = _local_presentation()
+                                html = fix_presentation_html(_local_presentation())
                             else:
                                 st.error(f"Chyba: {e}")
                                 st.stop()
