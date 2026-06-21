@@ -34,7 +34,7 @@ Ukaž mu, že chápeš jeho byznys lépe než on sám.
 
 PROMPT_B = """
 Jsi elitní HTML PPT Studio Agent. Tvým úkolem je transformovat uživatelovy poznámky
-do produkčně připravené, statické HTML prezentace (index.html) s moderními GSAP animacemi.
+do produkčně připravené, statické HTML prezentace s moderními GSAP animacemi.
 
 Téma a poznámky zákazníka:
 {USER_INPUT}
@@ -42,39 +42,71 @@ Téma a poznámky zákazníka:
 Typ prezentace: {PRESENTATION_TYPE}
 Struktura pro pitch-deck: Cover → Problém → Řešení → Trakce → Trh → Byznys model → Tým → Výzva k akci
 
-═══════════════════════════════════════════
-PRAVIDLA VÝSTUPU (NESMÍŠ porušit ani jedno):
-═══════════════════════════════════════════
+═══════════════════════════════════════════════════════════
+PRAVIDLA VÝSTUPU — NESMÍŠ porušit ANI JEDNO:
+═══════════════════════════════════════════════════════════
 
-1. Vygeneruj JEDEN kompletní samostatný soubor HTML5 začínající <!DOCTYPE html>.
-   Žádné externí závislosti kromě GSAP CDN (https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js).
+1. Jeden soubor HTML5 začínající <!DOCTYPE html>.
+   Jen tyto CDN: GSAP 3.12.2 z cdnjs, Inter font z Google Fonts.
 
-2. Každý slide musí být obalen v <section class="slide">.
-   Počet slidů: 10–15.
+2. Každý slide: <section class="slide"> (BEZ inline style="display:none"!).
+   Počet slidů: 10–15. První slide NESMÍ mít class "active" v HTML — JS to nastaví.
 
-3. Design:
-   - CSS proměnné pro barvy (žádné hardcoded hex mimo :root).
-   - Téma "corporate-clean": tmavé pozadí (#0f172a), akcenty fialová/modrá.
-   - Typografie: system-ui nebo Inter z Google Fonts (jeden CDN import je OK).
-   - Plynulé přechody, zaoblené rohy, karty s glassmorphism efektem.
+3. POVINNÁ CSS ARCHITEKTURA SLIDŮ (ZKOPÍRUJ PŘESNĚ):
+   .slide-wrapper {{ position:relative; width:100vw; height:100vh; overflow:hidden; }}
+   .slide {{
+     position:absolute; top:0; left:0; width:100%; height:100%;
+     display:flex; flex-direction:column; align-items:center; justify-content:center;
+     opacity:0; pointer-events:none; padding:4rem 6rem;
+     /* BEZ display:none — viditelnost řídí POUZE opacity! */
+   }}
+   .slide.active {{ opacity:1; pointer-events:auto; }}
+   .notes {{ display:none; }}
 
-4. Animace:
-   - GSAP timeline pro každý slide (fade-in + posun od spoda/zleva).
-   - Animace se spouštějí při přepnutí na slide.
+4. POVINNÝ JAVASCRIPT SKELETON (ZKOPÍRUJ A DOPLŇ):
+   let cur = 0;
+   const slides = document.querySelectorAll('.slide');
+   const prog = document.getElementById('progress');
 
-5. Navigace:
-   - Klávesa ArrowRight / ArrowLeft → přepínání slidů.
-   - Klávesa S → zobrazí overlay s řečnickými poznámkami aktuálního slidu (Presenter Mode).
-   - Klávesa Escape → zavře Presenter Mode overlay.
-   - Progress bar dole ukazuje aktuální slide / celkový počet.
+   function show(n) {{
+     if (slides[cur]) slides[cur].classList.remove('active');
+     cur = Math.max(0, Math.min(n, slides.length - 1));
+     slides[cur].classList.add('active');
+     prog.style.width = ((cur + 1) / slides.length * 100) + '%';
+     gsap.fromTo(slides[cur],
+       {{ opacity: 0, y: 40 }},
+       {{ opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }}
+     );
+   }}
 
-6. Řečnické poznámky:
-   - Na konci každého <section class="slide"> vlož <div class="notes">.
-   - Obsah: konverzační, úderné poznámky pro prezentujícího, 150–300 slov v češtině.
-   - Poznámky NESMÍ být vidět na slidu (display:none v CSS), pouze v Presenter Mode overlaye.
+   function togglePresenter() {{ /* ... */ }}
 
-7. Vrať VÝHRADNĚ platný HTML kód. Žádný text před <!DOCTYPE> ani za </html>.
-   Veškerý obsah slidů i poznámky musí být v perfektní češtině.
+   document.addEventListener('keydown', e => {{
+     if (e.key === 'ArrowRight') show(cur + 1);
+     if (e.key === 'ArrowLeft')  show(cur - 1);
+     if (e.key === 's' || e.key === 'S') togglePresenter();
+     if (e.key === 'Escape') document.getElementById('presenter').style.display = 'none';
+   }});
+
+   window.onload = function() {{ show(0); }};  // NUTNO volat přes window.onload!
+
+5. Design:
+   - CSS :root proměnné pro barvy — žádné hardcoded hex mimo :root.
+   - Téma: tmavé pozadí (#0f172a), akcenty fialová (#7c3aed) / modrá (#3b82f6).
+   - Karty s glassmorphism (backdrop-filter:blur, border semi-transparentní).
+   - Progress bar #progress: position:fixed; bottom:0; left:0; height:4px; background:var(--accent).
+
+6. Presenter Mode overlay:
+   - <div id="presenter"> s display:none v CSS, z-index:100.
+   - Klávesa S → zobrazí poznámky aktuálního slidu.
+   - Klávesa Escape nebo klik ✕ → zavře overlay.
+
+7. Řečnické poznámky:
+   - Na konci KAŽDÉHO <section class="slide"> vlož <div class="notes">.
+   - 150–300 slov v češtině, konverzační styl.
+
+8. Vrať VÝHRADNĚ platný HTML kód. Žádný text před <!DOCTYPE> ani za </html>.
+   Vše v perfektní češtině.
 """.strip()
 
 
@@ -120,14 +152,20 @@ def _local_presentation() -> str:
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { background: var(--bg); color: var(--text); font-family: system-ui, sans-serif; overflow: hidden; }
-.slide { display: none; width: 100vw; height: 100vh; padding: 4rem 6rem;
-  align-items: center; justify-content: center; flex-direction: column; gap: 1.5rem; }
-.slide.active { display: flex; }
-h1 { font-size: clamp(2rem, 5vw, 4rem); font-weight: 700; }
+/* Pozor: slides pouzivaji position:absolute + opacity, NIKOLI display:none! */
+.slide-wrapper { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
+.slide {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 1.5rem; padding: 4rem 6rem;
+  opacity: 0; pointer-events: none;
+}
+.slide.active { opacity: 1; pointer-events: auto; }
+h1 { font-size: clamp(2rem, 5vw, 4rem); font-weight: 700; text-align: center; }
 p  { font-size: clamp(1rem, 2vw, 1.4rem); color: var(--muted); max-width: 60ch; text-align: center; }
 .notes { display: none; }
 #progress { position: fixed; bottom: 0; left: 0; height: 4px;
-  background: var(--accent); transition: width .3s; }
+  background: var(--accent); transition: width .3s; z-index: 50; }
 #presenter { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.92);
   padding: 3rem; overflow-y: auto; z-index: 100; }
 #presenter p { color: #e2e8f0; font-size: 1.2rem; line-height: 1.8; max-width: 70ch; margin: auto; }
@@ -137,20 +175,22 @@ p  { font-size: clamp(1rem, 2vw, 1.4rem); color: var(--muted); max-width: 60ch; 
 </head>
 <body>
 
-<section class="slide active">
-  <h1>Vaše prezentace</h1>
-  <p>Toto je ukázkový slide vygenerovaný bez OpenAI API klíče.<br>
-     Skutečná verze bude mít 10–15 plně animovaných slidů s vašim obsahem.</p>
-  <div class="notes">Ukázkové řečnické poznámky. Ve skutečné prezentaci zde budete mít
-  150–300 slov konverzačního textu, který vám pomůže ovládnout místnost.</div>
-</section>
+<div class="slide-wrapper">
+  <section class="slide">
+    <h1>Vaše prezentace</h1>
+    <p>Toto je ukázkový slide vygenerovaný bez OpenAI API klíče.<br>
+       Skutečná verze bude mít 10–15 plně animovaných slidů s vašim obsahem.</p>
+    <div class="notes">Ukázkové řečnické poznámky. Ve skutečné prezentaci zde budete mít
+    150–300 slov konverzačního textu, který vám pomůže ovládnout místnost.</div>
+  </section>
 
-<section class="slide">
-  <h1>Jak to funguje</h1>
-  <p>Po zadání OpenAI API klíče vygeneruje Prezentátor.ai kompletní interaktivní
-  HTML prezentaci přímo z vašich poznámek.</p>
-  <div class="notes">Druhý slide. Vysvětlete zákazníkovi, jak jednoduché to je.</div>
-</section>
+  <section class="slide">
+    <h1>Jak to funguje</h1>
+    <p>Po zadání OpenAI API klíče vygeneruje Prezentátor.ai kompletní interaktivní
+    HTML prezentaci přímo z vašich poznámek.</p>
+    <div class="notes">Druhý slide. Vysvětlete zákazníkovi, jak jednoduché to je.</div>
+  </section>
+</div>
 
 <div id="progress"></div>
 <div id="presenter"><span class="close" onclick="togglePresenter()">✕</span><p id="notesText"></p></div>
@@ -162,11 +202,14 @@ const prog = document.getElementById('progress');
 const presenter = document.getElementById('presenter');
 
 function show(n) {
-  slides[cur].classList.remove('active');
+  if (slides[cur]) slides[cur].classList.remove('active');
   cur = Math.max(0, Math.min(n, slides.length - 1));
   slides[cur].classList.add('active');
   prog.style.width = ((cur + 1) / slides.length * 100) + '%';
-  gsap.from(slides[cur], { opacity: 0, y: 30, duration: .5, ease: 'power2.out' });
+  gsap.fromTo(slides[cur],
+    { opacity: 0, y: 40 },
+    { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }
+  );
 }
 
 function togglePresenter() {
@@ -187,7 +230,7 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') presenter.style.display = 'none';
 });
 
-show(0);
+window.onload = function() { show(0); };
 </script>
 </body>
 </html>"""
@@ -257,6 +300,17 @@ def main():
     .success-box {background:#f0fdf4; border-radius:14px; padding:1.5rem 2rem;
                   border-left:5px solid #22c55e; margin:1rem 0;}
     kbd {background:#e2e8f0; border-radius:4px; padding:2px 6px; font-family:monospace;}
+    /* ── Zelené tlačítko pro stažení ── */
+    [data-testid="stDownloadButton"] button {
+        background: linear-gradient(135deg, #16a34a 0%, #22c55e 100%) !important;
+        border: none !important;
+        color: white !important;
+        font-weight: 600 !important;
+    }
+    [data-testid="stDownloadButton"] button:hover {
+        background: linear-gradient(135deg, #15803d 0%, #16a34a 100%) !important;
+        border: none !important;
+    }
     </style>
     """, unsafe_allow_html=True)
 
