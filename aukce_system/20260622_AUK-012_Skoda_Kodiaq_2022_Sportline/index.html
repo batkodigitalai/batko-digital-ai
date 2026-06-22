@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle">AUK-012 Škoda Kodiaq 2022 Sportline — BATKO.DIGITAL.AI</title>
+<meta name="description" content="Přihazujte na ověřené vozidlo z evropského trhu. Škoda Kodiaq Sportline 2022, 20 870 km, diesel automat 4x4.">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#1a1a1a}
+.header{background:linear-gradient(135deg,#0d1f3c 0%,#1a2a4a 60%,#2c4a7c 100%);color:#fff;padding:28px 36px 22px}
+.header-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:14px}
+.h-label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#f39c12;margin-bottom:8px}
+.h-title{font-size:1.75rem;font-weight:900;line-height:1.2;margin-bottom:6px}
+.h-title span{color:#f39c12}
+.h-sub{font-size:.83rem;opacity:.7;margin-bottom:4px}
+.h-spec{font-size:.75rem;opacity:.5}
+.h-right{text-align:right}
+.badge-live{background:rgba(231,76,60,.2);border:1px solid #e74c3c;color:#ff6b6b;padding:5px 14px;border-radius:20px;font-size:.72rem;font-weight:700;letter-spacing:.5px;display:inline-flex;align-items:center;gap:6px}
+.badge-live::before{content:'';width:8px;height:8px;background:#e74c3c;border-radius:50%;animation:pulse 1.2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
+.h-ref{font-size:.72rem;opacity:.45;margin-top:6px}
+.sender-bar{background:#162240;border-top:1px solid rgba(255,255,255,.1);padding:8px 36px;color:rgba(255,255,255,.65);font-size:.8rem;display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.sender-bar strong{color:#fff}
+.sender-bar a{color:#74b9ff;text-decoration:none}
+.urgency-block{background:linear-gradient(135deg,#c0392b,#e74c3c);color:#fff;padding:20px 36px;text-align:center;position:relative;overflow:hidden}
+.urgency-block::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 20px,rgba(0,0,0,.04) 20px,rgba(0,0,0,.04) 40px)}
+.urgency-inner{position:relative;z-index:1}
+.urgency-label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;opacity:.85;margin-bottom:6px}
+.urgency-headline{font-size:1.2rem;font-weight:800;margin-bottom:12px}
+.countdown{display:flex;gap:10px;justify-content:center;align-items:center;margin-bottom:8px}
+.cd-unit{background:rgba(0,0,0,.25);border-radius:8px;padding:10px 16px;min-width:65px}
+.cd-num{font-size:2rem;font-weight:900;line-height:1;font-variant-numeric:tabular-nums}
+.cd-label{font-size:.62rem;text-transform:uppercase;letter-spacing:1px;opacity:.75;margin-top:3px}
+.cd-sep{font-size:2rem;font-weight:900;opacity:.5;margin-top:-6px;animation:blink 1s step-end infinite}
+@keyframes blink{0%,100%{opacity:.5}50%{opacity:.1}}
+.urgency-ended{font-size:1.1rem;font-weight:800;background:rgba(0,0,0,.3);padding:10px 22px;border-radius:8px;display:none}
+.urgency-cancelled{background:linear-gradient(135deg,#555,#777);display:none}
+.bid-hero{background:#fff;border-bottom:3px solid #e8ecf2;padding:18px 36px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.bid-hero-left .bh-label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:#999;margin-bottom:4px}
+.bid-hero-left .bh-amount{font-size:2.4rem;font-weight:900;color:#c0392b;line-height:1;letter-spacing:-1px}
+.bid-hero-left .bh-amount .unit{font-size:1.2rem;font-weight:600;margin-left:4px}
+.bid-hero-left .bh-count{font-size:.78rem;color:#888;margin-top:4px}
+.bh-min{text-align:right}
+.bh-min .bm-label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#999;margin-bottom:4px}
+.bh-min .bm-amount{font-size:1.2rem;font-weight:800;color:#2c4a7c}
+.bh-min .bm-note{font-size:.72rem;color:#aaa;margin-top:2px}
+.no-bids-note{font-size:.82rem;color:#888;font-style:italic}
+.gallery-wrap{background:#0d1420;position:relative}
+.gallery-main{width:100%;height:400px;overflow:hidden;position:relative}
+.gallery-main img{width:100%;height:100%;object-fit:cover;display:none}
+.gallery-main img.active{display:block}
+.gallery-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.55);color:#fff;border:none;cursor:pointer;font-size:1.5rem;padding:10px 16px;border-radius:4px;z-index:10;transition:background .2s}
+.gallery-nav:hover{background:rgba(0,0,0,.8)}
+.gallery-nav.prev{left:12px}
+.gallery-nav.next{right:12px}
+.gallery-counter{position:absolute;bottom:12px;right:16px;background:rgba(0,0,0,.65);color:#fff;font-size:.75rem;padding:3px 10px;border-radius:12px;z-index:10}
+.thumbs{display:flex;gap:4px;padding:6px;overflow-x:auto;background:#0d1420}
+.thumbs img{width:78px;height:52px;object-fit:cover;cursor:pointer;border:2px solid transparent;border-radius:3px;flex-shrink:0;opacity:.65;transition:opacity .2s,border-color .2s}
+.thumbs img.active{border-color:#f39c12;opacity:1}
+.thumbs img:hover{opacity:1}
+.content{max-width:960px;margin:0 auto;padding:24px 18px}
+.bid-form-box{background:linear-gradient(135deg,#0d1f3c,#1a3461);border-radius:14px;padding:28px;margin-bottom:20px;color:#fff}
+.bfb-label{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#f39c12;margin-bottom:8px}
+.bfb-title{font-size:1.15rem;font-weight:800;margin-bottom:4px}
+.bfb-sub{font-size:.82rem;opacity:.65;margin-bottom:22px}
+.bfb-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+@media(max-width:560px){.bfb-row{grid-template-columns:1fr}}
+.bfb-row.full{grid-template-columns:1fr}
+.bfb-input{width:100%;padding:12px 14px;border:1.5px solid rgba(255,255,255,.2);border-radius:8px;font-size:.9rem;font-family:inherit;background:rgba(255,255,255,.08);color:#fff;transition:border-color .2s}
+.bfb-input::placeholder{color:rgba(255,255,255,.4)}
+.bfb-input:focus{outline:none;border-color:#f39c12}
+.bfb-amount-wrap{position:relative}
+.bfb-amount-wrap .currency{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,.5);font-weight:700;pointer-events:none}
+.bfb-amount{padding-right:42px}
+.bfb-check{display:flex;align-items:flex-start;gap:10px;font-size:.78rem;opacity:.75;margin-bottom:18px}
+.bfb-check input{margin-top:2px;flex-shrink:0;accent-color:#f39c12}
+.btn-bid{width:100%;background:linear-gradient(135deg,#e74c3c,#c0392b);color:#fff;border:none;padding:15px;border-radius:10px;font-size:1rem;font-weight:800;cursor:pointer;letter-spacing:.3px;transition:transform .15s,box-shadow .15s}
+.btn-bid:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(231,76,60,.45)}
+.btn-bid:disabled{background:#555;cursor:not-allowed;transform:none;box-shadow:none}
+.bid-privacy{font-size:.68rem;opacity:.5;text-align:center;margin-top:8px}
+.bid-success{display:none;background:rgba(39,174,96,.15);border:1px solid rgba(46,204,113,.4);border-radius:8px;padding:16px;text-align:center;color:#2ecc71;font-weight:700;font-size:.9rem;margin-top:12px}
+.bid-error{display:none;background:rgba(231,76,60,.15);border:1px solid rgba(231,76,60,.4);border-radius:8px;padding:12px;text-align:center;color:#ff6b6b;font-size:.82rem;margin-top:10px}
+.section{background:#fff;border-radius:12px;padding:22px 24px;margin-bottom:18px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.section h2{font-size:.95rem;color:#1a2a4a;font-weight:800;margin-bottom:14px;border-bottom:2px solid #e8ecf2;padding-bottom:8px;display:flex;align-items:center;gap:8px}
+.bid-history{display:flex;flex-direction:column;gap:8px}
+.bid-row{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:#f5f7fb;border-radius:8px}
+.bid-row.top{background:linear-gradient(135deg,#fff8ec,#fff3d4);border:2px solid #f39c12}
+.br-pos{font-size:.65rem;font-weight:800;color:#aaa;text-transform:uppercase;min-width:24px}
+.br-pos.gold{color:#f39c12}
+.br-name{font-size:.85rem;font-weight:700;color:#1a2a4a;flex:1;padding:0 12px}
+.br-amount{font-size:1rem;font-weight:900;color:#1a2a4a}
+.br-amount.gold{color:#e67e22}
+.br-time{font-size:.68rem;color:#aaa;margin-left:10px}
+.no-bids{font-size:.85rem;color:#aaa;text-align:center;padding:20px 0;font-style:italic}
+.specs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:560px){.specs-grid{grid-template-columns:1fr 1fr}}
+.spec-item{background:#f5f7fb;border-radius:8px;padding:11px 13px}
+.spec-item .slabel{font-size:.65rem;color:#999;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px}
+.spec-item .sval{font-size:.9rem;font-weight:700;color:#1a2a4a}
+.how-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:4px}
+@media(max-width:640px){.how-grid{grid-template-columns:1fr}}
+.how-item{background:#f5f7fb;border-radius:10px;padding:16px}
+.how-num{font-size:1.4rem;font-weight:900;color:#f39c12;margin-bottom:8px}
+.how-title{font-size:.88rem;font-weight:800;color:#1a2a4a;margin-bottom:5px}
+.how-desc{font-size:.78rem;color:#666;line-height:1.5}
+.risk-list{display:flex;flex-direction:column;gap:8px}
+.risk-item{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;background:#fff8f8;border-left:3px solid #e74c3c;border-radius:0 8px 8px 0;font-size:.83rem}
+.risk-icon{font-size:.9rem;flex-shrink:0;margin-top:1px}
+.cond-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.cond-list li{font-size:.83rem;color:#444;padding-left:22px;position:relative;line-height:1.5}
+.cond-list li::before{content:'\25B8';position:absolute;left:0;color:#2c4a7c;font-weight:700}
+.company-id-bar{background:#f5f7fb;border-top:2px solid #e0e7f0;padding:14px 36px;font-size:.73rem;color:#666}
+.company-id-bar h4{font-size:.68rem;font-weight:700;color:#8899bb;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.cid-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px 24px}
+@media(max-width:560px){.cid-grid{grid-template-columns:1fr}}
+.cid-row{display:flex;gap:6px}
+.cid-label{color:#aaa;min-width:120px;font-size:.7rem;flex-shrink:0}
+.cid-val{font-weight:600;color:#555;font-size:.7rem}
+.privacy-law-note{margin-top:8px;padding-top:8px;border-top:1px solid #e0e7f0;font-size:.7rem;line-height:1.45;color:#777}
+.footer{background:#0d1f3c;color:rgba(255,255,255,.45);text-align:center;padding:14px 20px;font-size:.73rem}
+.banner-cancelled{display:none;background:linear-gradient(135deg,#555,#777);color:#fff;padding:20px 36px;text-align:center}
+.banner-ended{display:none;background:linear-gradient(135deg,#27ae60,#1e8449);color:#fff;padding:20px 36px;text-align:center}
+.banner-title{font-size:1.2rem;font-weight:800;margin-bottom:6px}
+.banner-sub{font-size:.85rem;opacity:.8}
+.market-block{background:linear-gradient(135deg,#f0fff4,#e8f8ef);border:2px solid #a8d5b5;border-radius:12px;padding:20px 24px;margin-bottom:18px}
+.mb-title{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#1e8449;margin-bottom:12px}
+.mb-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:560px){.mb-grid{grid-template-columns:1fr 1fr}}
+.mb-item{text-align:center;background:#fff;border-radius:8px;padding:12px 8px}
+.mb-val{font-size:1.1rem;font-weight:900;color:#1a2a4a;margin-bottom:3px}
+.mb-val.green{color:#1e8449}
+.mb-val.orange{color:#e67e22}
+.mb-lbl{font-size:.65rem;color:#888;text-transform:uppercase;letter-spacing:.3px}
+.mb-note{font-size:.75rem;color:#555;margin-top:12px;line-height:1.5;text-align:center}
+.delivery-block{background:linear-gradient(135deg,#edf2fb,#e8f0fe);border:2px solid #c3d3f5;border-radius:12px;padding:18px 24px;margin-bottom:18px}
+.db-title{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#2c4a7c;margin-bottom:12px}
+.db-steps{display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:center}
+.db-step{background:#fff;border-radius:8px;padding:10px 14px;text-align:center;flex:1;min-width:100px}
+.db-step .ds-date{font-size:.88rem;font-weight:800;color:#1a2a4a}
+.db-step .ds-lbl{font-size:.65rem;color:#888;margin-top:2px}
+.db-arrow{color:#2c4a7c;font-size:1.2rem;font-weight:900;flex-shrink:0}
+.db-result{background:linear-gradient(135deg,#1a2a4a,#2c4a7c);color:#fff;border-radius:8px;padding:10px 18px;text-align:center;flex:1.5;min-width:130px}
+.db-result .dr-date{font-size:1rem;font-weight:900;color:#f39c12}
+.db-result .dr-lbl{font-size:.68rem;opacity:.75;margin-top:2px}
+.score-block{background:#fff;border-radius:12px;padding:20px 24px;margin-bottom:18px;box-shadow:0 2px 8px rgba(0,0,0,.06);display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.score-circle{position:relative;width:90px;height:90px;flex-shrink:0}
+.score-circle svg{transform:rotate(-90deg)}
+.score-circle .sc-num{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:1.5rem;font-weight:900;color:#1a2a4a;line-height:1}
+.score-circle .sc-max{font-size:.6rem;color:#aaa;font-weight:400}
+.score-info{flex:1}
+.score-info .si-label{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#888;margin-bottom:6px}
+.score-info .si-verdict{font-size:1.1rem;font-weight:800;margin-bottom:8px}
+.score-info .si-verdict.green{color:#1e8449}
+.score-info .si-verdict.orange{color:#e67e22}
+.score-info .si-verdict.red{color:#c0392b}
+.score-bars{display:flex;flex-direction:column;gap:5px;flex:1;min-width:180px}
+.sb-row{display:flex;align-items:center;gap:8px;font-size:.75rem}
+.sb-lbl{min-width:80px;color:#888}
+.sb-bar-wrap{flex:1;background:#f0f2f5;border-radius:20px;height:7px;overflow:hidden}
+.sb-bar{height:100%;border-radius:20px;background:linear-gradient(90deg,#27ae60,#2ecc71)}
+.demo-banner{background:#e67e22;color:#fff;text-align:center;padding:8px 16px;font-size:.8rem;font-weight:700;display:none}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-top">
+    <div>
+      <div class="h-label">Batko Digital AI — Aukce vozidel z EU</div>
+      <div class="h-title">Škoda <span>Kodiaq Sportline</span></div>
+      <div class="h-sub">2022 &nbsp;|&nbsp; 2.0 TDI 110 kW &nbsp;|&nbsp; DSG 4x4 &nbsp;|&nbsp; 20 870 km</div>
+      <div class="h-spec">Diesel &nbsp;·&nbsp; Automatická převodovka &nbsp;·&nbsp; SUV 5-dveřový &nbsp;·&nbsp; Černá &nbsp;·&nbsp; Německo</div>
+    </div>
+    <div class="h-right">
+      <span class="badge-live">ŽIVÁ AUKCE</span>
+      <div class="h-ref" style="margin-top:8px">Ref. AUK-012 &nbsp;/&nbsp; OPENLANE-11118370</div>
+      <div class="h-ref">Konec: <strong id="h-end">23. června 2026 ve 12:00</strong></div>
+    </div>
+  </div>
+</div>
+<div class="sender-bar">
+  <span>Zpracovatel: <strong>Ing. Jaroslav Batko-Linet</strong></span>
+  <span><a href="tel:+420725360151">+420 725 360 151</a></span>
+  <span><a href="mailto:batko.digital.ai@gmail.com">batko.digital.ai@gmail.com</a></span>
+</div>
+
+<!-- BANNERY (skrytý stav) -->
+<div class="banner-cancelled" id="bannerCancelled">
+  <div class="banner-title">⛔ Aukce byla zrušena</div>
+  <div class="banner-sub" id="bannerCancelledReason"></div>
+</div>
+<div class="banner-ended" id="bannerEnded">
+  <div class="banner-title">✅ Aukce skončila</div>
+  <div class="banner-sub">Vítěz byl kontaktován. Děkujeme za účast.</div>
+</div>
+
+<!-- DEMO BANNER -->
+<div class="demo-banner" id="demoBanner"></div>
+
+<!-- ODPOČET -->
+<div class="urgency-block" id="urgencyBlock">
+  <div class="urgency-inner">
+    <div class="urgency-label" id="urgencyLabel">Zbývá do konce aukce</div>
+    <div class="urgency-headline" id="urgencyHeadline">Přihazujte nyní — počet míst omezen</div>
+    <div class="countdown" id="countdown">
+      <div class="cd-unit"><div class="cd-num" id="cd-d">--</div><div class="cd-label">dní</div></div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit"><div class="cd-num" id="cd-h">--</div><div class="cd-label">hod</div></div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit"><div class="cd-num" id="cd-m">--</div><div class="cd-label">min</div></div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit"><div class="cd-num" id="cd-s">--</div><div class="cd-label">sek</div></div>
+    </div>
+    <div class="urgency-ended" id="urgencyEnded">Aukce skončila</div>
+  </div>
+</div>
+
+<!-- AKTUÁLNÍ PŘÍHOZ -->
+<div class="bid-hero">
+  <div class="bid-hero-left">
+    <div class="bh-label">Aktuální nejvyšší příhoz</div>
+    <div class="bh-amount" id="currentBidDisplay"><span class="no-bids-note">Zatím žádný příhoz</span></div>
+    <div class="bh-count" id="bidCountDisplay"></div>
+  </div>
+  <div class="bh-min">
+    <div class="bm-label">Minimální příhoz</div>
+    <div class="bm-amount" id="minBidDisplay">450 000 Kč</div>
+    <div class="bm-note">+ 1 000 Kč po prvním příhozu</div>
+  </div>
+</div>
+
+<!-- GALERIE -->
+<div class="gallery-wrap">
+  <div class="gallery-main" id="galleryMain">
+      <img src="img/foto_01.jpg" alt="Foto 1" class="active" loading="lazy">
+      <img src="img/foto_02.jpg" alt="Foto 2" loading="lazy">
+      <img src="img/foto_03.jpg" alt="Foto 3" loading="lazy">
+      <img src="img/foto_04.jpg" alt="Foto 4" loading="lazy">
+      <img src="img/foto_05.jpg" alt="Foto 5" loading="lazy">
+      <img src="img/foto_06.jpg" alt="Foto 6" loading="lazy">
+      <img src="img/foto_07.jpg" alt="Foto 7" loading="lazy">
+      <img src="img/foto_08.jpg" alt="Foto 8" loading="lazy">
+      <img src="img/foto_09.jpg" alt="Foto 9" loading="lazy">
+      <img src="img/foto_10.jpg" alt="Foto 10" loading="lazy">
+      <img src="img/foto_11.jpg" alt="Foto 11" loading="lazy">
+      <img src="img/foto_12.jpg" alt="Foto 12" loading="lazy">
+      <img src="img/foto_13.jpg" alt="Foto 13" loading="lazy">
+      <img src="img/foto_14.jpg" alt="Foto 14" loading="lazy">
+      <img src="img/foto_15.jpg" alt="Foto 15" loading="lazy">
+      <img src="img/foto_16.jpg" alt="Foto 16" loading="lazy">
+      <img src="img/foto_17.jpg" alt="Foto 17" loading="lazy">
+      <img src="img/foto_18.jpg" alt="Foto 18" loading="lazy">
+      <img src="img/foto_19.jpg" alt="Foto 19" loading="lazy">
+      <img src="img/foto_20.jpg" alt="Foto 20" loading="lazy">
+      <img src="img/foto_21.jpg" alt="Foto 21" loading="lazy">
+      <img src="img/foto_22.jpg" alt="Foto 22" loading="lazy">
+      <img src="img/foto_23.jpg" alt="Foto 23" loading="lazy">
+      <img src="img/foto_24.jpg" alt="Foto 24" loading="lazy">
+      <img src="img/foto_25.jpg" alt="Foto 25" loading="lazy">
+      <img src="img/foto_26.jpg" alt="Foto 26" loading="lazy">
+      <img src="img/foto_27.jpg" alt="Foto 27" loading="lazy">
+      <img src="img/foto_28.jpg" alt="Foto 28" loading="lazy">
+      <img src="img/foto_29.jpg" alt="Foto 29" loading="lazy">
+      <img src="img/foto_30.jpg" alt="Foto 30" loading="lazy">
+      <img src="img/foto_31.jpg" alt="Foto 31" loading="lazy">
+      <img src="img/foto_32.jpg" alt="Foto 32" loading="lazy">
+  </div>
+  <button class="gallery-nav prev" onclick="movePhoto(-1)">&#8249;</button>
+  <button class="gallery-nav next" onclick="movePhoto(1)">&#8250;</button>
+  <div class="gallery-counter" id="galleryCounter">1 / 32</div>
+</div>
+<div class="thumbs" id="thumbsStrip">
+      <img src="img/foto_01.jpg" alt="Foto 1" onclick="showPhoto(0)" class="active">
+      <img src="img/foto_02.jpg" alt="Foto 2" onclick="showPhoto(1)">
+      <img src="img/foto_03.jpg" alt="Foto 3" onclick="showPhoto(2)">
+      <img src="img/foto_04.jpg" alt="Foto 4" onclick="showPhoto(3)">
+      <img src="img/foto_05.jpg" alt="Foto 5" onclick="showPhoto(4)">
+      <img src="img/foto_06.jpg" alt="Foto 6" onclick="showPhoto(5)">
+      <img src="img/foto_07.jpg" alt="Foto 7" onclick="showPhoto(6)">
+      <img src="img/foto_08.jpg" alt="Foto 8" onclick="showPhoto(7)">
+      <img src="img/foto_09.jpg" alt="Foto 9" onclick="showPhoto(8)">
+      <img src="img/foto_10.jpg" alt="Foto 10" onclick="showPhoto(9)">
+      <img src="img/foto_11.jpg" alt="Foto 11" onclick="showPhoto(10)">
+      <img src="img/foto_12.jpg" alt="Foto 12" onclick="showPhoto(11)">
+      <img src="img/foto_13.jpg" alt="Foto 13" onclick="showPhoto(12)">
+      <img src="img/foto_14.jpg" alt="Foto 14" onclick="showPhoto(13)">
+      <img src="img/foto_15.jpg" alt="Foto 15" onclick="showPhoto(14)">
+      <img src="img/foto_16.jpg" alt="Foto 16" onclick="showPhoto(15)">
+      <img src="img/foto_17.jpg" alt="Foto 17" onclick="showPhoto(16)">
+      <img src="img/foto_18.jpg" alt="Foto 18" onclick="showPhoto(17)">
+      <img src="img/foto_19.jpg" alt="Foto 19" onclick="showPhoto(18)">
+      <img src="img/foto_20.jpg" alt="Foto 20" onclick="showPhoto(19)">
+      <img src="img/foto_21.jpg" alt="Foto 21" onclick="showPhoto(20)">
+      <img src="img/foto_22.jpg" alt="Foto 22" onclick="showPhoto(21)">
+      <img src="img/foto_23.jpg" alt="Foto 23" onclick="showPhoto(22)">
+      <img src="img/foto_24.jpg" alt="Foto 24" onclick="showPhoto(23)">
+      <img src="img/foto_25.jpg" alt="Foto 25" onclick="showPhoto(24)">
+      <img src="img/foto_26.jpg" alt="Foto 26" onclick="showPhoto(25)">
+      <img src="img/foto_27.jpg" alt="Foto 27" onclick="showPhoto(26)">
+      <img src="img/foto_28.jpg" alt="Foto 28" onclick="showPhoto(27)">
+      <img src="img/foto_29.jpg" alt="Foto 29" onclick="showPhoto(28)">
+      <img src="img/foto_30.jpg" alt="Foto 30" onclick="showPhoto(29)">
+      <img src="img/foto_31.jpg" alt="Foto 31" onclick="showPhoto(30)">
+      <img src="img/foto_32.jpg" alt="Foto 32" onclick="showPhoto(31)">
+</div>
+
+<div class="content">
+
+<!-- FORMULÁŘ PŘÍHOZU -->
+<div class="bid-form-box">
+  <div class="bfb-label">Přihodit na toto vozidlo</div>
+  <div class="bfb-title">Zadejte svůj příhoz</div>
+  <div class="bfb-sub">Váš příhoz je závazný. Po skončení aukce vás kontaktujeme pro domluvení podmínek.</div>
+  <form id="bidForm" autocomplete="off">
+    <input type="text" name="_hp" style="display:none" tabindex="-1" autocomplete="off">
+    <div class="bfb-row">
+      <input class="bfb-input" id="bf-name" type="text" placeholder="Jméno a příjmení *" required>
+      <input class="bfb-input" id="bf-email" type="email" placeholder="E-mail *" required>
+    </div>
+    <div class="bfb-row">
+      <input class="bfb-input" id="bf-phone" type="tel" placeholder="Telefon *" required>
+      <div class="bfb-amount-wrap">
+        <input class="bfb-input bfb-amount" id="bf-amount" type="number" placeholder="Váš příhoz v Kč *" min="450000" step="1000" required>
+        <span class="currency">Kč</span>
+      </div>
+    </div>
+    <div class="bfb-check">
+      <input type="checkbox" id="bf-agree" required>
+      <label for="bf-agree">Souhlasím s podmínkami aukce a beru na vědomí, že příhoz je závazný. Zpracovatel mě kontaktuje po skončení aukce.</label>
+    </div>
+    <button class="btn-bid" type="submit" id="btnBid">🔨 Přihodit</button>
+    <div class="bid-success" id="bidSuccess">✅ Váš příhoz byl přijat. Kontaktujeme vás po skončení aukce.</div>
+    <div class="bid-error" id="bidError"></div>
+  </form>
+  <div class="bid-privacy">Vaše osobní údaje zpracováváme pouze za účelem vyřízení aukce. Více v patičce stránky.</div>
+</div>
+
+<!-- TRŽNÍ SROVNÁNÍ -->
+<div class="market-block">
+  <div class="mb-title">📊 Orientační tržní srovnání v ČR (Sauto.cz, červen 2026)</div>
+  <div class="mb-grid">
+    <div class="mb-item">
+      <div class="mb-val">698 000 Kč</div>
+      <div class="mb-lbl">Nejnižší (121k km)</div>
+    </div>
+    <div class="mb-item">
+      <div class="mb-val orange">850 000 Kč</div>
+      <div class="mb-lbl">Střed trhu</div>
+    </div>
+    <div class="mb-item">
+      <div class="mb-val green">999 900 Kč</div>
+      <div class="mb-lbl">Nejdražší (21k km)</div>
+    </div>
+  </div>
+  <div class="mb-note">
+    Srovnávané vozy mají výrazně vyšší nájezd. Toto vozidlo má jen <strong>20 870 km</strong> — odpovídá horní části trhu.<br>
+    Ceny jsou orientační s DPH, pro platce DPH odečtěte 21 %.
+  </div>
+</div>
+
+<!-- DATUM DORUČENÍ -->
+<div class="delivery-block">
+  <div class="db-title">📦 Orientační harmonogram doručení</div>
+  <div class="db-steps">
+    <div class="db-step"><div class="ds-date">23. 6. 2026</div><div class="ds-lbl">Konec aukce</div></div>
+    <div class="db-arrow">→</div>
+    <div class="db-step"><div class="ds-date">24.–26. 6.</div><div class="ds-lbl">Domluvení podmínek</div></div>
+    <div class="db-arrow">→</div>
+    <div class="db-step"><div class="ds-date">~5–10 dní</div><div class="ds-lbl">Přeprava DE → CZ</div></div>
+    <div class="db-arrow">→</div>
+    <div class="db-result"><div class="dr-date">Cca 5.–15. 7. 2026</div><div class="dr-lbl">Odhadované převzetí</div></div>
+  </div>
+</div>
+
+<!-- SKÓRE VOZU -->
+<div class="score-block">
+  <div class="score-circle">
+    <svg width="90" height="90" viewBox="0 0 90 90">
+      <circle cx="45" cy="45" r="38" fill="none" stroke="#e8ecf2" stroke-width="8"/>
+      <circle cx="45" cy="45" r="38" fill="none" stroke="#27ae60" stroke-width="8"
+        stroke-dasharray="239" stroke-dashoffset="57" stroke-linecap="round"/>
+    </svg>
+    <div class="sc-num">76<div class="sc-max">/100</div></div>
+  </div>
+  <div class="score-info">
+    <div class="si-label">Hodnocení vozu</div>
+    <div class="si-verdict green">Dobrý stav — doporučujeme zvážit</div>
+    <div style="font-size:.78rem;color:#666;line-height:1.5">
+      Nulové škody, nízký nájezd, ověřený prodejce (skóre 4,85/5).<br>
+      Mínus: chybí servisní knížka, nebyl přiložen technický report.
+    </div>
+  </div>
+  <div class="score-bars">
+    <div class="sb-row"><span class="sb-lbl">Stav karos.</span><div class="sb-bar-wrap"><div class="sb-bar" style="width:95%"></div></div><span>95</span></div>
+    <div class="sb-row"><span class="sb-lbl">Nájezd</span><div class="sb-bar-wrap"><div class="sb-bar" style="width:98%"></div></div><span>98</span></div>
+    <div class="sb-row"><span class="sb-lbl">Prodejce</span><div class="sb-bar-wrap"><div class="sb-bar" style="width:97%"></div></div><span>97</span></div>
+    <div class="sb-row"><span class="sb-lbl">Dokumentace</span><div class="sb-bar-wrap"><div class="sb-bar" style="width:40%;background:linear-gradient(90deg,#e67e22,#f39c12)"></div></div><span>40</span></div>
+  </div>
+</div>
+
+<!-- TECHNICKÉ PARAMETRY -->
+<div class="section">
+  <h2>⚙️ Technické parametry</h2>
+  <div class="specs-grid" id="specsGrid">
+    <div class="spec-item"><div class="slabel">Rok výroby</div><div class="sval">2022 (EZ 05/2022)</div></div>
+    <div class="spec-item"><div class="slabel">Najetých km</div><div class="sval">20 870 km</div></div>
+    <div class="spec-item"><div class="slabel">Motor</div><div class="sval">2.0 TDI 110 kW (150 PS)</div></div>
+    <div class="spec-item"><div class="slabel">Převodovka</div><div class="sval">DSG automat 7st.</div></div>
+    <div class="spec-item"><div class="slabel">Palivo</div><div class="sval">Diesel / Euro 6</div></div>
+    <div class="spec-item"><div class="slabel">Pohon</div><div class="sval">4x4 (4Motion)</div></div>
+    <div class="spec-item"><div class="slabel">Barva</div><div class="sval">Černá (Brilliant Black)</div></div>
+    <div class="spec-item"><div class="slabel">Karoserie</div><div class="sval">SUV (5 dveří)</div></div>
+    <div class="spec-item"><div class="slabel">Verze</div><div class="sval">Sportline</div></div>
+    <div class="spec-item"><div class="slabel">Klíče</div><div class="sval">1 ks</div></div>
+    <div class="spec-item"><div class="slabel">Původ</div><div class="sval">Německo (DE)</div></div>
+    <div class="spec-item"><div class="slabel">Prodejce skóre</div><div class="sval">4,85 / 5 ⭐</div></div>
+  </div>
+</div>
+
+<!-- RIZIKA -->
+<div class="section">
+  <h2>⚠️ Známá rizika a omezení</h2>
+  <div class="risk-list">
+    <div class="risk-item"><span class="risk-icon">📋</span><span>Servisní knížka není k dispozici; historii údržby nelze ověřit.</span></div>
+    <div class="risk-item"><span class="risk-icon">🔍</span><span>Technický report (DEKRA/VTI) nebyl k aukci přiložen; mechanický stav nelze nezávisle potvrdit.</span></div>
+    <div class="risk-item"><span class="risk-icon">🚚</span><span>Přesná cena přepravy závisí na dohodě s dopravcem; orientačně 25 000–35 000 Kč.</span></div>
+    <div class="risk-item"><span class="risk-icon">📅</span><span>Modelový rok 2021 při registraci 05/2022; při prodeji uvést správný modelový rok.</span></div>
+  </div>
+</div>
+
+<!-- HISTORIA PŘÍHOZŮ -->
+<div class="section">
+  <h2>🏆 Historie příhozů</h2>
+  <div class="bid-history" id="bidHistory">
+    <div class="no-bids" id="noBids">Zatím žádné příhozy. Buďte první!</div>
+  </div>
+</div>
+
+<!-- JAK TO FUNGUJE -->
+<div class="section">
+  <h2>ℹ️ Jak aukce funguje</h2>
+  <div class="how-grid">
+    <div class="how-item">
+      <div class="how-num">1</div>
+      <div class="how-title">Přihoďte</div>
+      <div class="how-desc">Vyplňte formulář s vaším příhozem. Příhoz je závazný. Aukce končí 23. 6. 2026 ve 12:00.</div>
+    </div>
+    <div class="how-item">
+      <div class="how-num">2</div>
+      <div class="how-title">Vítěz vyhrál</div>
+      <div class="how-desc">Vítěze kontaktujeme do 24 hodin po skončení aukce pro domluvení podmínek a platby.</div>
+    </div>
+    <div class="how-item">
+      <div class="how-num">3</div>
+      <div class="how-title">Doručení</div>
+      <div class="how-desc">Zajistíme přepravu z Německa do ČR, přepis a přípravu vozidla k předání.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PODMÍNKY -->
+<div class="section">
+  <h2>📄 Podmínky aukce</h2>
+  <ul class="cond-list">
+    <li>Minimální příhoz je 450 000 Kč, každý další příhoz minimálně o 1 000 Kč.</li>
+    <li>Vítěz aukce uzavře s Batko Digital AI smlouvu o zprostředkování a uhradí cenu příhozu.</li>
+    <li>Ceny jsou uváděny bez DPH pro plátce DPH; pro neplátce DPH na vyžádání.</li>
+    <li>K ceně příhozu se připočítají náklady na přepravu, přepis a přípravu vozidla.</li>
+    <li>Zpracovatel si vyhrazuje právo aukci zrušit nebo prodloužit v odůvodněných případech.</li>
+    <li>Vozidlo pochází z ověřené evropské aukce; není havarované, nemá technické poškození.</li>
+  </ul>
+</div>
+
+</div><!-- /content -->
+
+<!-- PATIČKA S IDENTIFIKACÍ -->
+<div class="company-id-bar">
+  <h4>Zpracovatel a správce osobních údajů</h4>
+  <div class="cid-grid">
+    <div class="cid-row"><span class="cid-label">Název:</span><span class="cid-val">Ing. Jaroslav Batko-Linet | Batko Digital AI</span></div>
+    <div class="cid-row"><span class="cid-label">IČO:</span><span class="cid-val">14600153</span></div>
+    <div class="cid-row"><span class="cid-label">DIČ:</span><span class="cid-val">CZ5912280418</span></div>
+    <div class="cid-row"><span class="cid-label">DPH:</span><span class="cid-val">Plátce DPH</span></div>
+    <div class="cid-row"><span class="cid-label">E-mail:</span><span class="cid-val">batko.digital.ai@gmail.com</span></div>
+    <div class="cid-row"><span class="cid-label">Telefon:</span><span class="cid-val">+420 725 360 151</span></div>
+  </div>
+  <div class="privacy-law-note">
+    Odesláním příhozu souhlasíte se zpracováním osobních údajů (jméno, e-mail, telefon) za účelem vyřízení aukce
+    a následné komunikace. Údaje nepředáváme třetím stranám. Správce: Ing. Jaroslav Batko-Linet, IČO 14600153.
+    Tato stránka slouží jako zprostředkovatelská nabídka vozidla z evropského aukčního trhu; nejde o dealerský prodej.
+  </div>
+</div>
+<div class="footer">© 2026 Batko Digital AI | IČO 14600153 | batko.digital.ai@gmail.com | AUK-012</div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script>
+'use strict';
+
+var AUCTION_CONFIG = {
+  auctionId:    "AUK-012",
+  carId:        "5885897",
+  openlaneId:   "11118370",
+  make:         "Skoda",
+  model:        "Kodiaq Sportline",
+  year:         2022,
+  engine:       "2.0 TDI 110 kW",
+  transmission: "DSG automat 7st.",
+  km:           20870,
+  color:        "Brilliant Black",
+  startPrice:   450000,
+  minIncrement: 1000,
+  endTime:      "2026-06-23T12:00:00",
+  auctionRef:   "OPENLANE-11118370",
+  depositNote:  "10 000 Kc",
+  commissionNote: "8 000-12 000 Kc",
+  detailPageUrl: "",
+  photos: [
+    "img/foto_01.jpg",
+    "img/foto_02.jpg",
+    "img/foto_03.jpg",
+    "img/foto_04.jpg",
+    "img/foto_05.jpg",
+    "img/foto_06.jpg",
+    "img/foto_07.jpg",
+    "img/foto_08.jpg",
+    "img/foto_09.jpg",
+    "img/foto_10.jpg",
+    "img/foto_11.jpg",
+    "img/foto_12.jpg",
+    "img/foto_13.jpg",
+    "img/foto_14.jpg",
+    "img/foto_15.jpg",
+    "img/foto_16.jpg",
+    "img/foto_17.jpg",
+    "img/foto_18.jpg",
+    "img/foto_19.jpg",
+    "img/foto_20.jpg",
+    "img/foto_21.jpg",
+    "img/foto_22.jpg",
+    "img/foto_23.jpg",
+    "img/foto_24.jpg",
+    "img/foto_25.jpg",
+    "img/foto_26.jpg",
+    "img/foto_27.jpg",
+    "img/foto_28.jpg",
+    "img/foto_29.jpg",
+    "img/foto_30.jpg",
+    "img/foto_31.jpg",
+    "img/foto_32.jpg"
+  ],
+  risks: [
+    "Servisni knizka neni k dispozici; historii udrzby nelze overit.",
+    "Technicky report (DEKRA/VTI) nebyl k aukci prilozen; mechanicky stav nelze nezavisle potvrdit.",
+    "Presna cena prepravy zavisi na dohode s dopravcem; orientacne 25 000-35 000 Kc.",
+    "Modelovy rok 2021 pri registraci 05/2022; pri prodeji uvest spravny modelovy rok."
+  ],
+  specs: {
+    "Rok vyroby":    "2022 (EZ 05/2022)",
+    "Najetych km":   "20 870 km",
+    "Motor":         "2.0 TDI 110 kW (150 PS)",
+    "Prevodovka":    "DSG automat 7st.",
+    "Palivo":        "Diesel / Euro 6",
+    "Barva":         "Cerna (Brilliant Black)",
+    "Karoserie":     "SUV (5 dveri)",
+    "Pohon":         "4x4 (4Motion)",
+    "Verze":         "Sportline",
+    "Kloce":         "1 ks",
+    "Puvod":         "Nemecko (DE)",
+    "Prodejce":      "4.85 / 5"
+  },
+  roi: {
+    vatPayerMode:        true,
+    vatRate:             0.21,
+    marketPriceCZ:       999900,
+    marketPriceNetCZ:    850000,
+    extrasLabel:         "Doprava + prepis + priprava + servis bez DPH",
+    extrasAmount:        52500,
+    processingCostLabel: "Zpracovani / provize bez DPH",
+    processingCostAmount: 10000,
+    deliveryDaysMin:     20,
+    deliveryDaysMax:     35,
+    carScore:            76,
+    scoreLabel:          "Dobry stav",
+    commissionMin:       8000,
+    commissionMax:       12000,
+    b2bMarketLow:        702000,
+    b2bSaleTarget:       850000,
+    b2bDaysSale:         30
+  },
+  sheetUrl: "https://script.google.com/macros/s/AKfycbwc8VkTrE9l2o3Ua3jGI_VPFSGAVCtyXgEajz3JAaHFwq82z_WN9hpf2pPpUz1iu1yqrA/exec",
+  firebase: {
+    apiKey:            "AIzaSyCpJJSTGwKr1QFaCrxhfJjjpT2uqT0t6lM",
+    authDomain:        "batko-aukce.firebaseapp.com",
+    databaseURL:       "https://batko-aukce-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId:         "batko-aukce",
+    storageBucket:     "batko-aukce.appspot.com",
+    messagingSenderId: "966965441524",
+    appId:             "1:966965441524:web:xxxxxxxxxxxxxxxxxxxxxxxx"
+  }
+};
+
+// ── Galerie ──────────────────────────────────────────────────────────────────
+var currentPhoto = 0;
+var photos = AUCTION_CONFIG.photos;
+
+function showPhoto(idx) {
+  if (idx < 0) idx = photos.length - 1;
+  if (idx >= photos.length) idx = 0;
+  currentPhoto = idx;
+  var mains = document.querySelectorAll('#galleryMain img');
+  var thumbs = document.querySelectorAll('#thumbsStrip img');
+  mains.forEach(function(img, i) { img.classList.toggle('active', i === idx); });
+  thumbs.forEach(function(img, i) {
+    img.classList.toggle('active', i === idx);
+    if (i === idx) { img.scrollIntoView({behavior:'smooth',block:'nearest',inline:'nearest'}); }
+  });
+  var ctr = document.getElementById('galleryCounter');
+  if (ctr) ctr.textContent = (idx + 1) + ' / ' + photos.length;
+}
+
+function movePhoto(dir) { showPhoto(currentPhoto + dir); }
+
+// ── Formátování ───────────────────────────────────────────────────────────────
+function fKc(n) {
+  return (Math.round(n)).toLocaleString('cs') + ' Kc';
+}
+
+// ── Aukce stav ────────────────────────────────────────────────────────────────
+var auctionStatus = 'active';
+var currentTopBid = 0;
+
+function renderBids(bids) {
+  if (!Array.isArray(bids) || bids.length === 0) {
+    var nb = document.getElementById('noBids');
+    var bh = document.getElementById('bidHistory');
+    if (nb) nb.style.display = '';
+    if (bh) bh.innerHTML = '<div class="no-bids" id="noBids">Zatim zadne prihozy. Budte prvni!</div>';
+    var ca = document.getElementById('currentBidDisplay');
+    if (ca) ca.innerHTML = '<span class="no-bids-note">Zatim zadny prihhoz</span>';
+    var bc = document.getElementById('bidCountDisplay');
+    if (bc) bc.textContent = '';
+    currentTopBid = 0;
+    var mb = document.getElementById('minBidDisplay');
+    if (mb) mb.textContent = fKc(AUCTION_CONFIG.startPrice);
+    var bfa = document.getElementById('bf-amount');
+    if (bfa) { bfa.min = AUCTION_CONFIG.startPrice; bfa.placeholder = 'Min. ' + fKc(AUCTION_CONFIG.startPrice); }
+    return;
+  }
+  bids.sort(function(a,b){return b.amount - a.amount;});
+  currentTopBid = bids[0].amount;
+  var ca = document.getElementById('currentBidDisplay');
+  if (ca) ca.innerHTML = fKc(currentTopBid).replace(' Kc','') + ' <span class="unit">Kc</span>';
+  var bc = document.getElementById('bidCountDisplay');
+  if (bc) bc.textContent = bids.length + ' prihhoz' + (bids.length === 1 ? '' : bids.length < 5 ? 'y' : 'u');
+  var nextMin = currentTopBid + AUCTION_CONFIG.minIncrement;
+  var mb = document.getElementById('minBidDisplay');
+  if (mb) mb.textContent = fKc(nextMin);
+  var bfa = document.getElementById('bf-amount');
+  if (bfa) { bfa.min = nextMin; bfa.value = nextMin; }
+  var nb = document.getElementById('noBids');
+  if (nb) nb.style.display = 'none';
+  var bh = document.getElementById('bidHistory');
+  if (bh) {
+    bh.innerHTML = bids.slice(0,10).map(function(b,i) {
+      var ts = b.timestamp ? new Date(b.timestamp).toLocaleString('cs',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}) : '';
+      var cls = i === 0 ? ' top' : '';
+      var pcls = i === 0 ? ' gold' : '';
+      return '<div class="bid-row' + cls + '">' +
+        '<span class="br-pos' + pcls + '">' + (i === 0 ? '🥇' : '#' + (i+1)) + '</span>' +
+        '<span class="br-name">' + (b.name || 'Anonymni') + '</span>' +
+        '<span class="br-amount' + pcls + '">' + fKc(b.amount) + '</span>' +
+        '<span class="br-time">' + ts + '</span></div>';
+    }).join('');
+  }
+}
+
+function applyStatus(st, reason) {
+  auctionStatus = st;
+  var ub = document.getElementById('urgencyBlock');
+  var bc = document.getElementById('bannerCancelled');
+  var be = document.getElementById('bannerEnded');
+  if (st === 'cancelled') {
+    if (ub) ub.style.display = 'none';
+    if (bc) { bc.style.display = ''; var r = document.getElementById('bannerCancelledReason'); if(r) r.textContent = reason || ''; }
+    lockForm();
+  } else if (st === 'ended') {
+    if (ub) ub.style.display = 'none';
+    if (be) be.style.display = '';
+    lockForm();
+  }
+}
+
+function lockForm() {
+  var btn = document.getElementById('btnBid');
+  if (btn) { btn.disabled = true; btn.textContent = 'Aukce skoncila'; }
+}
+function unlockForm() {
+  var btn = document.getElementById('btnBid');
+  if (btn) { btn.disabled = false; btn.textContent = 'Prihodit'; }
+}
+
+// ── Countdown ─────────────────────────────────────────────────────────────────
+function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+function updateCountdown() {
+  var end = new Date(AUCTION_CONFIG.endTime).getTime();
+  var now = Date.now();
+  var diff = end - now;
+  if (diff <= 0) {
+    var cd = document.getElementById('countdown');
+    var uh = document.getElementById('urgencyHeadline');
+    var ul = document.getElementById('urgencyLabel');
+    var ue = document.getElementById('urgencyEnded');
+    if (cd) cd.style.display = 'none';
+    if (uh) uh.style.display = 'none';
+    if (ul) ul.style.display = 'none';
+    if (ue) ue.style.display = '';
+    if (auctionStatus === 'active') { auctionStatus = 'ended'; lockForm(); }
+    return;
+  }
+  var d = Math.floor(diff / 86400000);
+  var h = Math.floor((diff % 86400000) / 3600000);
+  var m = Math.floor((diff % 3600000) / 60000);
+  var s = Math.floor((diff % 60000) / 1000);
+  var cdn = document.getElementById('cd-d'); if(cdn) cdn.textContent = pad(d);
+  var cdh = document.getElementById('cd-h'); if(cdh) cdh.textContent = pad(h);
+  var cdm = document.getElementById('cd-m'); if(cdm) cdm.textContent = pad(m);
+  var cds = document.getElementById('cd-s'); if(cds) cds.textContent = pad(s);
+  var uh = document.getElementById('urgencyHeadline');
+  if (uh) {
+    if (d === 0 && h === 0) uh.textContent = 'Aukce konci za ' + m + ' min ' + s + ' sek!';
+    else if (d === 0) uh.textContent = 'Dnes ve ' + pad(new Date(AUCTION_CONFIG.endTime).getHours()) + ':' + pad(new Date(AUCTION_CONFIG.endTime).getMinutes()) + ' aukce konci!';
+    else uh.textContent = 'Prihazte ted - aukce konci za ' + d + ' den' + (d===1?'':'y');
+  }
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// ── Bidder contact prefill ────────────────────────────────────────────────────
+var BIDDER_KEY = 'batko_bidder_contact_' + AUCTION_CONFIG.auctionId;
+function saveBidderContact(n,e,p) {
+  try { localStorage.setItem(BIDDER_KEY, JSON.stringify({name:n,email:e,phone:p})); } catch(x){}
+}
+function prefillBidderContact() {
+  try {
+    var d = JSON.parse(localStorage.getItem(BIDDER_KEY)||'{}');
+    var fn = document.getElementById('bf-name'); if(fn&&d.name) fn.value=d.name;
+    var fe = document.getElementById('bf-email'); if(fe&&d.email) fe.value=d.email;
+    var fp = document.getElementById('bf-phone'); if(fp&&d.phone) fp.value=d.phone;
+  } catch(x){}
+}
+prefillBidderContact();
+
+// ── Firebase nebo Demo ────────────────────────────────────────────────────────
+var IS_DEMO = AUCTION_CONFIG.firebase.apiKey.startsWith('VLOZ') || AUCTION_CONFIG.firebase.apiKey === '';
+
+if (IS_DEMO) {
+  var demoBanner = document.getElementById('demoBanner');
+  if (demoBanner) { demoBanner.style.display=''; demoBanner.textContent='DEMO REZIM - data se ukladaji lokalne.'; }
+  var KEY_BIDS   = 'batko_bids_' + AUCTION_CONFIG.auctionId;
+  var KEY_STATUS = 'batko_status_' + AUCTION_CONFIG.auctionId;
+  var KEY_CANCEL = 'batko_cancel_' + AUCTION_CONFIG.auctionId;
+  function lsGetBids()   { try { return JSON.parse(localStorage.getItem(KEY_BIDS) || '[]'); } catch(e) { return []; } }
+  function lsSaveBid(b)  { var arr=lsGetBids(); arr.push(b); localStorage.setItem(KEY_BIDS, JSON.stringify(arr)); }
+  function lsGetStatus() { return localStorage.getItem(KEY_STATUS) || 'active'; }
+  function pollDemo() {
+    renderBids(lsGetBids());
+    var st = lsGetStatus();
+    if (st !== 'active') applyStatus(st, localStorage.getItem(KEY_CANCEL) || '');
+  }
+  pollDemo();
+  setInterval(pollDemo, 2000);
+  document.getElementById('bidForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (this._hp && this._hp.value) return;
+    var name=document.getElementById('bf-name').value.trim();
+    var email=document.getElementById('bf-email').value.trim();
+    var phone=document.getElementById('bf-phone').value.trim();
+    var rawAmt=(document.getElementById('bf-amount').value||'').replace(/\s/g,'').replace(/[^0-9]/g,'');
+    var amount=parseInt(rawAmt,10);
+    var minReq=currentTopBid>0?currentTopBid+AUCTION_CONFIG.minIncrement:AUCTION_CONFIG.startPrice;
+    var errEl=document.getElementById('bidError');
+    if(!amount||isNaN(amount)){errEl.textContent='Zadejte platnou ciselnou castku.';errEl.style.display='block';return;}
+    if(amount<minReq){errEl.textContent='Prihhoz musi byt minimalne '+fKc(minReq)+'.';errEl.style.display='block';return;}
+    if(lsGetStatus()!=='active'||Date.now()>new Date(AUCTION_CONFIG.endTime).getTime()){errEl.textContent='Aukce jiz neni aktivni.';errEl.style.display='block';return;}
+    errEl.style.display='none';
+    var btn=document.getElementById('btnBid');
+    btn.disabled=true; btn.textContent='Odesilam…';
+    lsSaveBid({name:name,email:email,phone:phone,amount:amount,timestamp:Date.now()});
+    saveBidderContact(name,email,phone);
+    if(AUCTION_CONFIG.sheetUrl&&!AUCTION_CONFIG.sheetUrl.includes('TVOJE_ID')){
+      fetch(AUCTION_CONFIG.sheetUrl,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},
+        body:JSON.stringify({formType:'aukce_bid',source:'Aukce AUK-012',
+          jmeno:name,email:email,telefon:phone,nabidka_kc:amount,
+          auto:'2022 Skoda Kodiaq Sportline',carId:AUCTION_CONFIG.carId,
+          auctionId:AUCTION_CONFIG.auctionId,datum:new Date().toISOString()})
+      }).catch(function(){});
+    }
+    document.getElementById('bidSuccess').style.display='block';
+    this.reset(); prefillBidderContact();
+    btn.textContent='Prihhoz prijat';
+    setTimeout(function(){btn.disabled=false;btn.textContent='Prihodit znovu';},3000);
+  });
+} else {
+  try {
+    firebase.initializeApp(AUCTION_CONFIG.firebase);
+    var db=firebase.database();
+    var auctionRef=db.ref('auctions/'+AUCTION_CONFIG.auctionId);
+    auctionRef.once('value',function(snap){
+      var d=snap.val();
+      if(d){
+        if(d.endTime){
+          AUCTION_CONFIG.endTime=d.endTime;
+          if(new Date(d.endTime).getTime()>Date.now()){
+            var cd=document.getElementById('countdown');
+            var uh=document.getElementById('urgencyHeadline');
+            var ul=document.getElementById('urgencyLabel');
+            var ue=document.getElementById('urgencyEnded');
+            if(cd)cd.style.display=''; if(uh)uh.style.display=''; if(ul)ul.style.display=''; if(ue)ue.style.display='none';
+            if(auctionStatus==='ended'){auctionStatus='active';unlockForm();}
+          }
+          updateCountdown();
+        }
+        if(d.startPrice) AUCTION_CONFIG.startPrice=d.startPrice;
+        if(d.minIncrement) AUCTION_CONFIG.minIncrement=d.minIncrement;
+        var endEl=document.getElementById('h-end');
+        if(endEl&&d.endTime){
+          var ed=new Date(d.endTime);
+          endEl.textContent=ed.toLocaleDateString('cs',{day:'numeric',month:'long',year:'numeric'})+' '+ed.toLocaleTimeString('cs',{hour:'2-digit',minute:'2-digit'});
+        }
+      }
+    });
+    auctionRef.child('status').on('value',function(snap){
+      var st=snap.val()||'active';
+      if(st!=='active'){auctionRef.child('cancelReason').once('value',function(cr){applyStatus(st,cr.val()||'');});}
+    });
+    var REST_BASE='https://batko-aukce-default-rtdb.europe-west1.firebasedatabase.app';
+    function restPoll(){
+      fetch(REST_BASE+'/auctions/'+AUCTION_CONFIG.auctionId+'/bids.json?_='+Date.now())
+        .then(function(r){return r.json();}).then(function(data){
+          if(!data)return;
+          renderBids(Object.values(data));
+        }).catch(function(){});
+      fetch(REST_BASE+'/auctions/'+AUCTION_CONFIG.auctionId+'/status.json?_='+Date.now())
+        .then(function(r){return r.json();}).then(function(st){
+          if(st&&st!=='active'){
+            fetch(REST_BASE+'/auctions/'+AUCTION_CONFIG.auctionId+'/cancelReason.json?_='+Date.now())
+              .then(function(r){return r.json();}).then(function(cr){applyStatus(st,cr||'');}).catch(function(){});
+          }
+        }).catch(function(){});
+    }
+    restPoll(); setInterval(restPoll,8000);
+    document.getElementById('bidForm').addEventListener('submit',function(e){
+      e.preventDefault();
+      if(this._hp&&this._hp.value)return;
+      var name=document.getElementById('bf-name').value.trim();
+      var email=document.getElementById('bf-email').value.trim();
+      var phone=document.getElementById('bf-phone').value.trim();
+      var rawAmt=(document.getElementById('bf-amount').value||'').replace(/\s/g,'').replace(/[^0-9]/g,'');
+      var amount=parseInt(rawAmt,10);
+      var minReq=currentTopBid>0?currentTopBid+AUCTION_CONFIG.minIncrement:AUCTION_CONFIG.startPrice;
+      var errEl=document.getElementById('bidError');
+      if(!amount||isNaN(amount)){errEl.textContent='Zadejte platnou ciselnou castku.';errEl.style.display='block';return;}
+      if(amount<minReq){errEl.textContent='Prihhoz musi byt minimalne '+fKc(minReq)+'.';errEl.style.display='block';return;}
+      if(auctionStatus!=='active'||Date.now()>new Date(AUCTION_CONFIG.endTime).getTime()){errEl.textContent='Aukce jiz neni aktivni.';errEl.style.display='block';return;}
+      errEl.style.display='none';
+      var btn=document.getElementById('btnBid');
+      btn.disabled=true;btn.textContent='Odesilam…';
+      var bidData={name:name,email:email,phone:phone,amount:amount,timestamp:Date.now(),
+        carId:AUCTION_CONFIG.carId,auctionId:AUCTION_CONFIG.auctionId,
+        car:'2022 Skoda Kodiaq Sportline'};
+      auctionRef.child('bids').push(bidData).then(function(){
+        fetch(AUCTION_CONFIG.sheetUrl,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},
+          body:JSON.stringify({formType:'aukce_bid',source:'Aukce AUK-012',
+            jmeno:name,email:email,telefon:phone,nabidka_kc:amount,
+            auto:'2022 Skoda Kodiaq Sportline',carId:AUCTION_CONFIG.carId,
+            auctionId:AUCTION_CONFIG.auctionId,datum:new Date().toISOString()})
+        }).catch(function(){});
+        saveBidderContact(name,email,phone);
+        document.getElementById('bidSuccess').style.display='block';
+        e.target.reset();prefillBidderContact();
+        btn.textContent='Prihhoz prijat';
+        setTimeout(function(){btn.disabled=false;btn.textContent='Prihodit znovu';},3000);
+      }).catch(function(err){
+        errEl.textContent='Prihhoz se nepodarilo odeslat. Zkuste znovu nebo napiste e-mailem.';
+        errEl.style.display='block';btn.disabled=false;btn.textContent='Prihodit';
+      });
+    });
+  } catch(firebaseErr) {
+    console.error('Firebase chyba:',firebaseErr);
+    var errEl=document.getElementById('bidError');
+    if(errEl){errEl.textContent='Chyba pripojeni k databazi. Kontaktujte zpracovatele.';errEl.style.display='block';}
+  }
+}
+</script>
+</body>
+</html>
