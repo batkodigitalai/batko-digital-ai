@@ -525,6 +525,54 @@ def main():
                 st.session_state.pop(k, None)
             st.rerun()
 
+    render_footer()
+
+
+# ─── FOOTER ────────────────────────────────────────────────────────────────────
+def render_footer():
+    st.markdown("---")
+    st.markdown(
+        """
+<div style="font-size:0.78rem; color:#666; text-align:center; line-height:1.8; padding:1rem 0 0.5rem 0;">
+
+**Provozovatel služby (§ 1826 odst. 1 NOZ):**<br>
+Jaroslav Batko — Batko Digital AI &nbsp;|&nbsp; IČO: neuvedeno &nbsp;|&nbsp;
+📩 <a href="mailto:batko.digital.ai@gmail.com" style="color:#1a4a8a;">batko.digital.ai@gmail.com</a>
+
+<br>
+
+**Ochrana osobních údajů (GDPR):**<br>
+Tato aplikace nezpracovává ani neukládá žádné osobní údaje uživatelů.
+Vložený text (popis využití AI) je použit výhradně pro jednorázové vygenerování reportu
+a není nikde trvale ukládán ani sdílen s třetími stranami.
+Zpracování probíhá přes OpenAI API (datové centrum EU) v souladu s GDPR.
+
+<br>
+
+**Obchodní podmínky:**<br>
+Zakoupením reportu souhlasíte s tím, že výstup má informační a konzultační charakter
+a nepředstavuje právní poradenství ve smyslu zákona č. 85/1996 Sb.
+Právo na odstoupení od smlouvy ve lhůtě 14 dnů (§ 1829 NOZ) uplatněte e-mailem na
+<a href="mailto:batko.digital.ai@gmail.com" style="color:#1a4a8a;">batko.digital.ai@gmail.com</a>.
+Spory se řeší před příslušnými soudy ČR; mimosoudně lze využít
+<a href="https://www.coi.cz" target="_blank" style="color:#1a4a8a;">ČOI (www.coi.cz)</a>.
+
+<br>
+
+**Právní upozornění:**<br>
+Report je generován pomocí umělé inteligence a slouží jako orientační podklad.
+Nepředstavuje právní, daňové ani jiné odborné poradenství.
+Doporučujeme ověřit závěry s kvalifikovaným odborníkem.
+
+<br>
+
+© {year} Batko Digital AI &nbsp;|&nbsp; Všechna práva vyhrazena
+
+</div>
+""".format(year=datetime.now().year),
+        unsafe_allow_html=True,
+    )
+
 
 if __name__ == "__main__":
     main()
