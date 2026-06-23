@@ -4,14 +4,95 @@ import json
 from datetime import datetime
 
 # ─── CONFIG ────────────────────────────────────────────────────────────────────
-APP_TITLE = "AI Compliance Audit"
-DEFAULT_ACCESS_CODE = ""
-DEFAULT_PAYMENT_LINK = "https://buy.stripe.com/YOUR_LINK_HERE"
-DEFAULT_OPENAI_MODEL = "gpt-4.1-mini"
+APP_TITLE    = "AI Compliance Audit"
+APP_LABEL    = "BEZPLATNÝ AI AUDIT"
+APP_SUBTITLE = "Zjistěte za 30 sekund, zda je vaše firma v bezpečí před AI regulacemi."
+
+DEFAULT_ACCESS_CODE        = ""
+DEFAULT_PAYMENT_LINK       = "https://buy.stripe.com/YOUR_LINK_HERE"
+DEFAULT_OPENAI_MODEL       = "gpt-4.1-mini"
 DEFAULT_ALLOW_LOCAL_FALLBACK = "true"
-DEFAULT_PRICE_TEXT = "1 490 Kč vč. DPH"
-DEFAULT_UPSELL_PRICE = "49 000 Kč"
-UPSELL_EMAIL = "batko.digital.ai@gmail.com"
+DEFAULT_PRICE_TEXT         = "1 490 Kč vč. DPH"
+DEFAULT_UPSELL_PRICE       = "49 000 Kč"
+
+COMPANY_NAME    = "BATKO.DIGITAL.AI"
+COMPANY_PERSON  = "Ing. Jaroslav Batko"
+COMPANY_ICO     = "14600153"
+COMPANY_DIC     = "CZ5912280418"
+COMPANY_ADDRESS = "Lískovec 170, 273 51 Velké Přítočno"
+COMPANY_PHONE   = "+420 725 360 151"
+COMPANY_EMAIL   = "batko.digital.ai@gmail.com"
+UPSELL_EMAIL    = COMPANY_EMAIL
+
+# ─── CSS ───────────────────────────────────────────────────────────────────────
+CSS = """
+<style>
+html, body, .stApp,
+[data-testid="stAppViewContainer"],
+[data-testid="stMain"] {
+    background: #f7f5f0 !important;
+    color: #13231b !important;
+}
+[data-testid="stHeader"]     { background: #f7f5f0 !important; border-bottom: none !important; }
+[data-testid="stDecoration"] { display: none !important; }
+[data-testid="stSidebar"]    { display: none !important; }
+
+button[kind="primary"],
+.stButton > button[kind="primary"],
+.stFormSubmitButton > button[kind="primary"],
+.stDownloadButton > button[kind="primary"] {
+    background: #13231b !important;
+    color: #f7f5f0 !important;
+    border: none !important;
+    border-radius: 8px !important;
+    font-weight: 700 !important;
+    padding: .55rem 1.4rem !important;
+}
+button[kind="primary"]:hover { background: #1e3829 !important; }
+
+.stButton > button[kind="secondary"] {
+    background: transparent !important;
+    color: #13231b !important;
+    border: 1.5px solid #13231b !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+}
+
+[data-testid="stMetricValue"] {
+    color: #B6452C !important;
+    font-weight: 800 !important;
+    font-size: 1.9rem !important;
+}
+[data-testid="stMetricLabel"] { color: #6b7280 !important; font-size: .87rem !important; }
+
+.stTextArea textarea {
+    background: #faf8f4 !important;
+    border: 1.5px solid #d6cfc0 !important;
+    border-radius: 8px !important;
+    color: #13231b !important;
+}
+
+[data-testid="stExpander"] {
+    background: #ffffff !important;
+    border: 1.5px solid #e8e0d0 !important;
+    border-radius: 10px !important;
+    margin-bottom: .5rem !important;
+}
+[data-testid="stExpander"] summary { color: #13231b !important; font-weight: 600 !important; }
+
+hr { border-color: #e8e0d0 !important; }
+
+@media (max-width: 640px) {
+    [data-testid="stHorizontalBlock"] { flex-direction: column !important; }
+}
+</style>
+"""
+
+DEMO_DESCRIPTION = (
+    "Používáme ChatGPT pro psaní emailů klientům a generování textů na web. "
+    "Zaměstnanci vkládají do chatbotu interní data o zákaznících a cenové nabídky. "
+    "Nemáme žádnou interní AI politiku ani školení zaměstnanců."
+)
 
 
 def get_config(name, default=None):
@@ -303,37 +384,51 @@ def generate_checklist_html() -> str:
 
 # ─── UI ────────────────────────────────────────────────────────────────────────
 def render_header():
-    st.markdown("""
-    <div style="background:linear-gradient(135deg,#0a2850,#1a4a8a);padding:2rem 2.5rem;border-radius:12px;margin-bottom:1.5rem;text-align:center;">
-      <h1 style="color:white;margin:0;font-size:2rem;">🔒 AI Compliance Audit</h1>
-      <p style="color:#a0c4ff;margin:0.5rem 0 0 0;font-size:1rem;">
-        Zjistěte za 30 sekund, zda je vaše firma v bezpečí před AI regulacemi
-      </p>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown(
+        f"<div style='font-size:.82rem;font-weight:700;color:#B6452C;"
+        f"text-transform:uppercase;letter-spacing:.08em;margin-bottom:.4rem'>"
+        f"{APP_LABEL}</div>",
+        unsafe_allow_html=True,
+    )
+    st.title("🔒 " + APP_TITLE)
+    st.caption(APP_SUBTITLE)
+
+
+def load_demo() -> None:
+    st.session_state.description = DEMO_DESCRIPTION
+    st.session_state.step = "generating_teaser"
+    st.session_state.demo = True
 
 
 def render_input():
-    st.markdown("### 📝 Popište, jak ve firmě používáte AI")
-    st.markdown(
-        "*Napr.: 'Piseme s ChatGPT emaily klientum a generujeme texty na web.' "
-        "nebo 'Automaticky zpracovavame faktury pres AI.'*"
-    )
     desc = st.text_area(
-        "Váš popis:",
-        placeholder="Napište 2–4 věty o tom, jak vaše firma využívá AI nástroje...",
+        "Popište, jak vaše firma využívá AI:",
+        placeholder="Napište 2–4 věty — např. 'Píšeme s ChatGPT emaily klientům a generujeme texty na web. Zaměstnanci vkládají interní data…'",
         height=150,
         key="desc_input",
     )
-    col1, col2, col3 = st.columns([1, 2, 1])
-    with col2:
-        if st.button("🔍 Analyzovat moje AI rizika", type="primary", use_container_width=True):
-            if not desc or len(desc.strip()) < 20:
-                st.warning("Prosím, popište využití AI alespoň v 1–2 větách.")
-            else:
-                st.session_state.description = desc.strip()
-                st.session_state.step = "generating_teaser"
-                st.rerun()
+    if st.button("🔍 Analyzovat moje AI rizika", type="primary", use_container_width=True):
+        if not desc or len(desc.strip()) < 20:
+            st.warning("Prosím, popište využití AI alespoň v 1–2 větách.")
+        else:
+            st.session_state.description = desc.strip()
+            st.session_state.step = "generating_teaser"
+            st.rerun()
+
+    # ── Upoutávky ──────────────────────────────────────────────────────────────
+    st.divider()
+    c1, c2, c3 = st.columns(3)
+    c1.metric("Čas do výsledku", "< 30 s")
+    c2.metric("Stran v reportu", "5–8")
+    c3.metric("Hodnota v agentuře", "5–15 tis. Kč")
+
+    # ── Demo sekce ─────────────────────────────────────────────────────────────
+    st.divider()
+    st.markdown("### Nevíte, co od auditu čekat?")
+    st.caption("Prohlédněte si ukázku na fiktivní firmě — zdarma, bez registrace.")
+    if st.button("Zobrazit demo zdarma", use_container_width=True, key="btn_demo"):
+        load_demo()
+        st.rerun()
 
 
 def render_teaser(t: dict):
@@ -482,6 +577,7 @@ def render_report(report_text: str, description: str, risk_score: int):
 # ─── MAIN ──────────────────────────────────────────────────────────────────────
 def main():
     st.set_page_config(page_title=APP_TITLE, page_icon="🔒", layout="centered")
+    st.markdown(CSS, unsafe_allow_html=True)
     render_header()
 
     if "step" not in st.session_state:
@@ -531,45 +627,48 @@ def main():
 # ─── FOOTER ────────────────────────────────────────────────────────────────────
 def render_footer():
     st.markdown("---")
+    with st.expander("Kontakt"):
+        st.markdown(
+            f"**{COMPANY_NAME}**  \n"
+            f"{COMPANY_PERSON}  \n"
+            f"IČO: {COMPANY_ICO} &nbsp;|&nbsp; DIČ: {COMPANY_DIC}  \n"
+            f"Sídlo: {COMPANY_ADDRESS}  \n"
+            f"Tel: {COMPANY_PHONE}  \n"
+            f"E-mail: [{COMPANY_EMAIL}](mailto:{COMPANY_EMAIL})"
+        )
+    with st.expander("Obchodní podmínky"):
+        st.markdown(
+            f"**Prodávající:** {COMPANY_NAME}, {COMPANY_PERSON}, "
+            f"IČO {COMPANY_ICO}, DIČ {COMPANY_DIC}, sídlo {COMPANY_ADDRESS}.  \n\n"
+            "Předmětem plnění je digitální produkt (AI Transparency Report ve formátu HTML + PDF) "
+            "dodaný k okamžitému zobrazení v aplikaci po ověření platby.  \n\n"
+            "Report má informační a konzultační charakter a nepředstavuje právní poradenství "
+            "ve smyslu zákona č. 85/1996 Sb.  \n\n"
+            "Na digitální obsah zpřístupněný na žádost kupujícího se zákonné právo na odstoupení "
+            "bez udání důvodu nevztahuje (§ 1837 písm. l) OZ).  \n\n"
+            f"Dotazy: [{COMPANY_EMAIL}](mailto:{COMPANY_EMAIL})"
+        )
+    with st.expander("Ochrana soukromí (GDPR)"):
+        st.markdown(
+            f"Správce: {COMPANY_NAME}, IČO {COMPANY_ICO}.  \n\n"
+            "Tato aplikace nezpracovává ani neukládá žádné osobní údaje uživatelů. "
+            "Vložený text (popis využití AI) je použit výhradně pro jednorázové vygenerování "
+            "reportu a není trvale ukládán ani sdílen s třetími stranami.  \n\n"
+            "Zpracování probíhá přes OpenAI API (datová centra EU) v souladu s GDPR a EU AI Act.  \n\n"
+            f"Dotazy: [{COMPANY_EMAIL}](mailto:{COMPANY_EMAIL})"
+        )
+    with st.expander("Vrácení peněz"):
+        st.markdown(
+            "Report je vygenerován a zpřístupněn ihned po potvrzení platby.  \n\n"
+            "Zákazník, který report neotevřel, může požádat o vrácení do 14 dnů od nákupu. "
+            f"Žádost s číslem objednávky zašlete na "
+            f"[{COMPANY_EMAIL}](mailto:{COMPANY_EMAIL}).  \n\n"
+            "Vrácení provedeme do 14 dnů přes Stripe."
+        )
     st.markdown(
-        """
-<div style="font-size:0.78rem; color:#666; text-align:center; line-height:1.8; padding:1rem 0 0.5rem 0;">
-
-**Provozovatel služby (§ 1826 odst. 1 NOZ):**<br>
-Jaroslav Batko — Batko Digital AI &nbsp;|&nbsp; IČO: neuvedeno &nbsp;|&nbsp;
-📩 <a href="mailto:batko.digital.ai@gmail.com" style="color:#1a4a8a;">batko.digital.ai@gmail.com</a>
-
-<br>
-
-**Ochrana osobních údajů (GDPR):**<br>
-Tato aplikace nezpracovává ani neukládá žádné osobní údaje uživatelů.
-Vložený text (popis využití AI) je použit výhradně pro jednorázové vygenerování reportu
-a není nikde trvale ukládán ani sdílen s třetími stranami.
-Zpracování probíhá přes OpenAI API (datové centrum EU) v souladu s GDPR.
-
-<br>
-
-**Obchodní podmínky:**<br>
-Zakoupením reportu souhlasíte s tím, že výstup má informační a konzultační charakter
-a nepředstavuje právní poradenství ve smyslu zákona č. 85/1996 Sb.
-Právo na odstoupení od smlouvy ve lhůtě 14 dnů (§ 1829 NOZ) uplatněte e-mailem na
-<a href="mailto:batko.digital.ai@gmail.com" style="color:#1a4a8a;">batko.digital.ai@gmail.com</a>.
-Spory se řeší před příslušnými soudy ČR; mimosoudně lze využít
-<a href="https://www.coi.cz" target="_blank" style="color:#1a4a8a;">ČOI (www.coi.cz)</a>.
-
-<br>
-
-**Právní upozornění:**<br>
-Report je generován pomocí umělé inteligence a slouží jako orientační podklad.
-Nepředstavuje právní, daňové ani jiné odborné poradenství.
-Doporučujeme ověřit závěry s kvalifikovaným odborníkem.
-
-<br>
-
-© {year} Batko Digital AI &nbsp;|&nbsp; Všechna práva vyhrazena
-
-</div>
-""".format(year=datetime.now().year),
+        f"<div style='font-size:.73rem;color:#9ca3af;text-align:center;padding:.7rem 0 .3rem'>"
+        f"{COMPANY_NAME} &nbsp;·&nbsp; IČO {COMPANY_ICO} &nbsp;·&nbsp; {COMPANY_ADDRESS}"
+        f"</div>",
         unsafe_allow_html=True,
     )
 
