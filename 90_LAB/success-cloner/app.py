@@ -174,7 +174,7 @@ def load_demo() -> None:
     st.session_state.teaser_text     = ""
     st.session_state.report_text     = ""
     st.session_state.unlocked        = False
-    st.session_state.demo            = True
+    st.session_state["_demo_run"]    = True
 # ── VSTUPNÍ SEKCE ──────────────────────────────────────────────────────────
 def render_input() -> str:
     st.subheader("Popište svůj nedávný úspěch")
@@ -387,6 +387,13 @@ def main():
 
     # ── KROK 1 ──
     success_text = render_input()
+
+    # Auto-spustit teaser po kliknutí na demo
+    if st.session_state.pop("_demo_run", False):
+        with st.spinner("Analyzuji demo..."):
+            teaser = generate_teaser(DEMO_DESCRIPTION)
+        st.session_state.teaser_text = teaser
+        st.rerun()
 
     if st.session_state.get("generate_btn"):
         if not success_text.strip():
