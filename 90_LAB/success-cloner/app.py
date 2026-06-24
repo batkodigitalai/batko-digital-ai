@@ -395,7 +395,6 @@ def main():
             with st.spinner("Analyzuji váš úspěch..."):
                 teaser = generate_teaser(success_text)
             st.session_state.teaser_text    = teaser
-            st.session_state.success_input  = success_text
             st.session_state.unlocked       = False
             st.session_state.report_text    = ""
             st.rerun()
