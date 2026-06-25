@@ -36,13 +36,13 @@ class ProjectStorage:
     def ensure_project_directories(self) -> list[Path]:
         """Create top-level storage directories required by Sprint 1."""
         directories = [
-            self._resolve(self.config.data_dir),
-            self._resolve(self.config.cars_dir),
-            self._resolve(self.config.raw_dir),
-            self._resolve(self.config.assets_dir),
-            self._resolve(self.config.output_dir),
-            self._resolve(self.config.previews_dir),
-            self._resolve(self.config.archive_dir),
+            self.resolve_path(self.config.data_dir),
+            self.resolve_path(self.config.cars_dir),
+            self.resolve_path(self.config.raw_dir),
+            self.resolve_path(self.config.assets_dir),
+            self.resolve_path(self.config.output_dir),
+            self.resolve_path(self.config.previews_dir),
+            self.resolve_path(self.config.archive_dir),
         ]
         for directory in directories:
             directory.mkdir(parents=True, exist_ok=True)
@@ -68,8 +68,8 @@ class ProjectStorage:
 
     def get_car_workspace_paths(self, car_id: str) -> CarWorkspacePaths:
         """Resolve all directories for a car workspace without creating them."""
-        car_data_dir = self._resolve(self.config.cars_dir) / car_id
-        car_assets_dir = self._resolve(self.config.assets_dir) / car_id
+        car_data_dir = self.resolve_path(self.config.cars_dir) / car_id
+        car_assets_dir = self.resolve_path(self.config.assets_dir) / car_id
         return CarWorkspacePaths(
             car_id=car_id,
             data_dir=car_data_dir,
@@ -78,12 +78,15 @@ class ProjectStorage:
             assets_dir=car_assets_dir,
             images_dir=car_assets_dir / "images",
             documents_dir=car_assets_dir / "documents",
-            output_dir=self._resolve(self.config.previews_dir) / car_id,
-            archive_dir=self._resolve(self.config.archive_dir) / car_id,
+            output_dir=self.resolve_path(self.config.previews_dir) / car_id,
+            archive_dir=self.resolve_path(self.config.archive_dir) / car_id,
         )
 
-    def _resolve(self, path: Path) -> Path:
+    def resolve_path(self, path: Path) -> Path:
+        """Resolve a storage path against the project root when relative."""
         if path.is_absolute():
             return path
         return self.project_root / path
 
+    def _resolve(self, path: Path) -> Path:
+        return self.resolve_path(path)

@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import json
-import re
 from pathlib import Path
 from typing import Any
 
@@ -11,6 +10,7 @@ from src.core.logging import get_logger
 from src.core.storage import build_car_id
 from src.domain.models.car import Auction, Car
 from src.openlane.downloader import OpenLaneDownloader, PageSnapshot
+from src.openlane.reader.fields import FIELD_REQUIREMENTS, build_dom_extraction_script, parse_float, parse_int
 from src.openlane.reader.models import (
     AuctionReadResult,
     FieldRequirement,
@@ -19,30 +19,6 @@ from src.openlane.reader.models import (
 )
 
 logger = get_logger(__name__)
-
-
-FIELD_REQUIREMENTS: dict[str, FieldRequirement] = {
-    "auction_id": FieldRequirement.REQUIRED,
-    "reference": FieldRequirement.OPTIONAL,
-    "url": FieldRequirement.REQUIRED,
-    "title": FieldRequirement.REQUIRED,
-    "make": FieldRequirement.REQUIRED,
-    "model": FieldRequirement.REQUIRED,
-    "variant": FieldRequirement.OPTIONAL,
-    "vin": FieldRequirement.OPTIONAL,
-    "first_registration": FieldRequirement.OPTIONAL,
-    "manufacture_date": FieldRequirement.OPTIONAL,
-    "mileage_km": FieldRequirement.REQUIRED,
-    "power_kw": FieldRequirement.OPTIONAL,
-    "fuel": FieldRequirement.OPTIONAL,
-    "transmission": FieldRequirement.OPTIONAL,
-    "color": FieldRequirement.OPTIONAL,
-    "current_price": FieldRequirement.OPTIONAL,
-    "currency": FieldRequirement.OPTIONAL,
-    "vat_mode": FieldRequirement.OPTIONAL,
-    "country": FieldRequirement.OPTIONAL,
-    "location": FieldRequirement.OPTIONAL,
-}
 
 
 class AuctionReader:
@@ -67,25 +43,14 @@ class AuctionReader:
         )
 
     def _extract_fields(self, page, snapshot: PageSnapshot) -> dict[str, Any]:
-        dom_values = page.evaluate(
-            """
-            () => {
-              const result = {};
-              document.querySelectorAll('[data-openlane-field]').forEach((el) => {
-                const key = el.getAttribute('data-openlane-field');
-                result[key] = (el.getAttribute('content') || el.textContent || '').trim();
-              });
-              return result;
-            }
-            """
-        )
+        dom_values = page.evaluate(build_dom_extraction_script())
         values: dict[str, Any] = dict(dom_values or {})
         values.setdefault("auction_id", snapshot.metadata.auction_id)
         values.setdefault("url", snapshot.metadata.url)
         values.setdefault("title", snapshot.metadata.title)
-        values["mileage_km"] = self._parse_int(values.get("mileage_km"))
-        values["power_kw"] = self._parse_int(values.get("power_kw"))
-        values["current_price"] = self._parse_float(values.get("current_price"))
+        values["mileage_km"] = parse_int(values.get("mileage_km"))
+        values["power_kw"] = parse_int(values.get("power_kw"))
+        values["current_price"] = parse_float(values.get("current_price"))
         return values
 
     def _validate(self, values: dict[str, Any]) -> ReadValidation:
@@ -165,18 +130,8 @@ class AuctionReader:
 
     @staticmethod
     def _parse_int(value: object) -> int | None:
-        if value is None or value == "":
-            return None
-        digits = re.sub(r"[^\d]", "", str(value))
-        return int(digits) if digits else None
+        return parse_int(value)
 
     @staticmethod
     def _parse_float(value: object) -> float | None:
-        if value is None or value == "":
-            return None
-        normalized = re.sub(r"[^\d,.]", "", str(value)).replace(" ", "").replace(",", ".")
-        try:
-            return float(normalized)
-        except ValueError:
-            return None
-
+        return parse_float(value)

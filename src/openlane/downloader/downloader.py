@@ -77,7 +77,7 @@ class OpenLaneDownloader:
         )
 
     def _snapshot_directory(self, snapshot_id: str) -> Path:
-        raw_dir = self.storage._resolve(self.storage.config.raw_dir)
+        raw_dir = self.storage.resolve_path(self.storage.config.raw_dir)
         return raw_dir / "openlane" / snapshot_id
 
     @staticmethod
@@ -117,4 +117,3 @@ class OpenLaneDownloader:
             logger.warning("Unable to read auction id from DOM: {}", exc)
             return None
         return str(value) if value else None
-
