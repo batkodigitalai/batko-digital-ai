@@ -45,10 +45,13 @@ Car
   model
   variant
   year
+  firstRegistration
+  manufactureDate
   mileageKm
   fuel
   transmission
   powerKw
+  color
   vin
   auction
   condition
@@ -60,10 +63,13 @@ Car
 Auction
   platform
   itemId
+  reference
   url
   country
+  location
   currency
   currentBid
+  vatMode
   auctionEndAt
 
 Condition
@@ -95,3 +101,31 @@ Publication
 4. Pridat publikacni metadata.
 5. Az potom napojovat downloader, parser a generatory.
 
+## Sprint 5 - Rozsireni modelu pro Auction Reader
+
+Sprint 5 doplnuje existujici `Car` model o pole nutna pro zakladni OPENLANE aukcni zaznam:
+
+- `firstRegistration`
+- `manufactureDate`
+- `color`
+
+`Auction` model je rozsiren o:
+
+- `reference`
+- `location`
+- `vatMode`
+
+URL aukce zustava ulozena v `Auction.url`. Pro potreby lokalnich fixture testu a budoucich zdroju muze byt hodnota obecny string, ne pouze HTTP URL.
+
+## Jednotny export auction.json
+
+`auction.json` obsahuje:
+
+```text
+schemaVersion
+snapshot
+validation
+car
+```
+
+`car` je serializace jednotneho `Car` modelu. Reader nesmi vytvaret paralelni model vozidla.

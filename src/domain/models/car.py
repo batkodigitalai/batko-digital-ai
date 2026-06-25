@@ -13,10 +13,13 @@ class Auction(BaseModel):
 
     platform: str
     item_id: str = Field(alias="itemId")
-    url: HttpUrl | None = None
+    reference: str | None = None
+    url: str | None = None
     country: str | None = None
+    location: str | None = None
     currency: str | None = None
     current_bid: float | None = Field(default=None, alias="currentBid")
+    vat_mode: str | None = Field(default=None, alias="vatMode")
     auction_end_at: datetime | None = Field(default=None, alias="auctionEndAt")
 
     model_config = {"populate_by_name": True}
@@ -76,10 +79,13 @@ class Car(BaseModel):
     model: str
     variant: str | None = None
     year: int | None = None
+    first_registration: str | None = Field(default=None, alias="firstRegistration")
+    manufacture_date: str | None = Field(default=None, alias="manufactureDate")
     mileage_km: int | None = Field(default=None, alias="mileageKm")
     fuel: str | None = None
     transmission: str | None = None
     power_kw: int | None = Field(default=None, alias="powerKw")
+    color: str | None = None
     vin: str | None = None
     auction: Auction | None = None
     condition: Condition | None = None
@@ -89,4 +95,3 @@ class Car(BaseModel):
     publication: Publication = Field(default_factory=Publication)
 
     model_config = {"populate_by_name": True}
-
