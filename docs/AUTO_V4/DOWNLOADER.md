@@ -69,3 +69,70 @@ DownloadManifest
 4. Definovat bezpecnostni pravidla.
 5. Az v pozdejsi fazi implementovat konkretni stahovani.
 
+## Sprint 4 - Page snapshot
+
+Sprint 4 zavadi prvni funkcni, ale porad velmi omezeny downloader MVP:
+
+- pracuje pouze s jiz otevrenou Playwright `Page`,
+- neprovadi login,
+- neotevira OPENLANE URL,
+- nestahuje fotografie,
+- nestahuje PDF,
+- nepouziva HAR ani network capture,
+- neparsuje obchodni data.
+
+### Snapshot flow
+
+```text
+SessionManager poskytne aktivni Page
+        |
+        v
+OpenLaneDownloader overi, ze stranka vypada jako OPENLANE aukce
+        |
+        v
+OpenLaneDownloader vytvori PageMetadata
+        |
+        v
+DownloadManager pripravi cilovy adresar
+        |
+        v
+Snapshot ulozi:
+  page.html
+  page_title.txt
+  page_url.txt
+  full_page.png
+```
+
+### PageMetadata
+
+```text
+PageMetadata
+  url
+  title
+  timestamp
+  pageId
+  auctionId
+```
+
+### PageSnapshot
+
+```text
+PageSnapshot
+  snapshotId
+  directory
+  metadata
+  htmlPath
+  titlePath
+  urlPath
+  screenshotPath
+```
+
+## Využiti ve Sprintu 5
+
+Sprint 5 muze navazat na snapshot jako na raw vstup:
+
+1. Definovat manifest snapshotu.
+2. Pridat checksumy pro ulozene soubory.
+3. Pridat audit udalosti snapshotu.
+4. Pripravit parser kontrakt, ktery bude cist pouze ulozene `page.html`, ne zivou stranku.
+5. Zachovat pravidlo: parser nesmi byt soucast downloaderu.
