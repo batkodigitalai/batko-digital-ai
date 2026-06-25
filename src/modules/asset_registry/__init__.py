@@ -1,0 +1,2 @@
+"""Asset registry module skeleton."""
+
