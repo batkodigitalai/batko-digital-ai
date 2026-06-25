@@ -194,3 +194,92 @@ Capture stale neimplementuje:
 - GUI,
 - AUTO_V4,
 - Market Engine.
+
+## Sprint 8 - Real OPENLANE Integration
+
+Sprint 8 pridava prvni podporu pro realnou otevrenou aukci OPENLANE v jiz prihlasenem Chromu.
+
+Pravidla:
+
+- system se neprihlasuje,
+- nezadava heslo,
+- nepouziva automaticky login,
+- pouze se pripojuje k existujici browser session,
+- nic nestahuje,
+- pouze detekuje metadata aukce.
+
+### CLI smoke prikaz
+
+```text
+python -m src detect-auction --browser-mode existing_chrome
+```
+
+Volitelne:
+
+```text
+python -m src detect-auction --browser-mode existing_chrome --selector-version v1
+```
+
+Ocekavany vystup:
+
+```text
+OPENLANE auction <auction_id>: <title>
+Reference: <reference>
+URL: <url>
+```
+
+Pokud aktualni stranka neni aukce OPENLANE, prikaz vrati citelnou chybu a exit code `2`.
+
+### Selector Registry
+
+Vsechny CSS selektory pro realnou OPENLANE integraci jsou ulozene v:
+
+```text
+config/selectors.yaml
+```
+
+Kod nesmi vkladat CSS selektory primo do detectoru. Detector pracuje pouze s pojmenovanymi poli nactenymi ze selector registry.
+
+Registry obsahuje:
+
+- `urlPatterns`,
+- `auctionMarkers`,
+- `fields.title`,
+- `fields.auction_id`,
+- `fields.reference`.
+
+### Compatibility Layer
+
+Selector registry je verzovana:
+
+```text
+versions:
+  v1
+  v2
+  v3
+```
+
+Aktualne je prakticky pouzitelna hlavne `v1`, protoze navazuje na dosavadni DOM kontrakt a bezpecne fallbacky. Verze `v2` a `v3` jsou priprava pro budouci layouty OPENLANE a maji byt doplneny po overeni na realnych snapshotech.
+
+### Selector Validator
+
+Pri detekci se spousti `SelectorValidator`, ktery pro aktualni page overi:
+
+- ktere aukcni markery existuji,
+- ktere field selektory existuji,
+- ktere selektory chybi.
+
+Report je soucasti `RealAuctionDetection.selectorReport` a slouzi k rychle diagnostice zmen OPENLANE layoutu.
+
+### RealAuctionDetector
+
+`RealAuctionDetector` vraci:
+
+- `title`,
+- `auctionId`,
+- `reference`,
+- `url`,
+- `selectorVersion`,
+- `selectorReport`.
+
+Pokud page nevypada jako OPENLANE aukce nebo nelze zjistit `auction_id`, vyvola `OpenLaneAuctionDetectionError` s lidsky citelnou chybou.
