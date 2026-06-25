@@ -14,6 +14,7 @@ from src.core.download import DownloadManager, calculate_sha256
 from src.core.logging import get_logger
 from src.core.storage import ProjectStorage, build_car_id
 from src.openlane.downloader import OpenLaneDownloader
+from src.openlane.photos import PhotoDownloader, PhotoDownloadStatus, PhotoManifest
 from src.openlane.reader import AuctionReader
 from src.openlane.capture.models import CaptureManifest, CaptureResult, CaptureStatus, ManifestFile
 
@@ -48,8 +49,12 @@ class CaptureService:
 
         self._copy_snapshot_files(read_result, source_dir)
         self._rewrite_auction_snapshot_paths(source_dir / "auction.json", source_dir)
+        photos_dir = capture_dir / "02_Photos"
+        photo_manifest = PhotoDownloader(download_manager=download_manager).download(page, photos_dir)
+        if photo_manifest.total == 0:
+            photo_manifest = None
         log_path = self._write_capture_log(source_dir, read_result)
-        manifest = self._build_manifest(source_dir, read_result, log_path)
+        manifest = self._build_manifest(source_dir, read_result, log_path, photo_manifest, photos_dir)
         manifest_path = source_dir / "manifest.json"
         manifest_path.write_text(
             json.dumps(manifest.model_dump(mode="json", by_alias=True), indent=2, ensure_ascii=False) + "\n",
@@ -65,6 +70,7 @@ class CaptureService:
             logPath=log_path,
             manifest=manifest,
             readResult=read_result,
+            photoManifest=photo_manifest,
         )
 
     def _prepare_capture_dir(self, page, output_dir: Path | str | None) -> Path:
@@ -120,15 +126,27 @@ class CaptureService:
         log_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
         return log_path
 
-    def _build_manifest(self, source_dir: Path, read_result, log_path: Path) -> CaptureManifest:
+    def _build_manifest(
+        self,
+        source_dir: Path,
+        read_result,
+        log_path: Path,
+        photo_manifest: PhotoManifest | None = None,
+        photos_dir: Path | None = None,
+    ) -> CaptureManifest:
         files = [
-            source_dir / "page.html",
-            source_dir / "page_url.txt",
-            source_dir / "page_title.txt",
-            source_dir / "auction.json",
-            log_path,
-            source_dir / "full_page.png",
+            self._manifest_file(source_dir, source_dir / "page.html"),
+            self._manifest_file(source_dir, source_dir / "page_url.txt"),
+            self._manifest_file(source_dir, source_dir / "page_title.txt"),
+            self._manifest_file(source_dir, source_dir / "auction.json"),
+            self._manifest_file(source_dir, log_path),
+            self._manifest_file(source_dir, source_dir / "full_page.png"),
         ]
+        if photo_manifest is not None and photos_dir is not None:
+            files.append(self._manifest_file(source_dir.parent, photos_dir / "photos.json"))
+            for photo in photo_manifest.photos:
+                if photo.result is PhotoDownloadStatus.SUCCESS and photo.local_file:
+                    files.append(self._manifest_file(source_dir.parent, photos_dir / photo.local_file))
         status = CaptureStatus.SUCCESS if read_result.validation.is_valid else CaptureStatus.PARTIAL
         return CaptureManifest(
             capturedAt=datetime.now(timezone.utc),
@@ -137,8 +155,11 @@ class CaptureService:
             status=status,
             url=read_result.snapshot.metadata.url,
             auctionId=read_result.car.source_item_id,
-            files=[self._manifest_file(source_dir, path) for path in files],
+            files=files,
             missingRequired=read_result.validation.missing_required(),
+            photoTotal=photo_manifest.total if photo_manifest else 0,
+            photoDownloaded=photo_manifest.downloaded if photo_manifest else 0,
+            photoFailed=photo_manifest.failed if photo_manifest else 0,
         )
 
     @staticmethod

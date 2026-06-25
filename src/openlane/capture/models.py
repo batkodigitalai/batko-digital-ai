@@ -9,6 +9,7 @@ from pathlib import Path
 from pydantic import BaseModel, Field
 
 from src.openlane.reader import AuctionReadResult
+from src.openlane.photos import PhotoManifest
 
 
 class CaptureStatus(StrEnum):
@@ -39,6 +40,9 @@ class CaptureManifest(BaseModel):
     auction_id: str | None = Field(default=None, alias="auctionId")
     files: list[ManifestFile] = Field(default_factory=list)
     missing_required: list[str] = Field(default_factory=list, alias="missingRequired")
+    photo_total: int = Field(default=0, alias="photoTotal")
+    photo_downloaded: int = Field(default=0, alias="photoDownloaded")
+    photo_failed: int = Field(default=0, alias="photoFailed")
 
     model_config = {"populate_by_name": True}
 
@@ -52,5 +56,6 @@ class CaptureResult(BaseModel):
     log_path: Path = Field(alias="logPath")
     manifest: CaptureManifest
     read_result: AuctionReadResult = Field(alias="readResult")
+    photo_manifest: PhotoManifest | None = Field(default=None, alias="photoManifest")
 
     model_config = {"populate_by_name": True}
