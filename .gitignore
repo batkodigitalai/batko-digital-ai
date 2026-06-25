@@ -9,4 +9,4 @@ htmlcov/
 # Local runtime state
 logs/
 config/auto_v4_config.json
-
+profiles/

@@ -9,6 +9,8 @@ def test_load_config_creates_default_file(tmp_path: Path) -> None:
 
     assert isinstance(config, AppConfig)
     assert config.project_name == "BATKO_AUTO_V4"
+    assert config.browser.browser_mode == "local"
+    assert config.browser.headless is True
     assert (tmp_path / config_path).exists()
 
 
@@ -30,4 +32,3 @@ def test_save_config_helper_persists_config(tmp_path: Path) -> None:
     loaded = load_config(project_root=tmp_path, config_path="config/helper_config.json")
 
     assert loaded.environment == "ci"
-

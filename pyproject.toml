@@ -5,6 +5,7 @@ description = "Foundation for BATKO_AUTO_V4"
 requires-python = ">=3.12"
 dependencies = [
   "loguru>=0.7",
+  "playwright>=1.48",
   "pydantic>=2",
 ]
 
@@ -18,4 +19,3 @@ dev = [
 testpaths = ["tests"]
 pythonpath = ["."]
 addopts = "-q --cov=src --cov-report=term-missing"
-

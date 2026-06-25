@@ -29,6 +29,17 @@ class StorageConfig(BaseModel):
     archive_dir: Path = Path("60_ARCHIVE/snapshots")
 
 
+class BrowserConfig(BaseModel):
+    """Browser automation configuration for Sprint 2 infrastructure."""
+
+    browser_mode: str = "local"
+    chrome_profile: Path = Path("profiles/chrome/default")
+    chrome_cdp: str = "http://127.0.0.1:9222"
+    headless: bool = True
+    playwright_timeout: int = 30000
+    download_timeout: int = 120000
+
+
 class AppConfig(BaseModel):
     """Top-level BATKO_AUTO_V4 configuration."""
 
@@ -37,4 +48,4 @@ class AppConfig(BaseModel):
     environment: str = "local"
     logging: LoggingConfig = Field(default_factory=LoggingConfig)
     storage: StorageConfig = Field(default_factory=StorageConfig)
-
+    browser: BrowserConfig = Field(default_factory=BrowserConfig)
