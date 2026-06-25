@@ -1,0 +1,2 @@
+"""Parser ingestion module skeleton."""
+

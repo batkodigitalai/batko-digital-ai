@@ -1,0 +1,2 @@
+"""Output generator module skeleton."""
+
