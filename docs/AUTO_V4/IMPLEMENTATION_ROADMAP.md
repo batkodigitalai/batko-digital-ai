@@ -395,3 +395,43 @@ Kazdy sprint musi koncit dokumentovanym stavem:
 - jake testy budou povinne pri implementaci,
 - co je blokovane.
 
+## Aktualizace po implementacnich sprintech 1-6
+
+Realna implementacni vetev `feature/BATKO_AUTO_V4` uz obsahuje funkcni foundation, browser infrastrukturu, download infrastrukturu, snapshot, auction reader a prvni end-to-end capture.
+
+### Aktualni technicky stav po Sprintu 6
+
+- `src/core/config` nacita a uklada konfiguraci.
+- `src/core/logging` inicializuje loguru.
+- `src/core/storage` pripravuje projektove a car workspace cesty.
+- `src/core/download` obsahuje obecnou download infrastrukturu bez site.
+- `src/openlane/browser` obsahuje Playwright/CDP/session infrastrukturu.
+- `src/openlane/downloader` uklada snapshot page.
+- `src/openlane/reader` mapuje DOM aukce do `Car` a `auction.json`.
+- `src/openlane/capture` vytvari archiv `01_Source` s manifestem.
+
+### Doporuceny Sprint 7
+
+Cil:
+
+Stabilizovat archivni format pred pridanim assetu.
+
+Ocekavany vysledek:
+
+- formalizovany snapshot/capture manifest kontrakt,
+- rozhodnuti, zda manifest zahrne i vlastni externi podpis,
+- offline reader nad ulozenym `page.html`,
+- priprava asset registry pro fotografie a PDF bez jejich stahovani.
+
+Zavislosti:
+
+- Sprint 6,
+- `ARCHITECTURE_REVIEW.md`,
+- `DOWNLOADER.md`,
+- `OPENLANE_ENGINE.md`.
+
+Rizika:
+
+- predcasne pridani fotografii bez stabilniho manifestu,
+- smichani offline readeru s parserem,
+- pridani HAR/network capture do spatne vrstvy.

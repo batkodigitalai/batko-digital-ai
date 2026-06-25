@@ -145,3 +145,52 @@ Optional pole ve Sprintu 5:
 - `location`
 
 Unknown pole zustavaji v validation reportu, ale nemapuji se automaticky do `Car`.
+
+## Sprint 6 - End-to-end auction capture
+
+Sprint 6 zavadi `CaptureService` jako orchestrace nad existujicimi moduly:
+
+- `OpenLaneDownloader` vytvari snapshot aktualni page,
+- `AuctionReader` cte DOM a vytvari `auction.json`,
+- `CaptureService` bali vysledky do archivni slozky `01_Source`,
+- manifest potvrzuje stav capture a checksumy artefaktu.
+
+### Verejny workflow
+
+```text
+python -m src capture --output-dir <cilovy_adresar>
+```
+
+Ocekavany finalni archiv:
+
+```text
+<cilovy_adresar>/
+  01_Source/
+    page.html
+    page_url.txt
+    page_title.txt
+    auction.json
+    manifest.json
+    capture.log
+    full_page.png
+```
+
+### Stav capture
+
+- `SUCCESS`: vsechna required pole z reader validace jsou pritomna.
+- `PARTIAL`: capture se dokoncil, ale chybi alespon jedno required pole.
+
+`PARTIAL` neni chyba infrastruktury. Je to auditni stav pro nekompletni data.
+
+### Hranice modulu
+
+Capture stale neimplementuje:
+
+- fotografie,
+- PDF,
+- HAR,
+- network capture,
+- parser,
+- GUI,
+- AUTO_V4,
+- Market Engine.

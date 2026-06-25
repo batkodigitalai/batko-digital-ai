@@ -136,3 +136,62 @@ Sprint 5 muze navazat na snapshot jako na raw vstup:
 3. Pridat audit udalosti snapshotu.
 4. Pripravit parser kontrakt, ktery bude cist pouze ulozene `page.html`, ne zivou stranku.
 5. Zachovat pravidlo: parser nesmi byt soucast downloaderu.
+
+## Sprint 6 - Capture archiv
+
+Sprint 6 pridava end-to-end capture workflow nad jiz existujicim snapshotem a readerem.
+
+Pravidla:
+
+- capture pracuje s jiz otevrenou Playwright `Page`,
+- neprovadi login,
+- nestahuje fotografie,
+- nestahuje PDF,
+- nepouziva HAR ani network capture,
+- nevykonava AUTO_V4 ani Market Engine.
+
+### Capture workflow
+
+```text
+Aktivni Page
+  |
+  v
+CaptureService vytvori capture adresar
+  |
+  v
+AuctionReader vytvori snapshot a auction.json
+  |
+  v
+CaptureService zabali finalni archiv do 01_Source
+  |
+  v
+manifest.json + capture.log
+```
+
+### Finalni soubory v `01_Source`
+
+```text
+page.html
+page_url.txt
+page_title.txt
+auction.json
+manifest.json
+capture.log
+full_page.png
+```
+
+### Manifest
+
+`manifest.json` obsahuje:
+
+- datum a cas capture,
+- verzi aplikace,
+- commit hash, pokud je dostupny,
+- URL,
+- `auction_id`,
+- stav `SUCCESS` nebo `PARTIAL`,
+- chybejici required pole,
+- seznam vytvorenych archivnich souboru,
+- SHA256 pro archivni artefakty vytvorene pred manifestem.
+
+`manifest.json` neobsahuje vlastni SHA256, protoze checksum souboru nelze stabilne ulozit do stejneho souboru, ktery se hashovanim meni.
