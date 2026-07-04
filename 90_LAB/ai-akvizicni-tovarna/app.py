@@ -152,6 +152,7 @@ def build_teaser_prompt() -> str:
         "- Název segmentu (konkrétní, ne obecný)\n"
         "- Jedna věta: proč právě je to dává smysl (jejich motivace)\n"
         "- Jeden úderný oslovovací háček (1 věta), na který by reagovali\n\n"
+        "Nevymýšlej žádná čísla dosahu, sledovanosti ani statistiky. "
         "Formát: **Segment 1/2/3**. Bez vaty, česky s diakritikou, lidsky."
     )
 
@@ -162,7 +163,10 @@ def build_kit_prompt() -> str:
         "Jsi elitní B2B akviziční stratég a copywriter (styl Alex Hormozi: prodej výsledku, ne procesu).\n"
         f"Nabídka / projekt uživatele: {a.get('offer', '')}\n"
         f"Cílová skupina a cíl: {a.get('target', '')}\n\n"
-        "Vytvoř KOMPLETNÍ akviziční kit v češtině s diakritikou. Bez vaty, jen použitelný obsah:\n\n"
+        "Vytvoř KOMPLETNÍ akviziční kit v češtině s diakritikou. Bez vaty, jen použitelný obsah.\n"
+        "DŮLEŽITÉ: Nevymýšlej žádná konkrétní čísla dosahu, sledovanosti, návštěvnosti ani jiné statistiky. "
+        "Kde by se hodilo číslo dosahu nebo výsledků, napiš MÍSTO něj placeholder [DOSAH — doplňte reálné ověřené číslo]. "
+        "Pracuj jen s tím, co plyne ze zadání uživatele.\n\n"
         "**🎯 Cílové segmenty (4–5)**\n"
         "Konkrétní typy firem + u každého 1 věta proč a jeden personalizační bod, který si má uživatel zjistit.\n\n"
         "**✉️ E-mailová sekvence (3 kroky)**\n"
@@ -177,6 +181,12 @@ def build_kit_prompt() -> str:
         "aby při 1 % dostal počet schůzek ze svého cíle. Žádné přehnané sliby.\n\n"
         "**⚡ První krok — dnes**\n"
         "Přesně jedna akce na příští 2 hodiny. Brutálně konkrétní.\n\n"
+        "**⚠️ Co musíte zajistit sami (důležité)**\n"
+        "Napiš jasně a natvrdo: tohle je akviziční KIT (plán + hotové šablony), NE hotové schůzky. "
+        "Kupující si SÁM: 1) najde a ověří konkrétní firmy a kontakty (podle výpočtu výše, klidně stovky firem), "
+        "2) zřídí a zahřeje vlastní doménu a schránku, 3) e-maily sám rozešle a odpovídá na reakce. "
+        "Kit dodává strategii a texty, ne odeslání ani domluvené schůzky. "
+        "Kdo chce vše na klíč (doručení schůzek za něj), má na to placenou službu na míru.\n\n"
         "Tón: přímý, profesionální, lidský. Striktně česky s diakritikou."
     )
 
@@ -295,7 +305,8 @@ def render_paywall() -> None:
     st.write(
         "Kit obsahuje: 4–5 cílových segmentů přesně pro vaši nabídku, hotovou 3krokovou e-mailovou "
         "sekvenci (předměty + texty), LinkedIn variantu, checklist doručitelnosti a poctivá čísla, "
-        "kolik firem oslovit pro váš cíl schůzek."
+        "kolik firem oslovit pro váš cíl schůzek. Je to plán a hotové šablony, které si sami rozešlete — "
+        "ne hotové schůzky (ty řeší služba na klíč)."
     )
     if payment_link == DEFAULT_PAYMENT_LINK:
         st.error("Platební odkaz není nastaven. Přidejte PAYMENT_LINK do Secrets.")
