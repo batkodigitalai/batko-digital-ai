@@ -11,7 +11,7 @@ from typing import Dict, List, Optional
 
 import streamlit as st
 
-APP_TITLE = "AI Akvizicni Tovarna"
+APP_TITLE = "AI Akviziční Továrna"
 DEFAULT_ACCESS_CODE = ""
 DEFAULT_PAYMENT_LINK = "https://buy.stripe.com/your-payment-link"
 DEFAULT_TEASER_MODEL = "gpt-4.1-mini"
