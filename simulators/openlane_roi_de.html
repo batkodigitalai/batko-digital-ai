@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Interner OPENLANE-Vergleich 2026 — Kosten, ROI, Höchstgebot</title>
+<style>
+:root{--bg:#f4f6fa;--card:#fff;--ink:#1a2233;--mut:#66718a;--line:#dde3ee;--blue:#0b4ea2;--green:#0d7a3f;--red:#b3261e;--amber:#9a6b00;}
+*{box-sizing:border-box}
+body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--ink);font-size:15px}
+.wrap{max-width:1100px;margin:0 auto;padding:16px}
+h1{font-size:21px;margin:6px 0 2px}
+.sub{color:var(--mut);font-size:13px;margin-bottom:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:14px}
+.card h2{font-size:15px;margin:0 0 10px;color:var(--blue)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px}
+label{display:block;font-size:12px;color:var(--mut);margin-bottom:3px}
+input,select{width:100%;padding:7px 9px;border:1px solid var(--line);border-radius:7px;font-size:14px;background:#fff;color:var(--ink)}
+input:focus,select:focus{outline:2px solid #9db9dd}
+.chk{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--ink);padding:4px 0}
+.chk input{width:auto}
+button{background:var(--blue);color:#fff;border:0;border-radius:8px;padding:9px 18px;font-size:14px;cursor:pointer}
+button:hover{opacity:.92}
+textarea{width:100%;min-height:90px;border:1px solid var(--line);border-radius:8px;padding:8px;font-family:Consolas,monospace;font-size:12px}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{padding:7px 9px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+th{background:#eef2f9;color:#3a4664;font-weight:600}
+.pos{color:var(--green);font-weight:600}
+.neg{color:var(--red);font-weight:600}
+.warn{color:var(--amber);font-weight:600}
+#verdikt{font-size:19px;font-weight:700;padding:12px 16px;border-radius:9px;margin-bottom:10px}
+.v-buy{background:#e3f4e9;color:var(--green);border:1px solid #bfe3cc}
+.v-cond{background:#fdf3dc;color:var(--amber);border:1px solid #eedb9f}
+.v-no{background:#fbe4e2;color:var(--red);border:1px solid #f0c1bd}
+.kv{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px dashed var(--line);font-size:13.5px}
+.kv b{font-variant-numeric:tabular-nums}
+.small{font-size:12px;color:var(--mut)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:800px){.two{grid-template-columns:1fr}}
+.badge{display:inline-block;background:#eef2f9;border:1px solid var(--line);border-radius:6px;padding:2px 8px;font-size:12px;color:#3a4664;margin-left:6px}
+details{margin-top:8px}
+summary{cursor:pointer;color:var(--blue);font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Interner OPENLANE-Vergleich 2026</h1>
+<div class="sub">Gebühren gültig ab 1. 7. 2026 (EU) · Gesamtkosten, Vergleich mit dem tschechischen Markt, ROI/Tag, Höchstgebot · internes Werkzeug — nicht veröffentlichen</div>
+
+<div class="card">
+<h2>⚡ Daten schnell laden (JSON)</h2>
+<textarea id="jsonIn" placeholder='{"carName":"Porsche Cayenne S 2022","bidEur":38000,"eurRate":24.85,"country":"DE","transportEur":540,"repairsMax":45000,"marketLow":1690000,"marketMid":1790000,"marketHigh":1890000}'></textarea>
+<div style="margin-top:8px"><button onclick="loadJson()">JSON laden</button> <span class="small">Nicht angegebene Felder behalten ihre Standardwerte.</span></div>
+</div>
+
+<div class="card">
+<h2>1) OPENLANE-Auktion</h2>
+<div class="grid">
+<div><label>Fahrzeug</label><input id="carName" value="Volkswagen Passat Variant 2.0 TDI Business 110 kW DSG, 06/2021, 65 849 km"></div>
+<div><label>Auktions-ID</label><input id="auctionId" value="11203636"></div>
+<div><label>Auktionsgebot (EUR, netto)</label><input id="bidEur" type="number" value="8300"></div>
+<div><label>Verkaufsland</label><select id="country">
+<option value="NL">Niederlande (NL)</option>
+<option value="BE">Belgien (BE)</option>
+<option value="DE" selected>Německo (DE)</option>
+<option value="FR">Frankreich (FR)</option>
+<option value="IT">Italien (IT)</option>
+<option value="ES">Spanien (ES)</option>
+<option value="OTHER">Anderes Land</option>
+</select></div>
+<div><label>Kaufart</label><select id="dealType">
+<option value="export" selected>Export in ein anderes EU-Land (Käufer aus CZ)</option>
+<option value="domestic">Inland (Fahrzeug und Käufer im selben Land)</option>
+</select></div>
+<div id="nlBpmWrap" style="display:none"><label>NL-Export — BPM-Variante</label><select id="nlBpm">
+<option value="190" selected>BPM übertragbar — 190 €</option>
+<option value="335">BPM-Erstattung durch OPENLANE — 335 €</option>
+</select></div>
+<div><label>OPENLANE-Transport (EUR, aus transportoptions)</label><input id="transportEur" type="number" step="0.1" value="397.2"></div>
+<div><label>OPENLANE-Wechselkurs EUR/CZK</label><input id="eurRate" type="number" step="0.01" value="24.60"></div>
+</div>
+<div style="margin-top:8px" class="grid">
+<div class="chk"><input type="checkbox" id="feeInvoice"><span>Gedruckte Rechnung — 40 €</span></div>
+<div class="chk"><input type="checkbox" id="feeDocs"><span>Kopie der Fahrzeugdokumente — 50 €</span></div>
+<div class="chk"><input type="checkbox" id="feeOptimo"><span>Optimo — 160 €</span></div>
+<div class="chk"><input type="checkbox" id="feePickup"><span>Eigener Transport → Abholgebühr — 85 €</span></div>
+<div class="chk"><input type="checkbox" id="feeEx"><span>EX-Dokument (Export außerhalb der EU) — 110 €</span></div>
+</div>
+<details><summary>Gebührentabelle 2026 (Kontrolle)</summary>
+<div class="small" style="margin-top:6px">
+Auktionsgebühr nach Preis: &lt;2 500 € → 95 € · ≤5 000 → 150 € · ≤10 000 → 245 € · ≤20 000 → 300 € · ≤30 000 → 395 € · ≤45 000 → 485 € · ≤75 000 → 615 € · &gt;75 000 → 750 €.<br>
+Ländergebühr (Inland / Export): NL 160/190–335 · BE 160/195 · DE 285/295 · FR 255/260 · IT 290/480 · ES 260/230 · andere 180/180.
+</div></details>
+</div>
+
+<div class="card">
+<h2>2) Kosten in Tschechien (CZK, netto)</h2>
+<div class="grid">
+<div><label>Zulassung / Umschreibung</label><input id="registration" type="number" value="7500"></div>
+<div><label>Verkaufsvorbereitung</label><input id="salesPrep" type="number" value="8000"></div>
+<div><label>Mindestservice</label><input id="serviceMin" type="number" value="12000"></div>
+<div><label>Reparaturen laut Bericht (max.)</label><input id="repairsMax" type="number" value="65000"></div>
+<div><label>Gewährleistungsreserve</label><input id="warrantyReserve" type="number" value="25000"></div>
+<div><label>Sonstige Reserve</label><input id="otherReserve" type="number" value="10000"></div>
+</div>
+<div class="small" style="margin-top:10px;color:var(--red);font-weight:600">
+DEKRA 0357/039341/2026/B085568002726: Wartung und HU fällig, keine Nachweise; Motorhaube, Dach, rechter vorderer Kotflügel und beide hinteren Seitenteile eingedellt; rechte Türen, linker Spiegel und hinterer Stoßfänger verkratzt. Lackierung von Motorhaube, linkem hinterem Seitenteil und Stoßfänger erforderlich. Lackstärke 101–307 μm, erhöhte Schichtdicke an der linken Vordertür. Die Reparaturreserve von 65 000 CZK ist eine konservative unabhängige Schätzung. Der Mindestservice von 12 000 CZK wird separat berechnet.
+</div>
+</div>
+
+<div class="card">
+<h2>3) Tschechischer Markt und Ziele</h2>
+<div class="grid">
+<div><label>Niedrigster Vergleichspreis (CZK)</label><input id="marketLow" type="number" value="499000"></div>
+<div><label>Realistischer Mittelwert (CZK)</label><input id="marketMid" type="number" value="520000"></div>
+<div><label>Besserer Verkaufspreis (CZK)</label><input id="marketHigh" type="number" value="540000"></div>
+<div><label>Bester realistischer Preis (CZK, optional)</label><input id="marketTop" type="number" value="579000"></div>
+<div><label>Marktpreise sind</label><select id="vatMode"><option value="gross" selected>brutto (wird durch 1,21 geteilt)</option><option value="net">netto</option></select></div>
+<div><label>Zielgewinn (CZK)</label><input id="targetProfit" type="number" value="30000"></div>
+<div><label>Ziel-ROI (%/Tag)</label><input id="targetRoiDay" type="number" step="0.01" value="0.50"></div>
+<div><label>Rabatt für schnellen Verkauf (%)</label><input id="defDiscount" type="number" step="0.5" value="3"></div>
+</div>
+<div style="margin-top:10px"><button onclick="calc()">Berechnen</button></div>
+</div>
+
+<div id="verdikt" style="display:none"></div>
+
+<div class="two">
+<div class="card"><h2>Aufschlüsselung der Anschaffungskosten</h2><div id="breakdown"></div></div>
+<div class="card"><h2>Maximales Auktionsgebot (Safe Bid)</h2><div id="safebid"></div></div>
+</div>
+
+<div class="card"><h2>Verkaufsszenarien und ROI</h2><div id="scenarios"></div></div>
+
+<div class="card"><h2>Vergleich mit dem tschechischen Markt</h2><div id="marketcmp"></div>
+<div class="small" style="margin-top:6px">Der tschechische Marktvergleich enthält grundsätzlich die MwSt.; Marge und ROI werden netto berechnet (B2B-Sicht, MwSt.-Zahler). Der Zielgewinn wird bei der Berechnung des Höchstgebots als kalkulatorische Ausgabe behandelt.</div></div>
+
+<script>
+var AUCTION_TIERS=[[2500,95],[5000,150],[10000,245],[20000,300],[30000,395],[45000,485],[75000,615],[Infinity,750]];
+var COUNTRY_FEES={NL:{domestic:160,export:null},BE:{domestic:160,export:195},DE:{domestic:285,export:295},FR:{domestic:255,export:260},IT:{domestic:290,export:480},ES:{domestic:260,export:230},OTHER:{domestic:180,export:180}};
+
+function num(id){var el=document.getElementById(id);return el?parseFloat(el.value)||0:0;}
+function val(id){var el=document.getElementById(id);return el?el.value:"";}
+function chk(id){var el=document.getElementById(id);return el?el.checked:false;}
+function fmt(x){return Math.round(x).toLocaleString("cs-CZ");}
+function fmtE(x){return Math.round(x).toLocaleString("cs-CZ")+" €";}
+function fmtK(x){return fmt(x)+" Kč";}
+
+function auctionFee(bid){if(bid<2500)return 95;if(bid<=5000)return 150;if(bid<=10000)return 245;if(bid<=20000)return 300;if(bid<=30000)return 395;if(bid<=45000)return 485;if(bid<=75000)return 615;return 750;}
+function countryFee(country,dealType){var c=COUNTRY_FEES[country]||COUNTRY_FEES.OTHER;if(country==="NL"&&dealType==="export"){return num("nlBpm")||190;}return dealType==="domestic"?c.domestic:c.export;}
+function optionalFees(){var s=0;if(chk("feeInvoice"))s+=40;if(chk("feeDocs"))s+=50;if(chk("feeOptimo"))s+=160;if(chk("feePickup"))s+=85;if(chk("feeEx"))s+=110;return s;}
+function totalEur(bid){return bid+auctionFee(bid)+countryFee(val("country"),val("dealType"))+optionalFees()+num("transportEur");}
+
+document.getElementById("country").addEventListener("change",toggleNl);
+document.getElementById("dealType").addEventListener("change",toggleNl);
+function toggleNl(){var show=(val("country")==="NL"&&val("dealType")==="export");document.getElementById("nlBpmWrap").style.display=show?"block":"none";}
+
+function calc(){
+var bid=num("bidEur"),rate=num("eurRate");
+if(!bid||!rate){alert("Bitte Gebot in EUR und Wechselkurs eingeben.");return;}
+var aFee=auctionFee(bid),cFee=countryFee(val("country"),val("dealType")),oFee=optionalFees(),trans=num("transportEur");
+var eurTotal=bid+aFee+cFee+oFee+trans;
+var openlaneKc=eurTotal*rate;
+var czCosts=num("registration")+num("salesPrep")+num("serviceMin");
+var maxCosts=czCosts+num("repairsMax")+num("warrantyReserve")+num("otherReserve");
+var capital=openlaneKc+maxCosts;
+var vat=val("vatMode")==="gross";
+function clean(p){return vat?p/1.21:p;}
+var mLow=num("marketLow"),mMid=num("marketMid"),mHigh=num("marketHigh"),mTop=num("marketTop")||mHigh;
+var tProfit=num("targetProfit"),tRoi=num("targetRoiDay"),disc=num("defDiscount");
+
+// rozpad
+var b="";
+b+=kv("Gebot",fmtE(bid));
+b+=kv("Auktionsgebühr 2026",fmtE(aFee));
+b+=kv("Ländergebühr ("+val("country")+", "+(val("dealType")==="domestic"?"Inland":"Export")+")",fmtE(cFee));
+if(oFee)b+=kv("Optionale Gebühren",fmtE(oFee));
+b+=kv("Transport",fmtE(trans));
+b+=kv("<b>OPENLANE gesamt</b>","<b>"+fmtE(eurTotal)+" = "+fmtK(openlaneKc)+"</b>");
+b+=kv("Erforderliche CZ-Kosten (Zulassung+Vorbereitung+Service)",fmtK(czCosts));
+b+=kv("Max. Reparaturen + Reserven",fmtK(maxCosts-czCosts));
+b+=kv("<b>GESAMTKAPITAL IM FAHRZEUG</b>","<b>"+fmtK(capital)+"</b>");
+document.getElementById("breakdown").innerHTML=b;
+
+// safe bid — iterativně včetně poplatků 2026
+var sb="";
+if(mLow>0){
+var defPrice=mLow*(1-disc/100);
+var budgetKc=clean(defPrice)-maxCosts-tProfit; // co smí stát OPENLANE celkem vč. poplatků
+var budgetEur=budgetKc/rate;
+var lo=0,hi=budgetEur,safe=0;
+for(var i=0;i<60;i++){var mid=(lo+hi)/2;if(totalEur(mid)<=budgetEur){safe=mid;lo=mid;}else{hi=mid;}}
+sb+=kv("Schnellverkauf (niedrigster Preis −"+disc+" %)",fmtK(defPrice)+(vat?" brutto":""));
+sb+=kv("Preis netto",fmtK(clean(defPrice)));
+sb+=kv("− CZ-Kosten",fmtK(maxCosts));
+sb+=kv("− Zielgewinn",fmtK(tProfit));
+sb+=kv("OPENLANE-Budget (inkl. aller Gebühren)",fmtK(budgetKc)+" = "+fmtE(budgetEur));
+sb+=kv("<b>MAXIMALES GEBOT</b>","<b>"+fmtE(Math.floor(safe/100)*100)+"</b>");
+sb+=kv("Aktuelles Gebot vs. Maximum",(bid<=safe?"<span class='pos'>OK, Reserve "+fmtE(safe-bid)+"</span>":"<span class='neg'>LIMIT ÜBERSCHRITTEN um "+fmtE(bid-safe)+"</span>"));
+}else{sb="<span class='small'>Bitte den niedrigsten vergleichbaren Marktpreis eingeben.</span>";}
+document.getElementById("safebid").innerHTML=sb;
+
+// scénáře
+var sc="";
+if(mLow>0&&mHigh>0){
+var rows=[["Niedrigster Vergleichspreis",mLow],["Schnellverkauf −"+disc+" %",mLow*(1-disc/100)],["Realistischer Mittelwert",mMid],["Besserer Verkaufspreis",mHigh],["Bester realistischer Preis",mTop]];
+sc="<table><tr><th>Szenario</th><th>Marktpreis</th><th>Netto</th><th>Gewinn</th><th>CZK/Tag (30 T.)</th><th>ROI %/Tag 20 T.</th><th>30 T.</th><th>60 T.</th></tr>";
+for(var r=0;r<rows.length;r++){
+var p=rows[r][1],pn=clean(p),profit=pn-capital;
+var cls=profit>=tProfit?"pos":(profit>=0?"warn":"neg");
+function roi(d){return capital?(profit/capital/d*100):0;}
+sc+="<tr><td>"+rows[r][0]+"</td><td>"+fmtK(p)+"</td><td>"+fmtK(pn)+"</td><td class='"+cls+"'>"+fmtK(profit)+"</td><td>"+fmt(profit/30)+"</td><td>"+roi(20).toFixed(2)+"</td><td>"+roi(30).toFixed(2)+"</td><td>"+roi(60).toFixed(2)+"</td></tr>";}
+sc+="</table>";
+}else{sc="<span class='small'>Bitte Marktpreise eingeben.</span>";}
+document.getElementById("scenarios").innerHTML=sc;
+
+// verdikt — dle roi_calc.py: profitHigh a ROI 30 dní
+var v=document.getElementById("verdikt");
+if(mHigh>0){
+var profitHigh=clean(mHigh)-capital;
+var roiStd=capital?(profitHigh/capital/30*100):0;
+var vt,vc;
+if(profitHigh>=tProfit&&roiStd>=tRoi){vt="✅ KAUFEN — Gewinn "+fmtK(profitHigh)+", ROI "+roiStd.toFixed(2)+" %/Tag";vc="v-buy";}
+else if(profitHigh>=tProfit){vt="⚠️ BEDINGT — Gewinn "+fmtK(profitHigh)+", aber ROI "+roiStd.toFixed(2)+" %/Tag unter dem Ziel "+tRoi.toFixed(2);vc="v-cond";}
+else{vt="🔴 NICHT KAUFEN — Gewinn "+fmtK(profitHigh)+" unter dem Ziel "+fmtK(tProfit);vc="v-no";}
+v.textContent="";v.className=vc;v.style.display="block";
+v.innerHTML=(val("carName")?val("carName")+" · ":"")+vt;
+}else{v.style.display="none";}
+
+// srovnání s trhem
+var mc="";
+if(mLow>0){
+mc="<table><tr><th>Markt CZ</th><th>Preis (brutto)</th><th>Anschaffung vs. Markt</th></tr>";
+var refs=[["Minimum",mLow],["Mittelwert",mMid],["Maximum",mHigh]];
+var capitalVat=capital*(vat?1.21:1);
+for(var m=0;m<refs.length;m++){var d=refs[m][1]-capitalVat;
+mc+="<tr><td>"+refs[m][0]+"</td><td>"+fmtK(refs[m][1])+"</td><td class='"+(d>=0?"pos":"neg")+"'>"+(d>=0?"−":"+")+fmtK(Math.abs(d))+" "+(d>=0?"unter Markt":"über Markt")+"</td></tr>";}
+mc+="</table><div class='small' style='margin-top:5px'>Anschaffungskosten auf Bruttoniveau: "+fmtK(capitalVat)+" (für einen fairen Vergleich mit Inseraten).</div>";
+}else{mc="<span class='small'>Bitte Marktpreise eingeben.</span>";}
+document.getElementById("marketcmp").innerHTML=mc;
+}
+
+function kv(k,v){return "<div class='kv'><span>"+k+"</span><b>"+v+"</b></div>";}
+
+function loadJson(){
+var t=document.getElementById("jsonIn").value.trim();
+if(!t)return;
+var d;try{d=JSON.parse(t);}catch(e){alert("Ungültiges JSON: "+e.message);return;}
+var map={carName:"carName",auctionId:"auctionId",bidEur:"bidEur",country:"country",dealType:"dealType",transportEur:"transportEur",eurRate:"eurRate",registration:"registration",salesPrep:"salesPrep",serviceMin:"serviceMin",repairsMax:"repairsMax",warrantyReserve:"warrantyReserve",otherReserve:"otherReserve",marketLow:"marketLow",marketMid:"marketMid",marketHigh:"marketHigh",marketTop:"marketTop",vatMode:"vatMode",targetProfit:"targetProfit",targetRoiDay:"targetRoiDay",defDiscount:"defDiscount"};
+for(var k in map){if(d[k]!==undefined){var el=document.getElementById(map[k]);if(el)el.value=d[k];}}
+toggleNl();calc();
+}
+toggleNl();
+calc();
+</script>
+</body>
+</html>
