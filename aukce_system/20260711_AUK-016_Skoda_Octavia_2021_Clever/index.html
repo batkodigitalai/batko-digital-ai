@@ -262,23 +262,17 @@ var AUCTION_CONFIG = {
   "commissionNote": "8 000–12 000 Kč",
   "detailPageUrl": "https://batkodigitalai.github.io/batko-digital-ai/nabidky/20260711_auto1_11226495_Octavia_Clever_dovoz/index.html",
   "roi": {
-    "vatPayerMode": true,
+    "vatPayerMode": false,
     "vatRate": 0.21,
     "marketPriceCZ": 415000,
-    "marketPriceNetCZ": 342975,
-    "extrasLabel": "Doprava + přepis + příprava + servis bez DPH",
-    "extrasAmount": 36560,
-    "processingCostLabel": "Rezervy (reklamace + ostatní) bez DPH",
-    "processingCostAmount": 35000,
+    "extrasLabel": "Přepis, příprava a STK (v ceně)",
+    "extrasAmount": 0,
+    "processingCostLabel": "—",
+    "processingCostAmount": 0,
     "deliveryDaysMin": 20,
     "deliveryDaysMax": 35,
     "carScore": 78,
-    "scoreLabel": "Koupit do limitu",
-    "commissionMin": 8000,
-    "commissionMax": 12000,
-    "b2bMarketLow": 384000,
-    "b2bSaleTarget": 415000,
-    "b2bDaysSale": 30
+    "scoreLabel": "Dobrý stav"
   },
   "photos": [
     "img/foto_01.jpg",
@@ -354,12 +348,12 @@ var AUCTION_CONFIG = {
   "documents": [
     {
       "label": "DEKRA Zustandsbericht 24.06.2026",
-      "file": "docs/DEKRA_zustandsbericht_11226495.pdf",
+      "file": "dokumenty/DEKRA_zustandsbericht_11226495.pdf",
       "icon": "📋"
     },
     {
       "label": "Historie škod (Schadenshistorie)",
-      "file": "docs/Historie_skod_11226495.pdf",
+      "file": "dokumenty/Historie_skod_11226495.pdf",
       "icon": "📄"
     }
   ]
@@ -568,7 +562,7 @@ var AUCTION_CONFIG = {
     </div>
     <div class="info-box">
       <strong>DPH</strong>
-      Vyvolávací cena, příhozy a náklady v kalkulačce jsou posuzované jako částky bez DPH pro plátce DPH. Srovnání s českým trhem je orientačně vč. DPH; interní B2B výpočet marže pracuje s cenami bez DPH.
+      Ceny jsou uvedené včetně DPH. Kupující platí dohodnutou kupní cenu; vůz dodáváme dovezený, přepsaný a se STK.
     </div>
   </div>
 
@@ -601,11 +595,11 @@ var AUCTION_CONFIG = {
         <span class="cr-val"><input class="calc-inline" type="text" inputmode="numeric" id="calc-processing" oninput="updateCalc()" autocomplete="off"> Kč</span>
       </div>
       <div class="cr-row" style="border-top:2px solid rgba(255,255,255,.25);margin-top:4px;padding-top:8px">
-        <span class="cr-label cr-total">Celkem odhadem bez DPH</span>
+        <span class="cr-label cr-total">Celkem — cena kupujícího (vč. DPH)</span>
         <span class="cr-val cr-total" id="cr-total">—</span>
       </div>
     </div>
-    <div style="font-size:.72rem;color:#aaa;margin-top:10px">* Kalkulačka je orientační a v tomto režimu počítá bez DPH. Přesná cena závisí na skutečné výši příhozu a finálním daňovém režimu prodeje.</div>
+    <div style="font-size:.72rem;color:#aaa;margin-top:10px">* Kalkulačka je orientační, ceny vč. DPH. Konečná cena = váš vítězný příhoz.</div>
   </div>
 
   <!-- ── B2B BLOK PRO AUTOBAZARY ── -->
