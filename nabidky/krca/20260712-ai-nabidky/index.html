@@ -1,0 +1,658 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Praktické AI služby pro firmy - PBF Planet</title>
+  <style>
+    :root {
+      --bg: #06131d;
+      --panel: #0c2130;
+      --panel2: #102d42;
+      --gold: #f2b84b;
+      --amber: #ffdc93;
+      --blue: #68b9ff;
+      --green: #7dde77;
+      --text: #f8fbff;
+      --muted: #b8c7d4;
+      --line: rgba(255,255,255,.14);
+      --shadow: 0 22px 70px rgba(0,0,0,.34);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 85% 0%, rgba(242,184,75,.24), transparent 34rem),
+        radial-gradient(circle at 12% 12%, rgba(104,185,255,.18), transparent 34rem),
+        linear-gradient(180deg, #06131d 0%, #071923 52%, #050d14 100%);
+      line-height: 1.55;
+    }
+    a { color: inherit; }
+    .wrap { width: min(1160px, calc(100% - 36px)); margin: 0 auto; }
+    header {
+      min-height: 90vh;
+      display: grid;
+      align-items: center;
+      padding: 92px 0 42px;
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar {
+      position: fixed;
+      z-index: 10;
+      inset: 0 0 auto 0;
+      border-bottom: 1px solid var(--line);
+      background: rgba(6,19,29,.82);
+      backdrop-filter: blur(14px);
+    }
+    .topbar .wrap {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+    }
+    .badge {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      color: var(--gold);
+      border: 1px solid rgba(242,184,75,.55);
+      background: linear-gradient(135deg, rgba(242,184,75,.25), rgba(104,185,255,.14));
+      font-size: 24px;
+    }
+    .top-note { color: var(--muted); font-size: 14px; text-align: right; }
+    .hero {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 34px;
+      align-items: center;
+    }
+    .eyebrow {
+      color: var(--amber);
+      text-transform: uppercase;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-size: clamp(38px, 5.7vw, 74px);
+      line-height: .96;
+      margin: 0 0 18px;
+      letter-spacing: 0;
+    }
+    .lead {
+      color: #dceaf5;
+      font-size: clamp(18px, 2vw, 22px);
+      max-width: 720px;
+      margin: 0 0 24px;
+    }
+    .btn-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 13px 18px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,.18);
+      text-decoration: none;
+      font-weight: 900;
+      color: #071019;
+      background: linear-gradient(180deg, #ffe7ad, var(--gold));
+      box-shadow: 0 12px 30px rgba(242,184,75,.2);
+    }
+    .btn.secondary {
+      color: var(--text);
+      background: rgba(255,255,255,.07);
+      box-shadow: none;
+    }
+    .hero-card, .card, .offer, .cta, .proof {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: linear-gradient(180deg, rgba(16,45,66,.92), rgba(12,33,48,.92));
+      box-shadow: var(--shadow);
+    }
+    .hero-card { padding: 14px; }
+    .hero-card img { width: 100%; display: block; border-radius: 6px; border: 1px solid rgba(255,255,255,.12); }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .stat {
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.045);
+      border-radius: 8px;
+      padding: 14px;
+    }
+    .stat strong { display: block; color: var(--gold); font-size: 24px; line-height: 1.05; }
+    .stat span { display: block; color: var(--muted); font-size: 13px; margin-top: 5px; }
+    section { padding: 58px 0; }
+    .section-head { max-width: 850px; margin-bottom: 24px; }
+    h2 { font-size: clamp(28px, 3.4vw, 44px); line-height: 1.08; margin: 0 0 12px; letter-spacing: 0; }
+    h3 { margin: 0 0 10px; font-size: 23px; line-height: 1.16; }
+    p { margin-top: 0; }
+    .section-head p, .card p, .offer p, .proof p { color: var(--muted); }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .card, .proof { padding: 22px; }
+    .tag {
+      display: inline-flex;
+      color: #ffe6ad;
+      border: 1px solid rgba(242,184,75,.38);
+      background: rgba(242,184,75,.1);
+      border-radius: 999px;
+      padding: 7px 11px;
+      font-size: 13px;
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+    .list { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+    .list li { display: grid; grid-template-columns: 22px 1fr; gap: 8px; color: #edf6ff; }
+    .list li::before { content: "✓"; color: var(--green); font-weight: 900; }
+    .offers { display: grid; gap: 18px; }
+    .offer {
+      display: grid;
+      grid-template-columns: 1fr 306px;
+      gap: 20px;
+      padding: 22px;
+    }
+    .offer-kicker {
+      color: var(--blue);
+      font-size: 13px;
+      text-transform: uppercase;
+      font-weight: 900;
+      letter-spacing: .06em;
+      margin-bottom: 8px;
+    }
+    .side {
+      border-radius: 8px;
+      border: 1px solid rgba(242,184,75,.34);
+      background: rgba(242,184,75,.09);
+      padding: 18px;
+      display: grid;
+      align-content: space-between;
+      gap: 16px;
+    }
+    .price { font-size: 28px; line-height: 1.05; font-weight: 900; color: var(--amber); }
+    .small { color: var(--muted); font-size: 13px; }
+    .mail-preview {
+      margin-top: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 8px;
+      background: rgba(0,0,0,.16);
+      padding: 12px;
+      color: #dceaf5;
+      font-size: 14px;
+      white-space: pre-line;
+    }
+    .request-box {
+      border: 1px solid rgba(242,184,75,.42);
+      border-radius: 8px;
+      background: linear-gradient(180deg, rgba(16,45,66,.96), rgba(8,24,35,.96));
+      box-shadow: var(--shadow);
+      padding: 24px;
+    }
+    .request-box[hidden] { display: none; }
+    .request-meta {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 12px 0 16px;
+    }
+    .request-meta div {
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 8px;
+      background: rgba(255,255,255,.045);
+      padding: 10px 12px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    textarea.request-text {
+      width: 100%;
+      min-height: 300px;
+      resize: vertical;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: #f8fbff;
+      color: #071019;
+      padding: 16px;
+      font: 15px/1.5 Arial, Helvetica, sans-serif;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 18px;
+      align-items: start;
+    }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+    .footer-links a {
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 8px;
+      padding: 8px 10px;
+      text-decoration: none;
+      color: #edf6ff;
+      background: rgba(255,255,255,.05);
+      font-size: 14px;
+    }
+    .proof-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      align-items: center;
+    }
+    .proof-strip img { width: 100%; border-radius: 8px; border: 1px solid var(--line); display: block; }
+    .steps { counter-reset: step; display: grid; gap: 12px; }
+    .step {
+      counter-increment: step;
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      gap: 14px;
+      padding: 16px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.045);
+    }
+    .step::before {
+      content: counter(step);
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      border: 1px solid rgba(104,185,255,.5);
+      background: rgba(104,185,255,.16);
+      color: var(--blue);
+      font-size: 20px;
+      font-weight: 900;
+    }
+    .step strong { display: block; font-size: 18px; margin-bottom: 4px; }
+    .step span { color: var(--muted); }
+    .quote {
+      border-left: 4px solid var(--gold);
+      background: rgba(255,255,255,.055);
+      border-radius: 8px;
+      padding: 22px;
+      color: #eef7ff;
+      font-size: 20px;
+    }
+    .cta {
+      padding: 34px;
+      background:
+        linear-gradient(135deg, rgba(242,184,75,.22), rgba(104,185,255,.12)),
+        var(--panel);
+    }
+    footer { padding: 28px 0 40px; color: var(--muted); border-top: 1px solid var(--line); }
+    @media (max-width: 900px) {
+      .hero, .offer, .grid-2, .grid-3, .proof-strip, .request-meta, .footer-grid { grid-template-columns: 1fr; }
+      header { min-height: auto; }
+      .topbar .wrap { align-items: flex-start; flex-direction: column; padding: 12px 0; }
+      .top-note { text-align: left; }
+      .stats { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap">
+      <div class="brand"><div class="badge">♛</div><div>PBF Planet<br><span style="color:var(--muted);font-size:12px;">praktické AI služby pro firmy</span></div></div>
+      <div class="top-note">Obchodní platforma PBF Planet • Technický partner BATKO.DIGITAL.AI</div>
+    </div>
+  </div>
+
+  <header>
+    <div class="wrap hero">
+      <div>
+        <div class="eyebrow">Nabídka pro firmy, restaurace, e-shopy, eventy a partnery • neděle 12. 7. 2026</div>
+        <h1>Praktická AI, která má rychle ukázat obchodní smysl.</h1>
+        <p class="lead">Vyberte si praktický balíček pro menu, dokumenty, produktové vizuály, partnerství, reklamu nebo zákaznické zážitky. Na začátku stačí krátká poptávka. Vrátíme vám návrh nejmenšího rozumného pilotu, aby se nejdřív ověřil přínos a teprve potom řešila větší zakázka.</p>
+        <div class="btn-row">
+          <a class="btn" href="#nabidky">Vybrat službu a poslat poptávku</a>
+          <a class="btn secondary" href="#jak">Jak spolupráce probíhá</a>
+        </div>
+        <div class="stats">
+          <div class="stat"><strong>pilot</strong><span>nejdřív malý ověřitelný výstup</span></div>
+          <div class="stat"><strong>24-72 h</strong><span>typický cíl pro první ukázku podle podkladů</span></div>
+          <div class="stat"><strong>bez závazku</strong><span>rozsah se potvrdí až po posouzení</span></div>
+        </div>
+      </div>
+      <div class="hero-card">
+        <img src="../assets/akcelerator-zisku-krca.png" alt="Akcelerátor zisku PBF Planet">
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Pro koho to je</h2>
+          <p>Pro firmy a podnikatele, kteří nechtějí obecnou přednášku o AI, ale konkrétní výstup použitelný v obchodě, provozu nebo marketingu.</p>
+        </div>
+        <div class="grid-3">
+          <div class="card">
+            <span class="tag">Rychlý obchod</span>
+            <h3>Chcete získat reakce</h3>
+            <p>Potřebujete lepší nabídku, jasnější argument, nové vizuály nebo poptávkový text, který klient pochopí během pár vteřin.</p>
+          </div>
+          <div class="card">
+            <span class="tag">Méně ruční práce</span>
+            <h3>Chcete ušetřit čas</h3>
+            <p>Máte menu, formuláře, dokumenty, zákaznické dotazy nebo opakované úkoly, které zdržují vás nebo váš tým.</p>
+          </div>
+          <div class="card">
+            <span class="tag">Bez velkého rizika</span>
+            <h3>Chcete nejdřív důkaz</h3>
+            <p>Začne se malým pilotem. Až když výsledek dává smysl, řeší se větší zakázka, pravidelná správa nebo kampaň.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="nabidky">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Vyberte službu</h2>
+          <p>Každé tlačítko nejdřív vytvoří hotový text poptávky přímo na stránce. Klient ho uvidí, doplní, zkopíruje nebo otevře v Gmailu. Kopie jde technickému partnerovi BATKO.DIGITAL.AI, aby se dala rychle připravit odpověď.</p>
+        </div>
+
+        <div class="offers">
+          <article class="offer">
+            <div>
+              <div class="offer-kicker">Restaurace, kavárny, hotely, penziony</div>
+              <h3>Gastro-AI: QR menu, překlady a alergeny</h3>
+              <p>Pošlete jídelní lístek a dostanete digitální QR menu, které host pochopí v češtině i cizím jazyce. Součástí může být přehled alergenů, stručné popisy jídel a podklady pro QR kódy na stoly.</p>
+              <ul class="list">
+                <li>Vhodné pro provozy s turisty, sezónní nabídkou nebo častými změnami cen.</li>
+                <li>První krok může být ukázka jednoho jídla a návrh podoby menu.</li>
+                <li>Možné rozšíření: tisk, laminace, stojánky a zaškolení personálu.</li>
+              </ul>
+              <div class="mail-preview">Poptávka se zeptá jen na provoz, podklady a poznámku. Detail projdeme až v odpovědi nebo hovoru.</div>
+            </div>
+            <aside class="side">
+              <div>
+                <div class="price">od 990 Kč</div>
+                <div class="small">pilot podle rozsahu menu a kvality podkladů</div>
+              </div>
+              <a class="btn" href="#poptavka" data-request="gastro">Chci poptat QR menu</a>
+            </aside>
+          </article>
+
+          <article class="offer">
+            <div>
+              <div class="offer-kicker">Živnostníci, malé firmy, správa a dokumenty</div>
+              <h3>AI Úřední Kurýr: dokument připravit k odeslání</h3>
+              <p>Když potřebujete vyplnit formulář, připravit úřední dopis, reklamaci, žádost nebo podání, pošlete podklady. Připravíme srozumitelný návrh dokumentu, seznam chybějících údajů a podle dohody tiskový balíček.</p>
+              <ul class="list">
+                <li>Vhodné pro běžnou administrativu, pojišťovny, úřady, reklamace a firemní dokumenty.</li>
+                <li>Nejde o advokátní zastoupení, ale o administrativní a technické zpracování podkladů.</li>
+                <li>Možné rozšíření: tisk, obálka, instrukce pro doporučené odeslání.</li>
+              </ul>
+              <div class="mail-preview">Poptávka otevře krátký popis situace, termín a místo pro podklady. Nejde o právní zastoupení.</div>
+            </div>
+            <aside class="side">
+              <div>
+                <div class="price">od 490 Kč</div>
+                <div class="small">běžný dokument, složitější případy individuálně</div>
+              </div>
+              <a class="btn" href="#poptavka" data-request="uredni">Chci poptat dokument</a>
+            </aside>
+          </article>
+
+          <article class="offer">
+            <div>
+              <div class="offer-kicker">E-shopy, móda, beauty, osobní značky</div>
+              <h3>AI Produktové studio: vizuály bez drahého focení</h3>
+              <p>Vy pošlete produkt, fotku nebo popis. My připravíme návrh prodejních vizuálů pro e-shop, sociální sítě, prezentaci nebo kampaň. Cílem je, aby značka působila profesionálněji bez organizace plného focení.</p>
+              <ul class="list">
+                <li>Vhodné pro oblečení, kosmetiku, doplňky, služby, osobní profily a kampaně.</li>
+                <li>První krok může být sada 3-5 návrhů pro jeden produkt nebo osobní profil.</li>
+                <li>Možné rozšíření: texty příspěvků, reklamní úhly, cílové skupiny a plán kampaně.</li>
+              </ul>
+              <div class="mail-preview">Poptávka doplní jen produkt nebo značku, použití a poznámku ke stylu. Inspirace může přijít v příloze.</div>
+            </div>
+            <aside class="side">
+              <div>
+                <div class="price">od 1 490 Kč</div>
+                <div class="small">pilotní sada podle kvality fotek a cíle kampaně</div>
+              </div>
+              <a class="btn" href="#poptavka" data-request="studio">Chci poptat vizuály</a>
+            </aside>
+          </article>
+
+          <article class="offer">
+            <div>
+              <div class="offer-kicker">Sponzoring, eventy, reklama, partneři</div>
+              <h3>Partner Verdikt: ověření, zda se partnerství vyplatí</h3>
+              <p>Pokud nabízíte reklamu, sponzoring, event, banner, barter nebo partnerský balíček, připravíme rychlý obchodní verdikt: komu to nabídnout, co má být hlavní hodnota a jak odpovědět na typické námitky.</p>
+              <ul class="list">
+                <li>Vhodné pro pořadatele akcí, reklamní plochy, sport, kulturu, soutěže a komunitní projekty.</li>
+                <li>Výstup může obsahovat text nabídky, cílové skupiny, protiargumenty a návrh pilotu.</li>
+                <li>Pomáhá rozhodnout, jestli má smysl žádat velký sponzorský balík, nebo začít menší ověřovací nabídkou.</li>
+              </ul>
+              <div class="mail-preview">Poptávka popíše projekt, nabídku pro partnery a cíl. Oslovení firem se řeší až po schválení zdrojů a pravidel.</div>
+            </div>
+            <aside class="side">
+              <div>
+                <div class="price">od 2 000 Kč</div>
+                <div class="small">diagnostika nabídky a návrh pilotního oslovení</div>
+              </div>
+              <a class="btn" href="#poptavka" data-request="partner">Chci poptat Partner Verdikt</a>
+            </aside>
+          </article>
+
+          <article class="offer">
+            <div>
+              <div class="offer-kicker">Hotely, cestování, komunity, zážitky</div>
+              <h3>Venku za dveřmi: plán zážitku na míru</h3>
+              <p>Pro klienty, hosty nebo členy komunity, kteří chtějí konkrétní plán výletu, víkendu nebo zážitku bez dlouhého hledání. Zadá se lokalita, čas, rozpočet, nálada a omezení. Výstupem je praktický plán a záložní varianta.</p>
+              <ul class="list">
+                <li>Vhodné pro hotely, penziony, cestovní kluby, zážitkové partnery a komunitní služby.</li>
+                <li>Výstup může být jednorázový plán, balíček pro hosty nebo pravidelný concierge obsah.</li>
+                <li>Možné rozšíření: rezervace, itineráře pro rodiny, páry nebo firemní skupiny.</li>
+              </ul>
+              <div class="mail-preview">Poptávka doplní lokalitu, termín, počet osob a přání. Detailní plán se doladí až po odpovědi.</div>
+            </div>
+            <aside class="side">
+              <div>
+                <div class="price">od 150 Kč</div>
+                <div class="small">jednorázový plán, firemní verze individuálně</div>
+              </div>
+              <a class="btn" href="#poptavka" data-request="venku">Chci poptat plán zážitku</a>
+            </aside>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="poptavka">
+      <div class="wrap">
+        <div class="request-box" id="requestBox" hidden>
+          <div class="eyebrow">Připravená poptávka k odeslání</div>
+          <h2 id="requestTitle">Text poptávky</h2>
+          <p class="lead">Doplňte chybějící údaje, potom text zkopírujte do e-mailu nebo otevřete Gmail. Adresát a kopie jsou níže.</p>
+          <div class="request-meta">
+            <div><strong>Komu:</strong><br><span id="requestTo">krca@missprincessworld.com</span></div>
+            <div><strong>Kopie:</strong><br><span id="requestCc">batko.digital.ai@gmail.com</span></div>
+            <div><strong>Předmět:</strong><br><span id="requestSubject"></span></div>
+          </div>
+          <textarea class="request-text" id="requestText"></textarea>
+          <div class="btn-row" style="margin-top:14px;">
+            <button class="btn" type="button" id="copyRequest">Zkopírovat text</button>
+            <a class="btn secondary" id="gmailRequest" target="_blank" rel="noopener">Otevřít v Gmailu</a>
+            <a class="btn secondary" id="mailtoRequest">Zkusit otevřít poštu</a>
+          </div>
+          <p id="copyStatus" style="color:var(--green);margin:12px 0 0;"></p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap proof-strip">
+        <div>
+          <div class="section-head">
+            <h2>Proč PBF Planet</h2>
+            <p>PBF Planet propojuje partnery, podnikatele, eventy, obchodní příležitosti a praktické služby. Cílem není prodávat složitou technologii, ale najít využití, které může mít měřitelný přínos.</p>
+          </div>
+          <div class="quote">Nejprve malý pilot. Potom vyhodnocení. Až potom větší zakázka.</div>
+        </div>
+        <img src="../assets/pbf-planet.jpeg" alt="PBF Planet program partner">
+      </div>
+    </section>
+
+    <section id="jak">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Jak proběhne spolupráce</h2>
+          <p>Jednoduše: vy pošlete poptávku, my ji posoudíme a navrhneme nejmenší rozumný krok. Žádné garance obchodního výsledku bez jasně sjednaného modelu a podkladů.</p>
+        </div>
+        <div class="steps">
+          <div class="step"><div><strong>1. Vyberete službu a odešlete poptávku.</strong><span>Tlačítko připraví e-mail. Doplníte jen chybějící informace a případně přiložíte podklady.</span></div></div>
+          <div class="step"><div><strong>2. Dostanete rychlé posouzení.</strong><span>Odpovíme, zda dává smysl pilot, co chybí a jaký je nejmenší placený výstup.</span></div></div>
+          <div class="step"><div><strong>3. Připraví se první použitelný výsledek.</strong><span>Ne prezentace o možnostech, ale konkrétní ukázka, text, vizuál, dokument, menu nebo obchodní návrh.</span></div></div>
+          <div class="step"><div><strong>4. Rozhodnete se, jestli pokračovat.</strong><span>Pokud pilot dává smysl, může následovat jednorázová zakázka, pravidelná správa nebo širší obchodní spolupráce.</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap grid-2">
+        <div class="proof">
+          <h3>Co je dobré připravit předem</h3>
+          <ul class="list">
+            <li>Název firmy nebo projektu.</li>
+            <li>Stručný popis problému, který chcete vyřešit.</li>
+            <li>Fotky, PDF, menu, texty, odkazy nebo jiné podklady.</li>
+            <li>Termín, kdy výstup potřebujete.</li>
+            <li>Rozpočet nebo představu, jestli chcete jen pilot, nebo větší řešení.</li>
+          </ul>
+        </div>
+        <div class="proof">
+          <h3>Kdo co zajišťuje</h3>
+          <p><strong>PBF Planet</strong> zastřešuje obchodní komunikaci, výběr vhodné příležitosti a návaznost na klienta.</p>
+          <p><strong>BATKO.DIGITAL.AI</strong> zajišťuje technické zpracování, AI workflow, návrhy výstupů a realizaci pilotů.</p>
+          <p>Konkrétní rozsah, cena, termíny, práce s daty a odpovědnost se potvrzují až po posouzení zadání a dodaných podkladů.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap cta">
+        <h2>Nevíte, která služba se hodí?</h2>
+        <p class="lead">Pošlete obecnou poptávku. Stačí popsat firmu, problém a cíl. Vrátíme vám doporučení, jestli začít menu, dokumenty, vizuály, Partner Verdiktem, nebo úplně jiným pilotem.</p>
+        <div class="btn-row">
+          <a class="btn" href="#poptavka" data-request="obecna">Připravit obecnou poptávku</a>
+          <a class="btn secondary" href="#nabidky">Zpět na konkrétní služby</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-grid">
+      <div>
+        <strong>PBF Planet</strong> - obchodní a partnerská platforma pro networking, marketing, eventy, travel benefity a praktické AI služby pro firmy.<br>
+        <strong>BATKO.DIGITAL.AI</strong> - technický partner pro AI zpracování, piloty, návrhy výstupů a realizaci dodávek.<br>
+        <strong>Kontakt pro poptávky:</strong> krca@missprincessworld.com, kopie batko.digital.ai@gmail.com.
+        <div class="footer-links">
+          <a href="obchodni-podminky-gdpr.html">Jednoduché obchodní podmínky a GDPR</a>
+          <a href="#poptavka">Připravená poptávka</a>
+          <a href="#nabidky">Nabídky služeb</a>
+        </div>
+      </div>
+      <div>
+        <strong>Datum materiálu:</strong> neděle 12. 7. 2026.<br>
+        Tento materiál je klientská nabídka PBF Planet. Nejde o právní, daňové ani investiční poradenství. PBF Planet negarantuje automatický obchodní výsledek, pokud není výslovně sjednán výkonnostní model. Reference, logo, název klienta a zveřejnění výstupů se používají pouze po předchozím souhlasu. Osobní údaje a podklady z poptávky se používají jen pro posouzení a přípravu nabídky; podrobnosti jsou v obchodních podmínkách a GDPR.
+      </div>
+    </div>
+  </footer>
+  <script>
+    const requestTo = "krca@missprincessworld.com";
+    const requestCc = "batko.digital.ai@gmail.com";
+    const requestTemplates = {
+      gastro: {
+        subject: "Poptávka: Gastro-AI QR menu",
+        intro: "Zaujala mě nabídka Gastro-AI - QR menu, překlady a alergeny.",
+        fields: ["Provoz / firma:", "Máme menu jako PDF, fotku nebo text:", "Co chceme zlepšit:", "Kontakt a telefon:", "Poznámka:"]
+      },
+      uredni: {
+        subject: "Poptávka: AI Úřední Kurýr",
+        intro: "Zaujala mě nabídka AI Úřední Kurýr. Chápu, že jde o administrativní a technické zpracování podkladů, ne o právní zastoupení.",
+        fields: ["Jaký dokument nebo situaci řešíme:", "Termín:", "Jaké podklady můžeme poslat:", "Kontakt a telefon:", "Poznámka:"]
+      },
+      studio: {
+        subject: "Poptávka: AI Produktové studio",
+        intro: "Zaujala mě nabídka AI Produktové studio pro vizuály.",
+        fields: ["Produkt / značka / osoba:", "Kde se výstupy použijí:", "Máme fotky, web nebo inspiraci:", "Kontakt a telefon:", "Poznámka:"]
+      },
+      partner: {
+        subject: "Poptávka: Partner Verdikt",
+        intro: "Zaujala mě nabídka Partner Verdikt pro ověření partnerské nebo sponzorské nabídky.",
+        fields: ["Projekt / event / reklamní plocha:", "Co nabízíme partnerům:", "Koho chceme oslovit:", "Kontakt a telefon:", "Poznámka:"]
+      },
+      venku: {
+        subject: "Poptávka: Venku za dveřmi",
+        intro: "Zaujala mě nabídka Venku za dveřmi - plán zážitku na míru.",
+        fields: ["Město / lokalita:", "Termín a počet osob:", "Co by se nám líbilo nebo co nechceme:", "Kontakt a telefon:", "Poznámka:"]
+      },
+      obecna: {
+        subject: "Obecná poptávka: praktické AI služby",
+        intro: "Zaujala mě nabídka praktických AI služeb PBF Planet s technickou podporou BATKO.DIGITAL.AI.",
+        fields: ["Firma / projekt:", "Co chceme zlepšit:", "Jaké podklady máme:", "Kontakt a telefon:", "Poznámka:"]
+      }
+    };
+
+    function buildBody(template) {
+      return ["Dobrý den,", "", template.intro, "", "Prosím o návrh nejmenšího rozumného pilotu.", "", ...template.fields.map((field) => `${field} `), "", "Děkuji."].join("\n");
+    }
+
+    function showRequest(key) {
+      const template = requestTemplates[key];
+      const body = buildBody(template);
+      const box = document.getElementById("requestBox");
+      document.getElementById("requestTitle").textContent = template.subject;
+      document.getElementById("requestSubject").textContent = template.subject;
+      document.getElementById("requestText").value = body;
+      document.getElementById("copyStatus").textContent = "";
+      document.getElementById("gmailRequest").href = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(requestTo)}&cc=${encodeURIComponent(requestCc)}&su=${encodeURIComponent(template.subject)}&body=${encodeURIComponent(body)}`;
+      document.getElementById("mailtoRequest").href = `mailto:${requestTo}?cc=${encodeURIComponent(requestCc)}&subject=${encodeURIComponent(template.subject)}&body=${encodeURIComponent(body)}`;
+      box.hidden = false;
+      box.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    document.querySelectorAll("[data-request]").forEach((button) => {
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        showRequest(button.dataset.request);
+      });
+    });
+
+    document.getElementById("copyRequest").addEventListener("click", async () => {
+      const text = document.getElementById("requestText").value;
+      const status = document.getElementById("copyStatus");
+      try {
+        await navigator.clipboard.writeText(text);
+        status.textContent = "Text poptávky je zkopírovaný.";
+      } catch {
+        document.getElementById("requestText").select();
+        status.textContent = "Text je označený. Zkopírujte ho klávesami Ctrl+C.";
+      }
+    });
+  </script>
+</body>
+</html>
