@@ -1,0 +1,1109 @@
+﻿<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BATKO.DIGITAL.AI - z podkladů udělám použitelný obchodní výstup</title>
+  <meta name="description" content="Pošlete menu, poznámky, fotky, e-maily, nabídku, nahrávku nebo nápad. BATKO.DIGITAL.AI z toho připraví výstup použitelný v obchodě, provozu nebo rozhodování.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Z podkladů, chaosu nebo nápadu udělám výstup použitelný v obchodě">
+  <meta property="og:description" content="Malý první výstup místo velkého projektu: nabídka, prezentace, follow-up, audit, oslovení nebo pracovní postup.">
+  <meta property="og:url" content="https://batkodigitalai.github.io/batko-digital-ai/nabidky/batko-digital-ai-20260712/">
+  <meta property="og:image" content="https://batkodigitalai.github.io/batko-digital-ai/nabidky/batko-digital-ai-20260712/assets/batko-digital-ai-og.png">
+  <meta property="og:image:secure_url" content="https://batkodigitalai.github.io/batko-digital-ai/nabidky/batko-digital-ai-20260712/assets/batko-digital-ai-og.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="BATKO.DIGITAL.AI">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="BATKO.DIGITAL.AI - hotové výstupy pro firmy">
+  <meta name="twitter:description" content="Pošlete podklady. Dostanete použitelný výstup pro obchod, provoz nebo rozhodnutí.">
+  <meta name="twitter:image" content="https://batkodigitalai.github.io/batko-digital-ai/nabidky/batko-digital-ai-20260712/assets/batko-digital-ai-og.png">
+  <style>
+    :root {
+      --bg: #06131d;
+      --panel: #0c2130;
+      --panel2: #102d42;
+      --gold: #f2b84b;
+      --amber: #ffdc93;
+      --blue: #68b9ff;
+      --green: #7dde77;
+      --text: #f8fbff;
+      --muted: #b8c7d4;
+      --line: rgba(255,255,255,.14);
+      --shadow: 0 22px 70px rgba(0,0,0,.34);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 85% 0%, rgba(242,184,75,.24), transparent 34rem),
+        radial-gradient(circle at 12% 12%, rgba(104,185,255,.18), transparent 34rem),
+        linear-gradient(180deg, #06131d 0%, #071923 52%, #050d14 100%);
+      line-height: 1.55;
+    }
+    a { color: inherit; }
+    .wrap { width: min(1160px, calc(100% - 36px)); margin: 0 auto; }
+    header {
+      min-height: 90vh;
+      display: grid;
+      align-items: center;
+      padding: 92px 0 42px;
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar {
+      position: fixed;
+      z-index: 10;
+      inset: 0 0 auto 0;
+      border-bottom: 1px solid var(--line);
+      background: rgba(6,19,29,.82);
+      backdrop-filter: blur(14px);
+    }
+    .topbar .wrap {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+    }
+    .badge {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      color: var(--gold);
+      border: 1px solid rgba(242,184,75,.55);
+      background: linear-gradient(135deg, rgba(242,184,75,.25), rgba(104,185,255,.14));
+      font-size: 24px;
+    }
+    .top-note { color: var(--muted); font-size: 14px; text-align: right; }
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 26px;
+      align-items: center;
+    }
+    .hero.hero-wide { width: min(1540px, calc(100% - 20px)); }
+    .hero-copy { max-width: 980px; }
+    .eyebrow {
+      color: var(--amber);
+      text-transform: uppercase;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-size: clamp(38px, 5.7vw, 74px);
+      line-height: .96;
+      margin: 0 0 18px;
+      letter-spacing: 0;
+    }
+    .lead {
+      color: #dceaf5;
+      font-size: clamp(18px, 2vw, 22px);
+      max-width: 720px;
+      margin: 0 0 24px;
+    }
+    .btn-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 13px 18px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,.18);
+      text-decoration: none;
+      font-weight: 900;
+      color: #071019;
+      background: linear-gradient(180deg, #ffe7ad, var(--gold));
+      box-shadow: 0 12px 30px rgba(242,184,75,.2);
+    }
+    .btn.secondary {
+      color: var(--text);
+      background: rgba(255,255,255,.07);
+      box-shadow: none;
+    }
+    .hero-card, .card, .offer, .cta, .proof {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: linear-gradient(180deg, rgba(16,45,66,.92), rgba(12,33,48,.92));
+      box-shadow: var(--shadow);
+    }
+    .hero-card {
+      padding: 10px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.015)),
+        linear-gradient(180deg, rgba(16,45,66,.92), rgba(12,33,48,.92));
+    }
+    .hero-card img {
+      width: 100%;
+      display: block;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,.12);
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .stat {
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.045);
+      border-radius: 8px;
+      padding: 14px;
+    }
+    .stat strong { display: block; color: var(--gold); font-size: 24px; line-height: 1.05; }
+    .stat span { display: block; color: var(--muted); font-size: 13px; margin-top: 5px; }
+    section { padding: 58px 0; }
+    .section-head { max-width: 850px; margin-bottom: 24px; }
+    h2 { font-size: clamp(28px, 3.4vw, 44px); line-height: 1.08; margin: 0 0 12px; letter-spacing: 0; }
+    h3 { margin: 0 0 10px; font-size: 23px; line-height: 1.16; }
+    p { margin-top: 0; }
+    .section-head p, .card p, .offer p, .proof p { color: var(--muted); }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .card, .proof { padding: 22px; }
+    .tag {
+      display: inline-flex;
+      color: #ffe6ad;
+      border: 1px solid rgba(242,184,75,.38);
+      background: rgba(242,184,75,.1);
+      border-radius: 999px;
+      padding: 7px 11px;
+      font-size: 13px;
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+    .list { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+    .list li {
+      position: relative;
+      display: block;
+      padding-left: 30px;
+      color: #edf6ff;
+    }
+    .list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--green);
+      font-weight: 900;
+    }
+    .list li strong { color: #fff; }
+    .offers { display: grid; gap: 18px; }
+    .offer {
+      display: grid;
+      grid-template-columns: 1fr 306px;
+      gap: 20px;
+      padding: 22px;
+    }
+    .offer-kicker {
+      color: var(--blue);
+      font-size: 13px;
+      text-transform: uppercase;
+      font-weight: 900;
+      letter-spacing: .06em;
+      margin-bottom: 8px;
+    }
+    .side {
+      border-radius: 8px;
+      border: 1px solid rgba(242,184,75,.34);
+      background: rgba(242,184,75,.09);
+      padding: 18px;
+      display: grid;
+      align-content: space-between;
+      gap: 16px;
+    }
+    .price { font-size: 28px; line-height: 1.05; font-weight: 900; color: var(--amber); }
+    .small { color: var(--muted); font-size: 13px; }
+    .mail-preview {
+      margin-top: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 8px;
+      background: rgba(0,0,0,.16);
+      padding: 12px;
+      color: #dceaf5;
+      font-size: 14px;
+      white-space: pre-line;
+    }
+    .request-box {
+      border: 1px solid rgba(242,184,75,.42);
+      border-radius: 8px;
+      background: linear-gradient(180deg, rgba(16,45,66,.96), rgba(8,24,35,.96));
+      box-shadow: var(--shadow);
+      padding: 24px;
+    }
+    .request-box[hidden] { display: none; }
+    .request-meta {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 12px 0 16px;
+    }
+    .request-meta div {
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 8px;
+      background: rgba(255,255,255,.045);
+      padding: 10px 12px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    textarea.request-text {
+      width: 100%;
+      min-height: 300px;
+      resize: vertical;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: #f8fbff;
+      color: #071019;
+      padding: 16px;
+      font: 15px/1.5 Arial, Helvetica, sans-serif;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 18px;
+      align-items: start;
+    }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+    .footer-links a {
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 8px;
+      padding: 8px 10px;
+      text-decoration: none;
+      color: #edf6ff;
+      background: rgba(255,255,255,.05);
+      font-size: 14px;
+    }
+    .proof-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      align-items: center;
+    }
+    .proof-strip img { width: 100%; border-radius: 8px; border: 1px solid var(--line); display: block; }
+    .steps { counter-reset: step; display: grid; gap: 12px; }
+    .step {
+      counter-increment: step;
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      gap: 14px;
+      padding: 16px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.045);
+    }
+    .step::before {
+      content: counter(step);
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      border: 1px solid rgba(104,185,255,.5);
+      background: rgba(104,185,255,.16);
+      color: var(--blue);
+      font-size: 20px;
+      font-weight: 900;
+    }
+    .step strong { display: block; font-size: 18px; margin-bottom: 4px; }
+    .step span { color: var(--muted); }
+    .quote {
+      border-left: 4px solid var(--gold);
+      background: rgba(255,255,255,.055);
+      border-radius: 8px;
+      padding: 22px;
+      color: #eef7ff;
+      font-size: 20px;
+    }
+    .cta {
+      padding: 34px;
+      background:
+        linear-gradient(135deg, rgba(242,184,75,.22), rgba(104,185,255,.12)),
+        var(--panel);
+    }
+    footer { padding: 28px 0 40px; color: var(--muted); border-top: 1px solid var(--line); }
+    @media (max-width: 900px) {
+      .hero, .offer, .grid-2, .grid-3, .proof-strip, .request-meta, .footer-grid { grid-template-columns: 1fr; }
+      header { min-height: auto; }
+      .topbar .wrap { align-items: flex-start; flex-direction: column; padding: 12px 0; }
+      .top-note { text-align: left; }
+      .stats { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap">
+      <div class="brand"><div class="badge">AI</div><div>BATKO.DIGITAL.AI<br><span style="color:var(--muted);font-size:12px;">hotové výstupy pro firmy</span></div></div>
+      <div class="top-note">nabídky • dokumenty • oslovení • úspora času</div>
+    </div>
+  </div>
+
+  <header>
+    <div class="wrap hero hero-wide">
+      <div class="hero-copy">
+        <div class="eyebrow">Pro firmy, které potřebují výsledek, ne další vysvětlování AI • neděle 12. 7. 2026</div>
+        <h1>Z podkladů, chaosu nebo nápadu udělám výstup, který můžete použít v obchodě.</h1>
+        <p class="lead">Pošlete menu, poznámky, fotky, e-maily, nabídku, nahrávku nebo nápad. Já z toho připravím něco, co jde poslat zákazníkovi, použít v práci, otestovat na trhu nebo podle toho udělat rozhodnutí.</p>
+        <div class="btn-row">
+          <a class="btn" href="#nabidky">Chci vybrat nejrychlejší výstup</a>
+          <a class="btn secondary" href="#jak">Jak to probíhá</a>
+        </div>
+        <div class="stats">
+          <div class="stat"><strong>od 1 990 Kč</strong><span>malý první výstup místo velkého projektu</span></div>
+          <div class="stat"><strong>24-72 h</strong><span>typicky první použitelná verze podle podkladů</span></div>
+          <div class="stat"><strong>bez závazku</strong><span>po pilotu se rozhodnete, jestli pokračovat</span></div>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="proof" style="box-shadow:none;">
+          <h3>Co si ve skutečnosti kupujete</h3>
+          <ul class="list">
+            <li>Text, stránku, audit, tabulku, návrh nebo postup, který můžete hned použít.</li>
+            <li>Jasnější nabídku pro zákazníka, aby rychle pochopil, proč má reagovat.</li>
+            <li>Méně ručního přepisování, hledání, rozhodování a opravování.</li>
+            <li>Malý první krok s cenou předem, ne nekonečné konzultace.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Kdy mi napsat</h2>
+          <p>Když máte něco rozdělaného, chaotického nebo ručního a potřebujete z toho rychle udělat použitelný výsledek.</p>
+        </div>
+        <div class="grid-3">
+          <div class="card">
+            <span class="tag">Obchod</span>
+            <h3>Lidé nereagují</h3>
+            <p>Máte nabídku, ale zákazník nechápe, proč by měl odpovědět. Udělám z ní kratší, jasnější a prodejnější výstup.</p>
+          </div>
+          <div class="card">
+            <span class="tag">Provoz</span>
+            <h3>Pořád něco přepisujete</h3>
+            <p>Menu, dokumenty, e-maily, tabulky nebo podklady se opakují dokola. Udělám z toho hotový postup nebo výstup.</p>
+          </div>
+          <div class="card">
+            <span class="tag">Rozhodnutí</span>
+            <h3>Nechcete střelit vedle</h3>
+            <p>Než zaplatíte kampaň, partnerství nebo vývoj, dostanete rychlý filtr: co dává smysl, co ne a co zkusit jako první.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="nabidky">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Co pro vás můžu udělat hned</h2>
+          <p>Vyberte problém, který vás teď nejvíc bolí. Tlačítko připraví krátký e-mail. Já odpovím, jaký nejmenší výstup dává smysl, kolik bude stát a co od vás potřebuji.</p>
+        </div>
+
+        <div class="proof" style="margin-bottom:18px;">
+          <h3>Nejjednodušší způsob spolupráce</h3>
+          <ul class="list">
+            <li>Pošlete mi podklady a napište, co chcete zlepšit.</li>
+            <li>Řeknu vám, jestli z toho jde udělat malý použitelný výstup.</li>
+            <li>Dopředu víte cenu, termín a co přesně dostanete.</li>
+            <li>Když první verze není dost jasná, doplním jednodušší verzi nebo kontrolní seznam.</li>
+          </ul>
+        </div>
+
+        <div class="proof" style="margin-bottom:18px;">
+          <h3>Nejrychlejší věci na vyzkoušení</h3>
+          <ul class="list">
+            <li><strong>Máte hromadu podkladů?</strong> Udělám z nich prezentaci nebo stránku, kterou můžete poslat zákazníkovi.</li>
+            <li><strong>Potřebujete nové reakce?</strong> Připravím malý balík oslovení a texty, aby se rychle ukázalo, kdo má zájem.</li>
+            <li><strong>Ztrácíte poptávky v e-mailu?</strong> Najdu místa, kde vám mohou zapadat peníze a odpovědi.</li>
+            <li><strong>Máte nápad, ale nevíte jestli vydělá?</strong> Udělám první prodejnou nabídku dřív, než začnete stavět.</li>
+          </ul>
+        </div>
+
+        <div class="offers">
+          <article class="offer">
+            <div>
+              <div class="offer-kicker">Restaurace, kavárny, hotely, penziony</div>
+              <h3>Host nerozumí menu? Udělám vám QR verzi.</h3>
+              <p>Pošlete jídelní lístek. Dostanete přehledné QR menu s překlady, alergeny a krátkými popisy jídel, aby host nemusel volat obsluhu kvůli každé otázce.</p>
+              <ul class="list">
+                <li>Vhodné pro provozy s turisty, sezónní nabídkou nebo častými změnami cen.</li>
+                <li>První krok může být ukázka jednoho jídla a návrh podoby menu.</li>
+                <li>Možné rozšíření: tisk, laminace, stojánky a zaškolení personálu.</li>
+              </ul>
+              <div class="mail-preview">Poptávka se zeptá jen na provoz, podklady a poznámku. Detail projdeme až v odpovědi nebo hovoru.</div>
+            </div>
+            <aside class="side">
+              <div>
+                <div class="price">od 2 900 Kč</div>
+                <div class="small">pilot jednoho menu včetně návrhu struktury a QR podkladů</div>
+              </div>
+              <a class="btn" href="#poptavka" data-request="gastro">Chci menu bez přepisování</a>
+            </aside>
+          </article>
+
+          <article class="offer">
+            <div>
+              <div class="offer-kicker">Živnostníci, malé firmy, správa a dokumenty</div>
+              <h3>Máte dokument a nevíte, co do něj napsat?</h3>
+              <p>Pošlete situaci a podklady. Připravím srozumitelný návrh dokumentu, seznam chybějících údajů a verzi, kterou můžete zkontrolovat a odeslat.</p>
+              <ul class="list">
+                <li>Vhodné pro běžnou administrativu, pojišťovny, úřady, reklamace a firemní dokumenty.</li>
+                <li>Nejde o advokátní zastoupení, ale o administrativní a technické zpracování podkladů.</li>
+                <li>Možné rozšíření: tisk, obálka, instrukce pro doporučené odeslání.</li>
+              </ul>
+              <div class="mail-preview">Poptávka otevře krátký popis situace, termín a místo pro podklady. Nejde o právní zastoupení.</div>
+            </div>
+            <aside class="side">
+              <div>
+                <div class="price">od 1 990 Kč</div>
+                <div class="small">běžný dokument včetně seznamu chybějících údajů</div>
+              </div>
+              <a class="btn" href="#poptavka" data-request="uredni">Chci poptat dokument</a>
+            </aside>
+          </article>
+
+          <article class="offer">
+            <div>
+              <div class="offer-kicker">E-shopy, móda, beauty, osobní značky</div>
+              <h3>Produkt vypadá obyčejně? Připravím prodejní vizuály.</h3>
+              <p>Pošlete fotku, produkt nebo popis. Připravím návrhy vizuálů pro e-shop, sociální sítě nebo prezentaci, aby nabídka působila profesionálněji bez drahého focení.</p>
+              <ul class="list">
+                <li>Vhodné pro oblečení, kosmetiku, doplňky, služby, osobní profily a kampaně.</li>
+                <li>První krok může být sada 3-5 návrhů pro jeden produkt nebo osobní profil.</li>
+                <li>Možné rozšíření: texty příspěvků, reklamní úhly, cílové skupiny a plán kampaně.</li>
+              </ul>
+              <div class="mail-preview source-note" hidden>Interní zdroj: TAAFT - MojoMake. <a href="file:///C:/Users/tomas/Downloads/2026-07-12%20neděle%20taaft/2026-07-12%20neděle%20taaft%2015%20MojoMake.md" target="_blank" rel="noopener">Otevřít lokální zdroj</a></div>
+              <div class="mail-preview">Poptávka doplní jen produkt nebo značku, použití a poznámku ke stylu. Inspirace může přijít v příloze.</div>
+            </div>
+            <aside class="side">
+              <div>
+                <div class="price">od 1 490 Kč</div>
+                <div class="small">pilotní sada podle kvality fotek a cíle kampaně</div>
+              </div>
+              <a class="btn" href="#poptavka" data-request="studio">Chci poptat vizuály</a>
+            </aside>
+          </article>
+
+          <article class="offer">
+            <div>
+              <div class="offer-kicker">Sponzoring, eventy, reklama, partneři</div>
+              <h3>Nabízíte partnerství a nevíte, komu ho prodat?</h3>
+              <p>Pošlete popis akce, reklamy nebo balíčku. Připravím obchodní verdikt: komu to nabídnout, proč by je to mělo zajímat a jak odpovědět na námitky.</p>
+              <ul class="list">
+                <li>Vhodné pro pořadatele akcí, reklamní plochy, sport, kulturu, soutěže a komunitní projekty.</li>
+                <li>Výstup může obsahovat text nabídky, cílové skupiny, protiargumenty a návrh pilotu.</li>
+                <li>Pomáhá rozhodnout, jestli má smysl žádat velký sponzorský balík, nebo začít menší ověřovací nabídkou.</li>
+              </ul>
+              <div class="mail-preview">Poptávka popíše projekt, nabídku pro partnery a cíl. Oslovení firem se řeší až po schválení zdrojů a pravidel.</div>
+            </div>
+            <aside class="side">
+              <div>
+                <div class="price">od 2 000 Kč</div>
+                <div class="small">diagnostika nabídky a návrh pilotního oslovení</div>
+              </div>
+              <a class="btn" href="#poptavka" data-request="partner">Chci poptat Partner Verdikt</a>
+            </aside>
+          </article>
+
+          <article class="offer">
+            <div>
+              <div class="offer-kicker">Hotely, cestování, komunity, zážitky</div>
+              <h3>Host chce zážitek, ale nechce hledat hodinu na internetu.</h3>
+              <p>Zadá se lokalita, čas, rozpočet a omezení. Výstupem je praktický plán výletu nebo zážitku, který může hotel, penzion nebo komunita rovnou předat klientovi.</p>
+              <ul class="list">
+                <li>Vhodné pro hotely, penziony, cestovní kluby, zážitkové partnery a komunitní služby.</li>
+                <li>Výstup může být jednorázový plán, balíček pro hosty nebo pravidelný concierge obsah.</li>
+                <li>Možné rozšíření: rezervace, itineráře pro rodiny, páry nebo firemní skupiny.</li>
+              </ul>
+              <div class="mail-preview">Poptávka doplní lokalitu, termín, počet osob a přání. Detailní plán se doladí až po odpovědi.</div>
+            </div>
+            <aside class="side">
+              <div>
+                <div class="price">od 1 990 Kč</div>
+                <div class="small">firemní nebo hotelový balíček; jednorázové spotřebitelské verze jen jako doplněk</div>
+              </div>
+              <a class="btn" href="#poptavka" data-request="venku">Chci poptat plán zážitku</a>
+            </aside>
+          </article>
+
+          <article class="offer">
+            <div>
+              <div class="offer-kicker">Podnikatelé, obchodníci, malé firmy</div>
+              <h3>Zapadají vám poptávky v e-mailu?</h3>
+              <p>Když jsou poptávky, faktury a odpovědi klientů na jedné hromadě, peníze mizí potichu. Udělám audit inboxu a navrhnu jednoduchý systém, aby důležité zprávy nezůstaly zahrabané.</p>
+              <ul class="list">
+                <li>Vhodné pro lidi, kteří prodávají přes e-mail a zároveň řeší klienty, faktury i provoz.</li>
+                <li>Klient dostane jasný seznam: co archivovat, co odhlásit, co sledovat a kde mohou utíkat peníze.</li>
+                <li>První pilot se dělá jen z ukázky struktury inboxu nebo exportu vybraných zpráv, ne z celého firemního života.</li>
+              </ul>
+              <div class="mail-preview source-note" hidden>Interní zdroj: TAAFT - MailSweeper. <a href="file:///C:/Users/tomas/Downloads/2026-07-12%20neděle%20taaft/2026-07-12%20neděle%20taaft%2013%20MailSweeper.md" target="_blank" rel="noopener">Otevřít lokální zdroj</a></div>
+              <div class="mail-preview">Poptávka otevře audit inboxu. Cílem je najít ztracené příležitosti a nastavit jednoduchý systém, ne prodávat obecnou automatizaci.</div>
+            </div>
+            <aside class="side">
+              <div>
+                <div class="price">od 1 990 Kč</div>
+                <div class="small">rychlý audit inboxu, štítků a ztracených obchodních příležitostí</div>
+              </div>
+              <a class="btn" href="#poptavka" data-request="inbox">Chci audit inboxu</a>
+            </aside>
+          </article>
+
+          <article class="offer">
+            <div>
+              <div class="offer-kicker">Firmy, projekty, partneři, prodej služeb</div>
+              <h3>Máte dobrý nápad, ale vypadá jako hromada souborů?</h3>
+              <p>Pošlete poznámky, fotky, PDF, odkazy nebo starý text. Udělám z toho materiál, který zákazník pochopí: co nabízíte, proč to má hodnotu a co má udělat dál.</p>
+              <ul class="list">
+                <li>Vhodné pro lokální firmy, partnery, e-shopy, autobazary, nové služby a vlastní obchodní nabídky.</li>
+                <li>Výstup může být HTML stránka, PDF struktura, text nabídky, e-mail a scénář krátkého videa.</li>
+                <li>První pilot řeší jednu nabídku pro jednoho konkrétního zákazníka nebo segment.</li>
+              </ul>
+              <div class="mail-preview source-note" hidden>Interní zdroj: TAAFT - OpenDeck + CueTheScene. <a href="file:///C:/Users/tomas/Downloads/2026-07-12%20neděle%20taaft/2026-07-12%20neděle%20taaft%2016%20OpenDeck.md" target="_blank" rel="noopener">OpenDeck</a> · <a href="file:///C:/Users/tomas/Downloads/2026-07-12%20neděle%20taaft/2026-07-12%20neděle%20taaft%2009%20CueTheScene.md" target="_blank" rel="noopener">CueTheScene</a></div>
+              <div class="mail-preview">Poptávka se ptá na cílového zákazníka, podklady a akci, kterou má zákazník po přečtení udělat.</div>
+            </div>
+            <aside class="side">
+              <div>
+                <div class="price">od 4 900 Kč</div>
+                <div class="small">přestavba podkladů na použitelnou prodejní prezentaci</div>
+              </div>
+              <a class="btn" href="#poptavka" data-request="prezentace">Chci prezentaci z podkladů</a>
+            </aside>
+          </article>
+
+          <article class="offer">
+            <div>
+              <div class="offer-kicker">B2B obchod, sponzoři, partneři, lokální trh</div>
+              <h3>Neplaťte call centrum naslepo. Otestujte 50 oslovení.</h3>
+              <p>Připravím malý balík cílených oslovení: komu psát, proč právě jemu, co mu slíbit a jak poznat zájem. Kontakty, zdroje a pravidla se předem schvalují.</p>
+              <ul class="list">
+                <li>Vhodné pro služby, eventy, sponzoring, B2B nabídky a testování nového trhu.</li>
+                <li>Klient dostane konkrétní texty, segmenty, pořadí priorit a jednoduchý způsob měření reakcí.</li>
+                <li>Žádný spam: nejdřív se odsouhlasí zdroje kontaktů, opt-out pravidla a přesný účel oslovení.</li>
+              </ul>
+              <div class="mail-preview source-note" hidden>Interní zdroj: TAAFT - Reply.io / outbound workflow. <a href="file:///C:/Users/tomas/Downloads/2026-07-12%20neděle%20taaft/2026-07-12%20neděle%20taaft%2021%20Reply.io.md" target="_blank" rel="noopener">Otevřít lokální zdroj</a></div>
+              <div class="mail-preview">Poptávka vyžádá nabídku, cílový trh a informaci, zda už klient má vlastní kontakty.</div>
+            </div>
+            <aside class="side">
+              <div>
+                <div class="price">od 4 900 Kč</div>
+                <div class="small">pokud klient dodá kontakty; se scoringem a seznamem od 14 900 Kč</div>
+              </div>
+              <a class="btn" href="#poptavka" data-request="outreach">Chci pilot oslovení</a>
+            </aside>
+          </article>
+
+          <article class="offer">
+            <div>
+              <div class="offer-kicker">Opakovaná agenda, formuláře, interní chaos</div>
+              <h3>Pořád přepisujete stejné údaje? Udělám z toho malý nástroj.</h3>
+              <p>Vybereme jeden opakovaný proces. Udělám jednoduchý formulář, kalkulačku nebo výstup, který zkrátí ruční práci a sníží počet chyb.</p>
+              <ul class="list">
+                <li>Vhodné pro kalkulace, poptávky, interní checklisty, generování dokumentů a jednoduché klientské výstupy.</li>
+                <li>Klient dostane funkční pilot, na kterém se dá ověřit úspora času nebo lepší kvalita výstupu.</li>
+                <li>Pokračování se řeší až po měření: kolik minut, chyb nebo kroků pilot reálně ušetřil.</li>
+              </ul>
+              <div class="mail-preview source-note" hidden>Interní zdroj: TAAFT - Whacka. <a href="file:///C:/Users/tomas/Downloads/2026-07-12%20neděle%20taaft/2026-07-12%20neděle%20taaft%2011%20Whacka.md" target="_blank" rel="noopener">Otevřít lokální zdroj</a></div>
+              <div class="mail-preview">Poptávka popíše jeden opakovaný proces, vstupy, výstupy a kdo ho používá.</div>
+            </div>
+            <aside class="side">
+              <div>
+                <div class="price">od 4 900 Kč</div>
+                <div class="small">pilot jedné malé aplikace nebo interního nástroje</div>
+              </div>
+              <a class="btn" href="#poptavka" data-request="miniapp">Chci mini aplikaci</a>
+            </aside>
+          </article>
+
+          <article class="offer">
+            <div>
+              <div class="offer-kicker">Partneři, dodavatelé, investice času a peněz</div>
+              <h3>Než někomu pošlete peníze nebo důvěru, prověřte riziko.</h3>
+              <p>Z veřejných zdrojů a dodaných podkladů připravím přehled: co je doložené, co je jen tvrzení, jaká jsou rizika a na co se zeptat před rozhodnutím.</p>
+              <ul class="list">
+                <li>Vhodné před podpisem spolupráce, dražší kampaní, sponzoringem nebo novým dodavatelem.</li>
+                <li>Klient dostane přehled: co je doložené, co je jen tvrzení a na co se má zeptat před rozhodnutím.</li>
+                <li>Nejde o právní, investiční ani detektivní službu; jde o obchodní filtr před zbytečným rizikem.</li>
+              </ul>
+              <div class="mail-preview source-note" hidden>Interní zdroj: TAAFT - OSINT-D2. <a href="file:///C:/Users/tomas/Downloads/2026-07-12%20neděle%20taaft/2026-07-12%20neděle%20taaft%2022%20OSINT-D2.md" target="_blank" rel="noopener">Otevřít lokální zdroj</a></div>
+              <div class="mail-preview">Poptávka vyžádá název partnera, rozhodnutí, které klient zvažuje, a dostupné odkazy.</div>
+            </div>
+            <aside class="side">
+              <div>
+                <div class="price">od 2 900 Kč</div>
+                <div class="small">rychlý veřejný obchodní filtr před rozhodnutím</div>
+              </div>
+              <a class="btn" href="#poptavka" data-request="duediligence">Chci prověřit partnera</a>
+            </aside>
+          </article>
+
+          <article class="offer">
+            <div>
+              <div class="offer-kicker">Schůzky, videa, webináře, prodejní hovory</div>
+              <h3>Po hovoru nesmí zůstat jen dobrý pocit.</h3>
+              <p>Pošlete nahrávku, poznámky nebo video. Připravím shrnutí, otázky, další krok a e-mail, který můžete poslat klientovi.</p>
+              <ul class="list">
+                <li>Vhodné po obchodní schůzce, konzultaci, webináři, prezentaci nebo rozhovoru s partnerem.</li>
+                <li>Klient dostane follow-up, který drží pozornost na výsledku, rozhodnutí a termínu.</li>
+                <li>První pilot stačí udělat z jednoho hovoru nebo jednoho videa, aby byl přínos vidět hned.</li>
+              </ul>
+              <div class="mail-preview source-note" hidden>Interní zdroj: TAAFT - Claras. <a href="file:///C:/Users/tomas/Downloads/2026-07-12%20neděle%20taaft/2026-07-12%20neděle%20taaft%2018%20Claras.md" target="_blank" rel="noopener">Otevřít lokální zdroj</a></div>
+              <div class="mail-preview">Poptávka se ptá na typ hovoru, podklady a výstup, který má klient poslat dál.</div>
+            </div>
+            <aside class="side">
+              <div>
+                <div class="price">od 1 990 Kč</div>
+                <div class="small">shrnutí, otázky, další krok a e-mail po jednom hovoru</div>
+              </div>
+              <a class="btn" href="#poptavka" data-request="followup">Chci výstup z hovoru</a>
+            </aside>
+          </article>
+
+          <article class="offer">
+            <div>
+              <div class="offer-kicker">Firmy s placenými nástroji, týmy, agentury</div>
+              <h3>Platíte nástroje, které možná nic nevydělávají?</h3>
+              <p>Sepíšu, co platíte, co se reálně používá, co zrušit a kde dává smysl levnější postup. Výstupem je jednoduchá tabulka rozhodnutí.</p>
+              <ul class="list">
+                <li>Vhodné pro firmy, které mají více účtů, placených nástrojů a nejasný přínos.</li>
+                <li>Klient dostane jednoduchou tabulku rozhodnutí: nechat, zrušit, nahradit, otestovat placeně.</li>
+                <li>První pilot hledá úsporu nebo jasný důvod, proč konkrétní nástroj vydělává víc, než stojí.</li>
+              </ul>
+              <div class="mail-preview source-note" hidden>Interní zdroj: Medium - Open-Source LLMs in 2026. <a href="file:///C:/Users/tomas/Downloads/2026-07-12%20neděle%20Medium/2026-07-12%20neděle%20Medium%202%20%20Open-Source%20LLMs%20in%202026%20The%20Free%20AI%20Models%20Everyone%20Will%20Be%20Using%20While%20You’re%20Still%20Overpaying.md" target="_blank" rel="noopener">Otevřít lokální zdroj</a></div>
+              <div class="mail-preview">Poptávka vyžádá seznam nástrojů, měsíční náklady a hlavní pracovní použití.</div>
+            </div>
+            <aside class="side">
+              <div>
+                <div class="price">od 4 900 Kč</div>
+                <div class="small">audit nástrojů, nákladů a měřitelného přínosu</div>
+              </div>
+              <a class="btn" href="#poptavka" data-request="costaudit">Chci audit nákladů</a>
+            </aside>
+          </article>
+
+          <article class="offer">
+            <div>
+              <div class="offer-kicker">Foundeři, solopreneři, nové služby, vlastní nápady</div>
+              <h3>Máte víc nápadů než času? Vybereme ten, který zkusit prodat první.</h3>
+              <p>Nejdražší chyba je začít stavět něco, za co nikdo nezaplatí. Dostanete GO / WATCH / NO GO posouzení, návrh placeného pilotu a první text nabídky.</p>
+              <ul class="list">
+                <li>Vhodné pro lidi, kteří mají víc nápadů než času a chtějí vybrat jen to, co má šanci rychle vydělat.</li>
+                <li>Klient nekupuje názor na nápad; kupuje ochranu před měsícem práce na věci, kterou nikdo nekoupí.</li>
+                <li>První výstup je rozhodnutí, co zkusit prodat, komu a za jakou nejmenší placenou cenu.</li>
+              </ul>
+              <div class="mail-preview source-note" hidden>Interní zdroj: Medium - 5 Small SaaS Ideas You Can Actually Ship Before 2026 Ends. <a href="file:///C:/Users/tomas/Downloads/2026-07-12%20neděle%20Medium/2026-07-12%20neděle%20Medium%202%20%205%20Small%20SaaS%20Ideas%20You%20Can%20Actually%20Ship%20Before%202026%20Ends.md" target="_blank" rel="noopener">Otevřít lokální zdroj</a></div>
+              <div class="mail-preview">Poptávka vyžádá 1-5 nápadů, cílového zákazníka a časový limit pro první platbu.</div>
+            </div>
+            <aside class="side">
+              <div>
+                <div class="price">od 2 900 Kč</div>
+                <div class="small">rychlé posouzení 3 nápadů; s pilotní nabídkou od 4 900 Kč</div>
+              </div>
+              <a class="btn" href="#poptavka" data-request="saasidea">Chci vybrat nápad</a>
+            </aside>
+          </article>
+
+          <article class="offer">
+            <div>
+              <div class="offer-kicker">Týmy s opakovanou administrativou a ručním předáváním</div>
+              <h3>Máte proces, který se pořád ztrácí ve zprávách a schůzkách?</h3>
+              <p>Vezmu jeden pracovní postup a nastavím mu jasný vstup, kontrolu a výstup. Cílem je méně domlouvání a více hotové práce.</p>
+              <ul class="list">
+                <li>Vhodné pro nabídky, reporty, rešerše, zákaznické odpovědi, interní checklisty a opakované dokumenty.</li>
+                <li>Klient dostane pracovní linku pro jeden proces, ne obecnou přednášku o agentech.</li>
+                <li>Když proces nejde bezpečně automatizovat, výstupem jsou ruční šablony a kontrolní checklist.</li>
+              </ul>
+              <div class="mail-preview source-note" hidden>Interní zdroj: Medium - Agile is Dead. Welcome to the Era of Agent-Driven Development. <a href="file:///C:/Users/tomas/Downloads/2026-07-12%20neděle%20Medium/2026-07-12%20neděle%20Medium%202%20%20Agile%20is%20Dead.%20Welcome%20to%20the%20Era%20of%20“Agent-Driven”%20Development.md" target="_blank" rel="noopener">Otevřít lokální zdroj</a></div>
+              <div class="mail-preview">Poptávka popíše jeden proces, kdo ho dnes dělá a kde vznikají chyby nebo zdržení.</div>
+            </div>
+            <aside class="side">
+              <div>
+                <div class="price">od 9 900 Kč</div>
+                <div class="small">nastavení jednoho bezpečně kontrolovaného pracovního procesu</div>
+              </div>
+              <a class="btn" href="#poptavka" data-request="agentlinka">Chci pracovní linku</a>
+            </aside>
+          </article>
+
+          <article class="offer">
+            <div>
+              <div class="offer-kicker">SaaS nápady, mikro agentury, nové placené služby</div>
+              <h3>Než něco postavíte, zkuste to nejdřív prodat.</h3>
+              <p>Z nápadu udělám jednoduchou nabídku a první ručně dodatelný výstup. Cílem je zjistit, jestli někdo zaplatí dřív, než se začne stavět větší nástroj.</p>
+              <ul class="list">
+                <li>Vhodné pro mikro-SaaS, nové služby a nápady, které zatím nemají platící zákazníky.</li>
+                <li>Výstup obsahuje zúžení nápadu, pilotní nabídku, testovací text a návrh platby před nákladem.</li>
+                <li>Pokud nápad neprojde, navrhne se bezpečnější done-for-you služba ze stejných schopností.</li>
+              </ul>
+              <div class="mail-preview source-note" hidden>Interní zdroj: Medium - How One Person Built a Micro-SaaS in 48 Hours. <a href="file:///C:/Users/tomas/Downloads/2026-07-12%20neděle%20Medium/2026-07-12%20neděle%20Medium%202%20%20How%20One%20Person%20Built%20a%20Micro-SaaS%20in%2048%20Hours%20(No%20Team,%20Just%20Coffee%20and%20Determination).md" target="_blank" rel="noopener">Otevřít lokální zdroj</a></div>
+              <div class="mail-preview">Poptávka vyžádá nápad, komu má vydělat peníze a co lze dodat bez velkého vývoje.</div>
+            </div>
+            <aside class="side">
+              <div>
+                <div class="price">od 4 900 Kč</div>
+                <div class="small">validace a první placená nabídka; prototyp až po ověření</div>
+              </div>
+              <a class="btn" href="#poptavka" data-request="pilot48">Chci 48h pilot</a>
+            </aside>
+          </article>
+
+          <article class="offer">
+            <div>
+              <div class="offer-kicker">Claude, Codex, prompt dashboard, interní AI postupy</div>
+              <h3>Vaše instrukce jsou dlouhé, ale výstupy jsou pořád špatně?</h3>
+              <p>Zkrátím a zpřesním pracovní instrukce tak, aby výstupy měly méně chyb. Dostanete jednodušší pravidla a test, na kterém se zlepšení ověří.</p>
+              <ul class="list">
+                <li>Vhodné pro lidi, kteří už AI používají denně, ale tráví moc času opravami výstupů.</li>
+                <li>Klient dostane pracovní prompt, seznam chyb, které má AI zastavit, a jednoduchý testovací scénář.</li>
+                <li>Přínos je méně zmetků a menší ztráta času, ne hezčí formulace promptu.</li>
+              </ul>
+              <div class="mail-preview source-note" hidden>Interní zdroj: Medium - The 4-Line CLAUDE.md That Beats Your 40 Rules. <a href="file:///C:/Users/tomas/Downloads/2026-07-12%20neděle%20Medium/2026-07-12%20neděle%20Medium%202%20%20The%204-Line%20CLAUDE.md%20That%20Beats%20Your%2040%20Rules.md" target="_blank" rel="noopener">Otevřít lokální zdroj</a></div>
+              <div class="mail-preview">Poptávka vyžádá současný prompt, typ výstupu a nejčastější chyby.</div>
+            </div>
+            <aside class="side">
+              <div>
+                <div class="price">od 1 990 Kč</div>
+                <div class="small">zjednodušení jedné sady instrukcí; s testem reálné práce od 4 900 Kč</div>
+              </div>
+              <a class="btn" href="#poptavka" data-request="promptops">Chci opravit prompt</a>
+            </aside>
+          </article>
+
+          <article class="offer">
+            <div>
+              <div class="offer-kicker">AI power users, malé firmy, pluginy, MCP, agenti</div>
+              <h3>Máte moc nástrojů a bojíte se, co se pokazí?</h3>
+              <p>Projdeme nástroje, pluginy a automatizace. Dostanete seznam: co nechat, co vypnout, kde je riziko a jaké minimum stačí pro stabilní práci.</p>
+              <ul class="list">
+                <li>Vhodné pro technické uživatele, kteří mají více AI nástrojů, konektorů nebo experimentálních doplňků.</li>
+                <li>Klient dostane doporučené minimum, bezpečnostní pravidla a záložní postup.</li>
+                <li>Přínos je stabilnější práce a menší riziko, že nástroj udělá něco mimo kontrolu.</li>
+              </ul>
+              <div class="mail-preview source-note" hidden>Interní zdroj: Medium - Stop Installing Random MCP Servers. Start With These 10. <a href="file:///C:/Users/tomas/Downloads/2026-07-12%20neděle%20Medium/2026-07-12%20neděle%20Medium%202%20%20Stop%20Installing%20Random%20MCP%20Servers.%20Start%20With%20These%2010.md" target="_blank" rel="noopener">Otevřít lokální zdroj</a></div>
+              <div class="mail-preview">Poptávka vyžádá seznam používaných nástrojů, oprávnění a problémy, které se už objevily.</div>
+            </div>
+            <aside class="side">
+              <div>
+                <div class="price">od 4 900 Kč</div>
+                <div class="small">audit jednoho AI setupu a bezpečný instalační checklist</div>
+              </div>
+              <a class="btn" href="#poptavka" data-request="agentstack">Chci bezpečný stack</a>
+            </aside>
+          </article>
+
+          <article class="offer">
+            <div>
+              <div class="offer-kicker">Podnikatelé, asistenti, obchodníci, marketéři</div>
+              <h3>Děláte ručně věci, které by šly zkrátit?</h3>
+              <p>Vyberu 5-7 postupů přesně pro vaši práci. Během sezení vznikne jeden použitelný výstup, ne jen poznámky ze školení.</p>
+              <ul class="list">
+                <li>Vhodné pro lidi, kteří chtějí okamžitou úsporu času, ne teoretický kurz.</li>
+                <li>Klient dostane vlastní ukázky, krátký návod a jeden výstup použitelný ten samý den.</li>
+                <li>Když během sezení nevznikne použitelný výstup, doplní se písemně po sezení.</li>
+              </ul>
+              <div class="mail-preview source-note" hidden>Interní zdroj: Medium - 20 Hidden ChatGPT features most people never use. <a href="file:///C:/Users/tomas/Downloads/2026-07-12%20neděle%20Medium/2026-07-12%20neděle%20Medium%202%20%2020%20Hidden%20ChatGPT%20features%20most%20people%20never%20use%20(But%20should).md" target="_blank" rel="noopener">Otevřít lokální zdroj</a></div>
+              <div class="mail-preview">Poptávka vyžádá profesi, opakované úkoly a výstup, který chce klient zrychlit.</div>
+            </div>
+            <aside class="side">
+              <div>
+                <div class="price">od 1 990 Kč</div>
+                <div class="small">individuální 90minutové sezení s hotovým výstupem</div>
+              </div>
+              <a class="btn" href="#poptavka" data-request="aizkratky">Chci AI zkratky</a>
+            </aside>
+          </article>
+
+          <article class="offer">
+            <div>
+              <div class="offer-kicker">Malé firmy, partneři, týmy s administrativou</div>
+              <h3>Pracovní den pro firmu</h3>
+              <p>Firma nechce další obecné školení. Během pracovního bloku se najdou tři opakované úlohy a jedna se převede do hotového postupu, který lidé použijí ve své práci.</p>
+              <ul class="list">
+                <li>Vhodné pro týmy, které tuší, že AI pomůže, ale nevědí kde začít.</li>
+                <li>Klient dostane mapu úloh, jeden hotový pracovní postup, bezpečnostní checklist a další doporučení.</li>
+                <li>Přínos je první konkrétní firemní výsledek, ne certifikát ze školení.</li>
+              </ul>
+              <div class="mail-preview source-note" hidden>Interní zdroj: TAAFT - Google Will Teach You AI Free + Build AI Agents From Zero. <a href="file:///C:/Users/tomas/Downloads/2026-07-12%20neděle%20taaft/2026-07-12%20neděle%20taaft%2008%20Google%20Will%20Teach%20You%20AI%20Free.md" target="_blank" rel="noopener">Google kurz</a> · <a href="file:///C:/Users/tomas/Downloads/2026-07-12%20neděle%20taaft/2026-07-12%20neděle%20taaft%2006%20Build%20AI%20Agents%20From%20Zero.md" target="_blank" rel="noopener">Build AI Agents</a></div>
+              <div class="mail-preview">Poptávka vyžádá typ firmy, počet lidí a 3 nejotravnější opakované úkoly.</div>
+            </div>
+            <aside class="side">
+              <div>
+                <div class="price">od 4 900 Kč</div>
+                <div class="small">mini workshop; firemní blok od 14 900 Kč</div>
+              </div>
+              <a class="btn" href="#poptavka" data-request="aiworkday">Chci AI pracovní den</a>
+            </aside>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="poptavka">
+      <div class="wrap">
+        <div class="request-box" id="requestBox" hidden>
+          <div class="eyebrow">Připravená poptávka k odeslání</div>
+          <h2 id="requestTitle">Text poptávky</h2>
+          <p class="lead">Doplňte chybějící údaje, potom text zkopírujte do e-mailu nebo otevřete Gmail. Adresát a kopie jsou níže.</p>
+          <div class="request-meta">
+            <div><strong>Komu:</strong><br><span id="requestTo">batko.digital.ai@gmail.com</span></div>
+            <div><strong>Kopie:</strong><br><span id="requestCc">-</span></div>
+            <div><strong>Předmět:</strong><br><span id="requestSubject"></span></div>
+          </div>
+          <textarea class="request-text" id="requestText"></textarea>
+          <div class="btn-row" style="margin-top:14px;">
+            <button class="btn" type="button" id="copyRequest">Zkopírovat text</button>
+            <a class="btn secondary" id="gmailRequest" target="_blank" rel="noopener">Otevřít v Gmailu</a>
+            <a class="btn secondary" id="mailtoRequest">Zkusit otevřít poštu</a>
+          </div>
+          <p id="copyStatus" style="color:var(--green);margin:12px 0 0;"></p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap proof-strip">
+        <div>
+          <div class="section-head">
+            <h2>Proč BATKO.DIGITAL.AI</h2>
+          <p>BATKO.DIGITAL.AI převádí firemní chaos na konkrétní placené výstupy. Cílem není prodávat složitou technologii, ale najít nejmenší službu, která může zákazníkovi rychle přinést měřitelný přínos.</p>
+          </div>
+          <div class="quote">Nejprve malý pilot. Potom vyhodnocení. Až potom větší zakázka.</div>
+        </div>
+        <div class="proof">
+          <h3>Princip práce</h3>
+          <p>Nejdřív se vybere jeden problém, jeden zákazník a jeden výstup. Pak se připraví malý pilot, který se dá pochopit, nacenit a dodat bez velkého rizika.</p>
+          <p>Každý pilot má být dost malý na rychlé rozhodnutí a dost konkrétní na to, aby zákazník viděl, jestli mu šetří čas, zvyšuje šanci na obchod, nebo snižuje riziko špatného rozhodnutí.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="jak">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Jak proběhne spolupráce</h2>
+          <p>Jednoduše: vy pošlete poptávku, já ji posoudím a navrhnu nejmenší rozumný placený krok. Žádné garance obchodního výsledku bez jasně sjednaného modelu a podkladů.</p>
+        </div>
+        <div class="steps">
+          <div class="step"><div><strong>1. Vyberete službu a odešlete poptávku.</strong><span>Tlačítko připraví e-mail. Doplníte jen chybějící informace a případně přiložíte podklady.</span></div></div>
+          <div class="step"><div><strong>2. Dostanete rychlé posouzení.</strong><span>Odpovím, zda dává smysl pilot, co chybí a jaký je nejmenší placený výstup.</span></div></div>
+          <div class="step"><div><strong>3. Připraví se první použitelný výsledek.</strong><span>Ne prezentace o možnostech, ale konkrétní ukázka, text, vizuál, dokument, menu nebo obchodní návrh.</span></div></div>
+          <div class="step"><div><strong>4. Rozhodnete se, jestli pokračovat.</strong><span>Pokud pilot dává smysl, může následovat jednorázová zakázka, pravidelná správa nebo širší obchodní spolupráce.</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap grid-2">
+        <div class="proof">
+          <h3>Co je dobré připravit předem</h3>
+          <ul class="list">
+            <li>Název firmy nebo projektu.</li>
+            <li>Stručný popis problému, který chcete vyřešit.</li>
+            <li>Fotky, PDF, menu, texty, odkazy nebo jiné podklady.</li>
+            <li>Termín, kdy výstup potřebujete.</li>
+            <li>Rozpočet nebo představu, jestli chcete jen pilot, nebo větší řešení.</li>
+          </ul>
+        </div>
+        <div class="proof">
+          <h3>Kdo co zajišťuje</h3>
+          <p><strong>BATKO.DIGITAL.AI</strong> zajišťuje obchodní návrh, technické zpracování, návrhy výstupů a realizaci pilotů.</p>
+          <p>Pokud bude potřeba zapojit dalšího partnera, klient to vždy ví předem a rozsah se potvrdí v konkrétní nabídce.</p>
+          <p>Konkrétní rozsah, cena, termíny, práce s daty a odpovědnost se potvrzují až po posouzení zadání a dodaných podkladů.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap cta">
+        <h2>Nevíte, která služba se hodí?</h2>
+        <p class="lead">Pošlete obecnou poptávku. Stačí popsat firmu, problém a cíl. Vrátím vám doporučení, jestli začít menu, dokumenty, vizuály, due diligence, obchodním follow-upem, nebo úplně jiným pilotem.</p>
+        <div class="btn-row">
+          <a class="btn" href="#poptavka" data-request="obecna">Připravit obecnou poptávku</a>
+          <a class="btn secondary" href="#nabidky">Zpět na konkrétní služby</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-grid">
+      <div>
+        <strong>BATKO.DIGITAL.AI</strong> - praktické výstupy, piloty, návrhy, pracovní postupy a realizace dodávek pro firmy, podnikatele a projekty.<br>
+        <strong>Kontakt pro poptávky:</strong> batko.digital.ai@gmail.com.
+        <div class="footer-links">
+          <a href="#poptavka">Připravená poptávka</a>
+          <a href="#nabidky">Nabídky služeb</a>
+          <a href="#jak">Jak spolupráce probíhá</a>
+        </div>
+      </div>
+      <div>
+        <strong>Datum materiálu:</strong> neděle 12. 7. 2026.<br>
+        Tento materiál je klientská nabídka BATKO.DIGITAL.AI. Nejde o právní, daňové ani investiční poradenství. BATKO.DIGITAL.AI negarantuje automatický obchodní výsledek, pokud není výslovně sjednán výkonnostní model. Reference, logo, název klienta a zveřejnění výstupů se používají pouze po předchozím souhlasu. Osobní údaje a podklady z poptávky se používají jen pro posouzení a přípravu nabídky.
+      </div>
+    </div>
+  </footer>
+  <script>
+    const requestTo = "batko.digital.ai@gmail.com";
+    const requestCc = "";
+    const requestTemplates = {
+      gastro: {
+        subject: "Poptávka: QR menu bez ručního přepisování",
+        intro: "Zaujala mě nabídka QR menu, překlady a alergeny bez ručního přepisování.",
+        fields: ["Provoz / firma:", "Máme menu jako PDF, fotku nebo text:", "Co chceme zlepšit:", "Kontakt a telefon:", "Poznámka:"]
+      },
+      uredni: {
+        subject: "Poptávka: Dokument připravit k odeslání",
+        intro: "Zaujala mě nabídka Dokument připravit k odeslání. Chápu, že jde o administrativní a technické zpracování podkladů, ne o právní zastoupení.",
+        fields: ["Jaký dokument nebo situaci řešíme:", "Termín:", "Jaké podklady můžeme poslat:", "Kontakt a telefon:", "Poznámka:"]
+      },
+      studio: {
+        subject: "Poptávka: Produktové vizuály bez drahého focení",
+        intro: "Zaujala mě nabídka Produktové vizuály bez drahého focení.",
+        fields: ["Produkt / značka / osoba:", "Kde se výstupy použijí:", "Máme fotky, web nebo inspiraci:", "Kontakt a telefon:", "Poznámka:"]
+      },
+      partner: {
+        subject: "Poptávka: Partner Verdikt",
+        intro: "Zaujala mě nabídka Partner Verdikt pro ověření partnerské nebo sponzorské nabídky.",
+        fields: ["Projekt / event / reklamní plocha:", "Co nabízíme partnerům:", "Koho chceme oslovit:", "Kontakt a telefon:", "Poznámka:"]
+      },
+      venku: {
+        subject: "Poptávka: Plán zážitku na míru",
+        intro: "Zaujala mě nabídka Plán zážitku na míru bez dlouhého hledání.",
+        fields: ["Město / lokalita:", "Termín a počet osob:", "Co by se nám líbilo nebo co nechceme:", "Kontakt a telefon:", "Poznámka:"]
+      },
+      inbox: {
+        subject: "Poptávka: Inbox bez ztracených peněz",
+        intro: "Zaujala mě nabídka Inbox bez ztracených peněz. Chci najít, jestli mi v e-mailu nezapadají obchodní příležitosti nebo důležité odpovědi.",
+        fields: ["Firma / činnost:", "Kolik lidí inbox používá:", "Co se dnes v e-mailu ztrácí nebo zdržuje:", "Jaké poptávky / klientské zprávy / provozní zprávy řešíme:", "Kontakt a telefon:", "Poznámka:"]
+      },
+      prezentace: {
+        subject: "Poptávka: Klientská prezentace z podkladů",
+        intro: "Zaujala mě nabídka Klientská prezentace z chaosu. Potřebuji z podkladů udělat srozumitelný výstup pro zákazníka nebo partnera.",
+        fields: ["Firma / projekt:", "Pro koho má být prezentace:", "Jakou akci má zákazník udělat po přečtení:", "Jaké podklady můžeme poslat:", "Kontakt a telefon:", "Poznámka:"]
+      },
+      outreach: {
+        subject: "Poptávka: 50 schválených oslovení bez call centra",
+        intro: "Zaujala mě nabídka 50 schválených oslovení bez call centra. Chci otestovat cílené B2B oslovení malým pilotem a předem schválit kontakty, zdroje i pravidla.",
+        fields: ["Co nabízíme:", "Koho chceme oslovit:", "Máme vlastní kontakty nebo potřebujeme i seznam:", "Jaký výsledek má pilot ověřit:", "Kontakt a telefon:", "Poznámka:"]
+      },
+      miniapp: {
+        subject: "Poptávka: Mini aplikace z firemního chaosu",
+        intro: "Zaujala mě nabídka Mini aplikace z jednoho firemního chaosu. Chci převést jeden opakovaný proces na jednoduchý funkční nástroj.",
+        fields: ["Jaký proces se opakuje:", "Jaké jsou vstupy:", "Jaký má být výstup:", "Kdo to používá a jak často:", "Kontakt a telefon:", "Poznámka:"]
+      },
+      duediligence: {
+        subject: "Poptávka: Veřejná due diligence partnera",
+        intro: "Zaujala mě nabídka Veřejná due diligence před rizikovým rozhodnutím. Chci rychle oddělit fakta od tvrzení před spoluprací, sponzoringem nebo nákupem služby.",
+        fields: ["Koho nebo co chceme prověřit:", "Jaké rozhodnutí zvažujeme:", "Jaké odkazy nebo podklady už máme:", "Do kdy výstup potřebujeme:", "Kontakt a telefon:", "Poznámka:"]
+      },
+      followup: {
+        subject: "Poptávka: Follow-up z hovoru nebo videa",
+        intro: "Zaujala mě nabídka Z hovoru hotový obchodní follow-up. Potřebuji ze schůzky, nahrávky nebo videa připravit shrnutí a další krok pro klienta.",
+        fields: ["Typ hovoru / videa:", "Jaké podklady můžeme poslat:", "Komu se má follow-up posílat:", "Jaký další krok chceme navrhnout:", "Kontakt a telefon:", "Poznámka:"]
+      },
+      costaudit: {
+        subject: "Poptávka: Náklady na nástroje pod kontrolou",
+        intro: "Zaujala mě nabídka Náklady na nástroje pod kontrolou. Chci zjistit, které placené nástroje a předplatná mají reálný přínos a co se dá zrušit nebo nahradit.",
+        fields: ["Firma / tým:", "Jaké nástroje dnes platíme nebo používáme:", "Přibližné měsíční náklady:", "K čemu se nástroje používají:", "Kontakt a telefon:", "Poznámka:"]
+      },
+      saasidea: {
+        subject: "Poptávka: Výběr nápadu pro první platbu do 30 dnů",
+        intro: "Zaujala mě nabídka Vybereme nápad, který má šanci vydělat do 30 dnů. Chci vybrat nápad podle šance na první platbu, ne podle toho, co zní zajímavě.",
+        fields: ["Jaké nápady zvažujeme:", "Kdo by měl platit:", "Jaký výsledek má zákazník dostat:", "Co už máme připravené:", "Kontakt a telefon:", "Poznámka:"]
+      },
+      agentlinka: {
+        subject: "Poptávka: Pracovní linka místo schůzek",
+        intro: "Zaujala mě nabídka Pracovní linka místo schůzek. Chci nastavit jeden konkrétní firemní proces tak, aby měl jasný vstup, kontrolu a výstup.",
+        fields: ["Jaký proces chceme zrychlit:", "Kdo ho dnes dělá:", "Kde vznikají chyby nebo zdržení:", "Jaký výstup má vzniknout:", "Kontakt a telefon:", "Poznámka:"]
+      },
+      pilot48: {
+        subject: "Poptávka: 48hodinový placený pilot",
+        intro: "Zaujala mě nabídka 48hodinový placený pilot. Chci ověřit, jestli má nápad šanci na platbu dřív, než se začne stavět větší nástroj.",
+        fields: ["Nápad / služba:", "Komu to má vydělat nebo ušetřit peníze:", "Co lze dodat ručně nebo poloautomaticky:", "Jak rychle chceme testovat:", "Kontakt a telefon:", "Poznámka:"]
+      },
+      promptops: {
+        subject: "Poptávka: Zjednodušený operační prompt",
+        intro: "Zaujala mě nabídka Zjednodušený operační prompt. Chci zkrátit a zpřesnit AI instrukce tak, aby výstupy měly méně chyb.",
+        fields: ["Jaké instrukce nebo pracovní zadání používáme:", "Jaký výstup má vznikat:", "Jaké chyby se opakují:", "Na čem se dá zlepšení otestovat:", "Kontakt a telefon:", "Poznámka:"]
+      },
+      agentstack: {
+        subject: "Poptávka: Bezpečný pracovní setup",
+        intro: "Zaujala mě nabídka Bezpečný pracovní setup. Chci zkontrolovat, které nástroje, pluginy a doplňky používat bezpečně a co raději vypnout.",
+        fields: ["Jaké nástroje / pluginy používáme:", "Kdo k nim má přístup:", "Co se už pokazilo nebo čeho se bojíme:", "Jaký pracovní výstup musí zůstat stabilní:", "Kontakt a telefon:", "Poznámka:"]
+      },
+      aizkratky: {
+        subject: "Poptávka: Zkratky pro konkrétní práci",
+        intro: "Zaujala mě nabídka Zkratky pro konkrétní práci. Chci vybrat jen ty funkce a postupy, které mi hned zrychlí reálnou práci.",
+        fields: ["Profese / role:", "Jaké úkoly děláme opakovaně:", "Co chceme zrychlit tento týden:", "Jaký hotový výstup má během sezení vzniknout:", "Kontakt a telefon:", "Poznámka:"]
+      },
+      aiworkday: {
+        subject: "Poptávka: Pracovní den pro firmu",
+        intro: "Zaujala mě nabídka Pracovní den pro firmu. Chci z obecného školení udělat konkrétní pracovní postup pro náš tým.",
+        fields: ["Firma / tým:", "Počet lidí:", "Tři opakované úkoly, které nás zdržují:", "Jaký jeden postup chceme mít hotový:", "Kontakt a telefon:", "Poznámka:"]
+      },
+      obecna: {
+        subject: "Obecná poptávka: praktické AI služby",
+        intro: "Zaujala mě nabídka praktických AI služeb BATKO.DIGITAL.AI.",
+        fields: ["Firma / projekt:", "Co chceme zlepšit:", "Jaké podklady máme:", "Kontakt a telefon:", "Poznámka:"]
+      }
+    };
+
+    function buildBody(template) {
+      return ["Dobrý den,", "", template.intro, "", "Chci nejdřív návrh nejmenšího rozumného placeného pilotu: výstup, cenu, termín a co musím dodat.", "", ...template.fields.map((field) => `${field} `), "", "Děkuji."].join("\n");
+    }
+
+    function showRequest(key) {
+      const template = requestTemplates[key];
+      const body = buildBody(template);
+      const box = document.getElementById("requestBox");
+      document.getElementById("requestTitle").textContent = template.subject;
+      document.getElementById("requestSubject").textContent = template.subject;
+      document.getElementById("requestText").value = body;
+      document.getElementById("copyStatus").textContent = "";
+      document.getElementById("gmailRequest").href = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(requestTo)}&cc=${encodeURIComponent(requestCc)}&su=${encodeURIComponent(template.subject)}&body=${encodeURIComponent(body)}`;
+      document.getElementById("mailtoRequest").href = `mailto:${requestTo}?cc=${encodeURIComponent(requestCc)}&subject=${encodeURIComponent(template.subject)}&body=${encodeURIComponent(body)}`;
+      box.hidden = false;
+      box.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    document.querySelectorAll("[data-request]").forEach((button) => {
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        showRequest(button.dataset.request);
+      });
+    });
+
+    document.getElementById("copyRequest").addEventListener("click", async () => {
+      const text = document.getElementById("requestText").value;
+      const status = document.getElementById("copyStatus");
+      try {
+        await navigator.clipboard.writeText(text);
+        status.textContent = "Text poptávky je zkopírovaný.";
+      } catch {
+        document.getElementById("requestText").select();
+        status.textContent = "Text je označený. Zkopírujte ho klávesami Ctrl+C.";
+      }
+    });
+  </script>
+</body>
+</html>
+
