@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>PBF Planet katalog nabídek pro klienty</title>
-  <meta name="description" content="Katalog praktických AI nabídek PBF Planet s technickou podporou BATKO.DIGITAL.AI.">
+  <title>PBF Planet - praktické AI nabídky pro firmy</title>
+  <meta name="description" content="PBF Planet nabízí praktické AI piloty pro firmy, gastronomii, e-shopy, eventy, partnery a zákaznické služby.">
   <style>
     :root {
       --bg: #06131d;
@@ -31,10 +31,7 @@
     }
     a { color: inherit; }
     .wrap { width: min(1160px, calc(100% - 36px)); margin: 0 auto; }
-    header {
-      padding: 54px 0 42px;
-      border-bottom: 1px solid var(--line);
-    }
+    header { padding: 54px 0 42px; border-bottom: 1px solid var(--line); }
     .brand {
       display: flex;
       align-items: center;
@@ -76,11 +73,11 @@
       letter-spacing: 0;
     }
     h2 { font-size: clamp(28px, 3.4vw, 44px); line-height: 1.08; margin: 0 0 12px; }
-    h3 { font-size: 24px; line-height: 1.15; margin: 0 0 10px; }
+    h3 { font-size: 22px; line-height: 1.16; margin: 0 0 10px; }
     p { margin-top: 0; }
-    .lead { color: #dceaf5; font-size: clamp(18px, 2vw, 22px); max-width: 780px; }
+    .lead { color: #dceaf5; font-size: clamp(18px, 2vw, 22px); max-width: 790px; }
     .muted { color: var(--muted); }
-    .hero img, .card, .notice, .download-panel {
+    .hero img, .card, .notice {
       border: 1px solid var(--line);
       border-radius: 8px;
       background: linear-gradient(180deg, rgba(16,47,69,.92), rgba(13,36,52,.92));
@@ -122,33 +119,32 @@
       color: var(--text);
       background: rgba(255,255,255,.07);
     }
-    .notice, .download-panel { padding: 22px; }
-    .download-panel { display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center; }
+    .notice { padding: 24px; }
     .list { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
     .list li { display: grid; grid-template-columns: 22px 1fr; gap: 8px; color: #edf6ff; }
     .list li::before { content: "✓"; color: var(--green); font-weight: 900; }
     footer { border-top: 1px solid var(--line); padding: 28px 0 40px; color: var(--muted); }
     @media (max-width: 900px) {
-      .hero, .grid, .download-panel { grid-template-columns: 1fr; }
+      .hero, .grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
   <header>
     <div class="wrap">
-      <div class="brand"><span class="badge">♛</span><span>PBF Planet katalog • neděle 12. 7. 2026</span></div>
+      <div class="brand"><span class="badge">P</span><span>PBF Planet • neděle 12. 7. 2026</span></div>
       <div class="hero">
         <div>
-          <div class="eyebrow">Sdílitelný katalog nabídek</div>
-          <h1>Praktické AI nabídky, které může PBF Planet posílat dál.</h1>
-          <p class="lead">Tady budou postupně přibývat konkrétní nabídky pro klienty, partnery a firmy. Každá nabídka má vlastní funkční stránku, poptávkový text, podmínky/GDPR a možnost sdílet nebo stáhnout HTML.</p>
+          <div class="eyebrow">Veřejný katalog nabídek</div>
+          <h1>Praktické AI piloty pro firmy, které chtějí rychlejší výsledek.</h1>
+          <p class="lead">Vyberte oblast, která vám dává smysl: menu, dokumenty, produktové vizuály, partnerské nabídky nebo zážitkové služby. Na začátku stačí krátká poptávka. PBF Planet vám pomůže vybrat nejmenší rozumný pilot a další krok.</p>
           <div class="btn-row">
-            <a class="btn" href="20260712-ai-nabidky/">Otevřít aktuální nabídku</a>
+            <a class="btn" href="20260712-ai-nabidky/">Otevřít nabídku AI služeb</a>
             <button class="btn secondary" type="button" id="shareCatalog">Sdílet katalog</button>
           </div>
           <p class="muted" id="shareStatus" style="margin-top:12px;"></p>
         </div>
-        <img src="assets/pbf-planet.jpeg" alt="PBF Planet program partner">
+        <img src="assets/pbf-planet.jpeg" alt="PBF Planet">
       </div>
     </div>
   </header>
@@ -156,83 +152,65 @@
   <main>
     <section>
       <div class="wrap">
-        <h2>Aktuální nabídky</h2>
-        <p class="lead">První katalogová položka je balík praktických AI služeb pro firmy: Gastro-AI, AI Úřední Kurýr, AI Produktové studio, Partner Verdikt a Venku za dveřmi.</p>
+        <h2>Co můžete poptat</h2>
+        <p class="lead">Každá služba je navržená tak, aby šla nejdřív ověřit menším pilotem a až potom rozšiřovat podle výsledku.</p>
         <div class="grid">
           <article class="card">
-            <span class="tag">Veřejná klientská nabídka</span>
-            <h3>Praktické AI služby pro firmy</h3>
-            <p class="muted">Sdílitelná stránka, kterou může PBF Planet nebo kdokoliv další poslat klientovi. Obsahuje generátor poptávky, Gmail odkaz, podmínky a GDPR.</p>
-            <div class="btn-row">
-              <a class="btn" href="20260712-ai-nabidky/">Otevřít</a>
-              <a class="btn secondary" href="20260712-ai-nabidky/index.html" download>Stáhnout HTML</a>
-            </div>
+            <span class="tag">Gastro a služby</span>
+            <h3>Gastro-AI</h3>
+            <p class="muted">Menu, popisy jídel, sezónní nabídky, promo texty a rychlé návrhy pro restaurace, kavárny, hotely a penziony.</p>
           </article>
-
           <article class="card">
-            <span class="tag">Interní podklad</span>
-            <h3>Interní vysvětlení obchodního modelu</h3>
-            <p class="muted">Pracovní materiál pro schůzku s PBF Planet: role, co má jít ven klientům, čemu se vyhnout a proč PBF Planet drží veřejnou značku.</p>
-            <div class="btn-row">
-              <a class="btn" href="20260712-ai-nabidky/interni-obchodni-podklad.html">Otevřít</a>
-              <a class="btn secondary" href="20260712-ai-nabidky/interni-obchodni-podklad.html" download>Stáhnout HTML</a>
-            </div>
+            <span class="tag">Administrativa</span>
+            <h3>AI Úřední Kurýr</h3>
+            <p class="muted">Pomoc s formuláři, dokumenty, často opakovanými texty a přehlednějším zpracováním podkladů.</p>
           </article>
-
           <article class="card">
-            <span class="tag">Právní rámec</span>
-            <h3>Jednoduché obchodní podmínky a GDPR</h3>
-            <p class="muted">Krátké vymezení objednávky, pilotů, odpovědnosti, práce s daty, referencí a zveřejnění výstupů.</p>
-            <div class="btn-row">
-              <a class="btn" href="20260712-ai-nabidky/obchodni-podminky-gdpr.html">Otevřít</a>
-              <a class="btn secondary" href="20260712-ai-nabidky/obchodni-podminky-gdpr.html" download>Stáhnout HTML</a>
-            </div>
+            <span class="tag">E-shopy a značky</span>
+            <h3>AI Produktové studio</h3>
+            <p class="muted">Produktové popisy, vizuální zadání, kampaně a lepší prezentace produktů bez zbytečně dlouhé přípravy.</p>
+          </article>
+          <article class="card">
+            <span class="tag">Partnerství</span>
+            <h3>Partner Verdikt</h3>
+            <p class="muted">Rychlé ověření, jak nabídnout reklamu, partnerství, event, barter nebo sponzoring srozumitelněji.</p>
+          </article>
+          <article class="card">
+            <span class="tag">Komunity a zážitky</span>
+            <h3>Venku za dveřmi</h3>
+            <p class="muted">Nápady a nabídky pro výlety, pobyty, skupiny, kluby, zážitkové partnery a komunitní akce.</p>
+          </article>
+          <article class="card">
+            <span class="tag">Nejste si jistí?</span>
+            <h3>Obecná AI poptávka</h3>
+            <p class="muted">Popište firmu, problém a cíl. PBF Planet doporučí, kterým pilotem začít.</p>
           </article>
         </div>
       </div>
     </section>
 
     <section>
-      <div class="wrap download-panel">
-        <div>
-          <h2>Jak to funguje po zaplacení nebo domluvě</h2>
-          <p class="muted">Statická stránka na GitHub Pages neumí sama ověřit platbu. Praktický model je: klient zaplatí nebo si domluví pilot, dostane konkrétní odkaz na nabídku, může ji otevřít, přeposlat dál nebo si HTML stáhnout pro archiv.</p>
+      <div class="wrap notice">
+        <h2>Jak postupovat</h2>
+        <ul class="list">
+          <li>Otevřete aktuální nabídku AI služeb.</li>
+          <li>Vyberte službu, která odpovídá vašemu problému nebo cíli.</li>
+          <li>Klikněte na tlačítko poptávky a stránka vám připraví text e-mailu.</li>
+          <li>Doplňte firmu, kontakt, poznámku a odešlete poptávku.</li>
+          <li>PBF Planet se ozve s návrhem vhodného pilotu nebo dalším dotazem.</li>
+        </ul>
+        <div class="btn-row" style="margin-top:18px;">
+          <a class="btn" href="20260712-ai-nabidky/">Přejít na nabídku</a>
+          <a class="btn secondary" href="20260712-ai-nabidky/obchodni-podminky-gdpr.html">Podmínky a GDPR</a>
         </div>
-        <a class="btn" href="20260712-ai-nabidky/index.html" download>Stáhnout aktuální nabídku</a>
-      </div>
-    </section>
-
-    <section>
-      <div class="wrap notice">
-        <h2>Jak může PBF Planet odkaz distribuovat</h2>
-        <ul class="list">
-          <li>Pro běžné sdílení poslat katalog: https://batkodigitalai.github.io/batko-digital-ai/nabidky/pbf-planet/</li>
-          <li>Pro konkrétní zájem o AI služby poslat přímo nabídku: https://batkodigitalai.github.io/batko-digital-ai/nabidky/pbf-planet/20260712-ai-nabidky/</li>
-          <li>Do zprávy stačí doplnit: „Vyberte službu, klikněte na tlačítko a stránka vám připraví text poptávky.“</li>
-          <li>Poptávky mají chodit na veřejný PBF kontakt krca@pbfplanet.com, s kopií na batko.digital.ai@gmail.com.</li>
-          <li>Stránku může klient přeposlat dál; čím víc se šíří katalog, tím víc vzniká poptávek pro PBF Planet.</li>
-        </ul>
-      </div>
-    </section>
-
-    <section>
-      <div class="wrap notice">
-        <h2>Pravidla pro další katalogové položky</h2>
-        <ul class="list">
-          <li>Každá nová nabídka dostane vlastní složku podle data a tématu.</li>
-          <li>Datum se při vytvoření zapíše napevno včetně dne týdne a po odeslání se nemění.</li>
-          <li>Veřejná značka je PBF Planet, technické dodávky BATKO.DIGITAL.AI.</li>
-          <li>Každá nabídka má odkaz na podmínky/GDPR a jasné vymezení odpovědnosti.</li>
-          <li>Katalog zůstává jeden sdílitelný rozcestník pro všechny budoucí nabídky.</li>
-        </ul>
       </div>
     </section>
   </main>
 
   <footer>
     <div class="wrap">
-      <strong>PBF Planet</strong> - katalog nabídek a pilotů. Technický partner: <strong>BATKO.DIGITAL.AI</strong>.<br>
-      Datum katalogové verze: neděle 12. 7. 2026.
+      <strong>PBF Planet</strong> - obchodní a partnerská platforma pro praktické služby, networking, marketing, eventy a AI piloty pro firmy.<br>
+      Technické zpracování vybraných AI pilotů zajišťuje <strong>BATKO.DIGITAL.AI</strong>. Kontakt pro poptávky: <strong>krca@pbfplanet.com</strong>.
     </div>
   </footer>
 
