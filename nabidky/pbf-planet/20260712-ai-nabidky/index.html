@@ -76,10 +76,12 @@
     .top-note { color: var(--muted); font-size: 14px; text-align: right; }
     .hero {
       display: grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap: 34px;
+      grid-template-columns: 1fr;
+      gap: 26px;
       align-items: center;
     }
+    .hero.hero-wide { width: min(1540px, calc(100% - 20px)); }
+    .hero-copy { max-width: 980px; }
     .eyebrow {
       color: var(--amber);
       text-transform: uppercase;
@@ -126,8 +128,18 @@
       background: linear-gradient(180deg, rgba(16,45,66,.92), rgba(12,33,48,.92));
       box-shadow: var(--shadow);
     }
-    .hero-card { padding: 14px; }
-    .hero-card img { width: 100%; display: block; border-radius: 6px; border: 1px solid rgba(255,255,255,.12); }
+    .hero-card {
+      padding: 10px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.015)),
+        linear-gradient(180deg, rgba(16,45,66,.92), rgba(12,33,48,.92));
+    }
+    .hero-card img {
+      width: 100%;
+      display: block;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,.12);
+    }
     .stats {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -316,8 +328,8 @@
   </div>
 
   <header>
-    <div class="wrap hero">
-      <div>
+    <div class="wrap hero hero-wide">
+      <div class="hero-copy">
         <div class="eyebrow">Nabídka pro firmy, restaurace, e-shopy, eventy a partnery • neděle 12. 7. 2026</div>
         <h1>Praktická AI, která má rychle ukázat obchodní smysl.</h1>
         <p class="lead">Vyberte si praktický balíček pro menu, dokumenty, produktové vizuály, partnerství, reklamu nebo zákaznické zážitky. Na začátku stačí krátká poptávka. Vrátíme vám návrh nejmenšího rozumného pilotu, aby se nejdřív ověřil přínos a teprve potom řešila větší zakázka.</p>
