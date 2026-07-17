@@ -817,7 +817,7 @@ function initExtras() {
   const R = C.roi || {};
 
   // ① Tržní srovnání
-  if (R.marketPriceCZ) {
+  if (false) {  // BROKER: tržní blok skrytý — na stránce svítí jen marže dražitele
     const extras  = R.extrasAmount || 0;
     const vatRate = R.vatRate || 0.21;
     const marketGross = R.marketPriceCZ;
@@ -936,7 +936,7 @@ function initExtras() {
       <div class="b2b-item"><div class="bi-val">${fKc(R.b2bSaleTarget)}</div><div class="bi-lbl">Orientační prodejní cena ČR</div></div>
       <div class="b2b-item"><div class="bi-val" style="color:#2ecc71">${fKc(Math.max(0,margin))}</div><div class="bi-lbl">Vaše marže při vyvolávací ceně</div></div>`;
     document.getElementById('b2bNote').innerHTML =
-      `Vyvolávací cena je nastavená blízko evropské pořizovací ceny, aby prostor pro vaši marži zůstal co největší. Při prodeji do ${R.b2bDaysSale||30} dní ≈ <strong>${roiDay} %/den</strong>. Každý příhoz snižuje vaši marži o svou výši. Ceny jsou pro plátce DPH bez DPH; veřejné tržní srovnání výše je vč. DPH.`;
+      `Vyvolávací cena je nastavená blízko evropské pořizovací ceny, aby prostor pro vaši marži zůstal co největší. Při prodeji do ${R.b2bDaysSale||30} dní ≈ <strong>${roiDay} %/den</strong>. Každý příhoz snižuje vaši marži o svou výši. Ceny jsou pro plátce DPH bez DPH.`;
     document.getElementById('b2bBlock').style.display = 'block';
   }
 }
