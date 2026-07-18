@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZDARMA analýza auta z aukce — auto pro autobazary</title>
+<meta name="description" content="Pošlete odkaz na aukci, do 24 hodin dostanete PDF analýzu: cena v ČR, cena v EU, skryté náklady, riziková mapa. Pro malé autobazary 1–5 aut/měs.">
+<meta property="og:title" content="ZDARMA analýza auta z evropské aukce do 24 hodin">
+<meta property="og:description" content="Pro malé autobazary v ČR/SR. Bez závazku, bez kreditky.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:#1a1a1a;line-height:1.7;background:#fafafa}
+.container{max-width:760px;margin:0 auto;padding:24px 20px}
+header{background:#0f172a;color:#fff;padding:14px 20px;text-align:center;border-bottom:3px solid #10b981}
+header .logo{font-size:1.4rem;font-weight:800;color:#10b981}
+header .tag{font-size:0.85rem;opacity:0.8;margin-top:4px}
+.hero{background:#fff;padding:40px 28px;margin:24px 0;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.04)}
+.badge{display:inline-block;background:#fef3c7;color:#92400e;padding:6px 14px;border-radius:20px;font-size:0.85rem;font-weight:600;margin-bottom:16px}
+h1{font-size:2rem;line-height:1.3;margin-bottom:16px;color:#0f172a;font-weight:800}
+h1 .highlight{color:#10b981}
+.subhead{font-size:1.1rem;color:#475569;margin-bottom:24px}
+.from{font-size:0.95rem;color:#64748b;margin:24px 0;padding-left:14px;border-left:3px solid #10b981}
+.body-text p{margin-bottom:18px;font-size:1rem;color:#334155}
+.body-text strong{color:#0f172a;font-weight:700}
+h2{font-size:1.5rem;margin:36px 0 16px;color:#0f172a;font-weight:700}
+h3{font-size:1.15rem;margin:24px 0 10px;color:#0f172a;font-weight:600}
+.offer-box{background:#ecfdf5;border:2px solid #10b981;padding:24px;border-radius:10px;margin:24px 0}
+.offer-box h3{color:#065f46;margin-top:0;font-size:1.3rem}
+.checklist{list-style:none;padding-left:0}
+.checklist li{padding:8px 0 8px 32px;position:relative}
+.checklist li::before{content:"✓";position:absolute;left:0;top:8px;color:#10b981;font-weight:bold;font-size:1.3rem;background:#d1fae5;width:22px;height:22px;border-radius:50%;text-align:center;line-height:22px;font-size:0.85rem}
+.bonus-card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:18px;margin:14px 0}
+.bonus-card .label{display:inline-block;background:#0f172a;color:#fff;padding:4px 10px;border-radius:4px;font-size:0.75rem;font-weight:600;letter-spacing:0.5px;margin-bottom:8px}
+.bonus-card h4{font-size:1.1rem;margin-bottom:8px;color:#0f172a}
+.stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:24px 0}
+.stat{background:#f1f5f9;padding:18px;border-radius:8px;text-align:center}
+.stat .num{font-size:1.8rem;font-weight:800;color:#10b981}
+.stat .lab{font-size:0.85rem;color:#475569;margin-top:4px}
+.cta-form{background:#0f172a;color:#fff;padding:32px 24px;border-radius:12px;margin:32px 0}
+.cta-form h2{color:#fff;margin-top:0;text-align:center}
+.cta-form .subtitle{text-align:center;color:#94a3b8;margin-bottom:24px;font-size:0.95rem}
+.form-row{margin-bottom:14px}
+.form-row label{display:block;font-size:0.9rem;color:#cbd5e1;margin-bottom:6px;font-weight:600}
+.form-row input,.form-row textarea,.form-row select{width:100%;padding:12px 14px;border:1px solid #334155;border-radius:6px;background:#1e293b;color:#fff;font-size:1rem;font-family:inherit}
+.form-row input:focus,.form-row textarea:focus,.form-row select:focus{outline:none;border-color:#10b981}
+.form-row textarea{resize:vertical;min-height:80px}
+.submit-btn{width:100%;background:#10b981;color:#fff;border:none;padding:16px;font-size:1.05rem;font-weight:700;border-radius:8px;cursor:pointer;margin-top:8px;transition:background 0.2s}
+.submit-btn:hover{background:#059669}
+.submit-btn:disabled{background:#475569;cursor:not-allowed}
+.success-msg{display:none;background:#065f46;border:2px solid #10b981;padding:20px;border-radius:8px;color:#fff;text-align:center;margin-top:16px}
+.success-msg.show{display:block}
+.error-msg{display:none;background:#7f1d1d;border:2px solid #ef4444;padding:20px;border-radius:8px;color:#fff;text-align:center;margin-top:16px}
+.error-msg.show{display:block}
+.privacy{font-size:0.8rem;color:#94a3b8;margin-top:14px;text-align:center}
+.ps{background:#fff7ed;border-left:4px solid #f97316;padding:16px 18px;margin:20px 0;font-size:0.95rem}
+.ps strong{color:#9a3412}
+.signature{margin:32px 0;padding:20px;background:#f1f5f9;border-radius:8px;text-align:center}
+.signature .name{font-size:1.2rem;font-weight:700;color:#0f172a}
+.signature .role{color:#64748b;font-size:0.9rem;margin-top:4px}
+footer{text-align:center;padding:30px 20px;color:#64748b;font-size:0.85rem;border-top:1px solid #e2e8f0;margin-top:40px}
+@media(max-width:600px){
+h1{font-size:1.6rem}
+.hero{padding:28px 20px}
+.stats-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo">auto</div>
+<div class="tag">analýza a dovoz aut z evropských aukcí</div>
+</header>
+
+<div class="container">
+
+<div class="hero">
+<span class="badge">⚡ Pro autobazary 1–5 aut/měs</span>
+<h1>Než přihodíte na další aukci, nechte mě vám to auto <span class="highlight">zdarma</span> rozebrat — do 24 hodin víte, jestli vyděláte 30 000 Kč nebo proděláte.</h1>
+<p class="subhead">Pošlete odkaz na aukci v Německu, Itálii, Belgii nebo Polsku. Do 24 hodin máte na emailu PDF analýzu s reálnou marží, skrytými náklady a rizikovou mapou.</p>
+
+<div class="from">
+<strong>Pro:</strong> Majitelé autobazarů, dovozce, freelancery v automobilním obchodu<br>
+<strong>Od:</strong> Jaroslava Batka, L?skovec 170, 273 51 Velk? P??to?no
+</div>
+
+<div class="body-text">
+<p>Vážený kolego,</p>
+<p>jmenuji se Jaroslav Batko a analyzuji auta nabízená na evropských aukcích — DAT-Auction, Bca, Manheim, ADAC, autobid.de, auto1, OpenLane, eCarsTrade a dalších.</p>
+<p>Oslovil jsem databázi českých a slovenských autobazarů — <strong>jen v ČR je evidováno více než 1 500 prodejců ojetých vozidel</strong>. Sestavil jsem kalkulačku, která <strong>do 4 minut</strong> spočítá, kolik vás konkrétní auto z aukce v Německu, Itálii, Belgii nebo Polsku bude reálně stát na klíč v ČR — včetně cla, DPH, dopravy, STK, převodu a všech skrytých nákladů, které nováčci přehlížejí.</p>
+<p>A teď chci tu samou kalkulačku a tu samou metodiku <strong>dát na vyzkoušení i vám</strong> — zadarmo, bez závazku, bez zápisu kreditky.</p>
+</div>
+</div>
+
+<div class="hero">
+<h2>Co přesně dostanete</h2>
+
+<div class="offer-box">
+<h3>🎯 Hlavní nabídka: ZDARMA analýza 1 konkrétního auta</h3>
+<p>Pošlete mi odkaz na aukci (nebo VIN), do <strong>24 hodin</strong> dostanete PDF report s:</p>
+<ul class="checklist">
+<li><strong>Reálnou tržní cenou v ČR</strong> — průměr z aktuálních inzerátů na Sauto, Autoesa, AAA (dle nabídky současné, typicky 10–30 inzerátů)</li>
+<li><strong>Reálnou aukční cenou v EU</strong> — srovnání s posledními 10 prodejními aukcemi stejného modelu</li>
+<li><strong>Kompletní rozpočet na klíč</strong> — clo, DPH, doprava, STK, převod, provize</li>
+<li><strong>Rizikovou mapu</strong> — historie km, záznam o nehodách, výbavový profil, známé problémy modelu</li>
+<li><strong>Verdikt v 1 slově</strong> — KUPTE / NEKUPTE / NEUTRÁLNÍ — s konkrétní marží v Kč</li>
+</ul>
+<p style="margin-top:16px"><strong>To je stejná analýza, jakou si klienti kupují za 490 Kč. Pro vás první ZDARMA.</strong></p>
+</div>
+
+<h3>Doprovodné nástroje (vše ZDARMA)</h3>
+
+<div class="bonus-card">
+<span class="label">DOPLNĚK 1</span>
+<h4>📕 E-book: 7 nejdražších chyb při dovozu auta z Německa</h4>
+<p>17 stran PDF, konkrétní case studies, kolik každá chyba reálně stojí. Žádné mlžení.</p>
+</div>
+
+<div class="bonus-card">
+<span class="label">DOPLNĚK 2</span>
+<h4>🧮 Webová kalkulačka skrytých nákladů</h4>
+<p>Zadáte cenu z aukce + zemi + objem motoru → spočítá kompletní cenu na klíč. Stejná logika, jakou používám sám.</p>
+</div>
+
+<div class="bonus-card">
+<span class="label">DOPLNĚK 3</span>
+<h4>📬 Týdenní bulletin „TOP 5 výhodných aut z aukcí"</h4>
+<p>Každou středu email s 5 vyfiltrovanými auty, kde po mé analýze vychází marže 30+ k Kč. Žádný marketing, jen čísla a odkazy.</p>
+</div>
+
+</div>
+
+<div class="hero">
+<h2>Aktuální stav projektu (k 18. 5. 2026)</h2>
+<p style="color:#475569;font-size:0.95rem;margin-bottom:14px"><em>Začínáme. Nelžeme o tisících klientech, které nemáme. Místo toho ukazujeme, co máme reálně připraveno:</em></p>
+
+<div class="stats-grid">
+<div class="stat"><div class="num">8</div><div class="lab">monitorovaných aukčních platforem</div></div>
+<div class="stat"><div class="num">1 500+</div><div class="lab">CZ prodejců ojetin (oslovitelný trh)</div></div>
+<div class="stat"><div class="num">12</div><div class="lab">modelových výpočtů</div></div>
+<div class="stat"><div class="num">84k</div><div class="lab">marže v case study VW T6</div></div>
+</div>
+
+<p style="font-size:0.95rem;color:#475569;margin-top:14px"><em>Po prvních 3 reálných obchodech doplníme reference a citace klientů. Žádné fake testimonials.</em></p>
+</div>
+
+<div class="hero">
+<h2>Proč to dělám zdarma?</h2>
+<div class="body-text">
+<p>Buďme upřímní — neděláme to z dobroty srdce. Děláme to ze <strong>dvou důvodů</strong>:</p>
+<p><strong>1. Trh nás nezná.</strong> Místo abychom platili FB reklamu po 30 000 Kč měsíčně, raději odpracujeme reálnou hodnotu <strong>zdarma</strong> pro 50 lidí — z toho 5 se stane našimi klienty. Matematika výhodnější pro obě strany.</p>
+<p><strong>2. Chceme si vás vyzkoušet.</strong> Pokud po analýze vidíte, že umíme, sami se zeptáte, jestli to auto neumíme dovézt. To je naše hlavní služba — kompletní dovoz na klíč za <strong>8–15 000 Kč fee</strong> (cca polovina toho, co účtuje konkurence).</p>
+<p>Pokud po analýze řeknete „díky, ale ne" — nic se neděje. Žádný spam, žádný tlak. Jen vás občas přidáme do bulletinu, ze kterého se kdykoliv odhlásíte.</p>
+</div>
+</div>
+
+<div class="cta-form" id="formular">
+<h2>📋 Vyplňte formulář — analýza do 24h</h2>
+<p class="subtitle">Trvá to 90 sekund. Žádný spam, žádný tlak.</p>
+<form id="leadForm">
+<input type="hidden" name="formType" value="B2B">
+<input type="hidden" name="source" value="landing_B2B">
+
+<div class="form-row">
+<label>Vaše jméno *</label>
+<input type="text" name="name" required placeholder="Jan Novák">
+</div>
+
+<div class="form-row">
+<label>Email *</label>
+<input type="email" name="email" required placeholder="jan@autobazar.cz">
+</div>
+
+<div class="form-row">
+<label>Telefon</label>
+<input type="tel" name="phone" placeholder="+420 123 456 789">
+</div>
+
+<div class="form-row">
+<label>Název autobazaru / firmy</label>
+<input type="text" name="company" placeholder="Autobazar XYZ s.r.o.">
+</div>
+
+<div class="form-row">
+<label>Kolik aut prodáváte měsíčně?</label>
+<select name="volume">
+<option value="">Vyberte...</option>
+<option value="1-5">1–5 aut</option>
+<option value="6-15">6–15 aut</option>
+<option value="16-30">16–30 aut</option>
+<option value="30+">30+ aut</option>
+</select>
+</div>
+
+<div class="form-row">
+<label>Odkaz na aukci nebo VIN auta, které vás zajímá *</label>
+<textarea name="carInfo" required placeholder="https://www.dat-auction.com/... nebo VIN: WVWZZZ1KZ8M..."></textarea>
+</div>
+
+<div class="form-row">
+<label>Poznámka (uzávěrka aukce, specifické dotazy)</label>
+<textarea name="note" placeholder="Aukce končí v pátek v 17:00, prosím přednostně..."></textarea>
+</div>
+
+<button type="submit" class="submit-btn" id="submitBtn">Chci ZDARMA analýzu do 24 hodin →</button>
+
+<p class="privacy">🔒 Vaše údaje neprodáváme. Použijeme je jen pro dodání analýzy a (volitelně) bulletinu. Odhlásit se můžete kdykoliv jedním klikem.</p>
+</form>
+
+<div class="success-msg" id="successMsg">
+<h3 style="margin-bottom:10px">✅ Děkujeme!</h3>
+<p>Vaši poptávku jsme přijali. Do 24 hodin dostanete PDF analýzu na email <strong id="emailEcho"></strong>.</p>
+<p style="margin-top:10px;font-size:0.9rem;opacity:0.9">Pokud do té doby nic nepřijde, napište přímo na batko.digital.ai@gmail.com.</p>
+</div>
+
+<div class="error-msg" id="errorMsg">
+<h3 style="margin-bottom:10px">⚠️ Něco se nepovedlo</h3>
+<p>Nemohli jsme uložit poptávku. Pošlete prosím údaje rovnou na <strong>batko.digital.ai@gmail.com</strong>, ozveme se obratem.</p>
+</div>
+</div>
+
+<div class="hero">
+<div class="ps">
+<p><strong>P.S. 1:</strong> Pokud váš autobazar dělá víc než <strong>50 aut/měsíc</strong>, raději mi nepište. Strategicky se zaměřujeme na malé autobazary do 5 aut měsíčně, kde jeden chybný nákup bolí. Velcí dealeři mají vlastní lidi.</p>
+</div>
+
+<div class="ps">
+<p><strong>P.S. 2:</strong> ZDARMA analýzy posíláme v rytmu <strong>5 týdně</strong> (pondělí–pátek). Pokud chcete přednost (do 4 hodin), nabízíme placenou variantu <strong>490 Kč</strong>.</p>
+</div>
+</div>
+
+<div class="signature">
+<div class="name">Ing. Jaroslav Batko</div>
+<div class="role">analýza a dovoz aut z evropských aukcí<br>L?skovec 170, 273 51 Velk? P??to?no | batko.digital.ai@gmail.com | nemanahi.cz</div>
+</div>
+
+</div>
+
+<footer>
+© 2026 auto / Ing. Jaroslav Batko. Zpracování osobních údajů dle GDPR.<br>
+Tato stránka neprodává auta. Slouží jako analytický a poradenský nástroj.
+</footer>
+
+<script>
+// === KONFIGURACE — VYPLŇTE PO NASAZENÍ APPS SCRIPT ===
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwcFA8bRyHnBB_4XlgH5_IMR4IBqUfvTD8vScGZPiuCh0gR5f4Mp_9OjOAw1u3lNEjI/exec';
+
+document.getElementById('leadForm').addEventListener('submit', async function(e){
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  const successMsg = document.getElementById('successMsg');
+  const errorMsg = document.getElementById('errorMsg');
+  const form = e.target;
+
+  btn.disabled = true;
+  btn.textContent = 'Odesílám...';
+  successMsg.classList.remove('show');
+  errorMsg.classList.remove('show');
+
+  const formData = new FormData(form);
+  const data = {timestamp: new Date().toISOString()};
+  for (const [k, v] of formData.entries()) data[k] = v;
+
+  try {
+    // Apps Script web app — POST with no-cors (Google requires this for simple POSTs)
+    await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {'Content-Type': 'text/plain;charset=utf-8'},
+      body: JSON.stringify(data)
+    });
+    document.getElementById('emailEcho').textContent = data.email || '';
+    successMsg.classList.add('show');
+    form.style.display = 'none';
+
+    // Optional: gtag/fbq tracking event
+    if (typeof gtag !== 'undefined') gtag('event', 'lead_submit', {form_type: 'B2B'});
+    if (typeof fbq !== 'undefined') fbq('track', 'Lead');
+
+  } catch(err) {
+    console.error(err);
+    errorMsg.classList.add('show');
+    btn.disabled = false;
+    btn.textContent = 'Zkusit znovu →';
+  }
+});
+</script>
+
+</body>
+</html>
