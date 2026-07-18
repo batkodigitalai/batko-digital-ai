@@ -1,0 +1,348 @@
+const fs = require("fs");
+const path = require("path");
+
+const root = path.resolve(__dirname, "..");
+const template = path.join(root, "aukce_system", "aukce_TEMPLATE.html");
+const out = path.join(
+  root,
+  "aukce_system",
+  "20260705_AUK-014_VW_Passat_2021_Business_DE",
+  "index.html"
+);
+
+let html = fs.readFileSync(template, "utf8");
+
+const config = `var AUCTION_CONFIG = {
+  auctionId:    "AUK-014",
+  carId:        "11203636",
+
+  make:         "Volkswagen",
+  model:        "Passat Variant 2.0 TDI Business",
+  year:         2021,
+  engine:       "2.0 TDI 110 kW (150 PS)",
+  transmission: "7-Gang-DSG",
+  km:           65849,
+  color:        "Silber Metallic",
+
+  startPrice:   204000,
+  minIncrement: 1000,
+  endTime:      "2026-07-06T14:55:00+02:00",
+  auctionRef:   "OPENLANE-11203636",
+  depositNote:  "10.000 CZK",
+  commissionNote: "8.000–12.000 CZK",
+
+  detailPageUrl: "https://batkodigitalai.github.io/batko-digital-ai/simulators/openlane_roi_de.html",
+
+  roi: {
+    vatPayerMode:   true,
+    vatRate:        0.21,
+    marketPriceCZ:  499000,
+    marketPriceNetCZ: 412397,
+    extrasLabel:    "OPENLANE-Gebühren, Transport, Zulassung, Aufbereitung, Service, Reparaturen und Reserven netto",
+    extrasAmount:   150401,
+    processingCostLabel: "Abwicklung / Provision netto",
+    processingCostAmount: 8000,
+    deliveryDaysMin: 12,
+    deliveryDaysMax: 23,
+    carScore:       67,
+    scoreLabel:     "Bedingt geeignet",
+    commissionMin:  8000,
+    commissionMax:  12000,
+    b2bMarketLow:   412397,
+    b2bSaleTarget:  429752,
+    b2bDaysSale:    30
+  },
+
+  photos: [
+    "img/foto_01.jpg",
+    "img/foto_02.jpg",
+    "img/foto_03.jpg",
+    "img/foto_04.jpg",
+    "img/foto_05.jpg",
+    "img/foto_06.jpg",
+    "img/foto_07.jpg",
+    "img/foto_08.jpg",
+    "img/foto_09.jpg",
+    "img/foto_10.jpg",
+    "img/foto_11.jpg",
+    "img/foto_12.jpg",
+    "img/foto_13.jpg"
+  ],
+
+  risks: [
+    "Wartungs- und HU-Nachweis fehlen; Wartung und Hauptuntersuchung sind fällig.",
+    "Motorhaube, Dach, rechter vorderer Kotflügel und beide hinteren Seitenteile sind eingedellt oder verkratzt.",
+    "Motorhaube, linkes hinteres Seitenteil und hinterer Stoßfänger müssen instand gesetzt und lackiert werden.",
+    "Lackschicht 101–307 µm; erhöhte Lackstärke an der linken Vordertür. Reparaturreserve: 65.000 CZK."
+  ],
+
+  specs: {
+    "Erstzulassung":  "01/2021",
+    "Kilometerstand": "65.849 km",
+    "Motor":          "2.0 TDI 110 kW (150 PS)",
+    "Getriebe":       "7-Gang-DSG",
+    "Kraftstoff":     "Diesel / Euro 6",
+    "Farbe":          "Silber Metallic",
+    "Karosserie":     "Kombi (Variant)",
+    "Ausstattung":    "Business",
+    "Navigation":     "Discover Media, Android Auto, DAB",
+    "Assistenz":      "ACC, Front Assist, Berganfahrassistent, Müdigkeitserkennung",
+    "Extras":         "LED-Scheinwerfer, Anhängerkupplung, Keyless Start, Sitzheizung",
+    "Räder":          "16-Zoll-Leichtmetall, Sommerreifen 5/5/6/6 mm; zusätzlicher Winterradsatz",
+    "Schlüssel":      "2 Hauptschlüssel laut DEKRA",
+    "VIN":            "WVWZZZ3CZME050926"
+  },
+
+  firebase: {
+    apiKey:            "AIzaSyCzqE91qCN7CAHYNIlilzkyWLW3zYhlT8s",
+    authDomain:        "batko-aukce.firebaseapp.com",
+    databaseURL:       "https://batko-aukce-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId:         "batko-aukce",
+    storageBucket:     "batko-aukce.firebasestorage.app",
+    messagingSenderId: "567644084257",
+    appId:             "1:567644084257:web:d4a8b172324b3d54092b60"
+  },
+
+  sheetUrl: "https://script.google.com/macros/s/AKfycbwcFA8bRyHnBB_4XlgH5_IMR4IBqUfvTD8vScGZPiuCh0gR5f4Mp_9OjOAw1u3lNEjI/exec",
+
+  documents: [
+    { label: "DEKRA-Zustandsbericht 0357/039341/2026/B085568002726", file: "docs/DEKRA_11203636_WVWZZZ3CZME050926.pdf", icon: "📋" }
+  ]
+};`;
+
+html = html.replace(
+  /var AUCTION_CONFIG = \{[\s\S]*?\n\};\n<\/script>/,
+  config + "\n</script>"
+);
+
+const replacements = [
+  ['<html lang="cs">', '<html lang="de">'],
+  ["Aukce vozidla — BATKO.DIGITAL.AI", "Fahrzeugauktion — BATKO.DIGITAL.AI"],
+  ["Přihazujte na ověřené vozidlo z evropského trhu.", "Bieten Sie auf ein geprüftes Fahrzeug aus dem europäischen Markt."],
+  ["Internetová aukce vozidla", "Online-Fahrzeugauktion"],
+  ["Načítání…", "Wird geladen…"],
+  ["Aukce byla zrušena", "Auktion wurde abgesagt"],
+  ["Vyrozumíme všechny přihlášené zájemce e-mailem.", "Alle registrierten Interessenten werden per E-Mail informiert."],
+  ["Vítěze budeme kontaktovat do 24 hodin pro dohodnutí dalšího postupu.", "Wir kontaktieren den Gewinner innerhalb von 24 Stunden, um das weitere Vorgehen abzustimmen."],
+  ["Přihazujte nyní!", "Jetzt bieten!"],
+  ["Čas vypršel — aukce uzavřena", "Zeit abgelaufen — Auktion geschlossen"],
+  ["Zatím žádné příhozy", "Noch keine Gebote"],
+  ["vyvolávací cena nebo +1 000", "Startpreis oder +1.000"],
+  ["Srovnání s českým trhem", "Vergleich mit dem tschechischen Markt"],
+  ["Tržní cena v ČR", "Marktpreis in Tschechien"],
+  ["Vaše potenciální úspora", "Ihre potenzielle Ersparnis"],
+  ["Další náklady", "Weitere Kosten"],
+  ["Odhadovaný termín doručení do ČR", "Voraussichtliche Lieferung nach Tschechien"],
+  ["Hodnocení vozidla", "Fahrzeugbewertung"],
+  ["Dle kritérií: stáří, km, značka, rychlost obrátky na CZ trhu", "Kriterien: Alter, Kilometerstand, Marke und Verkaufsgeschwindigkeit auf dem CZ-Markt"],
+  ["Zobrazit kompletní nabídku a analýzu tohoto vozu", "Vollständiges Angebot und Fahrzeuganalyse anzeigen"],
+  ["Zadejte svůj příhoz", "Geben Sie Ihr Gebot ein"],
+  ["Příhoz vyjadřuje váš zájem o koupi za danou cenu. Aukce slouží ke zjištění reálné tržní ceny — není závaznou smlouvou. K prodeji dojde přímou dohodou s prodávajícím.", "Ihr Gebot bekundet Ihr Kaufinteresse zu diesem Preis. Die Auktion dient der Ermittlung des realen Marktpreises und ist kein verbindlicher Kaufvertrag. Ein Verkauf erfolgt durch direkte Vereinbarung mit dem Verkäufer."],
+  ["Výše příhozu (CZK) *", "Gebotshöhe (CZK) *"],
+  ["Rozumím, že příhoz vyjadřuje můj zájem o koupi za tuto cenu. Aukce není závazná smlouva — k prodeji dojde přímou dohodou s prodávajícím. Zavazuji se jednat v dobré víře. Souhlasím se zpracováním osobních údajů za účelem vyřízení aukce.", "Ich verstehe, dass mein Gebot mein Kaufinteresse zu diesem Preis ausdrückt. Die Auktion ist kein verbindlicher Vertrag; der Verkauf erfolgt durch direkte Vereinbarung mit dem Verkäufer. Ich verpflichte mich, in gutem Glauben zu handeln, und stimme der Verarbeitung meiner Daten zur Durchführung der Auktion zu."],
+  ["Vaše údaje jsou zpracovávány důvěrně dle platných předpisů o ochraně osobních údajů.", "Ihre Daten werden vertraulich und gemäß den geltenden Datenschutzbestimmungen verarbeitet."],
+  ["Příhoz byl přijat! Potvrzení přijde na váš e-mail. Sledujte stránku — pokud vás někdo přehodí, zobrazíme aktuální stav v reálném čase.", "Gebot angenommen! Eine Bestätigung wird per E-Mail gesendet. Bleiben Sie auf der Seite; höhere Gebote werden in Echtzeit angezeigt."],
+  ["Průběh aukce — příhozy", "Auktionsverlauf — Gebote"],
+  ["Zatím nebyl podán žádný příhoz. Buďte první!", "Noch wurde kein Gebot abgegeben. Seien Sie der Erste!"],
+  ["Přihodíte", "Sie bieten"],
+  ["Zadáte jméno, e-mail, telefon a svou nabídku v CZK. Příhoz vyjadřuje váš zájem — není závaznou smlouvou. Minimální příhoz je", "Sie geben Name, E-Mail, Telefon und Ihr Gebot in CZK ein. Das Gebot bekundet Ihr Interesse und ist kein verbindlicher Vertrag. Der Mindestschritt beträgt"],
+  ["nad aktuální nejvyšší nabídku.", "über dem aktuellen Höchstgebot."],
+  ["Sledujete v reálném čase", "Sie verfolgen die Auktion in Echtzeit"],
+  ["Stránka se aktualizuje živě. Pokud vás někdo přehodí, uvidíte to okamžitě a můžete přihodit znovu. Aukce končí v přesně stanovenou dobu.", "Die Seite wird live aktualisiert. Wird Ihr Gebot überboten, sehen Sie es sofort und können erneut bieten. Die Auktion endet zum angegebenen Zeitpunkt."],
+  ["Vítěz dostane kontakt", "Der Gewinner erhält den Kontakt"],
+  ["Po skončení aukce předáme vítězi kontakt na prodávajícího do 24 hod. Prodej, cena a podmínky se dohodnou přímo mezi vámi — bez prostředníka.", "Nach Auktionsende erhält der Gewinner innerhalb von 24 Stunden den Kontakt zum Verkäufer. Verkauf, Preis und Bedingungen werden direkt zwischen den Parteien vereinbart."],
+  ["Podmínky zpracovatele", "Bedingungen des Vermittlers"],
+  ["Zpracovatel si vyhrazuje právo aukci zrušit bez udání důvodu, pokud se vozidlo nepodaří zajistit. V takovém případě jsou příhozy bezpředmětné a zálohy se nevyžadují. Ke zrušení aukce dojde vždy s předstihem před skončením, nebo ihned po zjištění překážky.", "Der Vermittler kann die Auktion ohne Angabe von Gründen absagen, falls das Fahrzeug nicht gesichert werden kann. In diesem Fall sind die Gebote gegenstandslos und es wird keine Anzahlung verlangt. Die Absage erfolgt vor dem Ende oder unmittelbar nach Feststellung des Hindernisses."],
+  ["Vyvolávací cena, příhozy a náklady v kalkulačce jsou posuzované jako částky bez DPH pro plátce DPH. Srovnání s českým trhem je orientačně vč. DPH; interní B2B výpočet marže pracuje s cenami bez DPH.", "Startpreis, Gebote und Rechnerkosten sind für MwSt.-Zahler Nettobeträge. Der tschechische Marktvergleich ist brutto; die interne B2B-Margenrechnung arbeitet netto."],
+  ["Technická specifikace", "Technische Daten"],
+  ["Hlavní rizika — přečtěte před příhozem", "Wesentliche Risiken — vor dem Bieten lesen"],
+  ["Kalkulačka celkové ceny", "Gesamtkostenrechner"],
+  ["Můj příhoz", "Mein Gebot"],
+  ["Doprava + přepis + příprava + servis bez DPH", "Transport + Zulassung + Aufbereitung + Service netto"],
+  ["Kalkulačka je orientační a v tomto režimu počítá bez DPH. Přesná cena závisí na skutečné výši příhozu a finálním daňovém režimu prodeje.", "Der Rechner ist unverbindlich und rechnet in diesem Modus netto. Der genaue Preis hängt vom tatsächlichen Gebot und der endgültigen steuerlichen Behandlung ab."],
+  ["Kalkulace marže při přeprodeji", "Margenkalkulation beim Weiterverkauf"],
+  ["Podmínky aukce", "Auktionsbedingungen"],
+  ["Tato aukce", "Diese Auktion"],
+  ["není veřejná dražba", "ist keine öffentliche Versteigerung"],
+  ["ani závazná smlouva. Slouží ke zjištění reálné tržní ceny formou časově omezené online nabídky.", "und kein verbindlicher Vertrag. Sie dient der Ermittlung des realen Marktpreises durch ein zeitlich begrenztes Online-Angebot."],
+  ["Příhoz vyjadřuje zájem kupujícího o koupi za danou cenu.", "Ein Gebot bekundet das Kaufinteresse zu diesem Preis."],
+  ["Nezakládá právní závazek", "Es begründet keine rechtliche Verpflichtung"],
+  ["ani kupujícímu, ani prodávajícímu.", "für Käufer oder Verkäufer."],
+  ["DPH: vyvolávací cena, příhozy a náklady v kalkulačce jsou posuzované jako částky bez DPH pro plátce DPH; české tržní srovnání je orientačně vč. DPH.", "MwSt.: Startpreis, Gebote und Rechnerkosten sind für MwSt.-Zahler netto; der tschechische Marktvergleich ist brutto."],
+  ["Po skončení aukce prodávající sám rozhodne zda za vydraženou cenu prodá. Pokud ano, vítěz dostane jeho kontakt přímo.", "Nach Auktionsende entscheidet der Verkäufer selbst, ob er zum Höchstgebot verkauft. Falls ja, erhält der Gewinner den direkten Kontakt."],
+  ["Prodávající se zavazuje jednat s vítězem v dobré víře pokud vydražená cena dosáhne jeho stanoveného minima.", "Der Verkäufer verpflichtet sich, in gutem Glauben mit dem Gewinner zu verhandeln, sofern sein Mindestpreis erreicht wurde."],
+  ["Kupující se zavazuje jednat v dobré víře — spekulativní příhozy bez zájmu o koupi jsou porušením podmínek.", "Der Käufer verpflichtet sich zu gutgläubigem Handeln; spekulative Gebote ohne Kaufabsicht verletzen die Bedingungen."],
+  ["Zprostředkovatel", "Vermittler"],
+  ["organizuje aukci a zajišťuje propagaci.", "organisiert die Auktion und übernimmt die Vermarktung."],
+  ["Neúčastní se finančního vypořádání", "Er ist nicht an der finanziellen Abwicklung beteiligt"],
+  ["mezi stranami.", "zwischen den Parteien."],
+  ["si vyhrazuje právo aukci zrušit bez udání důvodu.", "behält sich das Recht vor, die Auktion ohne Angabe von Gründen abzusagen."],
+  ["Osobní údaje jsou zpracovávány výhradně za účelem vedení aukce v souladu s GDPR (Nařízení EU 2016/679).", "Personenbezogene Daten werden ausschließlich zur Durchführung der Auktion gemäß DSGVO (EU 2016/679) verarbeitet."],
+  ["Sídlo:", "Sitz:"],
+  ["Lískovec 170, 273 51 Velké Přítočno, Česká republika", "Lískovec 170, 273 51 Velké Přítočno, Tschechische Republik"],
+  ["Značka:", "Marke:"],
+  ["Osobní údaje zadané v aukčním formuláři (jméno, e-mail, telefon, výše příhozu) jsou zpracovávány výhradně za účelem vedení aukce, identifikace vítěze a navazující komunikace. Nakládáme s nimi důvěrně v souladu s Nařízením EU 2016/679 (GDPR) a zákonem č. 110/2019 Sb. Údaje nejsou prodávány ani předávány třetím osobám bez právního důvodu nebo souhlasu. Uchovávají se po dobu nezbytně nutnou pro splnění smluvního závazku.", "Die im Auktionsformular eingegebenen personenbezogenen Daten (Name, E-Mail, Telefon, Gebotshöhe) werden ausschließlich zur Durchführung der Auktion, Identifizierung des Gewinners und anschließenden Kommunikation verarbeitet. Sie werden gemäß DSGVO vertraulich behandelt, nicht verkauft und ohne Rechtsgrundlage oder Einwilligung nicht an Dritte weitergegeben."],
+  ["↓ stáhnout", "↓ herunterladen"],
+  ["Přihoďte na", "Bieten Sie auf"],
+  ["Živá internetová aukce.", "Live-Online-Auktion."],
+  ["Barva:", "Farbe:"],
+  ["Aukce:", "Auktion:"],
+  ["Poplatek za zpracování aukce (2 490 CZK) hradí prodávající předem. Kupující platí pouze dohodnutou kupní cenu přímo majiteli vozidla.", "Die Bearbeitungsgebühr der Auktion (2.490 CZK) zahlt der Verkäufer im Voraus. Der Käufer zahlt nur den vereinbarten Kaufpreis direkt an den Fahrzeugeigentümer."],
+  ["až ", "bis zu "],
+  ["závisí na příhozu", "abhängig vom Gebot"],
+  [" a dalších nákladech ", " und weiteren Kosten von "],
+  ["Tržní cena ČR je uvedena vč. DPH; pro plátce DPH se interně porovnává bez DPH cca", "Der CZ-Marktpreis ist brutto; für MwSt.-Zahler wird intern ein Nettowert von ca."],
+  ["Při výhře za vyvolávací cenu", "Bei Zuschlag zum Startpreis"],
+  ["vychází rozdíl proti srovnávací ceně přibližně", "beträgt die Differenz zum Vergleichspreis ungefähr"],
+  ["dle výhry", "abhängig vom Zuschlag"],
+  ["Doprava DE→ČR", "Transport DE→CZ"],
+  ["STK + přepis", "HU + Zulassung"],
+  ["Auto připravené v ČR", "Fahrzeug in CZ verfügbar"],
+  ["Doporučeno", "Empfohlen"],
+  ["Pozor", "Achtung"],
+  ["Stáří", "Alter"],
+  ["Nájezd", "Kilometerstand"],
+  ["Hrubá marže", "Bruttomarge"],
+  ["Při koupi za vyvolávací cenu a prodeji do", "Beim Kauf zum Startpreis und Verkauf innerhalb von"],
+  ["ROI přibližně", "ROI ungefähr"],
+  ["B2B kalkulace je pro plátce DPH počítaná bez DPH; veřejné tržní srovnání výše je vč. DPH.", "Die B2B-Kalkulation ist für MwSt.-Zahler netto; der öffentliche Marktvergleich oben ist brutto."],
+  ["Čas aukce vypršel.", "Die Auktionszeit ist abgelaufen."],
+  ["Méně než 1 hodina do konce!", "Weniger als 1 Stunde bis zum Ende!"],
+  ["Zítra aukce končí — přihoďte nyní!", "Die Auktion endet morgen — jetzt bieten!"],
+  ["Celkem příhozů:", "Gebote insgesamt:"],
+  ["Aukce byla ukončena.", "Die Auktion wurde beendet."],
+  ["Zadejte platnou číselnou částku.", "Bitte geben Sie einen gültigen Zahlenbetrag ein."],
+  ["Příhoz musí být minimálně", "Das Gebot muss mindestens betragen:"],
+  ["Aukce již není aktivní.", "Die Auktion ist nicht mehr aktiv."],
+  ["Odesílám…", "Wird gesendet…"],
+  ["Příhoz přijat", "Gebot angenommen"],
+  ["Příhoz se nepodařilo odeslat. Zkuste znovu nebo napište e-mailem.", "Das Gebot konnte nicht gesendet werden. Bitte erneut versuchen oder per E-Mail Kontakt aufnehmen."],
+  ["Chyba připojení k databázi. Kontaktujte zpracovatele.", "Datenbankverbindungsfehler. Bitte kontaktieren Sie den Vermittler."],
+  ["Aukce vozu", "Fahrzeugauktion"],
+  ["Časově omezená nabídka", "Zeitlich begrenztes Angebot"],
+  ["Zbývá do konce aukce", "Verbleibende Auktionszeit"],
+  ["Aukce skončila", "Auktion beendet"],
+  ["Vyvolávací cena", "Startpreis"],
+  ["Aktuální nejvyšší nabídka", "Aktuelles Höchstgebot"],
+  ["Minimální příhoz", "Mindestschritt"],
+  ["Přihodit", "Gebot abgeben"],
+  ["Jak aukce funguje", "So funktioniert die Auktion"],
+  ["Prohlédněte si vůz", "Fahrzeug prüfen"],
+  ["Zadejte svou nabídku", "Gebot eingeben"],
+  ["Vyhrává nejvyšší nabídka", "Das höchste Gebot gewinnt"],
+  ["Po skončení aukce kontaktujeme vítěze", "Nach Auktionsende kontaktieren wir den Gewinner"],
+  ["Parametry vozu", "Fahrzeugdaten"],
+  ["Rizika a stav vozu", "Risiken und Fahrzeugzustand"],
+  ["Dokumenty ke stažení", "Dokumente zum Herunterladen"],
+  ["Tržní srovnání", "Marktvergleich"],
+  ["Orientační tržní cena v ČR", "Orientierungswert auf dem tschechischen Markt"],
+  ["Celkové náklady", "Gesamtkosten"],
+  ["Kalkulačka nákladů", "Kostenrechner"],
+  ["Vaše nabídka", "Ihr Gebot"],
+  ["Doprava, přepis, příprava a servis", "Transport, Zulassung, Aufbereitung und Service"],
+  ["Zpracování / provize", "Abwicklung / Provision"],
+  ["Celkem odhadem bez DPH", "Geschätzte Gesamtsumme netto"],
+  ["B2B investiční pohled", "B2B-Investitionsansicht"],
+  ["Cílová prodejní cena", "Zielverkaufspreis"],
+  ["Odhadovaný zisk", "Geschätzter Gewinn"],
+  ["ROI za den", "ROI pro Tag"],
+  ["Jméno a příjmení", "Vor- und Nachname"],
+  ["Telefon", "Telefon"],
+  ["E-mail", "E-Mail"],
+  ["Nabídka v Kč", "Gebot in CZK"],
+  ["Souhlasím s podmínkami aukce", "Ich stimme den Auktionsbedingungen zu"],
+  ["Odeslat nabídku", "Gebot verbindlich absenden"],
+  ["Nabídka byla odeslána", "Ihr Gebot wurde übermittelt"],
+  ["Děkujeme", "Vielen Dank"],
+  ["Zavřít", "Schließen"],
+  ["Předchozí", "Zurück"],
+  ["Další", "Weiter"],
+  ["Aukce končí", "Auktionsende"],
+  [" dní", " Tage"],
+  [" hodin", " Stunden"],
+  [" minut", " Minuten"],
+  [" sekund", " Sekunden"],
+  ["Dnes v ", "Heute um "],
+  [" aukce končí!", " endet die Auktion!"],
+  ["Zítra v ", "Morgen um "],
+  ["Min. ", "Mind. "],
+  ["Kč", "CZK"],
+  ["vč. DPH", "brutto"],
+  ["bez DPH", "netto"],
+  ["Cena vozu", "Fahrzeugpreis"],
+  ["Trh ČR", "Markt CZ"],
+  ["Úspora", "Ersparnis"],
+  ["Zvážit", "Prüfen"],
+  ["Výborné", "Sehr gut"],
+  ["Dobré", "Gut"],
+  ["Rizikové", "Risikoreich"],
+  ["Neplatná nabídka", "Ungültiges Gebot"],
+  ["Vyplňte", "Bitte ausfüllen:"],
+  ["Nabídka musí být alespoň", "Das Gebot muss mindestens betragen:"],
+  ["Aukce již skončila", "Die Auktion ist bereits beendet"],
+  ["Aukce není aktivní", "Die Auktion ist nicht aktiv"],
+  ["Chyba při odesílání nabídky", "Fehler beim Senden des Gebots"],
+  ["Zkuste to prosím znovu", "Bitte versuchen Sie es erneut"],
+  ["Ochrana osobních údajů", "Datenschutz"],
+  ["Obchodní podmínky", "Geschäftsbedingungen"],
+  ["Kontaktovat", "Kontakt"],
+  ["Fotografie vozu", "Fahrzeugfotos"],
+  ["Detailní analýza vozu", "Detaillierte Fahrzeuganalyse"],
+  ["Otevřít detailní analýzu", "Detaillierte Analyse öffnen"],
+  ["Orientační výpočet", "Unverbindliche Berechnung"],
+  ["Výsledek závisí na konečné ceně, opravách a době prodeje.", "Das Ergebnis hängt vom Endpreis, den Reparaturen und der Verkaufsdauer ab."],
+  ["Termín OPENLANE", "OPENLANE-Termin"]
+];
+
+for (const [from, to] of replacements) {
+  html = html.split(from).join(to);
+}
+
+const finalVisibleFixes = [
+  ["ŽIVÁ AUKCE", "LIVE-AUKTION"],
+  ["DNY", "TAGE"],
+  ["HOD", "STD"],
+  [">Dny<", ">Tage<"],
+  [">Hod<", ">Std<"],
+  [">SEK<", ">SEK<"],
+  ["Celkové skóre", "Gesamtbewertung"],
+  ["Přihodit na toto vozidlo", "Auf dieses Fahrzeug bieten"],
+  ["Gebot abgeben na toto vozidlo", "Auf dieses Fahrzeug bieten"],
+  [">DPH<", ">MWST.<"],
+  ["PRO AUTOBAZARY A OBCHODNÍKY", "FÜR AUTOHÄUSER UND HÄNDLER"],
+  ["Pro autobazary a obchodníky", "Für Autohäuser und Händler"],
+  ["Ref. prod. cena CZ netto", "Referenz-Verkaufspreis CZ netto"],
+  ["%/den", "%/Tag"],
+  [" Tage: ROI", " Tagen: ROI"],
+  ["IDENTIFIKACE ZPRACOVATELE", "ANGABEN ZUM VERMITTLER"],
+  ["Identifikace zpracovatele", "Angaben zum Vermittler"],
+  [">IČO:<", ">Unternehmens-ID (IČO):<"],
+  ["Vermittler (Ing. Jaroslav Batko-Linet, IČO 14600153) organisiert die Auktion und übernimmt die Vermarktung. Er ist nicht an der finanziellen Abwicklung beteiligt zwischen den Parteien.", "Der Vermittler (Ing. Jaroslav Batko-Linet, IČO 14600153) organisiert die Auktion und übernimmt die Vermarktung. Er ist nicht an der finanziellen Abwicklung zwischen den Parteien beteiligt."],
+  ["Vermittler (Ing. Jaroslav Batko-Linet, IČO 14600153) organisiert die Auktion und übernimmt die Vermarktung. <strong>Er ist nicht an der finanziellen Abwicklung beteiligt</strong> zwischen den Parteien.", "Der Vermittler (Ing. Jaroslav Batko-Linet, IČO 14600153) organisiert die Auktion und übernimmt die Vermarktung. <strong>Er ist nicht an der finanziellen Abwicklung zwischen den Parteien beteiligt.</strong>"],
+  ["Vermittler behält sich", "Der Vermittler behält sich"],
+  ["Výše příhozu (CZK) *", "Gebotshöhe (CZK) *"],
+  ["Zadáte jméno, e-mail, telefon a svou nabídku v CZK. Příhoz vyjadřuje váš zájem — není závaznou smlouvou. Mindestschritt je", "Sie geben Name, E-Mail, Telefon und Ihr Gebot in CZK ein. Das Gebot bekundet Ihr Kaufinteresse und ist kein verbindlicher Vertrag. Der Mindestschritt beträgt"],
+  ["Po skončení aukce předáme vítězi kontakt na prodávajícího do 24 hod. Prodej, cena a podmínky se dohodnou přímo mezi vami — bez prostředníka.", "Nach Auktionsende erhält der Gewinner innerhalb von 24 Stunden den Kontakt zum Verkäufer. Verkauf, Preis und Bedingungen werden direkt zwischen den Parteien vereinbart."],
+  ["Startpreis, příhozy a náklady v kalkulačce jsou posuzované jako částky netto pro plátce DPH. Vergleich mit dem tschechischen Markt je orientačně brutto; interní B2B výpočet marže pracuje s cenami netto.", "Startpreis, Gebote und Kosten im Rechner sind für MwSt.-Zahler Nettobeträge. Der Vergleich mit dem tschechischen Markt ist brutto; die interne B2B-Margenrechnung arbeitet netto."],
+  ["Reference aukce:", "Auktionsreferenz:"],
+  ["Poplatek za zpracování aukce (2 490 CZK) hradí prodávající předem. Kupující platí pouze dohodnutou kupní cenu přímo majiteli vozidla.", "Die Bearbeitungsgebühr der Auktion (2.490 CZK) zahlt der Verkäufer im Voraus. Der Käufer zahlt nur den vereinbarten Kaufpreis direkt an den Fahrzeugeigentümer."],
+  ["Tržní cena ČR je uvedena brutto; pro plátce DPH se interně porovnává netto cca", "Der CZ-Marktpreis ist brutto; für MwSt.-Zahler wird intern ein Nettowert von ca."],
+  ["Konec aukce", "Auktionsende"]
+];
+for (const [from, to] of finalVisibleFixes) {
+  html = html.split(from).join(to);
+}
+
+html = html.split("toLocaleDateString('cs'").join("toLocaleDateString('de-DE'");
+html = html.split("toLocaleTimeString('cs'").join("toLocaleTimeString('de-DE'");
+html = html.split("toLocaleString('cs'").join("toLocaleString('de-DE'");
+
+html = html.replace(
+  "</body>",
+  `<div style="max-width:1100px;margin:0 auto 24px;padding:0 18px;color:#8a5a00;font-size:13px">
+  Hinweis: Der Endzeitpunkt 06.07.2026, 14:55 Uhr entspricht dem von OPENLANE angezeigten Beginn der x-Time-Schlussphase. Gebote bei OPENLANE können diese Phase verlängern.
+</div>\n</body>`
+);
+
+fs.writeFileSync(out, html, "utf8");
+console.log(out);
