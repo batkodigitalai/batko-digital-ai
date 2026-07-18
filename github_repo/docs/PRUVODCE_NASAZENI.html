@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<title>Průvodce nasazení Apps Script — auto</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,Segoe UI,Roboto,sans-serif;background:#f1f5f9;color:#0f172a;line-height:1.6}
+.wrap{max-width:820px;margin:0 auto;padding:24px 20px}
+header{background:linear-gradient(135deg,#0f172a 0%,#1e3a8a 100%);color:#fff;padding:30px 24px;border-radius:14px;margin-bottom:24px;text-align:center}
+header h1{font-size:1.8rem;margin-bottom:8px}
+header p{opacity:0.9;font-size:1rem}
+.progress{background:#fff;padding:14px 20px;border-radius:10px;margin-bottom:20px;display:flex;justify-content:space-around;font-size:0.85rem;font-weight:600;color:#64748b;flex-wrap:wrap;gap:8px}
+.progress .step{padding:6px 12px;border-radius:6px}
+.progress .step.active{background:#10b981;color:#fff}
+.step-card{background:#fff;border-radius:14px;padding:28px;margin-bottom:20px;box-shadow:0 4px 14px rgba(0,0,0,0.04)}
+.step-num{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;background:#10b981;color:#fff;border-radius:50%;font-size:1.4rem;font-weight:800;margin-bottom:14px}
+.step-card h2{font-size:1.4rem;margin-bottom:14px;color:#0f172a}
+.step-card p{margin-bottom:14px}
+.step-card .what{background:#f8fafc;padding:14px 18px;border-left:4px solid #10b981;border-radius:6px;margin:14px 0}
+.step-card .what strong{color:#065f46}
+.step-card ol{margin:14px 0 14px 24px}
+.step-card ol li{margin-bottom:10px}
+.step-card kbd{background:#0f172a;color:#fff;padding:3px 8px;border-radius:4px;font-family:Consolas,monospace;font-size:0.9em;font-weight:600}
+.btn{display:inline-block;background:#10b981;color:#fff;padding:14px 26px;border-radius:8px;border:none;cursor:pointer;font-size:1rem;font-weight:700;text-decoration:none;margin:8px 4px;transition:background 0.2s}
+.btn:hover{background:#059669}
+.btn-secondary{background:#475569}
+.btn-secondary:hover{background:#334155}
+.btn.copied{background:#22c55e}
+.code-box{background:#0f172a;color:#e2e8f0;padding:16px;border-radius:8px;font-family:Consolas,monospace;font-size:0.8rem;overflow-x:auto;max-height:180px;overflow-y:auto;white-space:pre;margin:14px 0;border:1px solid #334155}
+.warning{background:#fef3c7;border-left:4px solid #f59e0b;padding:14px 18px;border-radius:6px;margin:14px 0}
+.warning strong{color:#92400e}
+.success{background:#d1fae5;border-left:4px solid #10b981;padding:14px 18px;border-radius:6px;margin:14px 0}
+.success strong{color:#065f46}
+.tip{background:#eff6ff;border-left:4px solid #2563eb;padding:14px 18px;border-radius:6px;margin:14px 0;font-size:0.95rem}
+.arrow-img{display:block;margin:14px auto;max-width:100%;border-radius:8px;border:2px solid #e2e8f0}
+.fake-menu{background:#fff;border:2px solid #e2e8f0;border-radius:8px;padding:14px 0;margin:14px 0;font-family:Roboto,sans-serif;box-shadow:0 4px 12px rgba(0,0,0,0.06)}
+.fake-menu .item{padding:8px 24px;cursor:default;font-size:0.95rem;color:#334155}
+.fake-menu .item.highlighted{background:#fef3c7;font-weight:600;color:#92400e;position:relative}
+.fake-menu .item.highlighted::after{content:"⬅️ KLIKNI";position:absolute;right:20px;color:#dc2626;font-weight:800}
+.tab-bar{background:#1e293b;padding:8px 14px;border-radius:8px 8px 0 0;display:flex;gap:6px;font-size:0.85rem}
+.tab{padding:8px 16px;background:#334155;color:#cbd5e1;border-radius:4px;cursor:default}
+.tab.active{background:#fff;color:#0f172a}
+hr{border:none;border-top:1px solid #e2e8f0;margin:24px 0}
+.faq-block{background:#fff7ed;padding:14px 18px;border-radius:8px;margin:12px 0;border-left:4px solid #f97316}
+.faq-block h4{color:#9a3412;margin-bottom:6px;font-size:1rem}
+.faq-block p{font-size:0.95rem;margin:0}
+@media(max-width:600px){
+.wrap{padding:14px}
+header{padding:20px 16px}
+header h1{font-size:1.4rem}
+.step-card{padding:20px 16px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+<h1>🚀 Nasazení Apps Script — 5 minut</h1>
+<p>Krok po kroku průvodce. Žádný kód psát nebudeš.</p>
+</header>
+
+<div class="progress">
+<span class="step">KROK 1: Otevři editor</span>
+<span class="step">KROK 2: Vlož kód</span>
+<span class="step">KROK 3: Otestuj</span>
+<span class="step">KROK 4: Nasaď</span>
+<span class="step">KROK 5: Pošli URL</span>
+</div>
+
+<!-- ============== KROK 1 ============== -->
+<div class="step-card">
+<div class="step-num">1</div>
+<h2>Otevři Apps Script editor</h2>
+
+<div class="what">
+<strong>Co teď:</strong> Jsi v Google Sheetu <code>AUTO_LEADS_MASTER</code>. Otevřeme druhou záložku se "skriptem" — tam vložíme kód.
+</div>
+
+<p>V tom otevřeném sheetu klikni nahoře v menu na <strong>Rozšíření</strong>:</p>
+
+<div class="fake-menu">
+<div class="item">Soubor</div>
+<div class="item">Upravit</div>
+<div class="item">Zobrazit</div>
+<div class="item">Vložit</div>
+<div class="item">Formát</div>
+<div class="item">Data</div>
+<div class="item">Nástroje</div>
+<div class="item highlighted">Rozšíření</div>
+<div class="item">Nápověda</div>
+</div>
+
+<p>V rozbaleném menu klikni na <strong>Apps Script</strong>:</p>
+
+<div class="fake-menu">
+<div class="item highlighted">Apps Script</div>
+<div class="item">Doplňky ▶</div>
+<div class="item">AppSheet ▶</div>
+<div class="item">Makra ▶</div>
+</div>
+
+<div class="success">
+<strong>✅ Hotovo:</strong> Otevřela se nová záložka s editorem. Uvidíš tam šedý kód <code>function myFunction()&nbsp;{&nbsp;}</code>.
+</div>
+
+</div>
+
+<!-- ============== KROK 2 ============== -->
+<div class="step-card">
+<div class="step-num">2</div>
+<h2>Vlož náš kód místo prázdného</h2>
+
+<div class="what">
+<strong>Co teď:</strong> Zkopíruješ náš kód a vložíš ho do editoru místo toho prázdného.
+</div>
+
+<p><strong>2a)</strong> Klikni na tlačítko níže — kód se ti zkopíruje do schránky:</p>
+
+<button class="btn" id="copyBtn" onclick="copyCode()">📋 Zkopírovat kód do schránky</button>
+<span id="copyStatus" style="margin-left:10px;color:#10b981;font-weight:600"></span>
+
+<details style="margin-top:10px">
+<summary style="cursor:pointer;color:#475569;font-size:0.9rem">Náhled kódu (rozbalit, není potřeba číst)</summary>
+<pre class="code-box" id="codeBox"></pre>
+</details>
+
+<p style="margin-top:20px"><strong>2b)</strong> Přepni na záložku <strong>Apps Script Editor</strong>:</p>
+
+<div class="tab-bar">
+<div class="tab">📊 AUTO_LEADS_MASTER</div>
+<div class="tab active">⚙️ Apps Script ⬅️ tady</div>
+</div>
+
+<p style="margin-top:18px"><strong>2c)</strong> V editoru:</p>
+<ol>
+<li>Klikni do textového pole s kódem</li>
+<li>Stiskni <kbd>Ctrl</kbd> + <kbd>A</kbd> (označí vše)</li>
+<li>Stiskni <kbd>Delete</kbd> (smaže vše)</li>
+<li>Stiskni <kbd>Ctrl</kbd> + <kbd>V</kbd> (vloží náš kód)</li>
+<li>Stiskni <kbd>Ctrl</kbd> + <kbd>S</kbd> (uloží)</li>
+</ol>
+
+<p>Google se zeptá na jméno projektu — napiš:</p>
+<p style="text-align:center"><code style="background:#0f172a;color:#fff;padding:10px 20px;border-radius:6px;font-size:1.1rem">auto_lead_webhook_v3</code></p>
+
+<div class="success">
+<strong>✅ Hotovo:</strong> Kód je uložen. Můžeš pokračovat na test.
+</div>
+
+</div>
+
+<!-- ============== KROK 3 ============== -->
+<div class="step-card">
+<div class="step-num">3</div>
+<h2>Otestuj, že to funguje (testovací řádek)</h2>
+
+<div class="what">
+<strong>Co teď:</strong> Před nasazením spustíme funkci <code>testLead</code> — měl by se objevit zkušební řádek ve sheetu.
+</div>
+
+<ol>
+<li>V editoru nahoře vpravo je dropdown <strong>„Vyberte funkci"</strong> — vyber <strong>testLead</strong>
+<div class="tip">📌 Pokud tam <code>testLead</code> nevidíš, znamená to že kód nebyl uložen. Vrať se na krok 2c, ujisti se že máš všechen kód vložen a uložen (<kbd>Ctrl</kbd>+<kbd>S</kbd>).</div>
+</li>
+<li>Klikni <strong>▶ Spustit</strong></li>
+<li>Google se zeptá na oprávnění:
+<ol style="margin-top:8px">
+<li><strong>Pokračovat</strong> (Continue)</li>
+<li>Vyber svůj <strong>Google účet</strong> (ten, kde máš sheet)</li>
+<li>Tady přijde varování „Google neověřil tuto aplikaci":
+<div class="warning">
+<strong>⚠️ Klidně pokračuj.</strong> Je to <em>tvůj vlastní</em> kód v <em>tvém</em> účtu. Klikni:
+<ol style="margin-top:6px">
+<li><strong>Zobrazit další nastavení</strong> (Advanced / Detaily)</li>
+<li><strong>Přejít na auto_lead_webhook_v3 (nebezpečné)</strong> — i když to vypadá strašidelně</li>
+<li><strong>Povolit</strong> (Allow)</li>
+</ol>
+</div>
+</li>
+</ol>
+</li>
+<li>Po proběhnutí (3–5 sekund) <strong>přepni na záložku se sheetem</strong> AUTO_LEADS_MASTER</li>
+<li>Měl by tam být <strong>nový řádek</strong> s testovacími daty (jméno „Test Tester", auto „VW Tiguan", atd.)</li>
+</ol>
+
+<div class="success">
+<strong>✅ Pokud vidíš testovací řádek:</strong> Apps Script funguje! Pokračuj na nasazení (Krok 4).
+</div>
+
+<div class="warning">
+<strong>❌ Pokud řádek chybí:</strong> Zkontroluj že máš VŠECHEN kód uložen (přepiš zpět krok 2). Pak vyfoť obrazovku a pošli mi.
+</div>
+
+</div>
+
+<!-- ============== KROK 4 ============== -->
+<div class="step-card">
+<div class="step-num">4</div>
+<h2>Nasaď jako Web App</h2>
+
+<div class="what">
+<strong>Co teď:</strong> „Otevřeš" skript veřejně, aby na něj HTML formulář mohl posílat data. Vytvoříš veřejný „webhook".
+</div>
+
+<ol>
+<li>V editoru vpravo nahoře <strong>Nasadit</strong> (Deploy) → <strong>Nové nasazení</strong> (New deployment)</li>
+<li>Vlevo nahoře v dialogu klikni na <strong>ozubené kolečko ⚙️</strong> → vyber <strong>Web app</strong></li>
+<li>Vyplň formulář:
+<div class="fake-menu">
+<div class="item"><strong>Popis:</strong> <code>auto lead v3</code></div>
+<div class="item"><strong>Spustit jako:</strong> <code>Já (Me)</code></div>
+<div class="item highlighted"><strong>Kdo má přístup:</strong> <code>Kdokoliv (Anyone)</code> ⚠️</div>
+</div>
+<div class="warning">
+<strong>POZOR:</strong> U „Kdo má přístup" musí být <strong>Kdokoliv (Anyone)</strong>, NE „Kdokoliv s účtem Google". Jinak HTML formulář nedokáže poslat data.
+</div>
+</li>
+<li>Klikni <strong>Nasadit</strong> (Deploy)</li>
+<li>Pokud znovu chce autorizaci, projdi Advanced → Allow (jako v kroku 3)</li>
+<li>Objeví se dialog s <strong>Web app URL</strong> — vypadá takto:
+<pre class="code-box">https://script.google.com/macros/s/AKfycb.../exec</pre>
+</li>
+<li>Klikni <strong>Kopírovat</strong> u té URL</li>
+</ol>
+
+<div class="success">
+<strong>✅ Hotovo:</strong> Máš webovou adresu, kam HTML formulář bude posílat data.
+</div>
+
+</div>
+
+<!-- ============== KROK 5 ============== -->
+<div class="step-card">
+<div class="step-num">5</div>
+<h2>Pošli mi tu URL do chatu</h2>
+
+<div class="what">
+<strong>Co teď:</strong> Pošli zkopírovanou URL do chatu se mnou (Claude). Já ji doplním do HTML formulářů a otestujeme.
+</div>
+
+<p>Stačí v chatu napsat třeba:</p>
+<pre class="code-box">URL je: https://script.google.com/macros/s/AKfycb.../exec</pre>
+
+<p>Já pak:</p>
+<ol>
+<li>Vložím URL do <code>config.js</code> (lokálně, nepushne se na GitHub)</li>
+<li>Vyzkouším formulář <code>landing_B2B.html</code></li>
+<li>Společně si ve sheetu ověříme nový (skutečný) lead</li>
+<li>Dokončím github_repo a pomůžu s pushem na GitHub</li>
+</ol>
+
+<div class="success">
+<strong>🎉 Hotovo!</strong> Až napíšeš URL do chatu, dokončím zbytek.
+</div>
+
+</div>
+
+<!-- ============== FAQ ============== -->
+<div class="step-card">
+<h2>Časté zádrhele</h2>
+
+<div class="faq-block">
+<h4>❓ V menu „Rozšíření" nevidím „Apps Script"</h4>
+<p>Asi máš jiný účet (např. firemní Google Workspace) kde admin Apps Script zakázal. Zkus se přihlásit ke svému osobnímu Google účtu.</p>
+</div>
+
+<div class="faq-block">
+<h4>❓ Po spuštění testLead se nic nestane</h4>
+<p>Buď nemáš uložený kód (krok 2c — <kbd>Ctrl</kbd>+<kbd>S</kbd>), nebo neprošla autorizace (krok 3.3). Otevři v editoru „Spuštění" (Executions) vlevo — uvidíš log.</p>
+</div>
+
+<div class="faq-block">
+<h4>❓ Nasadit → říká „Anyone with Google account"</h4>
+<p>To je špatně. Klikni na šipku a vyber <strong>Anyone</strong> (bez „with Google account"). Pokud tam ta volba není, máš firemní účet s omezením — vyžaduje admina.</p>
+</div>
+
+<div class="faq-block">
+<h4>❓ Google říká „Sign in required"</h4>
+<p>Nejsi přihlášený do Google v Brave. Otevři <a href="https://accounts.google.com">accounts.google.com</a>, přihlaš se a zkus znovu.</p>
+</div>
+
+<div class="faq-block">
+<h4>❓ Nemám čas / nezvládám to</h4>
+<p>Pošli návod (tento HTML soubor) IT známému/synovi. Trvá to 5 minut a celé je to klikání, žádné programování. Pokud ani to ne — pošli mi screenshot kde jsi zasekl, vyřešíme to spolu.</p>
+</div>
+
+</div>
+
+</div>
+
+<script>
+const APPS_SCRIPT_CODE = `/**
+ * AUTO LEAD WEBHOOK v3 — Universal backend pro AUTO_LEADS_MASTER
+ */
+
+const ADMIN_EMAIL = 'batko.digital.ai@gmail.com';
+const SEND_AUTO_RESPONDER = true;
+const SEND_ADMIN_NOTIFICATION = true;
+
+const FIELD_MAP = {
+  'source':    'source',
+  'formType':  'typ_lp',
+  'name':      'jméno',
+  'jmeno':     'jméno',
+  'email':     'email',
+  'phone':     'telefon',
+  'telefon':   'telefon',
+  'company':   'firma',
+  'firma':     'firma',
+  'volume':    'počet_aut',
+  'pocet_aut': 'počet_aut',
+  'budget':    'zpráva',
+  'timeline':  'zpráva',
+  'note':      'zpráva',
+  'zprava':    'zpráva',
+  'carInfo':   'url_aukce',
+  'car_info':  'url_aukce',
+  'url_aukce': 'url_aukce'
+};
+
+function doPost(e) {
+  try {
+    var data;
+    try { data = JSON.parse(e.postData.contents); }
+    catch (parseErr) { data = e.parameter || {}; }
+    var czRow = mapToCzech(data);
+    czRow['datum'] = new Date().toLocaleString('cs-CZ', {timeZone: 'Europe/Prague'});
+    czRow['stav'] = 'NOVÝ';
+    appendCzechRow(czRow, data);
+    if (SEND_ADMIN_NOTIFICATION) {
+      try { sendAdminNotification(czRow, data); } catch (err) { console.error(err); }
+    }
+    if (SEND_AUTO_RESPONDER && data.email && isValidEmail(data.email)) {
+      try { sendAutoResponder(data); } catch (err) { console.error(err); }
+    }
+    return jsonResponse({ok: true});
+  } catch (err) {
+    console.error('doPost error:', err);
+    return jsonResponse({ok: false, error: err.toString()});
+  }
+}
+
+function doGet() {
+  return ContentService.createTextOutput('AUTO lead webhook v3 OK').setMimeType(ContentService.MimeType.TEXT);
+}
+
+function mapToCzech(data) {
+  var result = {};
+  Object.keys(data).forEach(function(key) {
+    var czKey = FIELD_MAP[key];
+    if (!czKey) return;
+    var value = data[key];
+    if (value === undefined || value === null || value === '') return;
+    if (result[czKey]) { result[czKey] += ' | ' + value; }
+    else { result[czKey] = value; }
+  });
+  var utmBits = [];
+  if (data.utm_source) utmBits.push('utm_source=' + data.utm_source);
+  if (data.utm_medium) utmBits.push('utm_medium=' + data.utm_medium);
+  if (data.utm_campaign) utmBits.push('utm_campaign=' + data.utm_campaign);
+  if (data.referrer) utmBits.push('ref=' + data.referrer);
+  if (utmBits.length) result['poznámka'] = utmBits.join(' | ');
+  return result;
+}
+
+function appendCzechRow(czRow, originalData) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var lastCol = sheet.getLastColumn();
+  var headers = lastCol > 0 ? sheet.getRange(1, 1, 1, lastCol).getValues()[0] : [];
+  if (!headers.length || !headers[0]) {
+    headers = ['datum', 'source', 'typ_lp', 'jméno', 'email', 'telefon',
+               'firma', 'počet_aut', 'zpráva', 'url_aukce', 'stav', 'poznámka'];
+    sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
+    sheet.getRange(1, 1, 1, headers.length).setFontWeight('bold').setBackground('#f1f5f9');
+    sheet.setFrozenRows(1);
+  }
+  var row = headers.map(function(h) {
+    var v = czRow[h];
+    return v === undefined || v === null ? '' : String(v);
+  });
+  sheet.appendRow(row);
+}
+
+function sendAdminNotification(czRow, originalData) {
+  var subject = '🔔 Nový lead [' + (czRow.source || 'neznámo') + ']: ' + (czRow['jméno'] || 'bez jména');
+  var rows = '';
+  var keysOrder = ['datum', 'source', 'typ_lp', 'jméno', 'email', 'telefon', 'firma', 'počet_aut', 'zpráva', 'url_aukce', 'poznámka'];
+  keysOrder.forEach(function(k) {
+    if (czRow[k]) {
+      rows += '<tr><td style="padding:6px 12px;border-bottom:1px solid #e2e8f0"><b>' + k + ':</b></td><td style="padding:6px 12px;border-bottom:1px solid #e2e8f0">' + escapeHtml(czRow[k]) + '</td></tr>';
+    }
+  });
+  var html = '<div style="font-family:Arial,sans-serif;max-width:600px"><h2>Nový lead</h2><table style="border-collapse:collapse;width:100%;background:#f8fafc">' + rows + '</table><p><b>Deadline: 24 hodin</b></p></div>';
+  MailApp.sendEmail({to: ADMIN_EMAIL, subject: subject, htmlBody: html});
+}
+
+function sendAutoResponder(data) {
+  var subject = 'Děkujeme — analýza vašeho auta dorazí do 24 hodin';
+  var name = data.name || data.jmeno || '';
+  var carInfo = data.carInfo || data.car_info || data.url_aukce || '(viz váš dotaz)';
+  var html = '<div style="font-family:Arial,sans-serif;color:#334155">' +
+    '<p>Dobrý den' + (name ? ', ' + escapeHtml(name) : '') + ',</p>' +
+    '<p>děkujeme za vaši poptávku. Do 24 hodin vám pošleme PDF analýzu k autu:<br><i>' + escapeHtml(carInfo) + '</i></p>' +
+    '<p>S pozdravem,<br><b>Ing. Jaroslav Batko</b><br>auto — analýza a dovoz aut z evropských aukcí<br>L?skovec 170, 273 51 Velk? P??to?no | batko.digital.ai@gmail.com</p></div>';
+  MailApp.sendEmail({to: data.email, subject: subject, htmlBody: html, name: 'Ing. Jaroslav Batko — auto'});
+}
+
+function jsonResponse(obj) {
+  return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON);
+}
+function isValidEmail(email) { return /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email); }
+function escapeHtml(s) {
+  if (!s) return '';
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+function testLead() {
+  var fakeData = {
+    source: 'test_manual', formType: 'B2B', name: 'Test Tester',
+    email: ADMIN_EMAIL, phone: '+420 111 222 333',
+    company: 'Test Autobazar s.r.o.', volume: '6-15',
+    carInfo: 'https://www.mobile.de/test-vw-tiguan',
+    note: 'TESTOVACÍ lead — můžeš smazat'
+  };
+  var result = doPost({postData: {contents: JSON.stringify(fakeData)}});
+  Logger.log('Výsledek: ' + result.getContent());
+}
+`;
+
+document.getElementById('codeBox').textContent = APPS_SCRIPT_CODE;
+
+function copyCode() {
+  const btn = document.getElementById('copyBtn');
+  const status = document.getElementById('copyStatus');
+  navigator.clipboard.writeText(APPS_SCRIPT_CODE).then(() => {
+    btn.classList.add('copied');
+    btn.textContent = '✅ Zkopírováno!';
+    status.textContent = 'Teď přepni na Apps Script editor a stiskni Ctrl+V';
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.textContent = '📋 Zkopírovat kód do schránky';
+      status.textContent = '';
+    }, 8000);
+  }).catch(err => {
+    status.textContent = '❌ Nelze zkopírovat. Klikni na šedý box dole, Ctrl+A, Ctrl+C.';
+    status.style.color = '#dc2626';
+  });
+}
+</script>
+</body>
+</html>
