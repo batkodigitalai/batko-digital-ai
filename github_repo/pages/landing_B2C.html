@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dovoz auta z Německa | ZDARMA analýza do 24 hodin — auto</title>
+<meta name="description" content="Stejné auto v Německu o 80–150 000 Kč levnější. Pošleme vám analýzu konkrétního auta zdarma do 24 hodin. Bez závazku.">
+<meta property="og:title" content="ZDARMA analýza auta z německé aukce do 24 hodin">
+<meta property="og:description" content="Cena v ČR, cena v EU, skryté náklady, riziková mapa. Bez kreditky.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:#1a1a1a;line-height:1.7;background:#f9fafb}
+.container{max-width:760px;margin:0 auto;padding:24px 20px}
+header{background:linear-gradient(135deg,#1e3a8a 0%,#2563eb 100%);color:#fff;padding:18px 20px;text-align:center}
+header .logo{font-size:1.5rem;font-weight:800}
+header .tag{font-size:0.85rem;opacity:0.9;margin-top:4px}
+.hero{background:#fff;padding:40px 28px;margin:24px 0;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.05)}
+.savings-banner{background:linear-gradient(135deg,#fef3c7 0%,#fde68a 100%);border:2px solid #f59e0b;padding:18px;border-radius:10px;text-align:center;margin-bottom:24px}
+.savings-banner .big{font-size:1.8rem;font-weight:800;color:#92400e}
+.savings-banner .sub{color:#78350f;font-size:0.95rem;margin-top:4px}
+h1{font-size:1.95rem;line-height:1.3;margin-bottom:16px;color:#0f172a;font-weight:800}
+h1 .highlight{color:#2563eb}
+.subhead{font-size:1.1rem;color:#475569;margin-bottom:24px}
+.body-text p{margin-bottom:18px;font-size:1rem;color:#334155}
+.body-text strong{color:#0f172a;font-weight:700}
+h2{font-size:1.5rem;margin:32px 0 16px;color:#0f172a;font-weight:700}
+h3{font-size:1.15rem;margin:24px 0 10px;color:#0f172a;font-weight:600}
+.example-box{background:#eff6ff;border-left:4px solid #2563eb;padding:20px;border-radius:8px;margin:20px 0}
+.example-box .car{font-size:1.1rem;font-weight:700;color:#1e3a8a}
+.example-box .row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dashed #93c5fd}
+.example-box .row:last-child{border:none;font-weight:700;color:#dc2626;font-size:1.1rem;padding-top:10px}
+.qa-block{background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:18px;margin:12px 0}
+.qa-block .q{font-weight:700;color:#0f172a;margin-bottom:8px}
+.qa-block .q::before{content:"❓ ";color:#2563eb}
+.qa-block .a{color:#475569;font-size:0.95rem}
+.steps{display:grid;gap:14px;margin:24px 0}
+.step{display:flex;gap:14px;align-items:flex-start;background:#f8fafc;padding:16px;border-radius:8px}
+.step-num{background:#2563eb;color:#fff;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;flex-shrink:0}
+.step-text{font-size:0.95rem}
+.step-text strong{color:#0f172a;font-size:1.05rem;display:block;margin-bottom:4px}
+.cta-form{background:linear-gradient(135deg,#1e3a8a 0%,#2563eb 100%);color:#fff;padding:32px 24px;border-radius:12px;margin:32px 0}
+.cta-form h2{color:#fff;margin-top:0;text-align:center}
+.cta-form .subtitle{text-align:center;color:#bfdbfe;margin-bottom:24px;font-size:0.95rem}
+.form-row{margin-bottom:14px}
+.form-row label{display:block;font-size:0.9rem;color:#dbeafe;margin-bottom:6px;font-weight:600}
+.form-row input,.form-row textarea,.form-row select{width:100%;padding:12px 14px;border:1px solid #1d4ed8;border-radius:6px;background:#1e3a8a;color:#fff;font-size:1rem;font-family:inherit}
+.form-row input:focus,.form-row textarea:focus,.form-row select:focus{outline:none;border-color:#fbbf24}
+.form-row textarea{resize:vertical;min-height:80px}
+.submit-btn{width:100%;background:#f59e0b;color:#0f172a;border:none;padding:16px;font-size:1.05rem;font-weight:800;border-radius:8px;cursor:pointer;margin-top:8px;transition:background 0.2s}
+.submit-btn:hover{background:#fbbf24}
+.submit-btn:disabled{background:#94a3b8;cursor:not-allowed}
+.success-msg,.error-msg{display:none;padding:20px;border-radius:8px;color:#fff;text-align:center;margin-top:16px}
+.success-msg{background:#065f46;border:2px solid #10b981}
+.error-msg{background:#7f1d1d;border:2px solid #ef4444}
+.success-msg.show,.error-msg.show{display:block}
+.privacy{font-size:0.8rem;color:#bfdbfe;margin-top:14px;text-align:center}
+.ps{background:#fff7ed;border-left:4px solid #f97316;padding:16px 18px;margin:20px 0;font-size:0.95rem}
+.ps strong{color:#9a3412}
+.signature{margin:32px 0;padding:20px;background:#f1f5f9;border-radius:8px;text-align:center}
+.signature .name{font-size:1.2rem;font-weight:700;color:#0f172a}
+.signature .role{color:#64748b;font-size:0.9rem;margin-top:4px}
+.trust-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0}
+.trust-item{text-align:center;padding:14px;background:#f0fdf4;border-radius:8px}
+.trust-item .icon{font-size:1.8rem;margin-bottom:6px}
+.trust-item .text{font-size:0.85rem;color:#166534;font-weight:600}
+footer{text-align:center;padding:30px 20px;color:#64748b;font-size:0.85rem;border-top:1px solid #e2e8f0;margin-top:40px}
+@media(max-width:600px){
+h1{font-size:1.5rem}
+.hero{padding:28px 20px}
+.savings-banner .big{font-size:1.4rem}
+.trust-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo">🚗 auto</div>
+<div class="tag">analýza a dovoz aut z evropských aukcí</div>
+</header>
+
+<div class="container">
+
+<div class="hero">
+<div class="savings-banner">
+<div class="big">Ušetříte typicky 80 000–150 000 Kč</div>
+<div class="sub">na jednom autě v cenovém pásmu 300–700 000 Kč</div>
+</div>
+
+<h1>Stejné auto z Německa stojí v Česku o <span class="highlight">80–150 000 Kč více</span>. Pošleme vám analýzu konkrétního auta — <span class="highlight">zdarma, do 24 hodin</span>.</h1>
+
+<p class="subhead">Pošlete odkaz na auto z mobile.de, autoscout24, německé aukce nebo cokoliv jiného. Do 24 hodin máte PDF: cena v ČR, cena v EU, kompletní rozpočet na klíč, riziková mapa a verdikt KUPTE/NEKUPTE.</p>
+
+<div class="trust-row">
+<div class="trust-item"><div class="icon">⏱️</div><div class="text">Do 24 hodin</div></div>
+<div class="trust-item"><div class="icon">💯</div><div class="text">Zdarma & bez závazku</div></div>
+<div class="trust-item"><div class="icon">🔍</div><div class="text">Konkrétní auto</div></div>
+</div>
+
+<div class="body-text">
+<p>Dobrý den,</p>
+<p>jmenuji se <strong>Ing. Jaroslav Batko</strong> a dovážím a analyzuji auta z evropských aukcí pro Čechy a Slováky — DAT-Auction, Bca, Manheim, ADAC, autobid.de, auto1, OpenLane, eCarsTrade a dalších.</p>
+<p>Pravděpodobně jste na téhle stránce proto, že vás napadlo to, co napadne každého rozumného člověka: <em>„Proč ojeté auto v Česku stojí o 30–40 % víc než stejné v Německu?"</em></p>
+<p>Krátká odpověď: <strong>Protože většina lidí to nedokáže ověřit, dovézt a vyřídit.</strong></p>
+<p>Dlouhá odpověď: Jde to. Není to ani složité. Ale je tam <strong>5 míst, kde se dá kruté chybou ztratit 50–150 tisíc</strong> — a ta místa jsou neviditelná pro člověka, který se v tom nepohybuje denně.</p>
+<p>A protože jsem v tom já každý den, navrhuji vám <strong>jednoduchý obchod</strong>:</p>
+</div>
+</div>
+
+<div class="hero">
+<h2>Konkrétní příklad (skutečné číslo)</h2>
+<div class="example-box">
+<div class="car">VW Tiguan 2.0 TDI, 2021, 45 000 km, výbava Elegance</div>
+<div class="row"><span>Cena v ČR (průměr Sauto/Autoesa)</span><span>685 000 Kč</span></div>
+<div class="row"><span>Cena z aukce v Německu</span><span>389 000 Kč</span></div>
+<div class="row"><span>DPH 21 % (z aukce + doprava)</span><span>+ 83 580 Kč</span></div>
+<div class="row"><span>Doprava (kamionem z Mnichova)</span><span>+ 8 500 Kč</span></div>
+<div class="row"><span>STK, emise, převod, registrace</span><span>+ 4 200 Kč</span></div>
+<div class="row"><span>Naše honorář za kompletní dovoz</span><span>+ 18 000 Kč</span></div>
+<div class="row"><span><strong>CELKEM NA KLÍČ</strong></span><span><strong>503 280 Kč</strong></span></div>
+<div class="row"><span><strong>Vaše úspora oproti ČR</strong></span><span><strong>181 720 Kč</strong></span></div>
+</div>
+<p style="font-size:0.9rem;color:#64748b;margin-top:14px;font-style:italic">Tohle je modelový výpočet z naší kalkulačky. Pro vaše konkrétní auto vám pošlu identický rozpis zdarma.</p>
+</div>
+
+<div class="hero">
+<h2>Co dostanete v PDF analýze</h2>
+
+<h3>Otázka 1: Kolik to auto reálně stojí v Česku právě teď?</h3>
+<p>Najdu vám aktuální inzeráty identického modelu, roku a kilometráže na Sauto, Autoesa, AAA Auto (počet dle nabídky současné — typicky 10–30). Spočítám průměr a medián. <strong>Aby bylo jasné, jakou cenu šetříte.</strong></p>
+
+<h3>Otázka 2: Je to v aukci levně, normálně, nebo draho?</h3>
+<p>Srovnám s posledními 10 prodejními aukcemi stejného modelu v Evropě. Aukční ceny jsou veřejné. Aukce může být úžasná příležitost — nebo past s rostoucí cenou. <strong>Řeknu vám, co je co.</strong></p>
+
+<h3>Otázka 3: Jaká bude celková cena na klíč?</h3>
+<p>Rozpis na haléř: cena auta, clo (jen mimo EU), DPH 21 %, doprava, STK, emise, převod, pojištění. <strong>Žádné překvapení po cestě.</strong></p>
+
+<h3>Otázka 4: Jaké je riziko skrytých problémů?</h3>
+<p>Stočený tachometr (ověřuji přes německé záznamy), záznam o nehodách, Dieselgate u VW koncernu 2008–2018, známé problémy modelu. <strong>Vy budete vědět, do čeho jdete.</strong></p>
+
+<h3>Otázka 5: Verdikt</h3>
+<p><strong>Jedním slovem na první stránce: KUPTE / NEKUPTE / ZVAŽTE.</strong> Pak vysvětlení proč. Pokud to není dobré auto, řeknu vám to napřímo. Nepotřebuji vás obalamutit do dovozu.</p>
+</div>
+
+<div class="hero">
+<h2>Co když to auto vyjde dobře?</h2>
+<div class="body-text">
+<p>Potom máte <strong>dvě možnosti</strong>:</p>
+<p><strong>1. Dovezete si ho sám.</strong> Analýza je vaše, použijte ji. Žádný závazek. Spousta lidí to tak dělá. Mě to nebolí — pomáhám tím šířit, že český trh s ojetinami je předražený a má smysl ho obejít.</p>
+<p><strong>2. Dovezeme vám ho my.</strong> Komplet — od podání aukce, přes platbu, dopravu, STK, registraci až po klíčky ve vašich rukou. <strong>Cena: 12 000–25 000 Kč</strong> podle modelu a země. Spočítáme to napřed, žádné překvapení.</p>
+</div>
+</div>
+
+<div class="cta-form" id="formular">
+<h2>📋 Vyplňte formulář — analýza do 24h</h2>
+<p class="subtitle">Trvá to 90 sekund. Žádný spam, žádný tlak.</p>
+<form id="leadForm">
+<input type="hidden" name="formType" value="B2C">
+<input type="hidden" name="source" value="landing_B2C">
+
+<div class="form-row">
+<label>Vaše jméno *</label>
+<input type="text" name="name" required placeholder="Jan Novák">
+</div>
+
+<div class="form-row">
+<label>Email *</label>
+<input type="email" name="email" required placeholder="jan@email.cz">
+</div>
+
+<div class="form-row">
+<label>Telefon</label>
+<input type="tel" name="phone" placeholder="+420 123 456 789">
+</div>
+
+<div class="form-row">
+<label>Rozpočet na auto</label>
+<select name="budget">
+<option value="">Vyberte...</option>
+<option value="do 300k">do 300 000 Kč</option>
+<option value="300-500k">300 000 – 500 000 Kč</option>
+<option value="500-800k">500 000 – 800 000 Kč</option>
+<option value="800k+">nad 800 000 Kč</option>
+</select>
+</div>
+
+<div class="form-row">
+<label>Odkaz na auto nebo popis (model, rok, km) *</label>
+<textarea name="carInfo" required placeholder="https://www.mobile.de/... nebo &quot;VW Tiguan 2.0 TDI 2021, max 50 000 km, ideálně Elegance&quot;"></textarea>
+</div>
+
+<div class="form-row">
+<label>Kdy auto potřebujete?</label>
+<select name="timeline">
+<option value="">Vyberte...</option>
+<option value="okamzite">Do měsíce</option>
+<option value="2-3m">Do 2–3 měsíců</option>
+<option value="6m">Do půl roku</option>
+<option value="zatim_jen_hledam">Zatím jen porovnávám</option>
+</select>
+</div>
+
+<div class="form-row">
+<label>Poznámka</label>
+<textarea name="note" placeholder="Specifika, dotazy..."></textarea>
+</div>
+
+<button type="submit" class="submit-btn" id="submitBtn">Chci ZDARMA analýzu do 24 hodin →</button>
+
+<p class="privacy">🔒 Vaše údaje neprodáváme. Použijeme je jen pro dodání analýzy. Odhlásit se můžete kdykoliv jedním klikem.</p>
+</form>
+
+<div class="success-msg" id="successMsg">
+<h3 style="margin-bottom:10px">✅ Děkujeme!</h3>
+<p>Vaši poptávku jsme přijali. Do 24 hodin dostanete PDF analýzu na email <strong id="emailEcho"></strong>.</p>
+<p style="margin-top:10px;font-size:0.9rem;opacity:0.9">Pokud nic nepřijde, napište přímo na batko.digital.ai@gmail.com.</p>
+</div>
+
+<div class="error-msg" id="errorMsg">
+<h3 style="margin-bottom:10px">⚠️ Něco se nepovedlo</h3>
+<p>Nemohli jsme uložit poptávku. Pošlete prosím údaje rovnou na <strong>batko.digital.ai@gmail.com</strong>.</p>
+</div>
+</div>
+
+<div class="hero">
+<h2>Časté otázky</h2>
+
+<div class="qa-block">
+<div class="q">Co když auto, které mě zajímá, je v aukci, která končí dnes?</div>
+<div class="a">Napište to do poznámky ve formuláři. Pokud je vás tam víc, řadíme podle uzávěrky aukce. Pokud chcete jistotu, vezměte placenou analýzu (490 Kč, do 4 hodin).</div>
+</div>
+
+<div class="qa-block">
+<div class="q">Mluvím anglicky a německy — proč potřebuji vás?</div>
+<div class="a">Jazyk je 10 % problému. Zbytek je: kalkulace skrytých nákladů, znalost regionálních specifik aukčních domů, ověření historie, vyřízení dovozního procesu v ČR. Pokud vás baví strávit s tím 40+ hodin a riskovat — udělejte to sám.</div>
+</div>
+
+<div class="qa-block">
+<div class="q">Co když se auto v aukci nedoprodá, nebo cena vyletí?</div>
+<div class="a">Aukci jako klient nevyhráváte vy — vy mi řeknete max. cenu. Já dělám licit. Pokud cena překročí váš limit, aukci pustíme a vy neplatíte nic.</div>
+</div>
+
+<div class="qa-block">
+<div class="q">Co když auto přijde rozbité?</div>
+<div class="a">Děláme inspekci na místě před převzetím (foto, video, čísla). Pokud zjistíme problém, řešíme reklamaci s aukčním domem (mají povinnou záruku popisu). Riziko nese aukční dům, ne vy.</div>
+</div>
+
+<div class="qa-block">
+<div class="q">Můžu vám věřit?</div>
+<div class="a">Dobrá otázka. (1) ZDARMA analýza je test bez rizika — vidíte kvalitu naší práce, ne sliby. (2) Veškeré platby jdou přes účet vedený na IČO. (3) Dovozní smlouva má pevně danou max. cenu — žádné překvapení. (4) Jsme začínající projekt, nelžeme o tom — reference doplníme po prvních 3 obchodech.</div>
+</div>
+</div>
+
+<div class="hero">
+<h2>Jak to funguje (3 kroky)</h2>
+<div class="steps">
+<div class="step">
+<div class="step-num">1</div>
+<div class="step-text"><strong>Vyplníte formulář (90 sekund)</strong>Pošlete odkaz na auto nebo popis modelu, roku a km, který chcete.</div>
+</div>
+<div class="step">
+<div class="step-num">2</div>
+<div class="step-text"><strong>Do 24 hodin dostanete PDF analýzu</strong>Cena v ČR, cena v EU, kompletní rozpočet, riziková mapa, verdikt KUPTE/NEKUPTE.</div>
+</div>
+<div class="step">
+<div class="step-num">3</div>
+<div class="step-text"><strong>Rozhodnete se vy</strong>Dovezete si sám, necháte si od nás, nebo pustíte. Žádný tlak, žádný spam.</div>
+</div>
+</div>
+</div>
+
+<div class="hero">
+<div class="ps">
+<p><strong>P.S. —</strong> Pravděpodobně tuhle stránku zavřete a budete dál procházet inzeráty v Česku. To je v pořádku. Spousta lidí má raději klid než ušetřit 100 000 Kč.</p>
+<p style="margin-top:10px">Pokud jste ale jeden z těch lidí, <strong>co si rád spočítá rozdíl, než ho promarní</strong>, vyplňte formulář. Trvá to 90 sekund. Stojí to nic.</p>
+</div>
+</div>
+
+<div class="signature">
+<div class="name">Ing. Jaroslav Batko</div>
+<div class="role">auto — analýza a dovoz aut z evropských aukcí<br>L?skovec 170, 273 51 Velk? P??to?no | batko.digital.ai@gmail.com | nemanahi.cz</div>
+</div>
+
+</div>
+
+<footer>
+© 2026 auto / Ing. Jaroslav Batko. Zpracování osobních údajů dle GDPR.<br>
+Tato stránka neprodává auta. Slouží jako analytický a poradenský nástroj.
+</footer>
+
+<script>
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwcFA8bRyHnBB_4XlgH5_IMR4IBqUfvTD8vScGZPiuCh0gR5f4Mp_9OjOAw1u3lNEjI/exec';
+
+document.getElementById('leadForm').addEventListener('submit', async function(e){
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  const successMsg = document.getElementById('successMsg');
+  const errorMsg = document.getElementById('errorMsg');
+  const form = e.target;
+
+  btn.disabled = true;
+  btn.textContent = 'Odesílám...';
+  successMsg.classList.remove('show');
+  errorMsg.classList.remove('show');
+
+  const formData = new FormData(form);
+  const data = {timestamp: new Date().toISOString()};
+  for (const [k, v] of formData.entries()) data[k] = v;
+
+  try {
+    await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {'Content-Type': 'text/plain;charset=utf-8'},
+      body: JSON.stringify(data)
+    });
+    document.getElementById('emailEcho').textContent = data.email || '';
+    successMsg.classList.add('show');
+    form.style.display = 'none';
+
+    if (typeof gtag !== 'undefined') gtag('event', 'lead_submit', {form_type: 'B2C'});
+    if (typeof fbq !== 'undefined') fbq('track', 'Lead');
+
+  } catch(err) {
+    console.error(err);
+    errorMsg.classList.add('show');
+    b
