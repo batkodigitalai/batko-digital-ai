@@ -1,0 +1,46 @@
+{
+  "brand": "BATKO.DIGITAL.AI",
+  "legal_name": "Ing. Jaroslav Batko-Linet",
+  "public_name": "Ing. Jaroslav Batko",
+  "ico": "14600153",
+  "dic": "CZ5912280418",
+  "vat_status": "Plátce DPH",
+  "address": "Lískovec 170, 273 51 Velké Přítočno",
+  "country": "Česká republika",
+  "phone": "+420 725 360 151",
+  "email_primary": "batko.digital.ai@gmail.com",
+  "email_personal": "jaroslav.batko@gmail.com",
+  "positioning": "Praktické využití umělé inteligence a automatizace v reálném podnikání.",
+  "philosophy": "Technologie má hodnotu tehdy, když šetří čas, snižuje náklady, omezuje chyby a zvyšuje zisk.",
+  "expertise": [
+    "Technika",
+    "Ekonomika",
+    "Právo",
+    "Umělá inteligence",
+    "Strategické řízení",
+    "Obchod a podnikání"
+  ],
+  "services": [
+    "AI konzultace 1:1",
+    "Návrh automatizací",
+    "Obchodní analýzy",
+    "Digitální produkty",
+    "Individuální řešení"
+  ],
+  "links": {
+    "calculator": "https://batkodigitalai.github.io/auto1-kalkulacka/",
+    "simulators": "https://batkodigitalai.github.io/batko-digital-ai/simulators/",
+    "gumroad": "https://batkoflare1.gumroad.com/l/repnbe",
+    "calendly": "https://calendly.com/batko-digital-ai",
+    "substack": "https://batkolinet.substack.com",
+    "github": "https://github.com/batkodigitalai",
+    "linkedin_personal": "https://www.linkedin.com/in/jaroslav-batko-83a4aa62/",
+    "linkedin_company": "https://www.linkedin.com/company/batko-digital-ai/",
+    "facebook_personal": "https://www.facebook.com/jaroslav.batko/",
+    "facebook_company": "https://www.facebook.com/batkodigitalai/",
+    "instagram": "https://www.instagram.com/batko.digital.ai/"
+  },
+  "source_docx": "assets/company_profile/BATKO_DIGITAL_AI_Profil_2026_Rozsirena_Verze.docx",
+  "source_markdown": "assets/company_profile/BATKO_DIGITAL_AI_Profil_2026_Rozsirena_Verze.md",
+  "updated_from_source": "2026-07-18"
+}
