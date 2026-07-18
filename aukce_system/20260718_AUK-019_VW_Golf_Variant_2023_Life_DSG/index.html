@@ -269,12 +269,12 @@ var AUCTION_CONFIG = {
   // -- Odkaz na detailni _K.html stranku --
   detailPageUrl: "",
 
-  // -- ROI & trzni data (z analyzy 2026-07-18; kurz OPENLANE 24,3456) --
+  // -- ROI & trzni data --
   roi: {
     vatPayerMode:   true,
     vatRate:        0.21,
-    marketPriceCZ:  589000,  // verejne trzni srovnani v CR vc. DPH pro Golf Variant 2023 2.0 TDI DSG
-    marketPriceNetCZ: 486777, // interni netto srovnani pro platce DPH
+    marketPriceCZ:  589000,
+    marketPriceNetCZ: 486777,
     extrasLabel:    "Doprava + přepis + příprava + servis bez DPH",
     extrasAmount:   38500,
     processingCostLabel: "Zpracování / provize bez DPH",
@@ -288,11 +288,11 @@ var AUCTION_CONFIG = {
     b2bMarketLow:   529000,
     b2bSaleTarget:  589000,
     b2bDaysSale:    30,
-    europeanCost:   290857,   // porizeni z evropske aukce vc. dovozu do CR (kotva pro marzi drazitele)
-    bidderPrepCost: 107500    // naklady drazitele: prepis + priprava + servis + kosmetika + rezerva
+    europeanCost:   290857,
+    bidderPrepCost: 107500
   },
 
-  // -- Fotky -- 37 realnych fotek z evropskeho zdroje 11269368
+  // -- Fotky -- 37 realnych fotek konkretniho auta
   photos: [
     "img/foto_01.jpg","img/foto_02.jpg","img/foto_03.jpg","img/foto_04.jpg","img/foto_05.jpg",
     "img/foto_06.jpg","img/foto_07.jpg","img/foto_08.jpg","img/foto_09.jpg","img/foto_10.jpg",
@@ -304,7 +304,7 @@ var AUCTION_CONFIG = {
     "img/foto_36.jpg","img/foto_37.jpg"
   ],
 
-  // -- Rizika (max 4) - z DEKRA zpravy 14.04.2026, evropsky zdroj 11269368 --
+  // -- Rizika (max 4) --
   risks: [
     "Přední nárazník: škrábanec, doporučeno opravit a lakovat; započtena kosmetická rezerva.",
     "Pravé a levé přední kolo: škrábance, optická ztráta hodnoty; vhodné řešit podle cílového prodeje.",
@@ -314,27 +314,27 @@ var AUCTION_CONFIG = {
 
   // -- Specifikace --
   specs: {
-    "Rok výroby":       "2023 (výroba 02/2023, 1. registrace 24.04.2023)",
-    "Najetých km":      "51 775 km",
-    "Motor":            "2.0 TDI 85 kW (115 PS)",
-    "Převodovka":       "DSG automat 7st.",
-    "Pohon":            "Přední pohon",
-    "Palivo":           "Diesel / Euro 6d",
-    "Barva":            "Bílá, interiér šedá / černá látka",
-    "Karoserie":        "Kombi (Golf Variant)",
-    "Klimatizace":      "Automatická klimatizace",
-    "Světla":           "LED světlomety",
-    "Infotainment":     "Digitální kokpit, multimédia, online služby dle výbavy",
-    "Digital Cockpit":  "Ano",
-    "Asistenti":        "Moderní asistenční výbava Life dle zdrojové specifikace",
-    "Parkování":        "Parkovací senzory dle zdrojové specifikace",
-    "Sedadla":          "Látková, přední sedadlo vyžaduje čištění skvrny",
-    "Volant":           "Multifunkční",
-    "Doklady":          "Registrační doklady kompletní, COC dostupné",
-    "Kola / pneu":      "Pneumatiky legální a provozně bezpečné dle DEKRA",
-    "Klíče":            "2 ks",
+    "Rok výroby": "2023 (výroba 02/2023, 1. registrace 24.04.2023)",
+    "Najetých km": "51 775 km",
+    "Motor": "2.0 TDI 85 kW (115 PS)",
+    "Převodovka": "DSG automat 7st.",
+    "Pohon": "Přední pohon",
+    "Palivo": "Diesel / Euro 6d",
+    "Barva": "Bílá, interiér šedá / černá látka",
+    "Karoserie": "Kombi (Golf Variant)",
+    "Klimatizace": "Automatická klimatizace",
+    "Světla": "LED světlomety",
+    "Infotainment": "Digitální kokpit, multimédia, online služby dle výbavy",
+    "Digital Cockpit": "Ano",
+    "Asistenti": "Moderní asistenční výbava Life dle zdrojové specifikace",
+    "Parkování": "Parkovací senzory dle zdrojové specifikace",
+    "Sedadla": "Látková, přední sedadlo vyžaduje čištění skvrny",
+    "Volant": "Multifunkční",
+    "Doklady": "Registrační doklady kompletní, COC dostupné",
+    "Kola / pneu": "Pneumatiky legální a provozně bezpečné dle DEKRA",
+    "Klíče": "2 ks",
     "Technická kontrola": "HU/AU 04/2026 - v reportu doporučeno obnovit",
-    "VIN":              "WVWZZZCD6PW527676"
+    "VIN": "WVWZZZCD6PW527676"
   },
 
   // -- Firebase --
