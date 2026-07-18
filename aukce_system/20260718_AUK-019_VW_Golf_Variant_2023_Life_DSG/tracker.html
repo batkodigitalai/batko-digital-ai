@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sledování ceny - Golf Variant 2.0 TDI Life DSG (AUK-019)</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root{--navy:#1b2a4a;--navy2:#24365c;--orange:#f5a623;--green:#2ecc71;--red:#e74c3c;--bg:#0f1626;--card:#182238;--txt:#eef2f9;--muted:#9fb0cc}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);font:15px/1.5 -apple-system,Segoe UI,Roboto,sans-serif;padding:18px}
+  h1{font-size:1.25rem;margin:0 0 2px}
+  .sub{color:var(--muted);font-size:.9rem;margin-bottom:16px}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px}
+  .kpi{background:var(--card);border-radius:12px;padding:14px 16px}
+  .kpi .v{font-size:1.5rem;font-weight:800}
+  .kpi .l{color:var(--muted);font-size:.8rem;margin-top:2px}
+  .chart-wrap{background:var(--card);border-radius:12px;padding:16px;margin-bottom:18px}
+  table{width:100%;border-collapse:collapse;background:var(--card);border-radius:12px;overflow:hidden}
+  th,td{padding:9px 12px;text-align:right;font-variant-numeric:tabular-nums}
+  th{background:var(--navy2);color:var(--muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.03em}
+  td:first-child,th:first-child{text-align:left}
+  tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  .pos{color:var(--green);font-weight:700}.neg{color:var(--red);font-weight:700}
+  .note{background:#2a2136;border-left:3px solid var(--orange);padding:10px 14px;border-radius:8px;color:#f0e6d0;font-size:.86rem;margin-bottom:16px}
+  .g{color:var(--green)}.o{color:var(--orange)}
+</style>
+</head>
+<body>
+  <h1>Sledování ceny - Volkswagen Golf Variant 2.0 TDI Life DSG, 51 775 km (AUK-019)</h1>
+  <div class="sub">Evropský aukční zdroj 11269368 · konec broker aukce 20.07.2026 10:30 · podklad pro GitHub aukci</div>
+
+  <div class="note">
+    Marže = orientační prodejní cena ČR (589 000 Kč) - vyvolávací cena / evropské pořízení vč. dovozu - náklady dražitele
+    (přepis, příprava, servis, kosmetika a rezerva 107 500 Kč). Stop pro zdrojový bid: nad 11 000 EUR výrazně klesá ochranná rezerva.
+  </div>
+
+  <div class="kpis" id="kpis"></div>
+  <div class="chart-wrap"><canvas id="chart" height="110"></canvas></div>
+
+  <table id="tbl">
+    <thead><tr><th>Čas</th><th>Cena EU (€)</th><th>Pořízení vč. dovozu (Kč)</th><th>Prodej ČR (Kč)</th><th>Marže (Kč)</th><th>ROI/den</th></tr></thead>
+    <tbody></tbody>
+  </table>
+
+<script>
+const DATA = [
+  {"t":"2026-07-18T10:35","eur":10800,"landed":290857,"market":589000,"profit":190643,"roi":1.59,"bids":false}
+];
+
+const fKc = n => (n==null?'—':Math.round(n).toLocaleString('cs-CZ')+' Kč');
+const fEur = n => (n==null?'—':n.toLocaleString('cs-CZ')+' €');
+
+function render(){
+  const last = DATA[DATA.length-1] || {};
+  const first = DATA[0] || {};
+  const dProfit = (last.profit!=null && first.profit!=null) ? last.profit-first.profit : 0;
+  document.getElementById('kpis').innerHTML = `
+    <div class="kpi"><div class="v o">${fEur(last.eur)}</div><div class="l">Sledovaný zdrojový bid</div></div>
+    <div class="kpi"><div class="v">${fKc(last.landed)}</div><div class="l">Pořízení vč. dovozu</div></div>
+    <div class="kpi"><div class="v g">${fKc(last.profit)}</div><div class="l">Modelová marže teď</div></div>
+    <div class="kpi"><div class="v">${last.roi!=null?last.roi+' %':'—'}</div><div class="l">ROI / den (30 dní)</div></div>
+    <div class="kpi"><div class="v ${dProfit<0?'neg':'pos'}">${dProfit>0?'+':''}${fKc(dProfit)}</div><div class="l">Změna marže od startu</div></div>
+    <div class="kpi"><div class="v">${DATA.length}</div><div class="l">Počet záznamů</div></div>`;
+
+  document.querySelector('#tbl tbody').innerHTML = DATA.slice().reverse().map(d=>`
+    <tr><td>${new Date(d.t).toLocaleString('cs-CZ',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})}</td>
+    <td>${fEur(d.eur)}</td><td>${fKc(d.landed)}</td><td>${fKc(d.market)}</td>
+    <td class="${d.profit<30000?'neg':'pos'}">${fKc(d.profit)}</td>
+    <td>${d.roi!=null?d.roi+' %':'—'}</td></tr>`).join('');
+
+  const ctx = document.getElementById('chart');
+  new Chart(ctx, {
+    type:'line',
+    data:{
+      labels:DATA.map(d=>new Date(d.t).toLocaleString('cs-CZ',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})),
+      datasets:[
+        {label:'Marže Kč',data:DATA.map(d=>d.profit),borderColor:'#2ecc71',backgroundColor:'rgba(46,204,113,.12)',tension:.25,fill:true},
+        {label:'Pořízení Kč',data:DATA.map(d=>d.landed),borderColor:'#f5a623',backgroundColor:'transparent',tension:.25}
+      ]
+    },
+    options:{responsive:true,plugins:{legend:{labels:{color:'#eef2f9'}}},scales:{x:{ticks:{color:'#9fb0cc'},grid:{color:'rgba(255,255,255,.05)'}},y:{ticks:{color:'#9fb0cc'},grid:{color:'rgba(255,255,255,.05)'}}}}
+  });
+}
+render();
+</script>
+</body>
+</html>
