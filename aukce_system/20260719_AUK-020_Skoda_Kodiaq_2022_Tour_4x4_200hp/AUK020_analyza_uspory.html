@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AUK-020 | Škoda Kodiaq 2.0 TDI Tour 4x4 200 HP | Úspora klienta</title>
+  <style>
+    :root{--ink:#18212f;--muted:#657082;--line:#d8dee8;--paper:#f6f8fb;--panel:#fff;--accent:#0f766e;--accent-dark:#0b5c56;--warn:#b45309;--risk:#b91c1c;--good:#15803d;--soft-good:#e7f7ed;--soft-warn:#fff7ed;--soft-risk:#fef2f2;--shadow:0 16px 45px rgba(24,33,47,.10);}
+    *{box-sizing:border-box;}
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:var(--paper);line-height:1.5;}
+    a{color:var(--accent-dark);}
+    .topbar{position:sticky;top:0;z-index:10;background:rgba(246,248,251,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+    .topbar-inner{max-width:1180px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+    .brand{font-weight:800;font-size:14px;}
+    .nav{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;}
+    .nav a{font-size:13px;color:var(--muted);text-decoration:none;padding:6px 8px;border-radius:6px;}
+    .nav a:hover{background:#e9eef6;color:var(--ink);}
+    .wrap{max-width:1180px;margin:0 auto;padding:24px 20px 56px;}
+    .hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(330px,.75fr);gap:24px;align-items:stretch;margin-bottom:24px;}
+    .hero-media{min-height:470px;border-radius:8px;overflow:hidden;background:#d9dee7;box-shadow:var(--shadow);position:relative;}
+    .hero-media img{width:100%;height:100%;min-height:470px;object-fit:cover;display:block;}
+    .hero-placeholder{display:flex;align-items:center;justify-content:center;}
+    .hero-placeholder svg{min-height:470px;}
+    .stamp{position:absolute;left:18px;top:18px;background:rgba(24,33,47,.86);color:#fff;padding:8px 11px;border-radius:6px;font-size:13px;font-weight:700;}
+    .hero-panel{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:24px;box-shadow:var(--shadow);display:flex;flex-direction:column;justify-content:space-between;gap:20px;}
+    .eyebrow{color:var(--accent-dark);text-transform:uppercase;font-size:12px;font-weight:800;letter-spacing:.08em;margin:0 0 8px;}
+    h1{font-size:34px;line-height:1.08;margin:0 0 14px;}
+    h2{font-size:22px;margin:0 0 14px;line-height:1.2;}
+    p{margin:0 0 12px;}
+    .lead{color:var(--muted);font-size:16px;margin-bottom:0;}
+    .verdict{border-left:5px solid var(--accent);background:var(--soft-good);padding:14px 16px;border-radius:6px;}
+    .verdict strong{display:block;font-size:19px;margin-bottom:4px;}
+    .metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:0 0 24px;}
+    .metric{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:15px;}
+    .metric .label{color:var(--muted);font-size:12px;text-transform:uppercase;font-weight:800;letter-spacing:.06em;margin-bottom:8px;}
+    .metric .value{font-size:22px;font-weight:800;line-height:1.15;}
+    .metric .sub{margin-top:5px;color:var(--muted);font-size:13px;}
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px;margin-bottom:22px;}
+    .card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:20px;box-shadow:0 8px 25px rgba(24,33,47,.06);}
+    .span-4{grid-column:span 4;}.span-5{grid-column:span 5;}.span-6{grid-column:span 6;}.span-7{grid-column:span 7;}.span-8{grid-column:span 8;}.span-12{grid-column:span 12;}
+    .facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 16px;font-size:14px;}
+    .fact{border-bottom:1px solid #edf1f6;padding-bottom:8px;}
+    .fact b{display:block;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px;}
+    table{width:100%;border-collapse:collapse;font-size:14px;}
+    th,td{padding:10px 9px;border-bottom:1px solid #edf1f6;text-align:left;vertical-align:top;}
+    th{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.05em;}
+    td.num,th.num{text-align:right;}
+    .pill{display:inline-flex;align-items:center;min-height:26px;border-radius:999px;padding:4px 9px;font-size:12px;font-weight:800;white-space:nowrap;}
+    .pill.good{background:var(--soft-good);color:var(--good);}.pill.warn{background:var(--soft-warn);color:var(--warn);}.pill.risk{background:var(--soft-risk);color:var(--risk);}
+    .gallery{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:10px;}
+    .gallery figure{margin:0;background:#eef2f7;border:1px solid var(--line);border-radius:8px;overflow:hidden;}
+    .gallery figure:first-child{grid-row:span 2;}
+    .gallery img{width:100%;height:190px;object-fit:cover;display:block;}
+    .gallery figure:first-child img{height:390px;}
+    figcaption{padding:8px 10px;color:var(--muted);font-size:12px;background:#fff;}
+    .note{color:var(--muted);font-size:13px;margin-top:10px;}
+    .list{margin:0;padding-left:18px;}.list li{margin-bottom:8px;}
+    .bid-box{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+    .bid{border-radius:8px;border:1px solid var(--line);padding:14px;background:#fbfcfe;}
+    .bid strong{display:block;font-size:20px;margin:4px 0;}
+    .bid.good{border-color:#9ad5b2;background:#f0fbf4;}.bid.warn{border-color:#fed7aa;background:#fff8ee;}.bid.risk{border-color:#fecaca;background:#fff6f6;}
+    .calc{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:end;}
+    label{display:block;color:var(--muted);font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;}
+    input,select{width:100%;border:1px solid var(--line);border-radius:6px;padding:10px 11px;font-size:15px;color:var(--ink);background:#fff;}
+    .calc-result{border-radius:8px;padding:14px;background:#eefaf6;border:1px solid #a9dec9;}
+    .calc-result strong{display:block;font-size:24px;line-height:1.15;}
+    .source-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;}
+    .source-list a{text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:6px 10px;font-size:13px;background:#fff;}
+    footer{color:var(--muted);font-size:12px;padding-top:18px;border-top:1px solid var(--line);}
+    @media(max-width:900px){.hero,.metrics,.calc{grid-template-columns:1fr;}.hero-media,.hero-media img{min-height:310px;}.span-4,.span-5,.span-6,.span-7,.span-8,.span-12{grid-column:span 12;}.gallery{grid-template-columns:1fr;}.gallery figure:first-child{grid-row:auto;}.gallery img,.gallery figure:first-child img{height:auto;}.bid-box{grid-template-columns:1fr;}h1{font-size:28px;}}
+  </style>
+</head>
+<body>
+  <div class="topbar"><div class="topbar-inner">
+    <div class="brand">AUK-020 | Úspora klienta</div>
+    <nav class="nav"><a href="#cisla">Čísla</a><a href="#uspora">Úspora</a><a href="#stav">Stav</a><a href="#bid">Bid pravidlo</a><a href="#zdroje">Zdroje</a></nav>
+  </div></div>
+  <main class="wrap">
+    <section class="hero">
+      <div class="hero-media hero-placeholder">
+          <svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+            <rect width="200" height="120" fill="#d9dee7"/>
+            <g fill="#8b95a5">
+              <path d="M30 78 Q35 55 55 50 L75 50 Q85 40 105 40 L130 40 Q145 42 155 55 L170 58 Q178 60 178 70 L178 82 L170 82 Q168 92 158 92 Q148 92 146 82 L84 82 Q82 92 72 92 Q62 92 60 82 L30 82 Z"/>
+              <circle cx="72" cy="88" r="9" fill="#5a6472"/>
+              <circle cx="152" cy="88" r="9" fill="#5a6472"/>
+            </g>
+            <text x="100" y="108" text-anchor="middle" font-family="Arial" font-size="9" fill="#5a6472">Fotografie k dispozici v evropské aukci po přihlášení</text>
+          </svg>
+          <div class="stamp">AUK-020 · ilustrační náhled</div>
+        </div>
+      <div class="hero-panel">
+        <div>
+          <p class="eyebrow">Škoda Kodiaq 2.0 TDI Tour · pohon všech kol · 200 HP</p>
+          <h1>Rodinné SUV s výjimečně nízkým nájezdem a velkou úsporou proti českému bazaru.</h1>
+          <p class="lead">Diesel, automat DSG7, 4x4, 37 860 km, první registrace 1. 6. 2022. Aktuální nabídka 17 700 EUR bez DPH. Bohatá výbava (adaptivní tempomat, digitální kokpit, navigace, LED, el. dveře hands-free, tažné) a silná poptávka po dieselových SUV v ČR dělají z tohoto vozu nejsilnější úsporu pro klienta z výběru.</p>
+        </div>
+        <div class="verdict">
+          <strong>Verdikt: silná úspora pro klienta, ale nutná kontrola poškození</strong>
+          Nízký nájezd, čtyřkolka a plná výbava jsou hlavní upside. Brzda je záznam „Poškození před nehodou: Ano" (report neuvádí rozsah) a neověřitelná servisní historie — před příhozem osobně prověřit stav.
+        </div>
+      </div>
+    </section>
+
+    <section id="cisla" class="metrics">
+      <div class="metric"><div class="label">Aktuální nabídka</div><div class="value">17 700 EUR</div><div class="sub">bez DPH · aukce x-Time</div></div>
+      <div class="metric"><div class="label">Pořízení venku (netto)</div><div class="value">461 267 Kč</div><div class="sub">kurz KB deviza prodej 25,21</div></div>
+      <div class="metric"><div class="label">All-in klient (netto)</div><div class="value">511 554 Kč</div><div class="sub">vč. navýšené servisní rezervy</div></div>
+      <div class="metric"><div class="label">Úspora klienta</div><div class="value">83–101 tis. Kč</div><div class="sub">plátce až fyzická osoba</div></div>
+    </section>
+
+    <section class="grid">
+      <article class="card span-7">
+        <h2>Úspora klienta vs. český autobazar</h2>
+        <table>
+          <thead><tr><th>Typ klienta</th><th class="num">Pořízení venku (přes nás)</th><th class="num">Cena v CZ bazaru</th><th class="num">Úspora</th><th class="num">Úspora %</th></tr></thead>
+          <tbody>
+            <tr><td>Fyzická osoba / neplátce<br><span class="note">porovnává ceny vč. DPH</span></td><td class="num">618 981 Kč</td><td class="num">720 000 Kč</td><td class="num">101 019 Kč</td><td class="num">14,0 %</td></tr>
+            <tr><td>Plátce DPH<br><span class="note">odpočet, porovnává netto</span></td><td class="num">511 554 Kč</td><td class="num">595 041 Kč</td><td class="num">83 487 Kč</td><td class="num">14,0 %</td></tr>
+          </tbody>
+        </table>
+        <p class="note">Pořízení venku obsahuje netto nákup 461 267 Kč (bid + poplatky přepočtené kurzem KB deviza prodej 25,21 Kč/EUR) + doprava, příprava a servisní rezervu 50 287 Kč (rezerva navýšena na 25 tis. Kč dle 12 položek z DEKRA reportu, NEOVĚŘENO). Pro fyzickou osobu je přičteno 21 % DPH ze samovyměření při dovozu z EU. Cena v CZ bazaru je ověřený medián retail vč. DPH; pro plátce přepočtena na netto (÷1,21). Úspora v procentech je u obou stejná, v absolutní částce vyšší u fyzické osoby.</p>
+      </article>
+      <aside class="card span-5">
+        <h2>Rozpad pořízení venku (netto)</h2>
+        <table><tbody>
+          <tr><td>Bid 17 700 EUR × 25,21</td><td class="num">446 217 Kč</td></tr>
+          <tr><td>Náklady pro zemi + aukční poplatek</td><td class="num">15 050 Kč</td></tr>
+          <tr><td>Doprava na adresu Klimkovice</td><td class="num">9 787 Kč</td></tr>
+          <tr><td>Registrace / administrativa</td><td class="num">7 500 Kč</td></tr>
+          <tr><td>Příprava / detailing</td><td class="num">8 000 Kč</td></tr>
+          <tr><td>Servisní rezerva (12 pol. dle DEKRA, odhad)</td><td class="num">25 000 Kč</td></tr>
+          <tr><th>All-in klient (netto)</th><th class="num">511 554 Kč</th></tr>
+        </tbody></table>
+        <p class="note">Fyzická osoba k netto částce připočte DPH 21 % (samovyměření z dovozu EU) = 618 981 Kč vč. DPH.</p>
+      </aside>
+    </section>
+
+    <section class="grid">
+      <article class="card span-6">
+        <h2>Základ auta</h2>
+        <div class="facts">
+          <div class="fact"><b>Zdrojové ID</b>11261643</div>
+          <div class="fact"><b>VIN</b>TMBLN7NS0N8046051</div>
+          <div class="fact"><b>Model</b>Škoda Kodiaq 2.0 TDI Tour</div>
+          <div class="fact"><b>Motor</b>2.0 TDI, 147 kW / 200 PS</div>
+          <div class="fact"><b>Převodovka</b>Automat DSG 7</div>
+          <div class="fact"><b>Pohon</b>4x4 (pohon všech kol)</div>
+          <div class="fact"><b>Palivo</b>Nafta</div>
+          <div class="fact"><b>Nájezd</b>37 860 km</div>
+          <div class="fact"><b>Registrace</b>1. 6. 2022 (výroba 8. 4. 2022)</div>
+          <div class="fact"><b>Emise</b>EU6d · 140 g/km CO2</div>
+          <div class="fact"><b>Barva</b>Černá / interiér šedý, látka</div>
+          <div class="fact"><b>STK</b>08/2027</div>
+          <div class="fact"><b>Kola</b>Alu 19", dezén P 4,0 / Z 6,0 mm</div>
+          <div class="fact"><b>Klíče</b>1 ks</div>
+          <div class="fact"><b>Doklady</b>Kompletní, COC k dispozici</div>
+          <div class="fact"><b>Výbava</b>Adapt. tempomat, dig. kokpit, navi, LED, el. dveře hands-free, tažné sklápěcí, 3-zón. klima</div>
+        </div>
+      </article>
+      <article class="card span-6">
+        <h2>Doprava a čas</h2>
+        <table>
+          <thead><tr><th>Varianta</th><th class="num">Cena</th><th>Poznámka</th></tr></thead>
+          <tbody>
+            <tr><td>Doručení na adresu Klimkovice</td><td class="num">9 787 Kč</td><td>pohodlná varianta</td></tr>
+            <tr><td>Hub Hulín</td><td class="num">7 669 Kč</td><td>úspora cca 2 100 Kč</td></tr>
+            <tr><td>Vlastní odvoz z Mönchengladbachu</td><td class="num">0–2 069 Kč</td><td>nejlevnější</td></tr>
+          </tbody>
+        </table>
+        <p class="note">Místo vyzvednutí: Mönchengladbach (Německo). Skóre prodejce 4,9/5. Pro výpočet je použita pohodlnější varianta doručení na adresu; Hub Hulín zlepší výsledek o cca 2 100 Kč.</p>
+      </article>
+    </section>
+
+    <section class="card span-12" id="stav">
+      <h2>Fotky vozu</h2>
+      <p class="note">Fotografie z reportu evropské aukce nejsou v tomto dokumentu z licenčních důvodů reprodukovány. Kompletní fotogalerie (72 fotek) je dostupná v přihlášené session evropské aukce při realizaci.</p>
+      </section>
+
+    <section id="uspora" class="card">
+      <h2>Rychlá kalkulačka úspory</h2>
+      <div class="calc">
+        <div><label for="bidEur">Finální bid EUR (bez DPH)</label><input id="bidEur" type="number" value="17700" step="100" min="15000"></div>
+        <div><label for="czGross">Cena v CZ bazaru (vč. DPH)</label><input id="czGross" type="number" value="720000" step="5000" min="500000"></div>
+        <div><label for="klient">Typ klienta</label><select id="klient"><option value="fo">Fyzická osoba (vč. DPH)</option><option value="platce">Plátce DPH (netto)</option></select></div>
+        <div class="calc-result"><span>Úspora klienta</span><strong id="calcSave">101 019 Kč</strong><span id="calcPct">14,0 % z ceny v CZ bazaru</span></div>
+      </div>
+      <p class="note">Kurz nákupu: KB deviza prodej 25,21 Kč/EUR (platba do zahraničí). Fyzická osoba: pořízení venku = netto all-in + 21 % DPH (samovyměření z dovozu EU); porovnává se s CZ cenou vč. DPH. Plátce: obě strany bez DPH (odpočet), CZ cena ÷1,21. Doprava, příprava a servisní rezerva fixně 50 287 Kč nad rámec nákupu (rezerva navýšena dle DEKRA reportu, NEOVĚŘENO).</p>
+    </section>
+
+    <section id="zdroje" class="card">
+      <h2>Zdroje a ověření</h2>
+      <ul class="list">
+        <li>Detail vozu v evropské aukci ověřen v přihlášené session (19. 7. 2026): aktuální nabídka 17 700 EUR, dynamická aukce x-Time, poplatky (náklady pro zemi + aukční) cca 597 EUR.</li>
+        <li>Car report evropské aukce (staženo, PDF 5 stran, 72 fotek): VIN TMBLN7NS0N8046051, SPZ 4951938, 37 860 km, „Poškození před nehodou: Ano" (bez vyčíslení rozsahu), „Záznam o údržbě: Není k dispozici", STK 08/2027, pneu 19" (P 4,0 / Z 6,0 mm), plná výbava.</li>
+        <li>4 stažené inspekční reporty (19. 7. 2026): (1) COC dokument — sken, bez cenové relevance. (2) Fotoanláza — 6 MB fotosada. (3) Schadenshistorie — evidovaná škoda zadní nárazník, 2.1.2026, částka nevyčíslena. (4) DEKRA Zustandsbericht č. 0227/0100016033/2026, besichtigung 22.6.2026 — měření tloušťky laku bez důkazu skryté nehody/přelakování; 12 položek neakceptovaného stavu (kapota, nárazník+spoiler+lem kola, střecha, obě zadní dveře, 5. dveře, boční panel, zrcátko, roleta); 2 hlavní klíče předloženy.</li>
+        <li>Kurz: Komerční banka, EUR deviza prodej 25,2099 Kč/EUR (14. 7. 2026) — kurz, za který banka prodá EUR při platbě do zahraničí.</li>
+        <li>CZ komparabil (TipCars): Kodiaq 2.0 TDI 147kW 4x4 DSG Style, 6/2022, 56 200 km = 749 000 Kč vč. DPH. Konzervativní odhad 720 000 Kč pro linii Tour se záznamem o poškození.</li>
+      </ul>
+      <div class="source-list">
+        <span class="src-note">Detail vozu a car report jsou dostupné v přihlášené session evropské aukce (interní podklad).</span>
+        <a href="https://www.kb.cz/cs/kurzovni-listek/detail-kurzovniho-listku?curr=eur" target="_blank" rel="noopener">KB kurzovní lístek EUR</a>
+        <a href="https://www.tipcars.com/skoda-kodiaq/suv/nafta/skoda-kodiaq-2-0-tdi-147kw-dsg-4x4-style-59910034.html" target="_blank" rel="noopener">TipCars komparabil Style 2022</a>
+      </div>
+    </section>
+
+    <footer>
+      <p>Podklad úspory klienta vytvořen 19. 7. 2026 pro AUK-020. Nejde o garanci ani právní/daňové doporučení; režim DPH (samovyměření při dovozu z EU, případný §90) ověřte s daňovým poradcem. CZ ceny jsou orientační mediány z TipCars. Fotky jsou náhledy z reportu evropské aukce; plné rozlišení se stáhne z karty při realizaci aukce.</p>
+      <p style="margin-top:10px;font-size:11px;color:#5a6472;line-height:1.6">
+        <strong>Ing. Jaroslav Batko-Linet | Batko Digital AI</strong><br>
+        IČO: 14600153 &nbsp;|&nbsp; DIČ: CZ5912280418 &nbsp;|&nbsp; Plátce DPH<br>
+        Liskovec 170, 273 51 Velké Přítočno<br>
+        batko.digital.ai@gmail.com &nbsp;|&nbsp; +420 725 360 151<br>
+        Osobní údaje z případné poptávky zpracováváme pouze pro vyřízení dotazu k tomuto vozu.
+      </p>
+    </footer>
+  </main>
+  <script>
+    const fmt=new Intl.NumberFormat('cs-CZ',{maximumFractionDigits:0});
+    const baseBid=17700,czkPerEur=25.21,feesEur=597,extras=50287;
+    function updateCalc(){
+      const bid=Number(document.getElementById('bidEur').value||baseBid);
+      const czGross=Number(document.getElementById('czGross').value||0);
+      const klient=document.getElementById('klient').value;
+      const sourceNet=(bid+feesEur)*czkPerEur;
+      const allInNet=sourceNet+extras;
+      let porizeni,czCompare;
+      if(klient==='fo'){porizeni=allInNet*1.21;czCompare=czGross;}
+      else{porizeni=allInNet;czCompare=czGross/1.21;}
+      const save=czCompare-porizeni;const pct=save/czCompare*100;
+      document.getElementById('calcSave').textContent=fmt.format(save)+' Kč';
+      document.getElementById('calcPct').textContent=pct.toFixed(1).replace('.',',')+' % z ceny v CZ bazaru';
+    }
+    document.querySelectorAll('input,select').forEach(el=>el.addEventListener('input',updateCalc));
+    updateCalc();
+  </script>
+</body>
+</html>
