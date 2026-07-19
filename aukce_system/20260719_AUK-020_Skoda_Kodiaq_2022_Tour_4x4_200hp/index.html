@@ -920,16 +920,17 @@ function initExtras() {
   if (R.b2bSaleTarget) {
     const euro   = R.europeanCost || 0;
     const prep   = R.bidderPrepCost || ((R.extrasAmount || 0) + (R.processingCostAmount || 0));
-    const margin = R.b2bSaleTarget - C.startPrice - prep;
+    const saleNet = R.marketPriceNetCZ || Math.round((R.b2bSaleTarget||0) / (1 + (R.vatRate||0.21)));
+    const margin = saleNet - C.startPrice - prep;
     const roiDay = ((margin / (C.startPrice + prep)) * 100 / (R.b2bDaysSale||30)).toFixed(2);
     document.getElementById('b2bGrid').innerHTML = `
       <div class="b2b-item"><div class="bi-val">${fKc(euro)}</div><div class="bi-lbl">Pořízení z evropské aukce vč. dovozu</div></div>
       <div class="b2b-item"><div class="bi-val">${fKc(C.startPrice)}</div><div class="bi-lbl">Vyvolávací cena aukce</div></div>
       <div class="b2b-item"><div class="bi-val">${fKc(prep)}</div><div class="bi-lbl">Vaše náklady (přepis, příprava, servis, rezerva)</div></div>
-      <div class="b2b-item"><div class="bi-val">${fKc(R.b2bSaleTarget)}</div><div class="bi-lbl">Orientační prodejní cena ČR</div></div>
-      <div class="b2b-item"><div class="bi-val" style="color:#2ecc71">${fKc(Math.max(0,margin))}</div><div class="bi-lbl">Vaše marže při vyvolávací ceně</div></div>`;
+      <div class="b2b-item"><div class="bi-val">${fKc(R.b2bSaleTarget)}</div><div class="bi-lbl">Orientační prodejní cena ČR (vč. DPH)</div></div>
+      <div class="b2b-item"><div class="bi-val" style="color:#2ecc71">${fKc(Math.max(0,margin))}</div><div class="bi-lbl">Vaše marže při vyvolávací ceně (netto)</div></div>`;
     document.getElementById('b2bNote').innerHTML =
-      `Vyvolávací cena je nastavená blízko evropské pořizovací ceny, aby prostor pro vaši marži zůstal co největší. Při prodeji do ${R.b2bDaysSale||30} dní ≈ <strong>${roiDay} %/den</strong>. Každý příhoz snižuje vaši marži o svou výši. Ceny jsou pro plátce DPH bez DPH.`;
+      `Vyvolávací cena je nastavená blízko evropské pořizovací ceny, aby prostor pro vaši marži zůstal co největší. Při prodeji do ${R.b2bDaysSale||30} dní ≈ <strong>${roiDay} %/den</strong>. Každý příhoz snižuje vaši marži o svou výši. Marže je počítaná net-vs-net pro plátce DPH: prodejní cena v ČR je uvedená vč. DPH (720 000 Kč), ale do marže vstupuje jako netto (595 041 Kč), protože plátce DPH odvede/odečte.`;
     document.getElementById('b2bBlock').style.display = 'block';
   }
 }
