@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Expertiza &amp; analýza vozidla</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; color: #1a1a1a; line-height: 1.55; }
+.wrap { max-width: 960px; margin: 0 auto; padding-bottom: 40px; }
+.header { background: linear-gradient(135deg, #0d1f3c 0%, #1a3a6b 100%); color: #fff; padding: 28px 36px 24px; }
+.header h1 { font-size: 1.4rem; font-weight: 700; margin-bottom: 4px; }
+.header .sub { font-size: .88rem; opacity: .75; margin-bottom: 10px; }
+.badge { display:inline-block; padding:4px 12px; border-radius:20px; font-size:.76rem; font-weight:700; letter-spacing:.4px; }
+.badge-a { background:#8e44ad; } .badge-b { background:#27ae60; } .badge-c { background:#2980b9; }
+.badge-d { background:#e67e22; } .badge-e { background:#16a085; } .badge-f { background:#c0392b; }
+.kurz-strip { background:#1a2a4a; color:rgba(255,255,255,.75); padding:8px 36px; font-size:.8rem; display:flex; gap:20px; flex-wrap:wrap; }
+.kurz-strip strong { color:#74b9ff; }
+.nav-back { background:#fff; border-bottom:2px solid #e0e6f0; padding:10px 36px; font-size:.82rem; }
+.nav-back a { color:#1a3a6b; text-decoration:none; font-weight:600; }
+.section { background:#fff; border-radius:10px; padding:22px 26px; margin:16px 0; }
+.section h2 { font-size:1.0rem; font-weight:700; color:#0d1f3c; margin-bottom:14px; border-bottom:2px solid #e8edf5; padding-bottom:8px; }
+.vozidlo-specs table { width:100%; border-collapse:collapse; font-size:.87rem; }
+.vozidlo-specs td { padding:6px 10px; border-bottom:1px solid #f0f2f5; }
+.vozidlo-specs td:first-child { color:#888; width:38%; }
+.green-box { background:#eafaf1; border-left:4px solid #27ae60; border-radius:6px; padding:12px 16px; font-size:.85rem; color:#155724; margin-top:10px; }
+.warn-box { background:#fdecea; border-left:4px solid #e74c3c; border-radius:6px; padding:12px 16px; font-size:.85rem; color:#7b1c1c; margin-top:10px; }
+.warn-box strong { display:block; margin-bottom:3px; }
+.info-box { background:#fff8e1; border-left:4px solid #f39c12; border-radius:6px; padding:12px 16px; font-size:.85rem; color:#7d5a00; margin-top:10px; }
+.info-box strong { display:block; margin-bottom:3px; }
+.ok-box { background:#d4edda; border-left:4px solid #27ae60; border-radius:6px; padding:12px 16px; font-size:.85rem; color:#155724; margin-top:10px; }
+.fin { width:100%; border-collapse:collapse; font-size:.84rem; margin-top:4px; }
+.fin th { background:#f0f4fa; color:#0d1f3c; font-weight:700; padding:9px 12px; text-align:left; border-bottom:2px solid #d0dcea; }
+.fin td { padding:8px 12px; border-bottom:1px solid #f0f2f5; }
+.fin tr:last-child td { font-weight:700; background:#f7f9fc; }
+.step { display:flex; gap:14px; align-items:flex-start; margin-bottom:16px; }
+.step-num { background:#1a3a6b; color:#fff; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:.9rem; flex-shrink:0; margin-top:2px; }
+.step-body strong { display:block; font-size:.9rem; margin-bottom:2px; }
+.step-body span { font-size:.82rem; color:#555; }
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+@media(max-width:680px){ .two-col { grid-template-columns:1fr; } }
+.highlight-box { background:#f0f4fa; border-radius:8px; padding:16px; }
+.highlight-box h3 { font-size:.9rem; font-weight:700; color:#0d1f3c; margin-bottom:10px; }
+.highlight-box ul { padding-left:18px; font-size:.85rem; }
+.highlight-box li { margin-bottom:5px; }
+.cta-bar { background:linear-gradient(135deg,#0d1f3c,#1a3a6b); border-radius:10px; padding:20px 26px; display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; margin:16px 0; }
+.cta-bar strong { color:#fff; display:block; font-size:1rem; margin-bottom:3px; }
+.cta-bar p { color:rgba(255,255,255,.8); font-size:.85rem; }
+.cta-btn { background:#f39c12; color:#fff; text-decoration:none; padding:11px 22px; border-radius:7px; font-weight:700; font-size:.92rem; white-space:nowrap; }
+.company-bar { background:#f0f4fa; border-top:3px solid #c8d6e8; padding:16px 36px; font-size:.79rem; color:#444; }
+.cid-grid { display:grid; grid-template-columns:1fr 1fr; gap:4px 30px; }
+.cid-row { display:flex; gap:6px; }
+.cid-label { color:#888; min-width:130px; font-size:.76rem; flex-shrink:0; }
+.cid-val { font-weight:600; color:#0d1f3c; font-size:.79rem; }
+.company-id-bar { background: #f5f7fb; border-top: 2px solid #e0e7f0; padding: 14px 40px; font-size: 0.75rem; color: #666; }
+.company-id-bar h4 { font-size: 0.7rem; font-weight: 700; color: #8899bb; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+.company-id-bar .cid-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 24px; }
+@media(max-width:600px){ .company-id-bar .cid-grid { grid-template-columns: 1fr; } }
+.company-id-bar .cid-row { display: flex; gap: 6px; }
+.company-id-bar .cid-label { color: #aaa; min-width: 120px; font-size: 0.72rem; flex-shrink: 0; }
+.company-id-bar .cid-val { font-weight: 600; color: #555; font-size: 0.72rem; }
+.privacy-law-note { margin-top: 8px; padding-top: 8px; border-top: 1px solid #e0e7f0; font-size: 0.72rem; line-height: 1.45; color: #777; }
+.privacy-law-note strong { color: #667899; }
+.footer { background: #0d1f3c; color: rgba(255,255,255,0.5); text-align: center; padding: 16px 20px; font-size: 0.75rem; }
+.footer a { color: #74b9ff; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="header">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px;">
+    <div><h1>Expertiza &amp; analýza vozidla</h1><p class="sub">Volkswagen Golf Variant VIII 2.0 TDI 110 kW DSG7 Life · Verdikt do 24 h</p></div>
+    <span class="badge badge-a">🔍 EXPERTIZA</span>
+  </div>
+</div>
+<div class="kurz-strip">
+  <span>Kurz ČNB 25. 5. 2026: <strong>1 EUR = 24,4028 Kč</strong></span>
+  <span>Volkswagen Golf Variant VIII 2.0 TDI 110 kW DSG7 Life · evropská aukce #11005973</span>
+</div>
+<div class="nav-back">
+  <a href="nabidka_VW_Golf_Variant_11005973.html">← Zpět na hlavní nabídku</a> ·
+  <a href="hodnoceni_VW_Golf_Variant_11005973.html">Odborné hodnocení vozu</a> ·
+  <a href="objednavka_11005973.html" style="background:#0d1f3c;color:#fff;padding:5px 14px;border-radius:5px;font-weight:700;text-decoration:none;font-size:.79rem;">📋 Objednat →</a>
+</div>
+<div class="section">
+  <h2>🚗 Vozidlo — Volkswagen Golf Variant VIII 2.0 TDI 110 kW DSG7 Life</h2>
+  <div class="vozidlo-specs">
+    <table>
+      <tr><td>Aukce</td><td>evropská aukce #11005973 <small>(detail dostupný na vyžádání)</small></td></tr>
+      <tr><td>Rok výroby</td><td>2023</td></tr>
+      <tr><td>Nájezd</td><td>73 918 km</td></tr>
+      <tr><td>Motor / převodovka</td><td>2.0 TDI Life DSG (110 kW / 150 hp) · DSG7 DQ381</td></tr>
+      <tr><td>Emisní norma</td><td>EU6d / Euro 6 ✅</td></tr>
+      <tr><td>Karoserie</td><td>Kombi (Variant / Break)</td></tr>
+      <tr><td>Barva</td><td>černá perleťová Deep Black</td></tr>
+      <tr><td>STK platná do</td><td>ověřit při registraci ✅</td></tr>
+      <tr><td>Doklady</td><td>Kompletní · COC k dispozici</td></tr>
+      <tr><td>Původ</td><td>Německo · Německý aukční prodejce (aukční / fleetový původ)</td></tr>
+      <tr><td>Kurz ČNB</td><td><strong>1 EUR = 24,4028 Kč</strong> · 25. 5. 2026</td></tr>
+    </table>
+    <div class="warn-box">⚠️ <strong>Poznámka:</strong> Aktuální nabídka: 14 500 EUR bez DPH, přihazovací cena 14 600 EUR bez DPH, celkem podle aukční obrazovky 370 556,52 Kč.</div><div class="warn-box">⚠️ <strong>Poznámka:</strong> Pneumatiky Continental celoroční 205/55 R16: přední 4,0 mm, zadní 5,0 mm; roadworthy: yes.</div><div class="warn-box">⚠️ <strong>Poznámka:</strong> TÜV report 15. 4. 2026: vozidlo špinavé, podmínky inspekce dostatečné, zvedák nepoužit, motorový test proveden.</div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>🔍 Co je expertiza &amp; analýza</h2>
+  <p>Provedu za vás kompletní prověření vozidla na základě dat z evropského aukčního zdroje, stavu trhu a dostupných technických informací. Výstupem je strukturovaný PDF report + xlsx kalkulace.</p>
+  <div class="two-col" style="margin-top:14px;">
+    <div class="green-box">
+      <strong>Co dostanete (do 24 h):</strong>
+      <ul style="padding-left:18px;margin-top:6px;font-size:.84rem;">
+        <li>Verdikt: KOUPIT / PODMÍNĚNĚ KOUPIT / NEKOUPIT</li>
+        <li>3 hlavní rizika + doporučení jak je ošetřit</li>
+        <li>Finanční kalkulace — 3 cenové scénáře</li>
+        <li>Srovnání s aktuálními cenami na CZ/SK trhu</li>
+        <li>Technické hodnocení motoru, převodovky, výbavy</li>
+        <li>Checklist 10 kroků před příklepem i po něm</li>
+      </ul>
+    </div>
+    <div>
+      <div class="info-box">
+        <strong>💶 Cena analýzy:</strong>
+        2 500 Kč za analýzu tohoto konkrétního vozidla · do 24 hodin na e-mail · platba bankovním převodem (7236159001/5500)
+      </div>
+      <div class="ok-box" style="margin-top:10px;">
+        <strong>✅ Bez rizika:</strong>
+        Pokud po přečtení analýzy vozidlo nekoupíte, cena analýzy se vám odečte z budoucí objednávky.
+      </div>
+    </div>
+  </div>
+</div>
+<div class="section">
+  <h2>📋 Objednávka expertízy</h2>
+  <p style="font-size:.85rem;color:#555;margin-bottom:14px;">Vyplňte kontakt — do 24 hodin obdržíte analýzu na e-mail.</p>
+  <form id="analyza-form">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+      <div><label style="font-size:.8rem;font-weight:600;color:#444;display:block;margin-bottom:4px;">Jméno *</label><input id="af_jmeno" type="text" placeholder="Jan Novák" style="width:100%;border:1.5px solid #d0d7e4;border-radius:7px;padding:9px 12px;font-size:.88rem;"></div>
+      <div><label style="font-size:.8rem;font-weight:600;color:#444;display:block;margin-bottom:4px;">E-mail *</label><input id="af_email" type="email" placeholder="vas@email.cz" style="width:100%;border:1.5px solid #d0d7e4;border-radius:7px;padding:9px 12px;font-size:.88rem;"></div>
+    </div>
+    <div style="margin-bottom:12px;"><label style="font-size:.8rem;font-weight:600;color:#444;display:block;margin-bottom:4px;">Dotaz nebo poznámka</label><textarea id="af_pozn" rows="2" placeholder="Cokoliv co chcete zdůraznit..." style="width:100%;border:1.5px solid #d0d7e4;border-radius:7px;padding:9px 12px;font-size:.88rem;font-family:inherit;"></textarea></div>
+    <button type="button" onclick="sendAnalyza()" style="background:#0d1f3c;color:#fff;border:none;padding:12px 28px;border-radius:8px;font-size:.95rem;font-weight:700;cursor:pointer;width:100%;">Objednat expertizu – 2 500 Kč →</button>
+  </form>
+  <div id="analyza-ok" style="display:none;background:#d4edda;border-radius:8px;padding:16px;margin-top:12px;color:#155724;font-size:.92rem;">✅ Poptávka odeslána! Ozveme se do 24 hodin.</div>
+</div>
+<div class="cta-bar">
+  <div><strong>Více variant pro toto vozidlo</strong><p>Koupě hotového auta · Agenturní nákup · Mentoring · Premium Full</p></div>
+  <a class="cta-btn" href="objednavka_11005973.html">Přehled všech variant →</a>
+</div>
+<script>
+function sendAnalyza() {
+  var j=document.getElementById('af_jmeno').value.trim(), e=document.getElementById('af_email').value.trim();
+  if(!j||!e) { alert('Vyplňte jméno a e-mail.'); return; }
+  fetch('https://script.google.com/macros/s/AKfycbwcFA8bRyHnBB_4XlgH5_IMR4IBqUfvTD8vScGZPiuCh0gR5f4Mp_9OjOAw1u3lNEjI/exec', {
+    method:'POST', mode:'no-cors',
+    headers:{'Content-Type':'text/plain;charset=utf-8'},
+    body: JSON.stringify({source:'nabidka_analyza_11005973', formType:'expertiza', jmeno:j, email:e,
+      url_aukce:'evropska-aukce-11005973', note:'Expertiza 2500 Kc · '+document.getElementById('af_pozn').value})
+  }).then(function(){document.getElementById('analyza-ok').style.display='block';});
+}
+</script>
+</body></html>
+
+<div class="company-bar">
+  <div class="company-id-bar">
+  <h4>Identifikace zpracovatele — povinné údaje dle § 435 OZ a § 29 ZDPH</h4>
+  <div class="cid-grid">
+    <div>
+      <div class="cid-row"><span class="cid-label">Jméno:</span><span class="cid-val">Ing. Jaroslav Batko-Linet</span></div>
+      <div class="cid-row"><span class="cid-label">IČO:</span><span class="cid-val">14600153</span></div>
+      <div class="cid-row"><span class="cid-label">DIČ:</span><span class="cid-val">CZ5912280418 &nbsp;·&nbsp; Plátce DPH</span></div>
+      <div class="cid-row"><span class="cid-label">Sídlo:</span><span class="cid-val">Jindřišská 941/24, 110 00 Praha 1</span></div>
+    </div>
+    <div>
+      <div class="cid-row"><span class="cid-label">Telefon:</span><span class="cid-val">+420 725 360 151</span></div>
+      <div class="cid-row"><span class="cid-label">E-mail:</span><span class="cid-val">batko.digital.ai@gmail.com</span></div>
+    </div>
+  </div>
+  <div style="margin-top:8px;font-size:.7rem;color:#aaa;">Kurz ČNB 25. 5. 2026: 1 EUR = 24,4028 Kč &nbsp;·&nbsp; Ref.: #11005973 &nbsp;·&nbsp; Generováno: 25. 5. 2026</div>
+  <div class="privacy-law-note"><strong>Ochrana osobních údajů:</strong> Údaje z kontaktních a objednávkových formulářů zpracováváme výhradně za účelem vyřízení vaší poptávky, přípravy nabídky a navazující komunikace. S údaji nakládáme důvěrně, v souladu s platnými právními předpisy na ochranu osobních údajů; nejsou prodávány ani předávány třetím osobám bez právního důvodu nebo vašeho souhlasu.</div>
+</div>
+<div class="footer"><p style="opacity:.5;">Tato stránka slouží jako informační podklad. Ceny jsou orientační a podléhají aktuálnímu kurzu.</p></div>
+</body></html>
+

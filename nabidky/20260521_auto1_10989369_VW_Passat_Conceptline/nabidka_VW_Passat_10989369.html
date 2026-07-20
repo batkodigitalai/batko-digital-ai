@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VW Passat Variant 2.0 TDI Conceptline 150hp – Nabídka od Jaroslava Batka</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f5f7; color: #1a1a1a; }
+  .header { background: linear-gradient(135deg, #1a2a4a 0%, #2c4a7c 100%); color: #fff; padding: 28px 40px 24px; display: flex; justify-content: space-between; align-items: flex-start; }
+  .header-left h1 { font-size: 1.65rem; font-weight: 700; margin-bottom: 4px; }
+  .header-left p { font-size: 0.92rem; opacity: 0.8; }
+  .header-right { text-align: right; }
+  .badge-urgent { background: #e74c3c; color: #fff; padding: 6px 16px; border-radius: 20px; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.5px; display: inline-block; margin-bottom: 8px; }
+  .header-right p { font-size: 0.82rem; opacity: 0.75; }
+  .sender-bar { background: #2c4a7c; border-top: 1px solid rgba(255,255,255,0.15); padding: 10px 40px; color: rgba(255,255,255,0.85); font-size: 0.85rem; display: flex; gap: 24px; align-items: center; }
+  .sender-bar strong { color: #fff; }
+  .sender-bar a { color: #74b9ff; text-decoration: none; }
+  .gallery-wrap { background: #111; padding: 0; }
+  .gallery-main { position: relative; width: 100%; height: 400px; overflow: hidden; }
+  .gallery-main img { width: 100%; height: 100%; object-fit: cover; display: none; }
+  .gallery-main img.active { display: block; }
+  .gallery-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.55); color: #fff; border: none; cursor: pointer; font-size: 1.6rem; padding: 10px 18px; border-radius: 4px; z-index: 10; }
+  .gallery-nav.prev { left: 12px; }
+  .gallery-nav.next { right: 12px; }
+  .gallery-counter { position: absolute; bottom: 12px; right: 16px; background: rgba(0,0,0,0.6); color: #fff; font-size: 0.8rem; padding: 3px 10px; border-radius: 12px; }
+  .thumbs { display: flex; gap: 4px; padding: 6px 6px; overflow-x: auto; background: #111; }
+  .thumbs img { width: 80px; height: 54px; object-fit: cover; cursor: pointer; border: 2px solid transparent; border-radius: 3px; flex-shrink: 0; opacity: 0.7; transition: opacity 0.2s, border-color 0.2s; }
+  .thumbs img.active { border-color: #74b9ff; opacity: 1; }
+  .thumbs img:hover { opacity: 1; }
+  .content { max-width: 960px; margin: 0 auto; padding: 28px 20px; }
+  .auction-box { background: #fff; border: 2px solid #e74c3c; border-radius: 10px; padding: 20px 24px; margin-bottom: 24px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .auction-box .aitem { text-align: center; }
+  .auction-box .aitem .label { font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .auction-box .aitem .val { font-size: 1.05rem; font-weight: 700; color: #1a2a4a; }
+  .auction-box .aitem .val.red { color: #e74c3c; }
+  .auction-link { background: #e74c3c; color: #fff; text-decoration: none; display: block; text-align: center; padding: 11px; border-radius: 7px; font-weight: 700; font-size: 0.95rem; grid-column: 1 / -1; transition: background 0.2s; }
+  .auction-link:hover { background: #c0392b; }
+  .section { background: #fff; border-radius: 10px; padding: 22px 24px; margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .section h2 { font-size: 1.05rem; color: #1a2a4a; font-weight: 700; margin-bottom: 16px; border-bottom: 2px solid #e8ecf0; padding-bottom: 8px; }
+  .specs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  @media (max-width: 600px) { .specs-grid { grid-template-columns: 1fr 1fr; } .auction-box { grid-template-columns: 1fr 1fr; } }
+  .spec-item { background: #f8f9fb; border-radius: 8px; padding: 11px 14px; }
+  .spec-item .slabel { font-size: 0.72rem; color: #888; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 3px; }
+  .spec-item .sval { font-size: 0.95rem; font-weight: 600; color: #1a2a4a; }
+  .eq-group { margin-bottom: 16px; }
+  .eq-group h3 { font-size: 0.82rem; font-weight: 700; color: #2c4a7c; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+  .eq-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .eq-tag { background: #edf2fb; color: #2c4a7c; font-size: 0.8rem; padding: 4px 11px; border-radius: 20px; white-space: nowrap; }
+  .eq-tag.highlight { background: #d4edda; color: #155724; font-weight: 600; }
+  .tire-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .tire-item { background: #f8f9fb; border-radius: 8px; padding: 10px 14px; text-align: center; }
+  .tire-item .tpos { font-size: 0.72rem; color: #888; margin-bottom: 2px; }
+  .tire-item .tdepth { font-size: 1.1rem; font-weight: 700; color: #888; }
+  .logistics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .log-item { background: #f8f9fb; border-radius: 8px; padding: 12px 16px; }
+  .log-item .llabel { font-size: 0.72rem; color: #888; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 4px; }
+  .log-item .lval { font-size: 0.92rem; font-weight: 600; color: #1a2a4a; }
+  .log-item .lsub { font-size: 0.78rem; color: #666; margin-top: 3px; }
+  .log-item a { color: #2c4a7c; }
+  .info-box { background: #fff8e1; border-left: 4px solid #f39c12; border-radius: 6px; padding: 12px 16px; font-size: 0.85rem; color: #7d5a00; margin-top: 14px; }
+  .info-box strong { display: block; margin-bottom: 3px; }
+  .warn-box { background: #fdecea; border-left: 4px solid #e74c3c; border-radius: 6px; padding: 12px 16px; font-size: 0.85rem; color: #7b1c1c; margin-top: 14px; }
+  .warn-box strong { display: block; margin-bottom: 3px; }
+  .footer { background: #1a2a4a; color: rgba(255,255,255,0.6); text-align: center; padding: 18px 20px; font-size: 0.8rem; margin-top: 20px; }
+  .footer a { color: #74b9ff; }
+  .footer strong { color: #fff; }
+  .links-bar { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+  .ol-link { background: #edf2fb; color: #2c4a7c; text-decoration: none; padding: 7px 14px; border-radius: 20px; font-size: 0.82rem; font-weight: 600; border: 1px solid #c8d8f5; transition: background 0.2s; }
+  .ol-link:hover { background: #2c4a7c; color: #fff; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } .specs-grid { grid-template-columns: 1fr 1fr; } }
+  .kurz-strip { background: #0d1f3c; color: #fff; padding: 10px 40px; display: flex; gap: 24px; align-items: center; flex-wrap: wrap; font-size: 0.83rem; border-top: 1px solid rgba(255,255,255,0.1); }
+  .kurz-strip .kr-rate { font-size: 1.1rem; font-weight: 800; color: #f39c12; }
+  .kurz-strip .kr-label { opacity: 0.7; font-size: 0.75rem; }
+  .company-id-bar { background: #f0f4fa; border-top: 3px solid #c8d6e8; padding: 18px 40px; font-size: 0.82rem; color: #444; }
+  .company-id-bar h4 { font-size: 0.8rem; font-weight: 700; color: #0d1f3c; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+  .company-id-bar .cid-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 30px; }
+  @media(max-width:600px){ .company-id-bar .cid-grid { grid-template-columns: 1fr; } }
+  .company-id-bar .cid-row { display: flex; gap: 6px; }
+  .company-id-bar .cid-label { color: #888; min-width: 130px; font-size: 0.78rem; flex-shrink: 0; }
+  .company-id-bar .cid-val { font-weight: 600; color: #0d1f3c; }
+  .privacy-law-note { margin-top: 8px; padding-top: 8px; border-top: 1px solid #e0e7f0; font-size: 0.72rem; line-height: 1.45; color: #777; }
+  .privacy-law-note strong { color: #667899; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <h1>Volkswagen Passat Variant 2.0 TDI Conceptline</h1>
+    <p>Nafta &bull; Automat &bull; 150 hp (110 kW) &bull; 60.436 km &bull; Kombi &bull; Metalická barva</p>
+  </div>
+  <div class="header-right">
+    <div class="badge-urgent">⏰ AUKCE — DNES</div>
+    <p>21. 5. 2026 · Dynamická aukce (x-Time)</p>
+    <p>Ref. č. 10989369</p>
+  </div>
+</div>
+
+<!-- SENDER -->
+<div class="sender-bar">
+  <span>Připravil: <strong>Jaroslav Batko</strong></span>
+  <span>✉ <a href="mailto:batko.digital.ai@gmail.com">batko.digital.ai@gmail.com</a></span>
+  <span>📅 21. 5. 2026</span>
+  <span style="margin-left:auto;">Zdroj: <a href="https://www.openlane.eu/cs/car/info?auctionId=10989369" target="_blank">OPENLANE Europe – aukce #10989369</a> <span style="opacity:0.6;font-size:0.78rem;">(jen pro registrované)</span></span>
+</div>
+
+<!-- KURZ CNB STRIP -->
+<div class="kurz-strip">
+  <span class="kr-label">Kurz ČNB</span>
+  <span class="kr-rate">1 EUR = 24,29 Kč</span>
+  <span style="opacity:0.6;">·</span>
+  <span>Platnost: <strong>21. 5. 2026</strong></span>
+  <span style="opacity:0.6;">·</span>
+  <span style="opacity:0.7;font-size:0.75rem;">Zdroj: Česká národní banka (www.cnb.cz) · Kurz se mění každý pracovní den ~14:30 — před podpisem vždy ověřte aktuální kurz</span>
+</div>
+
+<!-- GALLERY -->
+<div class="gallery-wrap">
+  <div class="gallery-main" id="gallery">
+    <img src="img/foto_01.jpg" class="active" alt="VW Passat foto 1" onerror="this.src='https://images.openlane.eu/carimgs/5825196/general/5d647d6e-2484-44b5-b7b3-c85ae59597ff.jpg'">
+    <img src="img/foto_02.jpg" alt="VW Passat foto 2" onerror="this.src='https://images.openlane.eu/carimgs/5825196/general/dd1ff4e9-4950-4210-af2b-641bf6acc1ef.jpg'">
+    <img src="img/foto_03.jpg" alt="VW Passat foto 3" onerror="this.src='https://images.openlane.eu/carimgs/5825196/general/dad29929-757d-4913-8cee-711b64acde1d.jpg'">
+    <img src="img/foto_04.jpg" alt="VW Passat foto 4" onerror="this.src='https://images.openlane.eu/carimgs/5825196/general/faf06951-f4f7-48ab-9717-2b41f59ffbb5.jpg'">
+    <img src="img/foto_05.jpg" alt="VW Passat foto 5" onerror="this.src='https://images.openlane.eu/carimgs/5825196/general/0e2e5ebd-a6c5-4a6a-8b94-293e8759b27c.jpg'">
+    <img src="img/foto_06.jpg" alt="VW Passat foto 6" onerror="this.src='https://images.openlane.eu/carimgs/5825196/general/0004142c-e8fc-4580-9325-27d382d41740.jpg'">
+    <img src="img/foto_07.jpg" alt="VW Passat foto 7" onerror="this.src='https://images.openlane.eu/carimgs/5825196/general/4f203ff2-5395-4924-b8a8-54e4e2345e7f.jpg'">
+    <img src="img/foto_08.jpg" alt="VW Passat foto 8" onerror="this.src='https://images.openlane.eu/carimgs/5825196/general/abe62029-8805-4f02-8aaa-99641556346d.jpg'">
+    <img src="img/foto_09.jpg" alt="VW Passat foto 9" onerror="this.src='https://images.openlane.eu/carimgs/5825196/general/143e3c67-912d-46eb-a3be-2dc4f1207444.jpg'">
+    <img src="img/foto_10.jpg" alt="VW Passat foto 10" onerror="this.src='https://images.openlane.eu/carimgs/5825196/general/6dc3b8ca-2b0c-4cbc-a764-fc693498e887.jpg'">
+    <button class="gallery-nav prev" onclick="changeSlide(-1)">&#8249;</button>
+    <button class="gallery-nav next" onclick="changeSlide(1)">&#8250;</button>
+    <div class="gallery-counter" id="counter">1 / 10</div>
+  </div>
+  <div class="thumbs" id="thumbs">
+    <img src="img/foto_01.jpg" class="active" onclick="goSlide(0)" onerror="this.src='https://images.openlane.eu/carimgs/5825196/general/5d647d6e-2484-44b5-b7b3-c85ae59597ff.jpg'">
+    <img src="img/foto_02.jpg" onclick="goSlide(1)" onerror="this.src='https://images.openlane.eu/carimgs/5825196/general/dd1ff4e9-4950-4210-af2b-641bf6acc1ef.jpg'">
+    <img src="img/foto_03.jpg" onclick="goSlide(2)" onerror="this.src='https://images.openlane.eu/carimgs/5825196/general/dad29929-757d-4913-8cee-711b64acde1d.jpg'">
+    <img src="img/foto_04.jpg" onclick="goSlide(3)" onerror="this.src='https://images.openlane.eu/carimgs/5825196/general/faf06951-f4f7-48ab-9717-2b41f59ffbb5.jpg'">
+    <img src="img/foto_05.jpg" onclick="goSlide(4)" onerror="this.src='https://images.openlane.eu/carimgs/5825196/general/0e2e5ebd-a6c5-4a6a-8b94-293e8759b27c.jpg'">
+    <img src="img/foto_06.jpg" onclick="goSlide(5)" onerror="this.src='https://images.openlane.eu/carimgs/5825196/general/0004142c-e8fc-4580-9325-27d382d41740.jpg'">
+    <img src="img/foto_07.jpg" onclick="goSlide(6)" onerror="this.src='https://images.openlane.eu/carimgs/5825196/general/4f203ff2-5395-4924-b8a8-54e4e2345e7f.jpg'">
+    <img src="img/foto_08.jpg" onclick="goSlide(7)" onerror="this.src='https://images.openlane.eu/carimgs/5825196/general/abe62029-8805-4f02-8aaa-99641556346d.jpg'">
+    <img src="img/foto_09.jpg" onclick="goSlide(8)" onerror="this.src='https://images.openlane.eu/carimgs/5825196/general/143e3c67-912d-46eb-a3be-2dc4f1207444.jpg'">
+    <img src="img/foto_10.jpg" onclick="goSlide(9)" onerror="this.src='https://images.openlane.eu/carimgs/5825196/general/6dc3b8ca-2b0c-4cbc-a764-fc693498e887.jpg'">
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- AUCTION BOX -->
+  <div class="auction-box">
+    <div class="aitem">
+      <div class="label">Typ aukce</div>
+      <div class="val">Dynamická aukce (x-Time)</div>
+    </div>
+    <div class="aitem">
+      <div class="label">Konec aukce</div>
+      <div class="val red">21. 5. 2026 · DNES</div>
+    </div>
+    <div class="aitem">
+      <div class="label">Režim DPH</div>
+      <div class="val">Bez DPH</div>
+    </div>
+    <a class="auction-link" href="https://www.openlane.eu/cs/car/info?auctionId=10989369" target="_blank">
+      🔗 Otevřít aukci na OPENLANE.eu &rarr; <span style="font-weight:400;font-size:0.8rem;opacity:0.85;">(jen pro registrované)</span>
+    </a>
+  </div>
+
+  <!-- SPECIFICATIONS -->
+  <div class="section">
+    <h2>📋 Technické specifikace</h2>
+    <div class="specs-grid">
+      <div class="spec-item">
+        <div class="slabel">Značka / Model</div>
+        <div class="sval">Volkswagen Passat Variant</div>
+      </div>
+      <div class="spec-item">
+        <div class="slabel">Verze</div>
+        <div class="sval">2.0 TDI Conceptline</div>
+      </div>
+      <div class="spec-item">
+        <div class="slabel">1. registrace</div>
+        <div class="sval">24. 2. 2023</div>
+      </div>
+      <div class="spec-item">
+        <div class="slabel">Najeto</div>
+        <div class="sval">60 436 km</div>
+      </div>
+      <div class="spec-item">
+        <div class="slabel">Palivo</div>
+        <div class="sval">Nafta (diesel)</div>
+      </div>
+      <div class="spec-item">
+        <div class="slabel">Převodovka</div>
+        <div class="sval">Automatická</div>
+      </div>
+      <div class="spec-item">
+        <div class="slabel">Výkon</div>
+        <div class="sval">110 kW · 150 hp</div>
+      </div>
+      <div class="spec-item">
+        <div class="slabel">Objem motoru</div>
+        <div class="sval">1 968 cc</div>
+      </div>
+      <div class="spec-item">
+        <div class="slabel">Emise CO2</div>
+        <div class="sval">106 g/km</div>
+      </div>
+      <div class="spec-item">
+        <div class="slabel">Typ karoserie</div>
+        <div class="sval">Kombi (Break/Variant)</div>
+      </div>
+      <div class="spec-item">
+        <div class="slabel">Barva (lak)</div>
+        <div class="sval">Metalická (ověřte na OPENLANE)</div>
+      </div>
+      <div class="spec-item">
+        <div class="slabel">Barva interiéru</div>
+        <div class="sval">Černá / Látka</div>
+      </div>
+      <div class="spec-item">
+        <div class="slabel">Dveře / Místa</div>
+        <div class="sval">5 dveří / 5 míst</div>
+      </div>
+      <div class="spec-item">
+        <div class="slabel">Klíče</div>
+        <div class="sval">1 ks</div>
+      </div>
+      <div class="spec-item">
+        <div class="slabel">Číslo aukce</div>
+        <div class="sval">10989369</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TWO COL: STAV + PNEU -->
+  <div class="two-col">
+
+    <!-- STAV -->
+    <div class="section">
+      <h2>🔍 Stav vozidla</h2>
+      <div class="specs-grid" style="grid-template-columns:1fr 1fr;">
+        <div class="spec-item">
+          <div class="slabel">Poškození</div>
+          <div class="sval">Ověřte na OPENLANE</div>
+        </div>
+        <div class="spec-item">
+          <div class="slabel">Záznam o údržbě</div>
+          <div class="sval" style="color:#e74c3c;">Není k dispozici</div>
+        </div>
+      </div>
+      <div class="warn-box">
+        <strong>⚠️ Servisní knížka není k dispozici</strong>
+        Servisní záznam není součástí aukce. Doporučujeme vyžádat si zprávu o technickém stavu přímo na OPENLANE po přihlášení.
+      </div>
+      <div class="links-bar" style="margin-top:12px;">
+        <a class="ol-link" href="https://www.openlane.eu/cs/car/info?auctionId=10989369" target="_blank">📄 Zpráva o stavu <span style="font-size:0.75rem;opacity:0.7;">(jen pro registrované)</span></a>
+        <a class="ol-link" href="https://info.openlane.eu/cs/help/faq/" target="_blank">❓ FAQ OPENLANE</a>
+      </div>
+    </div>
+
+    <!-- PNEUMATIKY -->
+    <div class="section">
+      <h2>🔵 Pneumatiky</h2>
+      <div class="tire-grid">
+        <div class="tire-item">
+          <div class="tpos">Přední levá</div>
+          <div class="tdepth">—</div>
+        </div>
+        <div class="tire-item">
+          <div class="tpos">Přední pravá</div>
+          <div class="tdepth">—</div>
+        </div>
+        <div class="tire-item">
+          <div class="tpos">Zadní levá</div>
+          <div class="tdepth">—</div>
+        </div>
+        <div class="tire-item">
+          <div class="tpos">Zadní pravá</div>
+          <div class="tdepth">—</div>
+        </div>
+      </div>
+      <div class="info-box" style="margin-top:12px;">
+        <strong>ℹ️ Stav pneumatik</strong>
+        Hloubka dezénu není v aukci uvedena. Ověřte v technické zprávě na OPENLANE po přihlášení. Zákonné minimum v ČR: 1,6 mm.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- VYBAVENÍ -->
+  <div class="section">
+    <h2>⭐ Výbava vozidla</h2>
+
+    <div class="eq-group">
+      <h3>🛡 Bezpečnostní systémy</h3>
+      <div class="eq-tags">
+        <span class="eq-tag">ABS</span>
+        <span class="eq-tag">Airbagy</span>
+        <span class="eq-tag highlight">Asistent jízdy v pruhu</span>
+        <span class="eq-tag">Asistent rozjezdu do kopce</span>
+        <span class="eq-tag">Tempomat</span>
+      </div>
+    </div>
+
+    <div class="eq-group">
+      <h3>📱 Infotainment &amp; konektivita</h3>
+      <div class="eq-tags">
+        <span class="eq-tag highlight">Android Auto</span>
+        <span class="eq-tag">Navigační systém</span>
+        <span class="eq-tag">Rádio DAB</span>
+      </div>
+    </div>
+
+    <div class="eq-group">
+      <h3>🌡 Klimatizace &amp; komfort</h3>
+      <div class="eq-tags">
+        <span class="eq-tag">Manuální klimatizace</span>
+        <span class="eq-tag">Loketní opěrka</span>
+        <span class="eq-tag">Systém Start &amp; Stop</span>
+        <span class="eq-tag">Posilovač řízení</span>
+        <span class="eq-tag highlight">Pomocné vyhřívání</span>
+      </div>
+    </div>
+
+    <div class="eq-group">
+      <h3>💺 Sedadla</h3>
+      <div class="eq-tags">
+        <span class="eq-tag">Čalounění – Látka</span>
+        <span class="eq-tag">Isofix</span>
+        <span class="eq-tag highlight">Vyhřívání předních sedadel</span>
+      </div>
+    </div>
+
+    <div class="eq-group">
+      <h3>💡 Světla &amp; exteriér</h3>
+      <div class="eq-tags">
+        <span class="eq-tag highlight">LED světlomety</span>
+        <span class="eq-tag">Zadní stmívací LED světla</span>
+        <span class="eq-tag">Metalický lak</span>
+        <span class="eq-tag">Střešní lišty</span>
+      </div>
+    </div>
+
+    <div class="eq-group">
+      <h3>🅿️ Parkovací asistent &amp; dveře</h3>
+      <div class="eq-tags">
+        <span class="eq-tag">Zadní parkovací senzory</span>
+        <span class="eq-tag highlight">Elektrické zadní dveře (automatické)</span>
+        <span class="eq-tag">Bezklíčové centrální zamykání</span>
+      </div>
+    </div>
+
+    <div class="eq-group">
+      <h3>🔄 Volant &amp; zrcátka</h3>
+      <div class="eq-tags">
+        <span class="eq-tag">Volant – kůže</span>
+        <span class="eq-tag">Multifunkční volant</span>
+        <span class="eq-tag">Elektricky nastavitelná zrcátka</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOKUMENTY + LOGISTIKA -->
+  <div class="two-col">
+
+    <div class="section">
+      <h2>📁 Dokumenty &amp; historie</h2>
+      <div class="logistics-grid">
+        <div class="log-item">
+          <div class="llabel">Registrace vozu</div>
+          <div class="lval">✅ Kompletní</div>
+        </div>
+        <div class="log-item">
+          <div class="llabel">Certifikát o shodě (COC)</div>
+          <div class="lval">✅ K dispozici</div>
+        </div>
+        <div class="log-item">
+          <div class="llabel">Záznam o údržbě</div>
+          <div class="lval" style="color:#e74c3c;">❌ Není k dispozici</div>
+        </div>
+        <div class="log-item">
+          <div class="llabel">Země dokladů</div>
+          <div class="lval">🇩🇪 Německo</div>
+        </div>
+      </div>
+      <div class="info-box">
+        <strong>📬 Doručení dokladů</strong>
+        Doklady se nedodávají fyzicky s vozem. Zákazníkům v EU jsou zasílány <strong>expresní poštou</strong>, průměrně do <strong>2 dnů</strong> od obdržení CMR.
+      </div>
+      <div class="links-bar">
+        <a class="ol-link" href="https://info.openlane.eu/cs/legal-matters/" target="_blank">📜 Obchodní podmínky</a>
+        <a class="ol-link" href="https://info.openlane.eu/cs/help/faq/" target="_blank">❓ Časté dotazy</a>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>🚚 Logistika &amp; původ</h2>
+      <div class="logistics-grid">
+        <div class="log-item">
+          <div class="llabel">Prodejce</div>
+          <div class="lval">Fleetový pronájem (DE)</div>
+          <div class="lsub">Ověřte na OPENLANE po přihlášení</div>
+        </div>
+        <div class="log-item">
+          <div class="llabel">Prodejní kancelář</div>
+          <div class="lval">🇩🇪 Německo</div>
+        </div>
+        <div class="log-item">
+          <div class="llabel">Místo vyzvednutí</div>
+          <div class="lval">Německo (ověřte na OPENLANE)</div>
+        </div>
+        <div class="log-item">
+          <div class="llabel">Rozhodnutí prodejce</div>
+          <div class="lval">Do 1 pracovního dne</div>
+        </div>
+      </div>
+      <div class="info-box">
+        <strong>🔑 Poznámka k přiklepnutí</strong>
+        Prodejce má <strong>1 pracovní den</strong> na rozhodnutí, zda vůz přiklepne. CMR dokumentace průměrně do 2 dnů od finalizace.
+      </div>
+      <div class="links-bar">
+        <a class="ol-link" href="https://info.openlane.eu/cs/start-to-buy/#buying-services" target="_blank">🚛 Služby pro kupující</a>
+        <a class="ol-link" href="https://info.openlane.eu/cs/help/closing-days-and-delays/" target="_blank">📅 Uzavírací dny</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- UPSELL: HODNOCENÍ -->
+  <div style="background:linear-gradient(135deg,#0d1f3c,#1a3a6b);border-radius:10px;padding:22px 26px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;">
+    <div>
+      <div style="color:#f39c12;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">📊 ODBORNÉ HODNOCENÍ VOZIDLA</div>
+      <div style="color:#fff;font-size:1rem;font-weight:700;margin-bottom:4px;">Kompletní analýza · Rizika &amp; příležitosti · Verdikt ke koupi</div>
+      <div style="color:rgba(255,255,255,0.7);font-size:0.85rem;">Finanční kalkulace · Tech posouzení · Srovnání trhu · Checklist 11 kroků</div>
+    </div>
+    <a href="hodnoceni_VW_Passat_10989369.html" style="background:#f39c12;color:#fff;text-decoration:none;padding:12px 22px;border-radius:7px;font-weight:700;font-size:0.92rem;white-space:nowrap;flex-shrink:0;">Zobrazit hodnocení →</a>
+  </div>
+
+  <!-- ZDROJ + ODKAZY -->
+  <div class="section">
+    <h2>🔗 Důležité odkazy</h2>
+    <div class="links-bar">
+      <a class="ol-link" href="https://www.openlane.eu/cs/car/info?auctionId=10989369" target="_blank">🏆 Aukce #10989369 – přímý odkaz <span style="font-size:0.75rem;opacity:0.7;">(jen pro registrované)</span></a>
+      <a class="ol-link" href="nabidka_analyza_10989369.html">🔍 Expertiza &amp; analýza</a>
+      <a class="ol-link" href="nabidka_FO_preprodej_10989369.html">👤 FO — přeprodej</a>
+      <a class="ol-link" href="nabidka_ICO_preprodej_10989369.html">🏢 IČO — přeprodej</a>
+      <a class="ol-link" href="nabidka_agent_nakup_10989369.html">🤝 Agenturní nákup</a>
+      <a class="ol-link" href="nabidka_mentoring_10989369.html">🎓 Mentoring</a>
+      <a class="ol-link" href="nabidka_premium_full_10989369.html">⭐ Premium balík</a>
+      <a class="ol-link" href="objednavka_10989369.html">📋 Objednávka</a>
+      <a class="ol-link" href="https://info.openlane.eu/cs/start-to-buy/" target="_blank">📖 Jak kupovat na OPENLANE</a>
+    </div>
+  </div>
+
+  <!-- COMPANY IDENTIFICATION BAR -->
+  <div class="company-id-bar">
+    <h4>🏢 Identifikace zpracovatele — povinné údaje dle § 435 OZ a § 29 ZDPH</h4>
+    <div class="cid-grid">
+      <div>
+        <div class="cid-row"><span class="cid-label">Jméno a příjmení:</span><span class="cid-val">Ing. Jaroslav Batko-Linet</span></div>
+        <div class="cid-row"><span class="cid-label">IČO:</span><span class="cid-val">14600153</span></div>
+        <div class="cid-row"><span class="cid-label">DIČ:</span><span class="cid-val">CZ5912280418</span></div>
+        <div class="cid-row"><span class="cid-label">Sídlo:</span><span class="cid-val">Ostrava 1, Vítkovická 1, PSČ 701 00</span></div>
+      </div>
+      <div>
+        <div class="cid-row"><span class="cid-label">Plátce DPH:</span><span class="cid-val">ANO</span></div>
+        <div class="cid-row"><span class="cid-label">Obchodní rejstřík:</span><span class="cid-val">Krajský soud v Ostravě, sp. zn. A 984, zápis 31. 01. 1991</span></div>
+        <div class="cid-row"><span class="cid-label">Telefon:</span><span class="cid-val">+420 725 360 151</span></div>
+        <div class="cid-row"><span class="cid-label">E-mail:</span><span class="cid-val"><a href="mailto:batko.digital.ai@gmail.com" style="color:#1a3a6b;">batko.digital.ai@gmail.com</a></span></div>
+      </div>
+    </div>
+    <div style="margin-top:10px;font-size:0.77rem;color:#666;">
+      Kurz ČNB 21. 5. 2026: <strong>1 EUR = 24,29 Kč</strong> · Všechny ceny jsou uváděny v EUR i Kč souběžně.
+    </div>
+    <div class="privacy-law-note">
+      <strong>Ochrana osobních údajů:</strong> Údaje z kontaktních a objednávkových formulářů zpracováváme výhradně za účelem vyřízení vaší poptávky, přípravy nabídky a navazující komunikace. S údaji nakládáme důvěrně, v souladu s platnými právními předpisy na ochranu osobních údajů; nejsou prodávány ani předávány třetím osobám bez právního důvodu nebo vašeho souhlasu.
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <p>Nabídku připravil: <strong>Ing. Jaroslav Batko-Linet</strong> · IČO: <strong>14600153</strong> · DIČ: <strong>CZ5912280418</strong> · Plátce DPH</p>
+    <p style="margin-top:4px;">Sídlo: Ostrava 1, Vítkovická 1, PSČ 701 00 · OR: Krajský soud v Ostravě, sp. zn. A 984, zápis 31. 01. 1991</p>
+    <p style="margin-top:4px;"><a href="mailto:batko.digital.ai@gmail.com">batko.digital.ai@gmail.com</a> · +420 725 360 151</p>
+    <p style="margin-top:5px;">Zdroj dat: <a href="https://www.openlane.eu/cs/car/info?auctionId=10989369" target="_blank">OPENLANE Europe – aukce #10989369</a> (jen pro registrované) · Kurz ČNB 21. 5. 2026: <strong>1 EUR = 24,29 Kč</strong> · Vygenerováno: 21. 5. 2026</p>
+  </div>
+
+</div>
+
+<script>
+var imgs = document.querySelectorAll('#gallery img:not(.gallery-nav)');
+var thumbs = document.querySelectorAll('#thumbs img');
+var current = 0;
+function showSlide(n) {
+  imgs[current].classList.remove('active');
+  thumbs[current].classList.remove('active');
+  current = (n + imgs.length) % imgs.length;
+  imgs[current].classList.add('active');
+  thumbs[current].classList.add('active');
+  document.getElementById('counter').textContent = (current+1) + ' / ' + imgs.length;
+  thumbs[current].scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+}
+function changeSlide(d) { showSlide(current + d); }
+function goSlide(n) { showSlide(n); }
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft') changeSlide(-1);
+  if (e.key === 'ArrowRight') changeSlide(1);
+});
+</script>
+</body>
+</html>

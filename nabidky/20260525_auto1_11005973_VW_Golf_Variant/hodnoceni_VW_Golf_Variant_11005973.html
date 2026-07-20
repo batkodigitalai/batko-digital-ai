@@ -1,0 +1,225 @@
+﻿<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Odborné hodnocení – Volkswagen Golf Variant 2.0 TDI Life DSG | Ref. 11005973</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; color: #1a1a1a; line-height: 1.55; }
+.wrap { max-width: 960px; margin: 0 auto; padding-bottom: 40px; }
+.header { background: linear-gradient(135deg, #0d1f3c 0%, #1a3a6b 100%); color: #fff; padding: 28px 36px 24px; }
+.header h1 { font-size: 1.4rem; font-weight: 700; margin-bottom: 4px; }
+.header .sub { font-size: .88rem; opacity: .75; margin-bottom: 10px; }
+.badge { display:inline-block; padding:4px 12px; border-radius:20px; font-size:.76rem; font-weight:700; letter-spacing:.4px; }
+.badge-a { background:#8e44ad; } .badge-b { background:#27ae60; } .badge-c { background:#2980b9; }
+.badge-d { background:#e67e22; } .badge-e { background:#16a085; } .badge-f { background:#c0392b; }
+.kurz-strip { background:#1a2a4a; color:rgba(255,255,255,.75); padding:8px 36px; font-size:.8rem; display:flex; gap:20px; flex-wrap:wrap; }
+.kurz-strip strong { color:#74b9ff; }
+.nav-back { background:#fff; border-bottom:2px solid #e0e6f0; padding:10px 36px; font-size:.82rem; }
+.nav-back a { color:#1a3a6b; text-decoration:none; font-weight:600; }
+.section { background:#fff; border-radius:10px; padding:22px 26px; margin:16px 0; }
+.section h2 { font-size:1.0rem; font-weight:700; color:#0d1f3c; margin-bottom:14px; border-bottom:2px solid #e8edf5; padding-bottom:8px; }
+.vozidlo-specs table { width:100%; border-collapse:collapse; font-size:.87rem; }
+.vozidlo-specs td { padding:6px 10px; border-bottom:1px solid #f0f2f5; }
+.vozidlo-specs td:first-child { color:#888; width:38%; }
+.green-box { background:#eafaf1; border-left:4px solid #27ae60; border-radius:6px; padding:12px 16px; font-size:.85rem; color:#155724; margin-top:10px; }
+.warn-box { background:#fdecea; border-left:4px solid #e74c3c; border-radius:6px; padding:12px 16px; font-size:.85rem; color:#7b1c1c; margin-top:10px; }
+.warn-box strong { display:block; margin-bottom:3px; }
+.info-box { background:#fff8e1; border-left:4px solid #f39c12; border-radius:6px; padding:12px 16px; font-size:.85rem; color:#7d5a00; margin-top:10px; }
+.info-box strong { display:block; margin-bottom:3px; }
+.ok-box { background:#d4edda; border-left:4px solid #27ae60; border-radius:6px; padding:12px 16px; font-size:.85rem; color:#155724; margin-top:10px; }
+.fin { width:100%; border-collapse:collapse; font-size:.84rem; margin-top:4px; }
+.fin th { background:#f0f4fa; color:#0d1f3c; font-weight:700; padding:9px 12px; text-align:left; border-bottom:2px solid #d0dcea; }
+.fin td { padding:8px 12px; border-bottom:1px solid #f0f2f5; }
+.fin tr:last-child td { font-weight:700; background:#f7f9fc; }
+.step { display:flex; gap:14px; align-items:flex-start; margin-bottom:16px; }
+.step-num { background:#1a3a6b; color:#fff; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:.9rem; flex-shrink:0; margin-top:2px; }
+.step-body strong { display:block; font-size:.9rem; margin-bottom:2px; }
+.step-body span { font-size:.82rem; color:#555; }
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+@media(max-width:680px){ .two-col { grid-template-columns:1fr; } }
+.highlight-box { background:#f0f4fa; border-radius:8px; padding:16px; }
+.highlight-box h3 { font-size:.9rem; font-weight:700; color:#0d1f3c; margin-bottom:10px; }
+.highlight-box ul { padding-left:18px; font-size:.85rem; }
+.highlight-box li { margin-bottom:5px; }
+.cta-bar { background:linear-gradient(135deg,#0d1f3c,#1a3a6b); border-radius:10px; padding:20px 26px; display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; margin:16px 0; }
+.cta-bar strong { color:#fff; display:block; font-size:1rem; margin-bottom:3px; }
+.cta-bar p { color:rgba(255,255,255,.8); font-size:.85rem; }
+.cta-btn { background:#f39c12; color:#fff; text-decoration:none; padding:11px 22px; border-radius:7px; font-weight:700; font-size:.92rem; white-space:nowrap; }
+.company-bar { background:#f0f4fa; border-top:3px solid #c8d6e8; padding:16px 36px; font-size:.79rem; color:#444; }
+.cid-grid { display:grid; grid-template-columns:1fr 1fr; gap:4px 30px; }
+.cid-row { display:flex; gap:6px; }
+.cid-label { color:#888; min-width:130px; font-size:.76rem; flex-shrink:0; }
+.cid-val { font-weight:600; color:#0d1f3c; font-size:.79rem; }
+.company-id-bar { background: #f5f7fb; border-top: 2px solid #e0e7f0; padding: 14px 40px; font-size: 0.75rem; color: #666; }
+.company-id-bar h4 { font-size: 0.7rem; font-weight: 700; color: #8899bb; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+.company-id-bar .cid-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 24px; }
+@media(max-width:600px){ .company-id-bar .cid-grid { grid-template-columns: 1fr; } }
+.company-id-bar .cid-row { display: flex; gap: 6px; }
+.company-id-bar .cid-label { color: #aaa; min-width: 120px; font-size: 0.72rem; flex-shrink: 0; }
+.company-id-bar .cid-val { font-weight: 600; color: #555; font-size: 0.72rem; }
+.privacy-law-note { margin-top: 8px; padding-top: 8px; border-top: 1px solid #e0e7f0; font-size: 0.72rem; line-height: 1.45; color: #777; }
+.privacy-law-note strong { color: #667899; }
+.footer { background: #0d1f3c; color: rgba(255,255,255,0.5); text-align: center; padding: 16px 20px; font-size: 0.75rem; }
+.footer a { color: #74b9ff; }
+
+.header-hod { background:linear-gradient(135deg,#0d1f3c 0%,#1a3a6b 100%); color:#fff; padding:32px 40px 28px; }
+.header-hod h1 { font-size:1.5rem; font-weight:700; margin-bottom:5px; }
+.score-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:20px; }
+@media(max-width:620px){ .score-grid { grid-template-columns:1fr 1fr; } }
+.score-card { background:#f7f9fc; border-radius:10px; padding:16px 14px; text-align:center; border-top:4px solid #ccc; }
+.score-card.green { border-color:#27ae60; } .score-card.yellow { border-color:#f39c12; } .score-card.red { border-color:#e74c3c; }
+.score-card .sc-label { font-size:.72rem; color:#888; text-transform:uppercase; letter-spacing:.5px; margin-bottom:6px; }
+.score-card .sc-val { font-size:2rem; font-weight:800; }
+.score-card.green .sc-val { color:#27ae60; } .score-card.yellow .sc-val { color:#f39c12; } .score-card.red .sc-val { color:#e74c3c; }
+.verdict-box { border-radius:10px; padding:20px 24px; display:flex; gap:20px; align-items:flex-start; margin-bottom:20px; }
+.verdict-box.caution { background:#fff3cd; border-left:6px solid #f39c12; }
+.verdict-box.go { background:#d4edda; border-left:6px solid #27ae60; }
+.verdict-box.stop { background:#fdecea; border-left:6px solid #e74c3c; }
+.verdict-icon { font-size:2.2rem; flex-shrink:0; }
+.verdict-text h3 { font-size:1.05rem; font-weight:700; margin-bottom:6px; }
+.risk-item { display:flex; gap:14px; align-items:flex-start; padding:12px 16px; border-radius:8px; margin-bottom:8px; }
+.risk-item.high { background:#fdecea; } .risk-item.med { background:#fff3cd; } .risk-item.low { background:#d4edda; }
+.risk-dot { width:12px; height:12px; border-radius:50%; flex-shrink:0; margin-top:4px; }
+.risk-dot.high { background:#e74c3c; } .risk-dot.med { background:#f39c12; } .risk-dot.low { background:#27ae60; }
+.risk-text strong { font-size:.88rem; display:block; margin-bottom:2px; }
+.risk-text span { font-size:.8rem; color:#555; }
+.checklist { list-style:none; }
+.checklist li { padding:9px 12px; border-bottom:1px solid #f0f2f5; font-size:.87rem; display:flex; gap:10px; }
+.ck-label { font-weight:600; display:block; margin-bottom:1px; }
+.ck-sub { color:#666; font-size:.8rem; }
+.sc3-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:18px; }
+@media(max-width:680px){ .sc3-grid { grid-template-columns:1fr; } }
+.sc3-card { border-radius:9px; padding:14px 16px; border-top:4px solid; }
+.sc3-card.sc-a { background:#d4edda; border-color:#27ae60; }
+.sc3-card.sc-b { background:#fff3cd; border-color:#f39c12; }
+.sc3-card.sc-c { background:#fdecea; border-color:#e74c3c; }
+.sc3-card h5 { font-size:.75rem; font-weight:700; text-transform:uppercase; letter-spacing:.5px; margin-bottom:8px; }
+.sc3-price { font-size:1.2rem; font-weight:800; margin-bottom:5px; }
+.sc3-detail { font-size:.75rem; color:#444; line-height:1.5; }
+.metric-row { display:flex; justify-content:space-between; align-items:center; padding:9px 0; border-bottom:1px solid #f0f2f5; font-size:.88rem; }
+.metric-row:last-child { border-bottom:none; }
+.metric-row .mlabel { color:#666; }
+.metric-row .mval { font-weight:600; color:#0d1f3c; }
+.metric-row .mval.good { color:#27ae60; } .metric-row .mval.warn { color:#f39c12; } .metric-row .mval.bad { color:#e74c3c; }
+</style>
+</head>
+<body>
+<div class="header-hod">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px;">
+    <div>
+      <div style="background:#f39c12;color:#fff;padding:5px 14px;border-radius:20px;font-weight:700;font-size:.78rem;display:inline-block;margin-bottom:10px;">📊 ODBORNÉ HODNOCENÍ</div>
+      <h1>Volkswagen Golf Variant 2.0 TDI Life DSG</h1>
+      <p>Evropská aukce #11005973 · Mönchengladbach, Německo · Prodejce: Německý aukční prodejce (aukční / fleetový původ)</p>
+    </div>
+    <div style="text-align:right;">
+      <div style="font-size:3rem;font-weight:800;color:#f39c12;line-height:1;">7.1</div>
+      <div style="color:rgba(255,255,255,.7);font-size:.82rem;">z 10 bodů</div>
+    </div>
+  </div>
+  <div style="display:flex;gap:24px;margin-top:12px;border-top:1px solid rgba(255,255,255,.15);padding-top:12px;flex-wrap:wrap;">
+    <span style="font-size:.82rem;opacity:.8;">📅 25. 5. 2026</span>
+    <span style="font-size:.82rem;opacity:.8;">📋 <a href="nabidka_VW_Golf_Variant_11005973.html" style="color:#74b9ff;">Zobrazit původní nabídku →</a></span>
+  </div>
+</div>
+<div class="kurz-strip">
+  <span>Kurz ČNB 25. 5. 2026: <strong>1 EUR = 24,4028 Kč</strong></span>
+  <span>Volkswagen Golf Variant VIII 2.0 TDI 110 kW DSG7 Life · evropská aukce #11005973</span>
+</div>
+<div style="max-width:960px;margin:0 auto;padding:24px 20px;">
+  <div class="section"><div class="score-grid">
+  <div class="score-card green"><div class="sc-label">Celkové skóre</div><div class="sc-val">7.1</div><div class="sc-sub">z 10 bodů</div></div>
+  <div class="score-card green"><div class="sc-label">Finanční hodnocení</div><div class="sc-val">7.4</div><div class="sc-sub">z 10</div></div>
+  <div class="score-card yellow"><div class="sc-label">Technický stav</div><div class="sc-val">6.6</div><div class="sc-sub">z 10</div></div>
+  <div class="score-card green"><div class="sc-label">Tržní potenciál</div><div class="sc-val">7.6</div><div class="sc-sub">z 10</div></div>
+  <div class="score-card yellow"><div class="sc-label">Rizikový profil</div><div class="sc-val">6.2</div><div class="sc-sub">z 10</div></div>
+</div><div class="verdict-box caution">
+  <div class="verdict-icon">⚠️</div>
+  <div class="verdict-text"><h3>Podmíněné doporučení ke koupi při ceně do 14 600 EUR bez DPH a po kontrole poškození</h3><p>Likvidní kombi VW Golf Variant s dobrým nájezdem a silnou výbavou Life. Nabídka dává smysl hlavně při disciplinovaném limitu 14 600 EUR bez DPH a s rezervou na kapotu, zadní díl a ověření servisní historie.</p></div>
+</div></div>
+  <div class="section"><h2>⚠️ Analýza rizik</h2><div class="risk-item medium">
+  <div class="risk-dot medium"></div>
+  <div class="risk-text"><strong>Poškození karoserie</strong><span>TÜV uvádí kapotu: promáčkliny/škrábance, výměna a lak; pravý kryt víka kufru: škrábance, výměna.</span></div>
+</div><div class="risk-item medium">
+  <div class="risk-dot medium"></div>
+  <div class="risk-text"><strong>Předchozí poškození</strong><span>Report uvádí known previous damages / detectable previous damages; měření laku bez odchylek.</span></div>
+</div><div class="risk-item medium">
+  <div class="risk-dot medium"></div>
+  <div class="risk-text"><strong>Servisní historie</strong><span>Aukční export uvádí záznam údržby není k dispozici, TÜV uvádí digitální servis, ale maintenance not testable.</span></div>
+</div><div class="risk-item medium">
+  <div class="risk-dot medium"></div>
+  <div class="risk-text"><strong>Bez fyzické testovací jízdy</strong><span>TÜV: test drive not carried out; engine test carried out.</span></div>
+</div></div>
+  <div class="section">
+    <h2>💶 Finanční scénáře (3 úrovně příklepu)</h2>
+    <div style="background:linear-gradient(135deg,#0d1f3c,#1a3a6b);border-radius:10px;padding:14px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:16px;flex-wrap:wrap;">
+      <div><div style="font-size:.78rem;opacity:.75;margin-bottom:3px;">Kurz ČNB</div><div style="font-size:2rem;font-weight:800;color:#f39c12;line-height:1;">1 EUR = 24,4028 Kč</div></div>
+      <div style="font-size:.72rem;opacity:.6;text-align:right;">Platnost: 25. 5. 2026 · Zdroj: ČNB (www.cnb.cz)<br>Před podpisem smlouvy ověřte aktuální kurz.</div>
+    </div>
+    <div class="sc3-grid"><div class="sc3-card optimistic">
+  <h5>✅ Scénář A · Optimistický</h5>
+  <div class="sc3-price" style="color:#155724;">14,500 €</div>
+  <div class="sc3-detail">
+    Nákup + náklady celkem: <strong>398,841 Kč</strong><br>
+    Prodej: <strong>525,000 Kč</strong><br>
+    Zisk: <strong style="color:#155724;">126,159 Kč · ROI 31.6 % ✅</strong>
+  </div>
+</div><div class="sc3-card realistic">
+  <h5>✅ Scénář B · Realistický</h5>
+  <div class="sc3-price" style="color:#155724;">14,600 €</div>
+  <div class="sc3-detail">
+    Nákup + náklady celkem: <strong>426,781 Kč</strong><br>
+    Prodej: <strong>499,000 Kč</strong><br>
+    Zisk: <strong style="color:#155724;">72,219 Kč · ROI 16.9 % ✅</strong>
+  </div>
+</div><div class="sc3-card pessimistic">
+  <h5>✅ Scénář C · Pesimistický</h5>
+  <div class="sc3-price" style="color:#155724;">14,600 €</div>
+  <div class="sc3-detail">
+    Nákup + náklady celkem: <strong>451,281 Kč</strong><br>
+    Prodej: <strong>469,000 Kč</strong><br>
+    Zisk: <strong style="color:#155724;">17,719 Kč · ROI 3.9 % ✅</strong>
+  </div>
+</div></div>
+    <div class="info-box" style="margin-top:14px;"><strong>Max. doporučená aukční cena:</strong> ≤ 14,600 € / ≤ 356 281 Kč · Nad tuto hranici ROI klesá pod cíl 0,5 %/den.</div>
+  </div>
+  <div class="section">
+    <h2>✅ Checklist — před příklepem a po něm</h2>
+    <p style="font-size:.82rem;color:#555;margin-bottom:12px;">🔴 Povinné · 🟡 Doporučené · 🟢 Volitelné</p>
+    <ul class="checklist">
+<li class="must"><span style="margin-right:6px;">🔴</span><div><span class="ck-label">Prověřit VIN WVWZZZCD5RW820231 v CEBIA / Autotracer</span></div></li><li class="must"><span style="margin-right:6px;">🔴</span><div><span class="ck-label">Vyžádat přesný rozsah předchozího poškození a fotky detailů kapoty a víka kufru</span></div></li><li class="must"><span style="margin-right:6px;">🔴</span><div><span class="ck-label">Prověřit DSG DQ381 diagnostikou a studeným rozjezdem</span></div></li><li class="must"><span style="margin-right:6px;">🔴</span><div><span class="ck-label">Ověřit registrační doklady a COC před platbou</span></div></li>
+<li class="should"><span style="margin-right:6px;">🟡</span><div><span class="ck-label">Přepočítat finální cenu podle skutečné faktury, aukčních poplatků a kurzu banky</span></div></li><li class="should"><span style="margin-right:6px;">🟡</span><div><span class="ck-label">Zajistit fyzickou prohlídku před převzetím v Mönchengladbachu</span></div></li><li class="should"><span style="margin-right:6px;">🟡</span><div><span class="ck-label">Počítat s lakovnou a rezervou 35 000 až 55 000 Kč</span></div></li>
+<li class="nice"><span style="margin-right:6px;">🟢</span><div><span class="ck-label">Po dovozu detailing černého laku</span></div></li><li class="nice"><span style="margin-right:6px;">🟢</span><div><span class="ck-label">Preventivní výměna oleje a filtrů po převzetí</span></div></li>
+</ul>
+  </div>
+  <div class="cta-bar">
+    <div><strong>Připraveni koupit?</strong><p>Vyberte variantu — přeprodej, agenturní nákup nebo mentoring</p></div>
+    <a class="cta-btn" href="objednavka_11005973.html">Objednat / Poptávka →</a>
+    <span class="cta-btn" style="background:#27ae60;">Detail aukce dostupný na vyžádání</span>
+  </div>
+  <div style="background:#f7f9fc;border:1px solid #dde3ec;border-radius:8px;padding:14px 18px;font-size:.78rem;color:#888;margin-top:8px;line-height:1.6;">
+    <strong>Disclaimer:</strong> Toto hodnocení je připraveno na základě informací dostupných z aukčního evropského aukčního zdroje ke dni 25. 5. 2026. Cenové odhady jsou orientační. Hodnocení nelze považovat za odborný znalecký posudek. Veškerá odpovědnost za nákupní rozhodnutí leží na kupujícím. Doporučujeme vždy ověřit technický stav prostřednictvím Condition Reportu z evropského aukčního zdroje.
+  </div>
+  
+<div class="company-bar">
+  <div class="company-id-bar">
+  <h4>Identifikace zpracovatele — povinné údaje dle § 435 OZ a § 29 ZDPH</h4>
+  <div class="cid-grid">
+    <div>
+      <div class="cid-row"><span class="cid-label">Jméno:</span><span class="cid-val">Ing. Jaroslav Batko-Linet</span></div>
+      <div class="cid-row"><span class="cid-label">IČO:</span><span class="cid-val">14600153</span></div>
+      <div class="cid-row"><span class="cid-label">DIČ:</span><span class="cid-val">CZ5912280418 &nbsp;·&nbsp; Plátce DPH</span></div>
+      <div class="cid-row"><span class="cid-label">Sídlo:</span><span class="cid-val">Jindřišská 941/24, 110 00 Praha 1</span></div>
+    </div>
+    <div>
+      <div class="cid-row"><span class="cid-label">Telefon:</span><span class="cid-val">+420 725 360 151</span></div>
+      <div class="cid-row"><span class="cid-label">E-mail:</span><span class="cid-val">batko.digital.ai@gmail.com</span></div>
+    </div>
+  </div>
+  <div style="margin-top:8px;font-size:.7rem;color:#aaa;">Kurz ČNB 25. 5. 2026: 1 EUR = 24,4028 Kč &nbsp;·&nbsp; Ref.: #11005973 &nbsp;·&nbsp; Generováno: 25. 5. 2026</div>
+  <div class="privacy-law-note"><strong>Ochrana osobních údajů:</strong> Údaje z kontaktních a objednávkových formulářů zpracováváme výhradně za účelem vyřízení vaší poptávky, přípravy nabídky a navazující komunikace. S údaji nakládáme důvěrně, v souladu s platnými právními předpisy na ochranu osobních údajů; nejsou prodávány ani předávány třetím osobám bez právního důvodu nebo vašeho souhlasu.</div>
+</div>
+<div class="footer"><p style="opacity:.5;">Tato stránka slouží jako informační podklad. Ceny jsou orientační a podléhají aktuálnímu kurzu.</p></div>
+</body></html>
+

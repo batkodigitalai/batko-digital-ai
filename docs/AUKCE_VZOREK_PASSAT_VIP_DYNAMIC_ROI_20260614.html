@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vzor aukční nabídky - VW Passat 2.0 TDI DSG</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:#eef2f6;color:#182033;line-height:1.5}
+.hero{background:#10213d;color:#fff;padding:28px 36px}
+.hero small{display:block;color:#f0b44c;font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+.hero h1{margin:0;font-size:1.9rem;line-height:1.2}
+.hero p{max-width:920px;margin:10px 0 0;color:#d7e0ee}
+.wrap{max-width:1120px;margin:0 auto;padding:22px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+.card{background:#fff;border-radius:10px;padding:16px;box-shadow:0 2px 8px rgba(16,33,61,.08)}
+.card .label{font-size:.72rem;color:#6b7280;text-transform:uppercase;font-weight:800;letter-spacing:.05em}
+.card .value{font-size:1.45rem;font-weight:900;color:#10213d;margin-top:4px}
+.card.good .value{color:#167846}.card.warn .value{color:#b45309}.card.bad .value{color:#b42318}
+.section{background:#fff;border-radius:12px;padding:20px 22px;margin:16px 0;box-shadow:0 2px 8px rgba(16,33,61,.08)}
+h2{margin:0 0 12px;color:#10213d;font-size:1.05rem;border-bottom:2px solid #e5eaf1;padding-bottom:8px}
+h3{margin:18px 0 8px;color:#243b61;font-size:.95rem}
+table{width:100%;border-collapse:collapse;margin-top:10px;font-size:.92rem}
+th,td{padding:10px;border-bottom:1px solid #e5eaf1;text-align:left;vertical-align:top}
+th{background:#f6f8fb;color:#44516a;font-size:.78rem;text-transform:uppercase;letter-spacing:.04em}
+.note{background:#fff7e6;border:1px solid #f4d08a;border-radius:10px;padding:13px 15px;color:#4a3410;margin-top:12px}
+.decision{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}
+.price-box{background:#10213d;color:#fff;border-radius:12px;padding:18px}
+.price-box .big{font-size:2.2rem;font-weight:900;color:#f0b44c;margin:4px 0}
+.price-box p{color:#d7e0ee;margin:8px 0 0}
+.timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.step{background:#f6f8fb;border-left:4px solid #2f6fed;border-radius:8px;padding:12px}
+.step strong{display:block;color:#10213d;margin-bottom:4px}
+.formula{font-family:Consolas,monospace;background:#f6f8fb;border-radius:8px;padding:10px;white-space:pre-wrap}
+.pill{display:inline-block;border-radius:999px;background:#e8f1ff;color:#174ea6;padding:3px 9px;font-size:.78rem;font-weight:800}
+.danger{background:#fff0ef;border-color:#f1b5b1;color:#7a271a}
+.ok{background:#eefbf3;border-color:#a8ddb8;color:#14532d}
+a{color:#174ea6}
+@media(max-width:800px){.grid,.decision,.timeline{grid-template-columns:1fr}.hero{padding:24px 20px}.wrap{padding:14px}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <small>Konkrétní příklad · BATKO.DIGITAL.AI · Aukční model pro český trh</small>
+  <h1>VW Passat 2.0 TDI DSG FULL LED ACC — 1 528 dní čekání a každý den něco stojí</h1>
+  <p>Toto auto stojí v inzerci přes <strong>4 roky</strong>. Ne proto, že by o něj nebyl zájem — ale proto, že kupující vidí srovnatelná auta levněji a nemá důvod jednat rychle. Přitom každý den tohoto čekání podle konzervativního modelu stojí prodejce průměrně <strong>504 Kč</strong> na erozi výsledku: pojištění, stání, cena kapitálu a hlavně rostoucí tlak na budoucí slevu. Tento vzorek ukazuje přesnou číselnou logiku a konkrétní strategii, jak situaci obrátit — bez naslepo snižování ceny.</p>
+</header>
+
+<main class="wrap">
+  <div class="grid">
+    <div class="card"><div class="label">Prodejce</div><div class="value" style="font-size:1.05rem">V.I.P. DYNAMIC CARS s.r.o.</div></div>
+    <div class="card"><div class="label">Aktuální cena</div><div class="value">519 900 Kč</div></div>
+    <div class="card bad"><div class="label">Doba v inzerci dle exportu</div><div class="value">1 528 dní</div></div>
+    <div class="card good"><div class="label">Doporučený start aukce</div><div class="value">449 000 Kč</div></div>
+  </div>
+
+  <section class="section decision">
+    <div>
+      <h2>Proč toto auto — a co s tím jde udělat dnes</h2>
+      <p><strong>Passat za 519 900 Kč čeká na kupujícího přes čtyři roky.</strong> Za tu dobu ho trh pomalu obchází: přibývají nová, levnější auta, kupující mají srovnání a čekají na slevu, která jednoho dne stejně přijde. Otázka není <em>jestli</em> cena klesne — ale <em>o kolik</em> a <em>kdy</em>.</p>
+      <p>Cílem aukce není auto zlevnit naslepo. Cílem je zjistit, kde je <strong>reálná tržní cena dnes</strong> — v řízené 7denní soutěži, kde kupující sám ukáže, co je ochoten zaplatit. Buď auto prodáme za výsledek, který je lepší než další čekání se slevou. Nebo prodejce dostane cennou tržní informaci, kterou žádný inzerát sám o sobě neposkytne.</p>
+      <div class="note">Čísla v tomto vzorku jsou orientační. Pro vaše konkrétní auto doplníme 3–5 aktuálních referenčních inzerátů, aby bylo srovnání přesné a obhajitelné.</div>
+    </div>
+    <div class="price-box">
+      <div>Doporučená taktika</div>
+      <div class="big">449 000 Kč</div>
+      <p>Vyvolávací cena pro přilákání prvních příhozů. Vaše minimální cena pro uvolnění auta: <strong>479 000 Kč</strong>. Rychlá cena mimo aukci: <strong>489 000 Kč</strong>.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Z čeho je doporučení spočítané</h2>
+    <table>
+      <tr><th>Položka</th><th>Hodnota</th><th>Vysvětlení</th></tr>
+      <tr><td>Aktuální inzerovaná cena</td><td>519 900 Kč</td><td>Tvrdý údaj z našeho Sauto exportu.</td></tr>
+      <tr><td>Modelová nejnižší srovnatelná cena trhu</td><td>499 000 Kč</td><td>Orientační kotva. Pro vaše auto doplníme aktuální živé reference.</td></tr>
+      <tr><td>Modelový medián trhu</td><td>539 000 Kč</td><td>Orientační střed podobných aut, ne závazná valuace.</td></tr>
+      <tr><td>Vyvolávací cena</td><td>449 000 Kč</td><td>Pravidlo českého vzoru: cca 10 % pod nejnižší srovnatelnou cenou, zaokrouhleno.</td></tr>
+      <tr><td>Vaše minimální cena pro prodej</td><td>479 000 Kč</td><td>Od této ceny dává smysl uvažovat o rychlém uvolnění auta.</td></tr>
+      <tr><td>Rychlá cena "kup teď"</td><td>489 000 Kč</td><td>Po rozjetí zájmu ji nabídneme vážnému kupci mimo aukci.</td></tr>
+    </table>
+  </section>
+
+  <section class="section">
+    <h2>Ztráta z čekání do posledního nákladu</h2>
+    <p>Model neříká, že jste přesně tolik zaplatili. Ukazuje obchodní erozi: co se každý den zhoršuje, když auto dál čeká.</p>
+    <table>
+      <tr><th>Denní položka</th><th>Kč / den</th><th>Proč tam patří</th></tr>
+      <tr><td>Povinné/krátkodobé pojištění nebo administrativní krytí</td><td>45 Kč</td><td>I když se liší podle režimu, auto má provozní a evidenční náklady.</td></tr>
+      <tr><td>Stání, plocha, manipulace</td><td>60 Kč</td><td>Místo na place má hodnotu, zvlášť u malého bazaru.</td></tr>
+      <tr><td>Cena kapitálu 8 % p.a.</td><td>114 Kč</td><td>519 900 Kč × 8 % / 365 dní.</td></tr>
+      <tr><td>Stárnutí ceny / budoucí sleva</td><td>250 Kč</td><td>Největší složka: čím déle auto stojí, tím víc roste tlak na slevu.</td></tr>
+      <tr><td>Čas a administrativa</td><td>35 Kč</td><td>Komunikace, obnovení inzerce, odpovědi, kontrola poptávek.</td></tr>
+      <tr><th>Celkem</th><th>504 Kč / den</th><th>Modelová denní eroze výsledku.</th></tr>
+    </table>
+
+    <h3>Dopad čekání</h3>
+    <table>
+      <tr><th>Další čekání</th><th>Přímá modelová eroze</th><th>Praktický dopad</th></tr>
+      <tr><td>30 dní</td><td>15 120 Kč</td><td>Pokud zároveň přijde sleva 20 000 Kč, reálný výsledek klesne na cca 484 780 Kč.</td></tr>
+      <tr><td>60 dní</td><td>30 240 Kč</td><td>Při slevě 30 000 Kč vychází realistický výsledek cca 459 660 Kč.</td></tr>
+      <tr><td>90 dní</td><td>45 360 Kč</td><td>Při slevě 45 000 Kč vychází realistický výsledek cca 429 540 Kč.</td></tr>
+    </table>
+    <div class="formula">Vzorec:
+denní eroze = pojištění + stání + cena kapitálu + tlak na budoucí slevu + čas
+504 Kč = 45 + 60 + 114 + 250 + 35</div>
+  </section>
+
+  <section class="section">
+    <h2>Kupující: kolik ho auto reálně stojí</h2>
+    <table>
+      <tr><th>Scénář</th><th>Cena auta</th><th>Max. vedlejší náklady</th><th>All-in odhad</th><th>Proč je to důležité</th></tr>
+      <tr><td>Aukční start</td><td>449 000 Kč</td><td>36 300 Kč</td><td>485 300 Kč</td><td>Kupující pořád vidí rezervu proti modelovému mediánu 539 000 Kč.</td></tr>
+      <tr><td>Vaše minimální cena</td><td>479 000 Kč</td><td>36 300 Kč</td><td>515 300 Kč</td><td>Stále obhajitelné pro kupujícího, pokud je auto v dobrém stavu.</td></tr>
+      <tr><td>Současná inzerovaná cena</td><td>519 900 Kč</td><td>36 300 Kč</td><td>556 200 Kč</td><td>Kupující už je nad modelovým mediánem a má menší motivaci jednat rychle.</td></tr>
+    </table>
+    <div class="note">Vedlejší náklady: přepis 800 Kč, kontrola 3 500 Kč, okamžitý servis 12 000 Kč, známé/brzké výdaje 10 000 Kč, rezerva 10 000 Kč.</div>
+  </section>
+
+  <section class="section">
+    <h2>Jak aukce probíhá — 7 dní</h2>
+    <div class="timeline" id="timeline">
+      <div class="step"><strong id="t0"></strong><span id="t0txt"></span></div>
+      <div class="step"><strong id="t1"></strong><span id="t1txt"></span></div>
+      <div class="step"><strong id="t2"></strong><span id="t2txt"></span></div>
+      <div class="step"><strong id="t3"></strong><span id="t3txt"></span></div>
+    </div>
+  </section>
+  <script>
+  (function(){
+    var DNY = ['neděle','pondělí','úterý','středa','čtvrtek','pátek','sobota'];
+    var MES = ['1.','2.','3.','4.','5.','6.','7.','8.','9.','10.','11.','12.'];
+    function fmt(d, cas){
+      return DNY[d.getDay()]+' '+d.getDate()+'. '+MES[d.getMonth()]+' '+d.getFullYear()+', '+cas;
+    }
+    function fmtShort(d, cas){
+      return DNY[d.getDay()]+' '+d.getDate()+'. '+MES[d.getMonth()]+', '+cas;
+    }
+    var t = new Date(); t.setHours(0,0,0,0);
+    var d0=new Date(t), d1=new Date(t), d2=new Date(t), d3=new Date(t);
+    d1.setDate(t.getDate()+1); d2.setDate(t.getDate()+3); d3.setDate(t.getDate()+7);
+    document.getElementById('t0').textContent = fmt(d0,'19:30');
+    document.getElementById('t0txt').textContent = 'Aukce spuštěna. Večerní čas — lidé procházejí inzeráty a příhozy jsou nejaktivnější. Start 449 000 Kč.';
+    document.getElementById('t1').textContent = fmtShort(d1,'12:00');
+    document.getElementById('t1txt').textContent = 'Připomínka zájemcům: aukce běží, konec je pevný. Kdo chce, musí jednat.';
+    document.getElementById('t2').textContent = fmtShort(d2,'20:00');
+    document.getElementById('t2txt').textContent = 'Pokud zatím nejsou příhozy, oslovíme vážné zájemce s možností "kup teď" za 489 000 Kč.';
+    document.getElementById('t3').textContent = fmtShort(d3,'20:30');
+    document.getElementById('t3txt').textContent = 'Konec aukce. Dostanete přehled výsledků a jasné doporučení: prodat za nejvyšší příhoz, nebo jednat individuálně.';
+  })();
+  </script>
+
+  <section class="section">
+    <h2>Tři způsoby, jak to spolu vyřešit — dnes</h2>
+    <p>Auto čeká přes čtyři roky. Každý den bez prodeje je rozhodnutí, i když to tak nevypadá. Níže jsou tři konkrétní kroky, které lze udělat hned. Každý z nich je rychlejší a levnější než další čekání se slevou, která nakonec přijde stejně.</p>
+    <table>
+      <tr><th>Co uděláme</th><th>Cena</th><th>Co z toho získáte</th></tr>
+      <tr><td><strong>Přepis inzerátu</strong></td><td>990 Kč vč. DPH</td><td>Nový titulek, text a doporučení fotek — kupující uvidí auto jinak. Výsledek do 24 hodin.</td></tr>
+      <tr><td><strong>Aukční vzorek pro toto auto</strong></td><td>2 490 Kč vč. DPH</td><td>Stránka aukce, přesná kalkulace denní eroze výsledku, doporučená vyvolávací cena a text pro oslovení zájemců.</td></tr>
+      <tr><td><strong>Spuštění aukce na 7 dní</strong></td><td>2 970 Kč vč. DPH</td><td>Řízená soutěž, evidence příhozů, předání kontaktů na vážné zájemce a doporučení dalšího kroku po skončení.</td></tr>
+    </table>
+    <div class="note">Žádný závazek dopředu. Začínáme přepisem inzerátu nebo rovnou aukčním vzorkem — a teprve pak se rozhodnete, zda chcete jít dál.</div>
+  </section>
+
+  <section class="section">
+    <h2>Odkaz na původní inzerát</h2>
+    <p><a href="https://www.sauto.cz/osobni/detail/volkswagen/passat/168483636" target="_blank">Volkswagen Passat 2.0 TDI DSG FULL LED ACC na Sauto</a></p>
+  </section>
+</main>
+</body>
+</html>

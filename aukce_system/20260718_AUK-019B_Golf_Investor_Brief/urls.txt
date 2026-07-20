@@ -1,0 +1,28 @@
+AUK-019 Volkswagen Golf Variant 2.0 TDI Life DSG
+
+Lokální stránka:
+index.html
+
+Dokumenty:
+docs/dekra_report_11269368.pdf
+
+Market comparison links:
+https://www.sauto.cz/inzerce/osobni/volkswagen/golf-variant?vyrobeno-do=2023&vyrobeno-od=2023
+https://www.sauto.cz/inzerce/osobni/volkswagen/golf-variant
+https://www.autoscout24.com/lst/volkswagen/golf-variant/re_2023
+https://www.autoscout24.com/lst/volkswagen/golf-variant/ve_2.0-tdi
+
+Internal source reference:
+Evropský aukční zdroj 11269368
+Car ID 5853879
+VIN WVWZZZCD6PW527676
+
+Ověřené náklady pro default:
+Zdroj + poplatky: 281 070 Kč
+Doprava: 9 787 Kč
+Evropské pořízení včetně dopravy: 290 857 Kč
+Vyvolávací cena aukce: 291 000 Kč
+Náklady dražitele: 107 500 Kč
+Orientační cílový retail: 589 000 Kč
+
+Počet fotek v galerii: 6

@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle">Aukce vozidla — BATKO.DIGITAL.AI</title>
+<meta name="description" id="pageDesc" content="Přihazujte na ověřené vozidlo z evropského trhu.">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#1a1a1a}
+
+/* ── HEADER ── */
+.header{background:linear-gradient(135deg,#0d1f3c 0%,#1a2a4a 60%,#2c4a7c 100%);color:#fff;padding:28px 36px 22px}
+.header-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:14px}
+.h-label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#f39c12;margin-bottom:8px}
+.h-title{font-size:1.75rem;font-weight:900;line-height:1.2;margin-bottom:6px}
+.h-title span{color:#f39c12}
+.h-sub{font-size:.83rem;opacity:.7;margin-bottom:4px}
+.h-spec{font-size:.75rem;opacity:.5}
+.h-right{text-align:right}
+.badge-live{background:rgba(231,76,60,.2);border:1px solid #e74c3c;color:#ff6b6b;padding:5px 14px;border-radius:20px;font-size:.72rem;font-weight:700;letter-spacing:.5px;display:inline-flex;align-items:center;gap:6px}
+.badge-live::before{content:'';width:8px;height:8px;background:#e74c3c;border-radius:50%;animation:pulse 1.2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
+.h-ref{font-size:.72rem;opacity:.45;margin-top:6px}
+.sender-bar{background:#162240;border-top:1px solid rgba(255,255,255,.1);padding:8px 36px;color:rgba(255,255,255,.65);font-size:.8rem;display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.sender-bar strong{color:#fff}
+.sender-bar a{color:#74b9ff;text-decoration:none}
+
+/* ── URGENCY / COUNTDOWN ── */
+.urgency-block{background:linear-gradient(135deg,#c0392b,#e74c3c);color:#fff;padding:20px 36px;text-align:center;position:relative;overflow:hidden}
+.urgency-block::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 20px,rgba(0,0,0,.04) 20px,rgba(0,0,0,.04) 40px)}
+.urgency-inner{position:relative;z-index:1}
+.urgency-label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;opacity:.85;margin-bottom:6px}
+.urgency-headline{font-size:1.2rem;font-weight:800;margin-bottom:12px}
+.countdown{display:flex;gap:10px;justify-content:center;align-items:center;margin-bottom:8px}
+.cd-unit{background:rgba(0,0,0,.25);border-radius:8px;padding:10px 16px;min-width:65px}
+.cd-num{font-size:2rem;font-weight:900;line-height:1;font-variant-numeric:tabular-nums}
+.cd-label{font-size:.62rem;text-transform:uppercase;letter-spacing:1px;opacity:.75;margin-top:3px}
+.cd-sep{font-size:2rem;font-weight:900;opacity:.5;margin-top:-6px;animation:blink 1s step-end infinite}
+@keyframes blink{0%,100%{opacity:.5}50%{opacity:.1}}
+.urgency-ended{font-size:1.1rem;font-weight:800;background:rgba(0,0,0,.3);padding:10px 22px;border-radius:8px;display:none}
+.urgency-cancelled{background:linear-gradient(135deg,#555,#777);display:none}
+
+/* ── CURRENT BID HERO ── */
+.bid-hero{background:#fff;border-bottom:3px solid #e8ecf2;padding:18px 36px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.bid-hero-left .bh-label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:#999;margin-bottom:4px}
+.bid-hero-left .bh-amount{font-size:2.4rem;font-weight:900;color:#c0392b;line-height:1;letter-spacing:-1px}
+.bid-hero-left .bh-amount .unit{font-size:1.2rem;font-weight:600;margin-left:4px}
+.bid-hero-left .bh-count{font-size:.78rem;color:#888;margin-top:4px}
+.bh-min{text-align:right}
+.bh-min .bm-label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#999;margin-bottom:4px}
+.bh-min .bm-amount{font-size:1.2rem;font-weight:800;color:#2c4a7c}
+.bh-min .bm-note{font-size:.72rem;color:#aaa;margin-top:2px}
+.no-bids-note{font-size:.82rem;color:#888;font-style:italic}
+
+/* ── GALLERY ── */
+.gallery-wrap{background:#0d1420;position:relative}
+.gallery-main{width:100%;height:400px;overflow:hidden;position:relative}
+.gallery-main img{width:100%;height:100%;object-fit:cover;display:none}
+.gallery-main img.active{display:block}
+.gallery-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.55);color:#fff;border:none;cursor:pointer;font-size:1.5rem;padding:10px 16px;border-radius:4px;z-index:10;transition:background .2s}
+.gallery-nav:hover{background:rgba(0,0,0,.8)}
+.gallery-nav.prev{left:12px}
+.gallery-nav.next{right:12px}
+.gallery-counter{position:absolute;bottom:12px;right:16px;background:rgba(0,0,0,.65);color:#fff;font-size:.75rem;padding:3px 10px;border-radius:12px;z-index:10}
+.thumbs{display:flex;gap:4px;padding:6px;overflow-x:auto;background:#0d1420}
+.thumbs img{width:78px;height:52px;object-fit:cover;cursor:pointer;border:2px solid transparent;border-radius:3px;flex-shrink:0;opacity:.65;transition:opacity .2s,border-color .2s}
+.thumbs img.active{border-color:#f39c12;opacity:1}
+.thumbs img:hover{opacity:1}
+
+/* ── MAIN CONTENT ── */
+.content{max-width:960px;margin:0 auto;padding:24px 18px}
+
+/* ── BID FORM (primary CTA) ── */
+.bid-form-box{background:linear-gradient(135deg,#0d1f3c,#1a3461);border-radius:14px;padding:28px;margin-bottom:20px;color:#fff}
+.bfb-label{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#f39c12;margin-bottom:8px}
+.bfb-title{font-size:1.15rem;font-weight:800;margin-bottom:4px}
+.bfb-sub{font-size:.82rem;opacity:.65;margin-bottom:22px}
+.bfb-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+@media(max-width:560px){.bfb-row{grid-template-columns:1fr}}
+.bfb-row.full{grid-template-columns:1fr}
+.bfb-input{width:100%;padding:12px 14px;border:1.5px solid rgba(255,255,255,.2);border-radius:8px;font-size:.9rem;font-family:inherit;background:rgba(255,255,255,.08);color:#fff;transition:border-color .2s}
+.bfb-input::placeholder{color:rgba(255,255,255,.4)}
+.bfb-input:focus{outline:none;border-color:#f39c12}
+.bfb-amount-wrap{position:relative}
+.bfb-amount-wrap .currency{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,.5);font-weight:700;pointer-events:none}
+.bfb-amount{padding-right:42px}
+.bfb-check{display:flex;align-items:flex-start;gap:10px;font-size:.78rem;opacity:.75;margin-bottom:18px}
+.bfb-check input{margin-top:2px;flex-shrink:0;accent-color:#f39c12}
+.btn-bid{width:100%;background:linear-gradient(135deg,#e74c3c,#c0392b);color:#fff;border:none;padding:15px;border-radius:10px;font-size:1rem;font-weight:800;cursor:pointer;letter-spacing:.3px;transition:transform .15s,box-shadow .15s}
+.btn-bid:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(231,76,60,.45)}
+.btn-bid:disabled{background:#555;cursor:not-allowed;transform:none;box-shadow:none}
+.bid-privacy{font-size:.68rem;opacity:.5;text-align:center;margin-top:8px}
+.bid-success{display:none;background:rgba(39,174,96,.15);border:1px solid rgba(46,204,113,.4);border-radius:8px;padding:16px;text-align:center;color:#2ecc71;font-weight:700;font-size:.9rem;margin-top:12px}
+.bid-error{display:none;background:rgba(231,76,60,.15);border:1px solid rgba(231,76,60,.4);border-radius:8px;padding:12px;text-align:center;color:#ff6b6b;font-size:.82rem;margin-top:10px}
+
+/* ── DOKUMENTY ── */
+.doc-list{display:flex;flex-direction:column;gap:10px}
+.doc-item{display:flex;align-items:center;gap:12px;padding:12px 16px;background:#f5f7fb;border-radius:8px;text-decoration:none;color:#1a2a4a;font-weight:600;font-size:.9rem;border:1px solid #e8ecf2;transition:background .15s}
+.doc-item:hover{background:#e8ecf2}
+.doc-item .doc-icon{font-size:1.3rem;flex-shrink:0}
+.doc-item .doc-label{flex:1}
+.doc-item .doc-dl{font-size:.75rem;color:#2c7be5;font-weight:700;flex-shrink:0}
+/* ── BID HISTORY ── */
+.section{background:#fff;border-radius:12px;padding:22px 24px;margin-bottom:18px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.section h2{font-size:.95rem;color:#1a2a4a;font-weight:800;margin-bottom:14px;border-bottom:2px solid #e8ecf2;padding-bottom:8px;display:flex;align-items:center;gap:8px}
+.bid-history{display:flex;flex-direction:column;gap:8px}
+.bid-row{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:#f5f7fb;border-radius:8px}
+.bid-row.top{background:linear-gradient(135deg,#fff8ec,#fff3d4);border:2px solid #f39c12}
+.br-pos{font-size:.65rem;font-weight:800;color:#aaa;text-transform:uppercase;min-width:24px}
+.br-pos.gold{color:#f39c12}
+.br-name{font-size:.85rem;font-weight:700;color:#1a2a4a;flex:1;padding:0 12px}
+.br-amount{font-size:1rem;font-weight:900;color:#1a2a4a}
+.br-amount.gold{color:#e67e22}
+.br-time{font-size:.68rem;color:#aaa;margin-left:10px}
+.no-bids{font-size:.85rem;color:#aaa;text-align:center;padding:20px 0;font-style:italic}
+
+/* ── SPECS ── */
+.specs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:560px){.specs-grid{grid-template-columns:1fr 1fr}}
+.spec-item{background:#f5f7fb;border-radius:8px;padding:11px 13px}
+.spec-item .slabel{font-size:.65rem;color:#999;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px}
+.spec-item .sval{font-size:.9rem;font-weight:700;color:#1a2a4a}
+
+/* ── HOW IT WORKS ── */
+.how-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:4px}
+@media(max-width:640px){.how-grid{grid-template-columns:1fr}}
+.how-item{background:#f5f7fb;border-radius:10px;padding:16px}
+.how-num{font-size:1.4rem;font-weight:900;color:#f39c12;margin-bottom:8px}
+.how-title{font-size:.88rem;font-weight:800;color:#1a2a4a;margin-bottom:5px}
+.how-desc{font-size:.78rem;color:#666;line-height:1.5}
+
+/* ── RISKS ── */
+.risk-list{display:flex;flex-direction:column;gap:8px}
+.risk-item{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;background:#fff8f8;border-left:3px solid #e74c3c;border-radius:0 8px 8px 0;font-size:.83rem}
+.risk-icon{font-size:.9rem;flex-shrink:0;margin-top:1px}
+
+/* ── CONDITIONS ── */
+.cond-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.cond-list li{font-size:.83rem;color:#444;padding-left:22px;position:relative;line-height:1.5}
+.cond-list li::before{content:'▸';position:absolute;left:0;color:#2c4a7c;font-weight:700}
+
+/* ── FOOTER ── */
+.company-id-bar{background:#f5f7fb;border-top:2px solid #e0e7f0;padding:14px 36px;font-size:.73rem;color:#666}
+.company-id-bar h4{font-size:.68rem;font-weight:700;color:#8899bb;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.cid-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px 24px}
+@media(max-width:560px){.cid-grid{grid-template-columns:1fr}}
+.cid-row{display:flex;gap:6px}
+.cid-label{color:#aaa;min-width:120px;font-size:.7rem;flex-shrink:0}
+.cid-val{font-weight:600;color:#555;font-size:.7rem}
+.privacy-law-note{margin-top:8px;padding-top:8px;border-top:1px solid #e0e7f0;font-size:.7rem;line-height:1.45;color:#777}
+.footer{background:#0d1f3c;color:rgba(255,255,255,.45);text-align:center;padding:14px 20px;font-size:.73rem}
+
+/* ── STATUS BANNERS ── */
+.banner-cancelled{display:none;background:linear-gradient(135deg,#555,#777);color:#fff;padding:20px 36px;text-align:center}
+.banner-ended{display:none;background:linear-gradient(135deg,#27ae60,#1e8449);color:#fff;padding:20px 36px;text-align:center}
+.banner-title{font-size:1.2rem;font-weight:800;margin-bottom:6px}
+.banner-sub{font-size:.85rem;opacity:.8}
+
+/* ── TRZNI SROVNANI ── */
+.market-block{background:linear-gradient(135deg,#f0fff4,#e8f8ef);border:2px solid #a8d5b5;border-radius:12px;padding:20px 24px;margin-bottom:18px}
+.mb-title{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#1e8449;margin-bottom:12px}
+.mb-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:560px){.mb-grid{grid-template-columns:1fr 1fr}}
+.mb-item{text-align:center;background:#fff;border-radius:8px;padding:12px 8px}
+.mb-val{font-size:1.1rem;font-weight:900;color:#1a2a4a;margin-bottom:3px}
+.mb-val.green{color:#1e8449}
+.mb-val.orange{color:#e67e22}
+.mb-lbl{font-size:.65rem;color:#888;text-transform:uppercase;letter-spacing:.3px}
+.mb-note{font-size:.75rem;color:#555;margin-top:12px;line-height:1.5;text-align:center}
+
+/* ── DATUM DORUCENI ── */
+.delivery-block{background:linear-gradient(135deg,#edf2fb,#e8f0fe);border:2px solid #c3d3f5;border-radius:12px;padding:18px 24px;margin-bottom:18px}
+.db-title{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#2c4a7c;margin-bottom:12px}
+.db-steps{display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:center}
+.db-step{background:#fff;border-radius:8px;padding:10px 14px;text-align:center;flex:1;min-width:100px}
+.db-step .ds-date{font-size:.88rem;font-weight:800;color:#1a2a4a}
+.db-step .ds-lbl{font-size:.65rem;color:#888;margin-top:2px}
+.db-arrow{color:#2c4a7c;font-size:1.2rem;font-weight:900;flex-shrink:0}
+.db-result{background:linear-gradient(135deg,#1a2a4a,#2c4a7c);color:#fff;border-radius:8px;padding:10px 18px;text-align:center;flex:1.5;min-width:130px}
+.db-result .dr-date{font-size:1rem;font-weight:900;color:#f39c12}
+.db-result .dr-lbl{font-size:.68rem;opacity:.75;margin-top:2px}
+
+/* ── SKORE VOZU ── */
+.score-block{background:#fff;border-radius:12px;padding:20px 24px;margin-bottom:18px;box-shadow:0 2px 8px rgba(0,0,0,.06);display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.score-circle{position:relative;width:90px;height:90px;flex-shrink:0}
+.score-circle svg{transform:rotate(-90deg)}
+.score-circle .sc-num{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:1.5rem;font-weight:900;color:#1a2a4a;line-height:1}
+.score-circle .sc-max{font-size:.6rem;color:#aaa;font-weight:400}
+.score-info{flex:1}
+.score-info .si-label{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#888;margin-bottom:6px}
+.score-info .si-verdict{font-size:1.1rem;font-weight:800;margin-bottom:8px}
+.score-info .si-verdict.green{color:#1e8449}
+.score-info .si-verdict.orange{color:#e67e22}
+.score-info .si-verdict.red{color:#c0392b}
+.score-bars{display:flex;flex-direction:column;gap:5px;flex:1;min-width:180px}
+.sb-row{display:flex;align-items:center;gap:8px;font-size:.75rem}
+.sb-lbl{min-width:80px;color:#888}
+.sb-bar-wrap{flex:1;background:#f0f2f5;border-radius:20px;height:7px;overflow:hidden}
+.sb-bar{height:100%;border-radius:20px;background:linear-gradient(90deg,#27ae60,#2ecc71)}
+.sb-bar.orange{background:linear-gradient(90deg,#e67e22,#f39c12)}
+.sb-bar.red{background:linear-gradient(90deg,#c0392b,#e74c3c)}
+.sb-val{min-width:24px;text-align:right;color:#555;font-weight:700}
+
+/* ── B2B BLOK ── */
+.b2b-block{background:linear-gradient(135deg,#1a2a4a,#0d1f3c);border-radius:12px;padding:22px 26px;margin-bottom:18px;color:#fff}
+.b2b-label{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#f39c12;margin-bottom:8px}
+.b2b-title{font-size:1rem;font-weight:800;margin-bottom:14px}
+.b2b-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+@media(max-width:600px){.b2b-grid{grid-template-columns:1fr 1fr}}
+.b2b-item{background:rgba(255,255,255,.07);border-radius:8px;padding:10px;text-align:center}
+.b2b-item .bi-val{font-size:1rem;font-weight:900;color:#f39c12}
+.b2b-item .bi-lbl{font-size:.65rem;opacity:.6;margin-top:3px}
+.b2b-cta{background:rgba(243,156,18,.15);border:1px solid rgba(243,156,18,.4);border-radius:8px;padding:10px 16px;font-size:.8rem;color:rgba(255,255,255,.85);line-height:1.5}
+
+/* ── PROVIZNI KALKULACKA ── */
+.calc-block{background:#fff;border-radius:12px;padding:20px 24px;margin-bottom:18px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.calc-block h2{font-size:.95rem;color:#1a2a4a;font-weight:800;margin-bottom:14px;border-bottom:2px solid #e8ecf2;padding-bottom:8px}
+.calc-row{display:flex;align-items:center;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+.calc-row label{font-size:.82rem;color:#555;min-width:140px}
+.calc-input{padding:8px 12px;border:1.5px solid #c8d6f0;border-radius:7px;font-size:.88rem;font-family:inherit;width:140px}
+.calc-input:focus{outline:none;border-color:#2c4a7c}
+.calc-inline{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.3);border-radius:6px;color:#fff;font-size:.85rem;font-family:inherit;padding:4px 8px;width:100px;text-align:right}
+.calc-inline:focus{outline:none;border-color:#f39c12;background:rgba(255,255,255,.22)}
+.calc-inline::placeholder{color:rgba(255,255,255,.35)}
+.calc-result{background:linear-gradient(135deg,#0d1f3c,#1a3461);color:#fff;border-radius:10px;padding:16px 20px;margin-top:6px}
+.cr-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.1);font-size:.83rem}
+.cr-row:last-child{border-bottom:none;padding-top:10px}
+.cr-label{opacity:.75}
+.cr-val{font-weight:700}
+.cr-total{font-size:1.05rem;font-weight:900;color:#f39c12}
+
+/* ── UTILS ── */
+.info-box{background:#fff8e1;border-left:4px solid #f39c12;border-radius:6px;padding:11px 14px;font-size:.82rem;color:#7d5a00;margin-top:12px}
+.info-box strong{display:block;margin-bottom:3px}
+.detail-link-btn{display:inline-flex;align-items:center;gap:6px;background:#edf2fb;color:#2c4a7c;border:1.5px solid #c8d6f0;border-radius:8px;padding:9px 18px;font-size:.82rem;font-weight:700;text-decoration:none;transition:background .2s}
+.detail-link-btn:hover{background:#dce6f9}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════
+     KONFIGURACE AUK-008 — Skoda Kodiaq 2.0 TDI Ambition 2022
+     ═══════════════════════════════════════════════════════ -->
+<script>
+var AUCTION_CONFIG = {
+  // -- Identifikace --
+  auctionId:    "AUK-008",
+  carId:        "11099224",
+
+  // -- Auto --
+  make:         "Skoda",
+  model:        "Kodiaq 2.0 TDI Ambition",
+  year:         2022,
+  engine:       "2.0 TDI 110 kW",
+  transmission: "DSG automat 7st.",
+  km:           57445,
+  color:        "dle fotek",
+
+  // -- Aukce --
+  startPrice:   570000,
+  openlaneNextBidKc: 473222,   // Vstupní příhoz 19 000 EUR = 473 222 Kč (stav 2026-06-13)
+  minIncrement: 1000,
+  endTime:      "2026-06-22T20:00:00",   // fallback - Firebase endTime ma VZDY prednost
+  auctionRef:   "evropska-aukce-11099224",
+  depositNote:  "10 000 Kč",
+  commissionNote: "8 000–12 000 Kč",
+
+  // -- Odkaz na detailni stranku --
+  detailPageUrl: "",
+
+  // -- ROI & trzni data --
+  roi: {
+    vatPayerMode:   true,
+    vatRate:        0.21,
+    marketPriceCZ:  730000,    // CZ trh vc. DPH — srovnatelny Kodiaq 2.0 TDI Ambition
+    marketPriceNetCZ: 603306,  // bez DPH pro plátce DPH (730000/1.21)
+    extrasLabel:    "Doprava + přepis + příprava + servis bez DPH",
+    extrasAmount:   72930,     // nejhorsi scenar B (plny servis 60k + pneu + logistika z BE)
+    processingCostLabel: "Zpracování / provize bez DPH",
+    processingCostAmount: 8000,
+    deliveryDaysMin: 14,
+    deliveryDaysMax: 21,
+    carScore:       80,
+    scoreLabel:     "Doporučeno koupit",
+    commissionMin:  8000,
+    commissionMax:  12000,
+    b2bMarketLow:   650000,
+    b2bSaleTarget:  693491,    // rychla prodejni cena -5% pod trhem
+    b2bDaysSale:    30
+  },
+
+  // -- Fotky (stazeno 43 URL z Aukce, skutecny pocet po download_fotky_AUK-008.bat) --
+  photos: [
+    "img/foto_01.jpg","img/foto_02.jpg","img/foto_03.jpg","img/foto_04.jpg","img/foto_05.jpg",
+    "img/foto_06.jpg","img/foto_07.jpg","img/foto_08.jpg","img/foto_09.jpg","img/foto_10.jpg",
+    "img/foto_11.jpg","img/foto_12.jpg","img/foto_13.jpg","img/foto_14.jpg","img/foto_15.jpg",
+    "img/foto_16.jpg","img/foto_17.jpg","img/foto_18.jpg","img/foto_19.jpg","img/foto_20.jpg",
+    "img/foto_21.jpg","img/foto_22.jpg","img/foto_23.jpg","img/foto_24.jpg","img/foto_25.jpg",
+    "img/foto_26.jpg","img/foto_27.jpg","img/foto_28.jpg","img/foto_29.jpg","img/foto_30.jpg",
+    "img/foto_31.jpg","img/foto_32.jpg","img/foto_33.jpg","img/foto_34.jpg","img/foto_35.jpg",
+    "img/foto_36.jpg","img/foto_37.jpg","img/foto_38.jpg","img/foto_39.jpg","img/foto_40.jpg",
+    "img/foto_41.jpg","img/foto_42.jpg"
+  ],
+
+  // -- Rizika (ze DEKRA reportu a Aukce analyzy) --
+  risks: [
+    "Servis 60 000 km ihned po koupi: výměna oleje v DSG převodovce a motorový servis jsou nezbytné — zanedbání znamená riziko pádu mechatroniky.",
+    "Sjeté pneumatiky na všech kolech: hloubka vzorku 4,0 mm na všech čtyřech kolech — okamžitá nutnost výměny při prodeji.",
+    "Delší logistika z Belgie: vozidlo stojí v hubu Bilzen (BE); Gatepass může zdržet uvolnění, počítejte reálné 14–21 dní dopravy.",
+    "Chybí papírová servisní kniha: historii je nutné ověřit elektronicky v databázi Škody přes VIN TMBJJ7NSXN8049428."
+  ],
+
+  // -- Specifikace --
+  specs: {
+    "Rok výroby":    "2022 (EZ 03/2022)",
+    "Najeto":        "57 445 km",
+    "Motor":         "2.0 TDI 110 kW (150 PS)",
+    "Převodovka":    "DSG automat 7st.",
+    "Palivo":        "Diesel / Euro 6d",
+    "Karoserie":     "SUV (5dveřové)",
+    "Výbava":        "Ambition",
+    "VIN":           "TMBJJ7NSXN8049428",
+    "Lokace":        "Bilzen, Belgie",
+    "Zdroj":         "Evropská aukce ref. 11099224"
+  },
+
+  // -- Firebase --
+  firebase: {
+    apiKey:            "AIzaSyCzqE91qCN7CAHYNIlilzkyWLW3zYhlT8s",
+    authDomain:        "batko-aukce.firebaseapp.com",
+    databaseURL:       "https://batko-aukce-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId:         "batko-aukce",
+    storageBucket:     "batko-aukce.firebasestorage.app",
+    messagingSenderId: "567644084257",
+    appId:             "1:567644084257:web:d4a8b172324b3d54092b60"
+  },
+
+  // -- Google Sheet --
+  sheetUrl: "https://script.google.com/macros/s/AKfycbwcFA8bRyHnBB_4XlgH5_IMR4IBqUfvTD8vScGZPiuCh0gR5f4Mp_9OjOAw1u3lNEjI/exec",
+
+  // -- Dokumenty (doplnit po stazeni PDF reportu) --
+  documents: []
+};
+</script>
+
+<!-- Firebase SDK (v8 compat) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+<!-- ════════════════ HTML ════════════════ -->
+
+<div class="header">
+  <div class="header-top">
+    <div>
+      <div class="h-label">Internetová aukce vozidla</div>
+      <div class="h-title" id="h-title">Načítání...</div>
+      <div class="h-sub" id="h-sub"></div>
+      <div class="h-spec" id="h-spec"></div>
+    </div>
+    <div class="h-right">
+      <div class="badge-live" id="statusBadge">ŽIVÁ AUKCE</div>
+      <div class="h-ref" id="h-ref"></div>
+    </div>
+  </div>
+</div>
+
+<div class="sender-bar">
+  <span><strong>BATKO.DIGITAL.AI</strong> | Ing. Jaroslav Batko – Linet | ICO 14600153</span>
+  <a href="mailto:batko.digital.ai@gmail.com">batko.digital.ai@gmail.com</a>
+</div>
+
+<!-- Stav aukce — banners -->
+<div class="banner-cancelled" id="bannerCancelled">
+  <div class="banner-title">&#x1F6AB; Aukce byla zrusena</div>
+  <div class="banner-sub" id="cancelReason">Vyrozumíme všechny přihlášené zájemce e-mailem.</div>
+</div>
+<div class="banner-ended" id="bannerEnded">
+  <div class="banner-title">&#x1F3C6; Aukce skoncila</div>
+  <div class="banner-sub">Vítěze budeme kontaktovat do 24 hodin pro dohodnutí dalšího postupu.</div>
+</div>
+
+<!-- Odpocet -->
+<div class="urgency-block" id="urgencyBlock">
+  <div class="urgency-inner">
+    <div class="urgency-label" id="urgencyLabel">Aukce končí za</div>
+    <div class="urgency-headline" id="urgencyHeadline">Přihazujte nyní!</div>
+    <div class="countdown" id="countdown">
+      <div class="cd-unit"><div class="cd-num" id="cd-d">--</div><div class="cd-label">Dny</div></div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit"><div class="cd-num" id="cd-h">--</div><div class="cd-label">Hod</div></div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit"><div class="cd-num" id="cd-m">--</div><div class="cd-label">Min</div></div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit"><div class="cd-num" id="cd-s">--</div><div class="cd-label">Sek</div></div>
+    </div>
+    <div class="urgency-ended" id="urgencyEnded">&#x23F1; Čas vypršel — aukce uzavřena</div>
+  </div>
+</div>
+
+<!-- Aktuální nejvyšší příhoz -->
+<div class="bid-hero">
+  <div class="bid-hero-left">
+    <div class="bh-label">Aktuální nejvyšší nabídka</div>
+    <div class="bh-amount" id="currentBid"><span class="no-bids-note">Zatím žádné příhozy</span></div>
+    <div class="bh-count" id="bidCount"></div>
+  </div>
+  <div class="bh-min">
+    <div class="bm-label">Minimální příhoz</div>
+    <div class="bm-amount" id="minBidDisplay">--</div>
+    <div class="bm-note">Kč (vyvolávací cena nebo +1 000 Kč)</div>
+  </div>
+</div>
+
+<!-- Galerie -->
+<div class="gallery-wrap">
+  <div class="gallery-main" id="galleryMain">
+    <!-- fotky vlozi JS -->
+  </div>
+  <div class="gallery-counter" id="galleryCounter">1 / 1</div>
+  <button class="gallery-nav prev" onclick="galleryMove(-1)">&#8249;</button>
+  <button class="gallery-nav next" onclick="galleryMove(1)">&#8250;</button>
+  <div class="thumbs" id="thumbsRow"></div>
+</div>
+
+<!-- ════ OBSAH ════ -->
+<div class="content">
+
+  <!-- ── TRZNI SROVNANI ── -->
+  <div class="market-block" id="marketBlock" style="display:none">
+    <div class="mb-title">&#x1F4CA; Srovnání s českým trhem</div>
+    <div class="mb-grid">
+      <div class="mb-item">
+        <div class="mb-val" id="mb-market">&#x2014;</div>
+        <div class="mb-lbl">Tržní cena v ČR</div>
+      </div>
+      <div class="mb-item">
+        <div class="mb-val green" id="mb-saving">&#x2014;</div>
+        <div class="mb-lbl">Vaše potenciální úspora</div>
+      </div>
+      <div class="mb-item" id="mb-costs-wrap">
+        <div class="mb-val orange" id="mb-costs">&#x2014;</div>
+        <div class="mb-lbl" id="mb-costs-lbl">Dalsi naklady</div>
+      </div>
+    </div>
+    <div class="mb-note" id="mb-note"></div>
+  </div>
+
+  <!-- ── DATUM DORUCENI ── -->
+  <div class="delivery-block" id="deliveryBlock" style="display:none">
+    <div class="db-title">&#x1F4C5; Odhadovaný termín doručení do ČR</div>
+    <div class="db-steps" id="deliverySteps"><!-- vlozi JS --></div>
+  </div>
+
+  <!-- ── SKORE VOZU ── -->
+  <div class="score-block" id="scoreBlock" style="display:none">
+    <div class="score-circle">
+      <svg width="90" height="90" viewBox="0 0 90 90">
+        <circle cx="45" cy="45" r="38" fill="none" stroke="#e8ecf2" stroke-width="8"/>
+        <circle id="scoreArc" cx="45" cy="45" r="38" fill="none" stroke="#27ae60" stroke-width="8"
+          stroke-dasharray="239" stroke-dashoffset="239" stroke-linecap="round"/>
+      </svg>
+      <div class="sc-num" id="scoreNum">0<span class="sc-max">/100</span></div>
+    </div>
+    <div class="score-info">
+      <div class="si-label">Hodnocení vozidla</div>
+      <div class="si-verdict" id="scoreVerdict">&#x2014;</div>
+      <div style="font-size:.78rem;color:#666">Dle kritérií: stáří, km, značka, rychlost obrátky na CZ trhu</div>
+    </div>
+    <div class="score-bars" id="scoreBars"><!-- vlozi JS --></div>
+  </div>
+
+  <!-- ── ODKAZ NA DETAIL STRANKU ── -->
+  <div id="detailLinkWrap" style="display:none;margin-bottom:18px">
+    <a id="detailLinkBtn" class="detail-link-btn" href="#" target="_blank">
+      &#x1F50D; Zobrazit kompletní nabídku a analýzu tohoto vozu
+    </a>
+  </div>
+
+  <!-- ── FORMULAR PRO PRIHOD ── -->
+  <div class="bid-form-box" id="bidFormBox">
+    <div class="bfb-label">Zadejte svůj příhoz</div>
+    <div class="bfb-title">Přihodit na toto vozidlo</div>
+    <div class="bfb-sub">Příhoz vyjadřuje váš zájem o koupi za danou cenu. Aukce slouží ke zjištění reálné tržní ceny — není závaznou smlouvou. K prodeji dojde přímou dohodou s prodávajícím.</div>
+
+    <form id="bidForm" autocomplete="off" data-no-autofill="true">
+      <div class="bfb-row">
+        <input class="bfb-input" type="text" id="bf-name" name="auk008_bidder_name" placeholder="Jmeno a prijmeni *" required autocomplete="new-password" readonly onfocus="this.removeAttribute('readonly')">
+        <input class="bfb-input" type="email" id="bf-email" name="auk008_bidder_email" placeholder="E-mail *" required autocomplete="new-password" readonly onfocus="this.removeAttribute('readonly')">
+      </div>
+      <div class="bfb-row">
+        <input class="bfb-input" type="tel" id="bf-phone" name="auk008_bidder_phone" placeholder="Telefon *" required autocomplete="new-password" readonly onfocus="this.removeAttribute('readonly')">
+        <div class="bfb-amount-wrap" style="display:flex;gap:6px;align-items:center">
+          <input class="bfb-input bfb-amount" type="number" id="bf-amount" name="auk008_bid_amount" placeholder="Výše příhozu (Kč) *" required min="0" step="1000" autocomplete="off" style="flex:1">
+          <button type="button" id="btnPlusIncrement" onclick="addIncrement()"
+            style="white-space:nowrap;background:#f39c12;color:#fff;border:none;border-radius:8px;padding:12px 14px;font-size:.85rem;font-weight:800;cursor:pointer;flex-shrink:0">
+            +<span id="incrementLabel">1 000</span> Kč
+          </button>
+        </div>
+      </div>
+      <div class="bfb-check">
+        <input type="checkbox" id="bf-terms" required>
+        <label for="bf-terms">Rozumím, že příhoz vyjadřuje můj zájem o koupi za tuto cenu. Aukce není závazná smlouva — k prodeji dojde přímou dohodou s prodávajícím. Zavazuji se jednat v dobré víře. Souhlasím se zpracováním osobních údajů za účelem vyřízení aukce.</label>
+      </div>
+      <!-- Honeypot (proti botum) -->
+      <input type="text" name="_hp" style="display:none" tabindex="-1" autocomplete="off">
+
+      <button type="submit" class="btn-bid" id="btnBid">&#x1F528; Přihodit</button>
+      <div class="bid-privacy">Vaše údaje jsou zpracovávány důvěrně dle platných předpisů o ochraně osobních údajů.</div>
+      <div class="bid-success" id="bidSuccess">&#x2705; Příhoz byl přijat! Potvrzení přijde na váš e-mail. Sledujte stránku — pokud vás někdo přehodí, zobrazíme aktuální stav v reálném čase.</div>
+      <div class="bid-error" id="bidError"></div>
+    </form>
+  </div>
+
+  <!-- ── PRUBEH AUKCE ── -->
+  <div class="section">
+    <h2>&#x1F4CA; Průběh aukce &#x2014; příhozy</h2>
+    <div class="bid-history" id="bidHistory">
+      <div class="no-bids">Zatím nebyl podán žádný příhoz. Buďte první!</div>
+    </div>
+  </div>
+
+  <!-- ── JAK TO FUNGUJE ── -->
+  <div class="section">
+    <h2>&#x2139;&#xFE0F; Jak aukce funguje</h2>
+    <div class="how-grid">
+      <div class="how-item">
+        <div class="how-num">1</div>
+        <div class="how-title">Přihodíte</div>
+        <div class="how-desc">Zadejte jméno, e-mail, telefon a svou nabídku v Kč. Příhoz vyjadřuje váš zájem — není závaznou smlouvou. Minimální příhoz je <strong id="how-increment"></strong> Kč nad aktuální nejvyšší nabídku.</div>
+      </div>
+      <div class="how-item">
+        <div class="how-num">2</div>
+        <div class="how-title">Sledujete v reálném čase</div>
+        <div class="how-desc">Stránka se aktualizuje živě. Pokud vás někdo přehodí, uvidíte to okamžitě a můžete přihodit znovu. Aukce končí v přesně stanovenou dobu.</div>
+      </div>
+      <div class="how-item">
+        <div class="how-num">3</div>
+        <div class="how-title">Vítěz dostane kontakt</div>
+        <div class="how-desc">Po skončení aukce předáme vítězi kontakt na prodávajícího do 24 hod. Prodej, cena a podmínky se dohodnou přímo mezi vámi — bez prostředníka.</div>
+      </div>
+    </div>
+    <div class="info-box" style="margin-top:16px">
+      <strong>&#x26A0;&#xFE0F; Podmínky zpracovatele</strong>
+      Zpracovatel si vyhrazuje právo aukci zrušit bez udání důvodu, pokud se vozidlo nepodaří zajistit. V takovém případě jsou příhozy bezpředmětné a zálohy se nevyžadují. Ke zrušení aukce dojde vždy s předstihem před skončením, nebo ihned po zjištění překážky.
+    </div>
+    <div class="info-box">
+      <strong>DPH</strong>
+      Vyvolávací cena, příhozy a náklady v kalkulačce jsou posuzovány jako částky bez DPH pro plátce DPH. Srovnání s českým trhem je orientačně vč. DPH; interní B2B výpočet marže pracuje s cenami bez DPH.
+    </div>
+  </div>
+
+  <!-- ── SPECIFIKACE ── -->
+  <div class="section">
+    <h2>&#x1F527; Technická specifikace</h2>
+    <div class="specs-grid" id="specsGrid"><!-- vlozi JS --></div>
+  </div>
+
+  <!-- ── RIZIKA ── -->
+  <div class="section">
+    <h2>&#x26A0;&#xFE0F; Hlavní rizika &#x2014; přečtěte před příhozem</h2>
+    <div class="risk-list" id="riskList"><!-- vlozi JS --></div>
+  </div>
+
+  <!-- ── PROVIZNI KALKULACKA ── -->
+  <div class="calc-block" id="calcBlock">
+    <h2>&#x1F9EE; Kalkulačka celkové ceny</h2>
+    <div class="calc-result" id="calcResult">
+      <div class="cr-row">
+        <span class="cr-label">Příhoz</span>
+        <span class="cr-val"><input class="calc-inline" type="text" inputmode="numeric" id="calc-bid" placeholder="473 000" oninput="updateCalc()" autocomplete="off"> Kč</span>
+      </div>
+      <div class="cr-row" id="calc-row-reg" style="flex-wrap:wrap">
+        <span style="display:flex;align-items:center;gap:6px;flex:1">
+          <span class="cr-label" id="calc-label-reg">Doprava + přepis + příprava + servis bez DPH</span>
+          <span id="extras-toggle" onclick="var d=document.getElementById('extras-detail');d.style.display=d.style.display==='none'?'block':'none';this.textContent=this.textContent.trim()==='▸ rozpad'?'▾ skrýt':'▸ rozpad'" style="cursor:pointer;font-size:.75rem;color:#f39c12;user-select:none;text-decoration:underline dotted;white-space:nowrap">▸ rozpad</span>
+        </span>
+        <span class="cr-val"><input class="calc-inline" type="text" inputmode="numeric" id="calc-reg" oninput="updateCalc()" autocomplete="off"> Kč</span>
+        <div id="extras-detail" style="display:none;width:100%;background:rgba(0,0,0,.18);border-radius:6px;padding:8px 12px;margin-top:6px;font-size:.78rem;line-height:1.9">
+          <div style="display:flex;justify-content:space-between"><span>Doprava BE→CR (logistika z Bilzenu)</span><span style="font-weight:700">~28 000 Kč</span></div>
+          <div style="display:flex;justify-content:space-between"><span>Přepis + STK</span><span style="font-weight:700">~7 500 Kč</span></div>
+          <div style="display:flex;justify-content:space-between"><span>Příprava / detailing</span><span style="font-weight:700">~8 000 Kč</span></div>
+          <div style="display:flex;justify-content:space-between"><span>Servis 60 000 km (DSG + motor)</span><span style="font-weight:700">~20 000 Kč</span></div>
+          <div style="display:flex;justify-content:space-between"><span>Pneumatiky 4× (hloubka 4 mm)</span><span style="font-weight:700">~9 430 Kč</span></div>
+          <div style="display:flex;justify-content:space-between;border-top:1px solid rgba(255,255,255,.2);margin-top:4px;padding-top:4px;font-weight:700"><span>Celkem</span><span>72 930 Kč</span></div>
+          <div style="font-size:.68rem;opacity:.55;margin-top:4px">* Nejhorší scénář — plný servis + výměna pneu. Rezerva na reklamace ani cílový zisk nejsou v tomto čísle zahrnuty.</div>
+        </div>
+      </div>
+      <div class="cr-row" id="calc-row-processing">
+        <span class="cr-label" id="calc-label-processing">Zpracování / provize bez DPH</span>
+        <span class="cr-val"><input class="calc-inline" type="text" inputmode="numeric" id="calc-processing" oninput="updateCalc()" autocomplete="off"> Kč</span>
+      </div>
+      <div class="cr-row" style="border-top:2px solid rgba(255,255,255,.25);margin-top:4px;padding-top:8px">
+        <span class="cr-label cr-total">Celkem odhadem bez DPH</span>
+        <span class="cr-val cr-total" id="cr-total">&#x2014;</span>
+      </div>
+    </div>
+    <div style="font-size:.72rem;color:#aaa;margin-top:10px">* Kalkulačka je orientační a v tomto režimu počítá bez DPH. Přesná cena závisí na skutečné výši příhozu a finálním daňovém režimu prodeje.</div>
+  </div>
+
+  <!-- ── B2B BLOK PRO AUTOBAZARY ── -->
+  <div class="b2b-block" id="b2bBlock" style="display:none">
+    <div class="b2b-label">Pro autobazary a obchodniky</div>
+    <div class="b2b-title">Kalkulace marže při přeprodeji</div>
+    <div class="b2b-grid" id="b2bGrid"><!-- vlozi JS --></div>
+    <div class="b2b-cta" id="b2bNote"></div>
+  </div>
+
+  <!-- ── DOKUMENTY KE STAZENI ── -->
+  <div class="section" id="docsSection" style="display:none">
+    <h2>&#x1F4C1; Dokumenty ke stažení</h2>
+    <div class="doc-list" id="docList"><!-- vlozi JS --></div>
+  </div>
+
+  <!-- ── PODMINKY ── -->
+  <div class="section">
+    <h2>&#x1F4CB; Podmínky aukce</h2>
+    <ul class="cond-list">
+      <li>Tato aukce <strong>není veřejná dražba</strong> ani závazná smlouva. Slouží ke zjištění reálné tržní ceny formou časově omezené online nabídky.</li>
+      <li>Příhoz vyjadřuje zájem kupujícího o koupi za danou cenu. <strong>Nezakládá právní závazek</strong> ani kupujícímu, ani prodávajícímu.</li>
+      <li>DPH: vyvolávací cena, příhozy a náklady v kalkulačce jsou posuzovány jako částky bez DPH pro plátce DPH; české tržní srovnání je orientačně vč. DPH.</li>
+      <li>Po skončení aukce prodávající sám rozhodne, zda za vydraženou cenu prodá. Pokud ano, vítěz dostane jeho kontakt přímo.</li>
+      <li>Prodávající se zavazuje jednat s vítězem v dobré víře, pokud vydražená cena dosáhne jeho stanoveného minima.</li>
+      <li>Kupující se zavazuje jednat v dobré víře — spekulativní příhozy bez zájmu o koupi jsou porušením podmínek.</li>
+      <li>Zprostředkovatel (Ing. Jaroslav Batko – Linet, IČO 14600153) organizuje aukci a zajišťuje propagaci. <strong>Neúčastní se finančního vypořádání</strong> mezi stranami.</li>
+      <li>Zprostředkovatel si vyhrazuje právo aukci zrušit bez udání důvodu.</li>
+      <li>Osobní údaje jsou zpracovávány výhradně za účelem vedení aukce v souladu s GDPR (Nařízení EU 2016/679).</li>
+    </ul>
+  </div>
+
+</div><!-- /content -->
+
+<!-- Identifikace zpracovatele + GDPR -->
+<div class="company-id-bar">
+  <h4>Identifikace zpracovatele</h4>
+  <div class="cid-grid">
+    <div class="cid-row"><span class="cid-label">Jméno a příjmení:</span><span class="cid-val">Ing. Jaroslav Batko &#x2013; Linet</span></div>
+    <div class="cid-row"><span class="cid-label">ICO:</span><span class="cid-val">14600153</span></div>
+    <div class="cid-row"><span class="cid-label">DIC:</span><span class="cid-val">CZ5912280418</span></div>
+    <div class="cid-row"><span class="cid-label">Sídlo:</span><span class="cid-val">Klimkovice, Ceska republika</span></div>
+    <div class="cid-row"><span class="cid-label">E-mail:</span><span class="cid-val">batko.digital.ai@gmail.com</span></div>
+    <div class="cid-row"><span class="cid-label">Telefon:</span><span class="cid-val">+420 725 360 151</span></div>
+    <div class="cid-row"><span class="cid-label">Značka:</span><span class="cid-val">BATKO.DIGITAL.AI | Platce DPH</span></div>
+    <div class="cid-row"><span class="cid-label">Reference aukce:</span><span class="cid-val" id="footer-ref">&#x2014;</span></div>
+  </div>
+  <div class="privacy-law-note">
+    <strong>Ochrana osobních údajů:</strong> Osobní údaje zadané v aukčním formuláři (jméno, e-mail, telefon, výše příhozu) jsou zpracovávány výhradně za účelem vedení aukce, identifikace vítěze a navazující komunikace. Nakládáme s nimi důvěrně v souladu s Nařízením EU 2016/679 (GDPR) a zákonem č. 110/2019 Sb. Údaje nejsou prodávány ani předávány třetím osobám bez právního důvodu nebo souhlasu. Uchovávají se po dobu nezbytně nutnou pro splnění smluvního závazku.
+  </div>
+</div>
+
+<div class="footer">
+  &copy; BATKO.DIGITAL.AI | Ing. Jaroslav Batko &#x2013; Linet | ICO 14600153 | DIC CZ5912280418 | Klimkovice, CZ
+</div>
+
+<!-- ════════════════ JAVASCRIPT ════════════════ -->
+<script>
+function fKc(n)      { return Number(n).toLocaleString('cs') + ' Kč'; }
+function fDate(ts)   { const d = new Date(ts); return d.toLocaleTimeString('cs',{hour:'2-digit',minute:'2-digit'}) + ' ' + d.toLocaleDateString('cs',{day:'2-digit',month:'2-digit'}); }
+function anonymize(name) { const p = String(name).trim().split(' '); return p.map((s,i) => i===0 ? s : s[0]+'.').join(' '); }
+
+let galIdx = 0;
+function galleryGoTo(i) {
+  const imgs = document.querySelectorAll('#galleryMain img');
+  const ths  = document.querySelectorAll('#thumbsRow img');
+  if (!imgs[i]) return;
+  imgs[galIdx].classList.remove('active'); ths[galIdx].classList.remove('active');
+  galIdx = i;
+  imgs[galIdx].classList.add('active');   ths[galIdx].classList.add('active');
+  document.getElementById('galleryCounter').textContent = (galIdx+1) + ' / ' + imgs.length;
+}
+function galleryMove(dir) {
+  const len = document.querySelectorAll('#galleryMain img').length;
+  galleryGoTo((galIdx + dir + len) % len);
+}
+
+function setEl(id, prop, val) { const el = document.getElementById(id); if (el) el[prop] = val; }
+
+function initPage() {
+  const C = AUCTION_CONFIG;
+  document.title = 'Aukce: ' + C.year + ' ' + C.make + ' ' + C.model + ' — BATKO.DIGITAL.AI';
+  setEl('pageDesc', 'content', 'Přihoďte na ' + C.year + ' ' + C.make + ' ' + C.model + '. Ziva internetova aukce.');
+  setEl('h-title', 'innerHTML', C.year + ' <span>' + C.make + ' ' + C.model + '</span>');
+  setEl('h-sub', 'textContent', C.engine + ' | ' + C.transmission + ' | ' + C.km.toLocaleString('cs') + ' km');
+  setEl('h-spec', 'textContent', 'Aukce: ' + C.auctionRef);
+  setEl('h-ref', 'textContent', 'Ref. ' + C.auctionId);
+  setEl('footer-ref', 'textContent', C.auctionId);
+  setEl('how-increment', 'textContent', C.minIncrement.toLocaleString('cs'));
+  setEl('minBidDisplay', 'textContent', fKc(C.startPrice));
+  setEl('bf-amount', 'min', C.startPrice);
+  setEl('bf-amount', 'placeholder', 'Min. ' + fKc(C.startPrice));
+
+  prefillBidderContact();
+  setTimeout(prefillBidderContact, 250);
+  setTimeout(prefillBidderContact, 1000);
+  updateIncrementLabel();
+
+  // Gallery
+  const gMain  = document.getElementById('galleryMain');
+  const thumbs = document.getElementById('thumbsRow');
+  C.photos.forEach(function(src, i) {
+    const img = document.createElement('img');
+    img.src = src; img.alt = C.make + ' ' + C.model + ' — foto ' + (i+1);
+    img.loading = i === 0 ? 'eager' : 'lazy'; img.decoding = 'async';
+    if (i === 0) img.classList.add('active');
+    gMain.appendChild(img);
+    const th = document.createElement('img');
+    th.src = src; th.alt = ''; th.loading = 'lazy';
+    if (i === 0) th.classList.add('active');
+    th.onclick = (function(idx){ return function(){ galleryGoTo(idx); }; })(i);
+    thumbs.appendChild(th);
+  });
+  document.getElementById('galleryCounter').textContent = '1 / ' + C.photos.length;
+
+  // Specs
+  const sg = document.getElementById('specsGrid');
+  Object.entries(C.specs).forEach(function(e) {
+    sg.innerHTML += '<div class="spec-item"><div class="slabel">' + e[0] + '</div><div class="sval">' + e[1] + '</div></div>';
+  });
+
+  // Risks
+  document.getElementById('riskList').innerHTML = C.risks.map(function(r) {
+    return '<div class="risk-item"><span class="risk-icon">&#x26A0;</span><span>' + r + '</span></div>';
+  }).join('');
+
+  // Dokumenty
+  if (C.documents && C.documents.length > 0) {
+    const docSection = document.getElementById('docsSection');
+    const docList    = document.getElementById('docList');
+    if (docSection && docList) {
+      docList.innerHTML = C.documents.map(function(d) {
+        return '<a class="doc-item" href="' + d.file + '" target="_blank" rel="noopener"><span class="doc-icon">' + (d.icon||'&#x1F4C4;') + '</span><span class="doc-label">' + d.label + '</span><span class="doc-dl">&#x2193; stahnout</span></a>';
+      }).join('');
+      docSection.style.display = 'block';
+    }
+  }
+}
+
+const LEGACY_BIDDER_KEY = 'batko_bidder_contact';
+const BIDDER_KEY = 'batko_bidder_contact_' + AUCTION_CONFIG.auctionId;
+
+function saveBidderContact(name, email, phone) {
+  try {
+    localStorage.removeItem(LEGACY_BIDDER_KEY);
+    localStorage.setItem(BIDDER_KEY, JSON.stringify({ name: name, email: email, phone: phone }));
+  } catch(e) {}
+}
+
+function prefillBidderContact() {
+  try { localStorage.removeItem(LEGACY_BIDDER_KEY); } catch(e) {}
+  var saved = null;
+  try { saved = JSON.parse(localStorage.getItem(BIDDER_KEY) || 'null'); } catch(e) {}
+  if (!saved) { clearBidFormPersonalData(true); return; }
+  var n = document.getElementById('bf-name');
+  var e = document.getElementById('bf-email');
+  var p = document.getElementById('bf-phone');
+  if (n) n.value = saved.name || '';
+  if (e) e.value = saved.email || '';
+  if (p) p.value = saved.phone || '';
+}
+
+function clearBidFormPersonalData(force) {
+  try { localStorage.removeItem(LEGACY_BIDDER_KEY); } catch(e) {}
+  ['bf-name','bf-email','bf-phone'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el && (force || document.activeElement !== el)) el.value = '';
+  });
+}
+
+function addIncrement() {
+  var inp  = document.getElementById('bf-amount');
+  var minV = parseInt(inp.min, 10) || AUCTION_CONFIG.startPrice;
+  var cur  = parseInt(inp.value, 10);
+  inp.value = isNaN(cur) || cur < minV ? minV : cur + AUCTION_CONFIG.minIncrement;
+}
+
+function updateIncrementLabel() {
+  var el = document.getElementById('incrementLabel');
+  if (el) el.textContent = AUCTION_CONFIG.minIncrement.toLocaleString('cs');
+}
+
+function initExtras() {
+  var C = AUCTION_CONFIG;
+  var R = C.roi || {};
+
+  // Tržní srovnani
+  if (R.marketPriceCZ) {
+    var extras  = R.extrasAmount || 0;
+    var vatRate = R.vatRate || 0.21;
+    var marketGross = R.marketPriceCZ;
+    var marketNet = R.marketPriceNetCZ || Math.round(marketGross / (1 + vatRate));
+    var compareBase = R.vatPayerMode ? marketNet : marketGross;
+    var saving  = compareBase - C.startPrice - extras;
+    document.getElementById('mb-market').textContent = fKc(R.marketPriceCZ);
+    document.getElementById('mb-saving').textContent = saving > 0 ? 'az ' + fKc(saving) : 'závisí na příhozu';
+
+    var costsWrap = document.getElementById('mb-costs-wrap');
+    if (extras > 0) {
+      document.getElementById('mb-costs').textContent   = fKc(extras);
+      document.getElementById('mb-costs-lbl').textContent = R.extrasLabel || 'Další náklady';
+      costsWrap.style.display = '';
+    } else {
+      costsWrap.style.display = 'none';
+    }
+
+    var extrasNote = extras > 0 ? ' a dalších nákladech ' + fKc(extras) + (R.extrasLabel ? ' (' + R.extrasLabel + ')' : '') : '';
+    var vatNote = R.vatPayerMode ? ' Tržní cena ČR je uvedena vč. DPH; pro plátce DPH se interně porovnává netto cca ' + fKc(marketNet) + '.' : '';
+    document.getElementById('mb-note').textContent = 'Při výhře za vyvolávací cenu ' + fKc(C.startPrice) + extrasNote + ' vychází rozdíl proti srovnávací ceně přibližně ' + (saving > 0 ? fKc(saving) : 'dle vyhry') + '.' + vatNote;
+    document.getElementById('marketBlock').style.display = 'block';
+  }
+
+  // Datum doruceni
+  if (R.deliveryDaysMin) {
+    var end      = new Date(C.endTime);
+    var minReady = new Date(end.getTime() + (R.deliveryDaysMin + 5) * 86400000);
+    var maxReady = new Date(end.getTime() + (R.deliveryDaysMax + 5) * 86400000);
+    var fd  = function(d) { return d.toLocaleDateString('cs', {day:'numeric', month:'numeric'}); };
+    var fdl = function(d) { return d.toLocaleDateString('cs', {day:'numeric', month:'long'}); };
+    document.getElementById('deliverySteps').innerHTML =
+      '<div class="db-step"><div class="ds-date">' + fd(end) + '</div><div class="ds-lbl">Konec aukce</div></div>' +
+      '<div class="db-arrow">&#x2192;</div>' +
+      '<div class="db-step"><div class="ds-date">+' + R.deliveryDaysMin + '&#x2013;' + R.deliveryDaysMax + ' dni</div><div class="ds-lbl">Doprava BE&#x2192;CR</div></div>' +
+      '<div class="db-arrow">&#x2192;</div>' +
+      '<div class="db-step"><div class="ds-date">+5 dní</div><div class="ds-lbl">STK + přepis</div></div>' +
+      '<div class="db-arrow">&#x2192;</div>' +
+      '<div class="db-result"><div class="dr-date">cca ' + fdl(minReady) + '&#x2013;' + fdl(maxReady) + '</div><div class="dr-lbl">Auto připravené v ČR</div></div>';
+    document.getElementById('deliveryBlock').style.display = 'block';
+  }
+
+  // Skore vozu
+  if (R.carScore !== undefined) {
+    var score = R.carScore;
+    setTimeout(function() {
+      var arc  = document.getElementById('scoreArc');
+      var circ = 2 * Math.PI * 38;
+      arc.style.transition       = 'stroke-dashoffset 1s ease';
+      arc.style.strokeDashoffset = circ * (1 - score / 100);
+      arc.style.stroke = score >= 70 ? '#27ae60' : score >= 50 ? '#e67e22' : '#e74c3c';
+    }, 200);
+    document.getElementById('scoreNum').innerHTML = score + '<span class="sc-max">/100</span>';
+    var vEl = document.getElementById('scoreVerdict');
+    vEl.textContent = R.scoreLabel || (score >= 70 ? 'Doporučeno' : score >= 50 ? 'Zvážit' : 'Pozor');
+    vEl.className   = 'si-verdict ' + (score >= 70 ? 'green' : score >= 50 ? 'orange' : 'red');
+    var ageScore = Math.max(0, 100 - (new Date().getFullYear() - C.year) * 15);
+    var kmScore  = Math.max(0, 100 - Math.round((C.km / 170000) * 100));
+    document.getElementById('scoreBars').innerHTML = [
+      {label:'Stáří',  val: ageScore},
+      {label:'Najezd', val: kmScore},
+      {label:'Celkové skóre', val: score}
+    ].map(function(b) {
+      var cls = b.val >= 70 ? '' : b.val >= 50 ? 'orange' : 'red';
+      return '<div class="sb-row"><span class="sb-lbl">' + b.label + '</span><div class="sb-bar-wrap"><div class="sb-bar ' + cls + '" style="width:' + b.val + '%"></div></div><span class="sb-val">' + b.val + '</span></div>';
+    }).join('');
+    document.getElementById('scoreBlock').style.display = 'flex';
+  }
+
+  // Detail link
+  if (C.detailPageUrl) {
+    document.getElementById('detailLinkBtn').href = C.detailPageUrl;
+    document.getElementById('detailLinkWrap').style.display = 'block';
+  }
+
+  // Kalkulacka
+  var setDisp = function(id, val) { var el = document.getElementById(id); if (el) el.style.display = val; };
+  setDisp('calcBlock', 'block');
+  function setCalcField(id, val) {
+    var el = document.getElementById(id);
+    if (el && !el.value && val) el.value = val;
+  }
+  setCalcField('calc-bid',        C.openlaneNextBidKc || C.startPrice || '');
+  setCalcField('calc-reg',        R.extrasAmount || '');
+  setCalcField('calc-processing', R.processingCostAmount || '');
+  var lbReg = document.getElementById('calc-label-reg');
+  if (lbReg && R.extrasLabel) lbReg.textContent = R.extrasLabel;
+  var lbProc = document.getElementById('calc-label-processing');
+  if (lbProc && R.processingCostLabel) lbProc.textContent = R.processingCostLabel;
+  updateCalc();
+
+  // B2B blok
+  if (R.b2bMarketLow && R.b2bSaleTarget) {
+    var buyCost     = (R.extrasAmount || 0) + (R.processingCostAmount || 0);
+    var b2bBidPrice = C.openlaneNextBidKc || C.startPrice;
+    var totalEntry  = b2bBidPrice + buyCost;
+
+    var grossMin = R.b2bMarketLow  - totalEntry;
+    var grossMed = R.b2bSaleTarget - totalEntry;
+    var days     = R.b2bDaysSale || 30;
+    var roiMin   = (grossMin / totalEntry * 100 / days).toFixed(2);
+    var roiMed   = (grossMed / totalEntry * 100 / days).toFixed(2);
+    var colMin   = grossMin >= 0 ? '#2ecc71' : '#e74c3c';
+    var colMed   = grossMed >= 0 ? '#2ecc71' : '#e74c3c';
+
+    document.getElementById('b2bGrid').innerHTML =
+      '<div class="b2b-item"><div class="bi-val">' + fKc(b2bBidPrice) + '</div><div class="bi-lbl">Vstupní příhoz</div></div>' +
+      '<div class="b2b-item"><div class="bi-val">' + fKc(buyCost) + '</div><div class="bi-lbl">N\u00e1klady (doprava + p\u0159\u00edprava + provize)</div></div>' +
+      '<div class="b2b-item" style="grid-column:span 2"><div class="bi-val" style="color:#e67e22">' + fKc(totalEntry) + '</div><div class="bi-lbl">Celkem vstup (bid + n\u00e1klady)</div></div>' +
+      '<div style="grid-column:1/-1;border-top:1px solid rgba(255,255,255,.2);margin:4px 0;padding-top:6px;font-size:.62rem;opacity:.5;text-align:center;letter-spacing:.05em">ZISK PODLE PRODEJN\u00cd CENY NA CZ TRHU (bez DPH)</div>' +
+      '<div class="b2b-item" style="grid-column:span 2"><div class="bi-val" style="color:' + colMin + '">' + (grossMin >= 0 ? '+' : '') + fKc(grossMin) + '</div><div class="bi-lbl">Hrub\u00fd zisk \u2014 MIN CZ trh<br><small style="opacity:.75;font-size:.6rem">' + fKc(R.b2bMarketLow) + ' K\u010d bez DPH &nbsp;\u00b7&nbsp; ROI ~' + roiMin + ' %/den</small></div></div>' +
+      '<div class="b2b-item" style="grid-column:span 2"><div class="bi-val" style="color:' + colMed + '">' + (grossMed >= 0 ? '+' : '') + fKc(grossMed) + '</div><div class="bi-lbl">Hrub\u00fd zisk \u2014 MEDI\u00c1N CZ trh<br><small style="opacity:.75;font-size:.6rem">' + fKc(R.b2bSaleTarget) + ' K\u010d bez DPH &nbsp;\u00b7&nbsp; ROI ~' + roiMed + ' %/den</small></div></div>';
+
+    document.getElementById('b2bNote').innerHTML =
+      'P\u0159i koupi za Vstupní příhoz (' + fKc(b2bBidPrice) + ') a prodeji do ' + days + ' dn\u00ed \u2014 ' +
+      'vs MIN CZ trh: ROI <strong>' + roiMin + ' %/den</strong> | ' +
+      'vs MEDI\u00c1N CZ trh: ROI <strong>' + roiMed + ' %/den</strong>. ' +
+      'B2B kalkulace je pro pl\u00e1tce DPH po\u010d\u00edt\u00e1na bez DPH; ve\u0159ejn\u00e9 tr\u017en\u00ed srovn\u00e1n\u00ed v\u00fd\u0161e je vc. DPH.';
+    document.getElementById('b2bBlock').style.display = 'block';
+  }
+}
+
+function updateCalc() {
+  try {
+    function parseKc(id) {
+      var raw = (document.getElementById(id) || {}).value || '';
+      return parseInt(raw.replace(/\s/g,'').replace(/[^0-9]/g,''), 10) || 0;
+    }
+    var bid   = parseKc('calc-bid');
+    var reg   = parseKc('calc-reg');
+    var proc  = parseKc('calc-processing');
+    var total = document.getElementById('cr-total');
+    if (!total) return;
+    if (bid < 1000) { total.textContent = '&#x2014;'; return; }
+    total.textContent = fKc(bid + reg + proc);
+  } catch(e) {}
+}
+
+function updateCountdown() {
+  try {
+    var end  = new Date(AUCTION_CONFIG.endTime).getTime();
+    if (isNaN(end)) return;
+    var diff = end - Date.now();
+    var setV = function(id, val) { var el = document.getElementById(id); if (el) el.textContent = val; };
+    if (diff <= 0) {
+      setV('cd-d','00'); setV('cd-h','00'); setV('cd-m','00'); setV('cd-s','00');
+      var cd = document.getElementById('countdown');
+      var uh = document.getElementById('urgencyHeadline');
+      var ul = document.getElementById('urgencyLabel');
+      var ue = document.getElementById('urgencyEnded');
+      if (cd) cd.style.display = 'none';
+      if (uh) uh.style.display = 'none';
+      if (ul) ul.style.display = 'none';
+      if (ue) ue.style.display = 'block';
+      if (auctionStatus === 'active') { auctionStatus = 'ended'; lockForm('Čas aukce vypršel.'); }
+      return;
+    }
+    var d = Math.floor(diff / 86400000);
+    var h = Math.floor((diff % 86400000) / 3600000);
+    var m = Math.floor((diff % 3600000) / 60000);
+    var s = Math.floor((diff % 60000) / 1000);
+    setV('cd-d', String(d).padStart(2,'0'));
+    setV('cd-h', String(h).padStart(2,'0'));
+    setV('cd-m', String(m).padStart(2,'0'));
+    setV('cd-s', String(s).padStart(2,'0'));
+    var uhl = document.getElementById('urgencyHeadline');
+    if (uhl) {
+      if (d === 0 && h < 1)  uhl.textContent = 'Méně než 1 hodina do konce!';
+      else if (d === 0)       uhl.textContent = 'Dnes v ' + new Date(AUCTION_CONFIG.endTime).toLocaleTimeString('cs',{hour:'2-digit',minute:'2-digit'}) + ' aukce končí!';
+      else if (d === 1)       uhl.textContent = 'Zítra aukce končí — přihoďte nyní!';
+      else                    uhl.textContent = 'Aukce končí za ' + d + ' ' + (d===1?'den':d<5?'dny':'dni');
+    }
+  } catch(e) { console.error('countdown err:', e); }
+}
+
+var currentTopBid = 0;
+var bidCount = 0;
+var auctionStatus = 'active';
+
+function renderBids(bids) {
+  bids = [...bids].sort(function(a,b){ return b.amount - a.amount; });
+  bidCount = bids.length;
+  if (bids.length > 0) {
+    currentTopBid = bids[0].amount;
+    document.getElementById('currentBid').innerHTML = '<span style="font-size:2.4rem;font-weight:900;color:#c0392b">' + fKc(currentTopBid) + '</span>';
+    document.getElementById('bidCount').textContent = 'Celkem příhozů: ' + bidCount;
+    var nextMin = currentTopBid + AUCTION_CONFIG.minIncrement;
+    setEl('minBidDisplay', 'textContent', fKc(nextMin));
+    setEl('bf-amount', 'min', nextMin);
+    setEl('bf-amount', 'placeholder', 'Min. ' + fKc(nextMin));
+  } else {
+    currentTopBid = 0;
+    document.getElementById('currentBid').innerHTML = '<span class="no-bids-note">Zatím žádné příhozy</span>';
+    setEl('bidCount', 'textContent', '');
+    setEl('minBidDisplay', 'textContent', fKc(AUCTION_CONFIG.startPrice));
+    setEl('bf-amount', 'min', AUCTION_CONFIG.startPrice);
+    setEl('bf-amount', 'placeholder', 'Min. ' + fKc(AUCTION_CONFIG.startPrice));
+  }
+  var container = document.getElementById('bidHistory');
+  if (bids.length === 0) {
+    container.innerHTML = '<div class="no-bids">Zatím nebyl podán žádný příhoz. Buďte první!</div>';
+    return;
+  }
+  container.innerHTML = bids.slice(0, 10).map(function(b, i) {
+    return '<div class="bid-row ' + (i===0?'top':'') + '"><div class="br-pos ' + (i===0?'gold':'') + '">' + (i===0?'&#x1F947;':'#'+(i+1)) + '</div><div class="br-name">' + anonymize(b.name) + '</div><div class="br-amount ' + (i===0?'gold':'') + '">' + fKc(b.amount) + '</div><div class="br-time">' + fDate(b.timestamp) + '</div></div>';
+  }).join('');
+}
+
+function lockForm(msg) {
+  try {
+    var btn = document.getElementById('btnBid');
+    if (btn) { btn.disabled = true; btn.textContent = msg || 'Aukce ukončena'; }
+    var form = document.getElementById('bidForm');
+    if (form) {
+      ['bf-name','bf-email','bf-phone','bf-amount','bf-terms'].forEach(function(id) {
+        var el = document.getElementById(id); if (el) el.disabled = true;
+      });
+    }
+    var inc = document.getElementById('btnPlusIncrement');
+    if (inc) inc.disabled = true;
+  } catch(e) {}
+}
+
+function applyStatus(status, cancelReason) {
+  auctionStatus = status;
+  var badge = document.getElementById('statusBadge');
+  if (status === 'cancelled') {
+    document.getElementById('bannerCancelled').style.display = 'block';
+    document.getElementById('urgencyBlock').style.display    = 'none';
+    document.getElementById('bidFormBox').style.display      = 'none';
+    if (cancelReason) document.getElementById('cancelReason').textContent = cancelReason;
+    if (badge) { badge.textContent = '&#x1F6AB; ZRUŠENO'; badge.style.animation = 'none'; badge.style.background = 'rgba(100,100,100,.2)'; badge.style.borderColor = '#666'; badge.style.color = '#aaa'; }
+  } else if (status === 'ended') {
+    document.getElementById('bannerEnded').style.display  = 'block';
+    document.getElementById('urgencyBlock').style.display = 'none';
+    lockForm('Aukce byla ukončena.');
+    if (badge) { badge.textContent = '&#x1F3C1; UKONČENO'; badge.style.animation = 'none'; }
+  }
+}
+
+// ── BACKEND DETEKCE ──
+var IS_DEMO = AUCTION_CONFIG.firebase.apiKey.startsWith('VLOZ') || AUCTION_CONFIG.firebase.apiKey === '';
+
+if (IS_DEMO) {
+  var KEY_BIDS   = 'batko_bids_' + AUCTION_CONFIG.auctionId;
+  var KEY_STATUS = 'batko_status_' + AUCTION_CONFIG.auctionId;
+  var KEY_CANCEL = 'batko_cancel_' + AUCTION_CONFIG.auctionId;
+  var demoBanner = document.createElement('div');
+  demoBanner.style.cssText = 'background:#f39c12;color:#fff;text-align:center;padding:8px;font-size:.78rem;font-weight:700';
+  demoBanner.textContent = 'DEMO REŽIM — data se ukládají lokálně v prohlížeči. Pro ostrý provoz nastav Firebase v AUCTION_CONFIG.';
+  document.body.insertBefore(demoBanner, document.body.firstChild);
+  function lsGetBids()   { try { return JSON.parse(localStorage.getItem(KEY_BIDS) || '[]'); } catch(e) { return []; } }
+  function lsSaveBid(b)  { var arr = lsGetBids(); arr.push(b); localStorage.setItem(KEY_BIDS, JSON.stringify(arr)); }
+  function lsGetStatus() { return localStorage.getItem(KEY_STATUS) || 'active'; }
+  function pollDemo() {
+    renderBids(lsGetBids());
+    var st = lsGetStatus();
+    if (st !== 'active') applyStatus(st, localStorage.getItem(KEY_CANCEL) || '');
+  }
+  pollDemo();
+  setInterval(pollDemo, 2000);
+  document.getElementById('bidForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (this._hp.value) return;
+    var name   = document.getElementById('bf-name').value.trim();
+    var email  = document.getElementById('bf-email').value.trim();
+    var phone  = document.getElementById('bf-phone').value.trim();
+    var rawAmt = (document.getElementById('bf-amount').value || '').replace(/\s/g,'').replace(/[^0-9]/g,'');
+    var amount = parseInt(rawAmt, 10);
+    var minReq = currentTopBid > 0 ? currentTopBid + AUCTION_CONFIG.minIncrement : AUCTION_CONFIG.startPrice;
+    var errEl  = document.getElementById('bidError');
+    if (!amount || isNaN(amount)) { errEl.textContent = 'Zadejte platnou číselnou částku.'; errEl.style.display='block'; return; }
+    if (amount < minReq) { errEl.textContent = 'Příhoz musí být minimálně ' + fKc(minReq) + '.'; errEl.style.display='block'; return; }
+    if (lsGetStatus() !== 'active' || Date.now() > new Date(AUCTION_CONFIG.endTime).getTime()) {
+      errEl.textContent = 'Aukce již není aktivní.'; errEl.style.display='block'; return;
+    }
+    errEl.style.display = 'none';
+    var btn = document.getElementById('btnBid');
+    btn.disabled = true; btn.textContent = 'Odesílám...';
+    lsSaveBid({ name: name, email: email, phone: phone, amount: amount, timestamp: Date.now() });
+    saveBidderContact(name, email, phone);
+    if (AUCTION_CONFIG.sheetUrl && !AUCTION_CONFIG.sheetUrl.includes('TVOJE_ID')) {
+      fetch(AUCTION_CONFIG.sheetUrl, {
+        method:'POST', mode:'no-cors',
+        headers:{'Content-Type':'text/plain;charset=utf-8'},
+        body: JSON.stringify({
+          formType:'aukce_bid', source:'Aukce ' + AUCTION_CONFIG.auctionId + ' — tlačítko Přihodit',
+          tlačítko:'Přihodit', sekce:'Aukční formulář', ukol:'Kontaktovat při výhře',
+          stav_zpracovani:'PRIJATO',
+          note:'TLAČÍTKO: Přihodit | SEKCE: Aukce ' + AUCTION_CONFIG.auctionId + ' | ÚKOL: Kontaktovat vítěze, domluvit podmínky prodeje',
+          jmeno:name, email:email, telefon:phone, nabidka_kc:amount,
+          auto: C.year + ' ' + C.make + ' ' + C.model,
+          carId:AUCTION_CONFIG.carId, auctionId:AUCTION_CONFIG.auctionId,
+          datum:new Date().toISOString()
+        })
+      }).catch(function(){});
+    }
+    saveBidderContact(name, email, phone);
+    document.getElementById('bidSuccess').style.display = 'block';
+    this.reset();
+    prefillBidderContact();
+    btn.textContent = 'Příhoz přijat';
+    setTimeout(function(){ btn.disabled=false; btn.textContent='Příhodit znovu'; }, 3000);
+  });
+
+} else {
+  // FIREBASE LIVE MODE
+  try {
+    firebase.initializeApp(AUCTION_CONFIG.firebase);
+    var db         = firebase.database();
+    var auctionRef = db.ref('auctions/' + AUCTION_CONFIG.auctionId);
+
+    auctionRef.once('value', function(snap) {
+      var d = snap.val();
+      if (d) {
+        if (d.endTime) {
+          AUCTION_CONFIG.endTime = d.endTime;
+          if (new Date(d.endTime).getTime() > Date.now()) {
+            var cd = document.getElementById('countdown');
+            var uh = document.getElementById('urgencyHeadline');
+            var ul = document.getElementById('urgencyLabel');
+            var ue = document.getElementById('urgencyEnded');
+            if (cd) cd.style.display = '';
+            if (uh) uh.style.display = '';
+            if (ul) ul.style.display = '';
+            if (ue) ue.style.display = 'none';
+          }
+        }
+        if (d.startPrice)    AUCTION_CONFIG.startPrice    = d.startPrice;
+        if (d.minIncrement)  AUCTION_CONFIG.minIncrement  = d.minIncrement;
+        if (d.status && d.status !== 'active') applyStatus(d.status, d.cancelReason || '');
+      }
+    });
+
+    // Polling bidu
+    db.ref('bids/' + AUCTION_CONFIG.auctionId).on('value', function(snap) {
+      var bidsObj = snap.val() || {};
+      var bidsArr = Object.values(bidsObj);
+      renderBids(bidsArr);
+    });
+
+    // Sledovani stavu aukce
+    db.ref('auctions/' + AUCTION_CONFIG.auctionId + '/status').on('value', function(snap) {
+      var st = snap.val();
+      if (st && st !== 'active') {
+        db.ref('auctions/' + AUCTION_CONFIG.auctionId + '/cancelReason').once('value', function(r) {
+          applyStatus(st, r.val() || '');
+        });
+      }
+    });
+
+    // Submit Firebase
+    document.getElementById('bidForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      if (this._hp.value) return;
+      var name   = document.getElementById('bf-name').value.trim();
+      var email  = document.getElementById('bf-email').value.trim();
+      var phone  = document.getElementById('bf-phone').value.trim();
+      var rawAmt = (document.getElementById('bf-amount').value || '').replace(/\s/g,'').replace(/[^0-9]/g,'');
+      var amount = parseInt(rawAmt, 10);
+      var minReq = currentTopBid > 0 ? currentTopBid + AUCTION_CONFIG.minIncrement : AUCTION_CONFIG.startPrice;
+      var errEl  = document.getElementById('bidError');
+      if (!amount || isNaN(amount)) { errEl.textContent = 'Zadejte platnou číselnou částku.'; errEl.style.display='block'; return; }
+      if (amount < minReq) { errEl.textContent = 'Příhoz musí být minimálně ' + fKc(minReq) + '.'; errEl.style.display='block'; return; }
+      if (auctionStatus !== 'active' || Date.now() > new Date(AUCTION_CONFIG.endTime).getTime()) {
+        errEl.textContent = 'Aukce již není aktivní.'; errEl.style.display='block'; return;
+      }
+      errEl.style.display = 'none';
+      var btn = document.getElementById('btnBid');
+      btn.disabled = true; btn.textContent = 'Odesílám...';
+      try {
+        var bidData = { name: name, email: email, phone: phone, amount: amount, timestamp: Date.now() };
+        await db.ref('bids/' + AUCTION_CONFIG.auctionId).push(bidData);
+        saveBidderContact(name, email, phone);
+        if (AUCTION_CONFIG.sheetUrl && !AUCTION_CONFIG.sheetUrl.includes('TVOJE_ID')) {
+          fetch(AUCTION_CONFIG.sheetUrl, {
+            method:'POST', mode:'no-cors',
+            headers:{'Content-Type':'text/plain;charset=utf-8'},
+            body: JSON.stringify({
+              formType:'aukce_bid', source:'Aukce ' + AUCTION_CONFIG.auctionId + ' — tlačítko Přihodit',
+              tlačítko:'Přihodit', sekce:'Aukční formulář', ukol:'Kontaktovat při výhře',
+              stav_zpracovani:'PRIJATO',
+              note:'TLAČÍTKO: Přihodit | SEKCE: Aukce ' + AUCTION_CONFIG.auctionId + ' | ÚKOL: Kontaktovat vítěze, domluvit podmínky prodeje',
+              jmeno:name, email:email, telefon:phone, nabidka_kc:amount,
+              auto: AUCTION_CONFIG.year + ' ' + AUCTION_CONFIG.make + ' ' + AUCTION_CONFIG.model,
+              carId:AUCTION_CONFIG.carId, auctionId:AUCTION_CONFIG.auctionId,
+              datum:new Date().toISOString()
+            })
+          }).catch(function(){});
+        }
+        document.getElementById('bidSuccess').style.display = 'block';
+        this.reset();
+        prefillBidderContact();
+        btn.textContent = 'Příhoz přijat';
+        setTimeout(function(){ btn.disabled=false; btn.textContent='Příhodit znovu'; }, 3000);
+      } catch(err) {
+        errEl.textContent = 'Chyba při odesílání: ' + err.message;
+        errEl.style.display = 'block';
+        btn.disabled = false; btn.textContent = 'Přihodit';
+      }
+    });
+  } catch(fireErr) {
+    console.error('Firebase init error:', fireErr);
+  }
+}
+
+// Spustit inicializaci
+initPage();
+initExtras();
+setInterval(updateCountdown, 1000);
+updateCountdown();
+</script>
+
+</body>
+</html>

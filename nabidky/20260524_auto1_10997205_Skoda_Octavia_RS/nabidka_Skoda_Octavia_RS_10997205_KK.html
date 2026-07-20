@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interní příležitost: Passat Variant z evropské aukce — Batko Digital AI</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; color: #1a1a1a; }
+.header { background: linear-gradient(135deg, #0d1f3c 0%, #1a2a4a 60%, #2c4a7c 100%); color: #fff; padding: 32px 40px 26px; }
+.header-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px; }
+.header-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #f39c12; margin-bottom: 10px; }
+.header-main-title { font-size: 1.9rem; font-weight: 800; line-height: 1.2; margin-bottom: 8px; }
+.header-main-title span { color: #f39c12; }
+.header-sub { font-size: 0.88rem; opacity: 0.75; margin-bottom: 6px; }
+.header-car-spec { font-size: 0.78rem; opacity: 0.55; }
+/* ── Price Hero Block ─────────────────────────────── */
+.price-hero { margin-top: 16px; }
+.price-row { display: flex; align-items: baseline; gap: 12px; margin-bottom: 5px; }
+.price-lbl { font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.4px; min-width: 62px; color: rgba(255,255,255,0.45); }
+.price-our { font-size: 2.05rem; font-weight: 900; color: #f39c12; letter-spacing: -0.5px; line-height: 1; }
+.price-our .sep { font-size: 1.3rem; font-weight: 400; margin: 0 5px; opacity: 0.6; }
+.price-our .unit { font-size: 1.0rem; font-weight: 600; margin-left: 3px; }
+.price-market { font-size: 1.05rem; font-weight: 600; color: rgba(255,255,255,0.35); text-decoration: line-through; letter-spacing: -0.3px; }
+.price-market .unit { font-size: 0.85rem; margin-left: 2px; }
+.price-divider { border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 10px 0; width: 100%; max-width: 480px; }
+.price-save-pill { display: inline-flex; align-items: center; gap: 7px; background: rgba(39,174,96,0.18); border: 1px solid rgba(46,204,113,0.55); color: #2ecc71; padding: 5px 16px 5px 12px; border-radius: 24px; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.2px; }
+.header-right { text-align: right; min-width: 180px; }
+.badge-system { background: rgba(243,156,18,0.15); border: 1px solid #f39c12; color: #f39c12; padding: 5px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.5px; display: inline-block; margin-bottom: 10px; }
+.header-ref { font-size: 0.75rem; opacity: 0.5; margin-top: 6px; }
+.sender-bar { background: #162240; border-top: 1px solid rgba(255,255,255,0.1); padding: 9px 40px; color: rgba(255,255,255,0.7); font-size: 0.82rem; display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+.sender-bar strong { color: #fff; }
+.sender-bar a { color: #74b9ff; text-decoration: none; }
+.kurz-strip { background: #0d1f3c; color: #fff; padding: 9px 40px; display: flex; gap: 20px; align-items: center; flex-wrap: wrap; font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.08); }
+.kurz-strip .kr-rate { font-size: 1rem; font-weight: 800; color: #f39c12; }
+.kurz-strip .kr-label { opacity: 0.6; font-size: 0.72rem; }
+.urgency-block { background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%); color: #fff; padding: 22px 40px; text-align: center; position: relative; overflow: hidden; }
+.urgency-block::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(0,0,0,0.04) 20px, rgba(0,0,0,0.04) 40px); }
+.urgency-inner { position: relative; z-index: 1; }
+.urgency-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; opacity: 0.85; margin-bottom: 8px; }
+.urgency-headline { font-size: 1.35rem; font-weight: 800; margin-bottom: 14px; }
+.countdown { display: flex; gap: 12px; justify-content: center; align-items: center; margin-bottom: 10px; }
+.cd-unit { background: rgba(0,0,0,0.25); border-radius: 8px; padding: 10px 18px; min-width: 70px; }
+.cd-num { font-size: 2rem; font-weight: 900; line-height: 1; font-variant-numeric: tabular-nums; }
+.cd-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.75; margin-top: 3px; }
+.cd-sep { font-size: 2rem; font-weight: 900; opacity: 0.5; margin-top: -6px; animation: blink 1s step-end infinite; }
+@keyframes blink { 0%,100%{opacity:0.5} 50%{opacity:0.1} }
+.urgency-sub { font-size: 0.78rem; opacity: 0.75; margin-top: 4px; }
+.urgency-ended { font-size: 1.2rem; font-weight: 800; color: #fff; background: rgba(0,0,0,0.3); padding: 12px 24px; border-radius: 8px; display: none; }
+.gallery-wrap { background: #0d1420; padding: 0; position: relative; }
+.gallery-main { position: relative; width: 100%; height: 420px; overflow: hidden; }
+.gallery-main img { width: 100%; height: 100%; object-fit: cover; display: none; }
+.gallery-main img.active { display: block; }
+.gallery-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.55); color: #fff; border: none; cursor: pointer; font-size: 1.6rem; padding: 10px 18px; border-radius: 4px; z-index: 10; transition: background 0.2s; }
+.gallery-nav:hover { background: rgba(0,0,0,0.8); }
+.gallery-nav.prev { left: 12px; }
+.gallery-nav.next { right: 12px; }
+.gallery-counter { position: absolute; bottom: 12px; right: 16px; background: rgba(0,0,0,0.65); color: #fff; font-size: 0.78rem; padding: 3px 10px; border-radius: 12px; z-index: 10; }
+.gallery-badge { position: absolute; top: 16px; left: 16px; z-index: 20; }
+.gbadge { display: inline-block; background: linear-gradient(135deg, #0d1f3c, #1a3a6b); color: #f39c12; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 5px 14px; border-radius: 20px; border: 1px solid rgba(243,156,18,0.4); opacity: 0; position: absolute; left: 0; top: 0; white-space: nowrap; transition: opacity 0.6s ease; }
+.gbadge.visible { opacity: 1; }
+.thumbs { display: flex; gap: 4px; padding: 6px; overflow-x: auto; background: #0d1420; }
+.thumbs img { width: 80px; height: 54px; object-fit: cover; cursor: pointer; border: 2px solid transparent; border-radius: 3px; flex-shrink: 0; opacity: 0.65; transition: opacity 0.2s, border-color 0.2s; }
+.thumbs img.active { border-color: #f39c12; opacity: 1; }
+.thumbs img:hover { opacity: 1; }
+.content { max-width: 980px; margin: 0 auto; padding: 28px 20px; }
+.why-box { background: linear-gradient(135deg, #0d1f3c, #1a3461); border-radius: 12px; padding: 24px 28px; margin-bottom: 22px; color: #fff; }
+.why-box .wb-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #f39c12; margin-bottom: 10px; }
+.why-box h2 { font-size: 1.1rem; font-weight: 800; margin-bottom: 18px; }
+.why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 20px; }
+@media(max-width:600px){ .why-grid { grid-template-columns: 1fr; } }
+.why-item { background: rgba(255,255,255,0.07); border-radius: 8px; padding: 10px 14px; display: flex; align-items: center; gap: 10px; font-size: 0.85rem; }
+.why-item .wi-icon { font-size: 1rem; flex-shrink: 0; }
+.scoring-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 6px; }
+.score-item { background: rgba(255,255,255,0.08); border-radius: 8px; padding: 10px 16px; text-align: center; flex: 1; min-width: 100px; }
+.score-item .sc-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.6; margin-bottom: 5px; }
+.score-item .sc-val { font-size: 1rem; font-weight: 800; }
+.sc-high { color: #2ecc71; }
+.sc-mid { color: #f39c12; }
+.sc-low { color: #e74c3c; }
+.section { background: #fff; border-radius: 12px; padding: 22px 26px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.section h2 { font-size: 1rem; color: #1a2a4a; font-weight: 800; margin-bottom: 16px; border-bottom: 2px solid #e8ecf2; padding-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.specs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+@media(max-width:600px){ .specs-grid { grid-template-columns: 1fr 1fr; } }
+.spec-item { background: #f5f7fb; border-radius: 8px; padding: 11px 14px; }
+.spec-item .slabel { font-size: 0.68rem; color: #999; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 3px; }
+.spec-item .sval { font-size: 0.92rem; font-weight: 700; color: #1a2a4a; }
+.locked-block { background: linear-gradient(135deg, #f5f7fb, #edf2fb); border: 2px dashed #c8d6f0; border-radius: 10px; padding: 18px 20px; margin-top: 14px; text-align: center; position: relative; overflow: hidden; }
+.locked-block::before { content: ''; position: absolute; inset: 0; background: rgba(255,255,255,0.6); backdrop-filter: blur(2px); z-index: 1; }
+.locked-inner { position: relative; z-index: 2; }
+.lock-icon { font-size: 1.8rem; margin-bottom: 8px; }
+.lock-text { font-size: 0.85rem; color: #5a6a8a; margin-bottom: 12px; font-weight: 600; }
+.lock-sub { font-size: 0.75rem; color: #8899bb; margin-bottom: 14px; }
+.btn-unlock { background: linear-gradient(135deg, #2c4a7c, #1a2a4a); color: #fff; border: none; padding: 10px 22px; border-radius: 25px; font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; }
+.btn-unlock:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(28,42,74,0.3); }
+.unlocked-content { display: none; }
+.unlocked-content.visible { display: block; }
+.eq-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.eq-tag { background: #edf2fb; color: #2c4a7c; font-size: 0.78rem; padding: 4px 12px; border-radius: 20px; white-space: nowrap; }
+.eq-tag.highlight { background: #d4edda; color: #155724; font-weight: 700; }
+.audit-cta { background: linear-gradient(135deg, #0d1f3c, #1a3a6b); border-radius: 12px; padding: 24px 28px; margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
+.audit-cta-left .al-tag { color: #f39c12; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 7px; }
+.audit-cta-left .al-title { color: #fff; font-size: 1.05rem; font-weight: 800; margin-bottom: 5px; }
+.audit-cta-left .al-sub { color: rgba(255,255,255,0.65); font-size: 0.82rem; }
+.btn-audit { background: linear-gradient(135deg, #f39c12, #e67e22); color: #fff; text-decoration: none; padding: 13px 26px; border-radius: 8px; font-weight: 800; font-size: 0.95rem; white-space: nowrap; flex-shrink: 0; transition: transform 0.15s, box-shadow 0.15s; display: inline-block; cursor: pointer; border: none; }
+.btn-audit:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(243,156,18,0.4); }
+.kaskada { background: #fff; border-radius: 12px; padding: 24px 26px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.kaskada h2 { font-size: 1rem; color: #1a2a4a; font-weight: 800; margin-bottom: 18px; border-bottom: 2px solid #e8ecf2; padding-bottom: 8px; }
+.kaskada-items { display: flex; flex-direction: column; gap: 0; }
+.kaska-item { display: flex; gap: 16px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid #f0f2f5; }
+.kaska-item:last-child { border-bottom: none; }
+.kaska-num { background: linear-gradient(135deg, #1a2a4a, #2c4a7c); color: #fff; border-radius: 50%; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.9rem; flex-shrink: 0; margin-top: 2px; }
+.kaska-body { flex: 1; }
+.kaska-title { font-size: 0.92rem; font-weight: 800; color: #1a2a4a; margin-bottom: 3px; }
+.kaska-desc { font-size: 0.78rem; color: #666; margin-bottom: 6px; line-height: 1.5; }
+.kaska-price { font-size: 0.75rem; font-weight: 700; color: #2c4a7c; background: #edf2fb; padding: 2px 10px; border-radius: 20px; display: inline-block; }
+.kaska-price.free { background: #d4edda; color: #155724; }
+.kaska-price.top { background: linear-gradient(135deg, #f39c12, #e67e22); color: #fff; }
+.lead-section { background: linear-gradient(135deg, #f5f7fb, #eaf0ff); border: 2px solid #c8d6f0; border-radius: 12px; padding: 28px; margin-bottom: 18px; }
+.lead-section .ls-tag { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #2c4a7c; margin-bottom: 8px; }
+.lead-section h2 { font-size: 1.1rem; color: #1a2a4a; font-weight: 800; margin-bottom: 6px; }
+.lead-section .ls-sub { font-size: 0.83rem; color: #555; margin-bottom: 20px; }
+.lead-form { display: flex; flex-direction: column; gap: 12px; }
+.lead-form .lf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media(max-width:600px){ .lead-form .lf-row { grid-template-columns: 1fr; } }
+.lead-form input, .lead-form select, .lead-form textarea { width: 100%; padding: 11px 14px; border: 1.5px solid #c8d6f0; border-radius: 8px; font-size: 0.88rem; font-family: inherit; background: #fff; color: #1a1a1a; transition: border-color 0.2s; }
+.lead-form input:focus, .lead-form select:focus, .lead-form textarea:focus { outline: none; border-color: #2c4a7c; }
+.lead-form textarea { height: 80px; resize: vertical; }
+.btn-lead { background: linear-gradient(135deg, #2c4a7c, #1a2a4a); color: #fff; border: none; padding: 14px; border-radius: 8px; font-size: 0.95rem; font-weight: 800; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; letter-spacing: 0.3px; }
+.btn-lead:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(28,42,74,0.35); }
+.lead-privacy { font-size: 0.72rem; color: #999; text-align: center; margin-top: 8px; }
+.lead-success { display: none; background: #d4edda; border: 1px solid #27ae60; border-radius: 8px; padding: 16px; text-align: center; color: #155724; font-weight: 700; font-size: 0.9rem; }
+.doc-summary { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+@media(max-width:600px){ .doc-summary { grid-template-columns: 1fr; } }
+.doc-item { background: #f5f7fb; border-radius: 8px; padding: 11px 14px; display: flex; align-items: center; gap: 10px; font-size: 0.85rem; }
+.doc-item .di-icon { font-size: 1rem; flex-shrink: 0; }
+.doc-item .di-text { color: #1a2a4a; font-weight: 600; }
+.doc-detail-link { font-size: 0.78rem; color: #888; margin-top: 10px; cursor: pointer; text-decoration: underline; text-decoration-style: dotted; }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+@media(max-width:700px){ .two-col { grid-template-columns: 1fr; } }
+.company-id-bar { background: #f5f7fb; border-top: 2px solid #e0e7f0; padding: 14px 40px; font-size: 0.75rem; color: #666; }
+.company-id-bar h4 { font-size: 0.7rem; font-weight: 700; color: #8899bb; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+.company-id-bar .cid-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 24px; }
+@media(max-width:600px){ .company-id-bar .cid-grid { grid-template-columns: 1fr; } }
+.company-id-bar .cid-row { display: flex; gap: 6px; }
+.company-id-bar .cid-label { color: #aaa; min-width: 120px; font-size: 0.72rem; flex-shrink: 0; }
+.company-id-bar .cid-val { font-weight: 600; color: #555; font-size: 0.72rem; }
+.privacy-law-note { margin-top: 8px; padding-top: 8px; border-top: 1px solid #e0e7f0; font-size: 0.72rem; line-height: 1.45; color: #777; }
+.privacy-law-note strong { color: #667899; }
+.footer { background: #0d1f3c; color: rgba(255,255,255,0.5); text-align: center; padding: 16px 20px; font-size: 0.75rem; }
+.footer a { color: #74b9ff; }
+.info-box { background: #fff8e1; border-left: 4px solid #f39c12; border-radius: 6px; padding: 11px 14px; font-size: 0.82rem; color: #7d5a00; margin-top: 12px; }
+.info-box strong { display: block; margin-bottom: 3px; }
+.warn-box { background: #fdecea; border-left: 4px solid #e74c3c; border-radius: 6px; padding: 11px 14px; font-size: 0.82rem; color: #7b1c1c; margin-top: 12px; }
+.warn-box strong { display: block; margin-bottom: 3px; }
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 1000; align-items: center; justify-content: center; }
+.modal-overlay.open { display: flex; }
+.modal-box { background: #fff; border-radius: 14px; padding: 32px; max-width: 480px; width: 90%; position: relative; max-height: 90vh; overflow-y: auto; }
+.modal-close { position: absolute; top: 14px; right: 18px; background: none; border: none; font-size: 1.4rem; cursor: pointer; color: #888; }
+.modal-box h3 { font-size: 1.1rem; color: #1a2a4a; font-weight: 800; margin-bottom: 8px; }
+.modal-box .ms-sub { font-size: 0.85rem; color: #666; margin-bottom: 20px; }
+.modal-form input, .modal-form select { width: 100%; padding: 11px 14px; border: 1.5px solid #c8d6f0; border-radius: 8px; font-size: 0.88rem; font-family: inherit; margin-bottom: 10px; }
+.modal-form input:focus, .modal-form select:focus { outline: none; border-color: #2c4a7c; }
+.teaser-wrap { margin-bottom: 14px; }
+.teaser-card { background: #fff; border-radius: 14px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); overflow: hidden; border: 1px solid #e8ecf4; }
+.teaser-head { padding: 20px 24px; cursor: pointer; display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; transition: background 0.15s; }
+.teaser-head:hover { background: #fafbfd; }
+.teaser-badge { font-size: 0.66rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; padding: 3px 10px; border-radius: 20px; display: inline-block; margin-bottom: 7px; }
+.tb-free { background: #d4edda; color: #155724; }
+.tb-paid { background: #fff3cd; color: #856404; }
+.tb-prem { background: linear-gradient(135deg,#f39c12,#e67e22); color: #fff; }
+.teaser-head h3 { font-size: 1.05rem; font-weight: 800; color: #1a2a4a; margin-bottom: 5px; }
+.teaser-head .th-sub { font-size: 0.8rem; color: #666; }
+.teaser-arrow { font-size: 1.3rem; color: #2c4a7c; flex-shrink: 0; transition: transform 0.25s; margin-top: 4px; }
+.teaser-body { display: none; padding: 0 24px 22px; border-top: 1px solid #f0f3f8; }
+.teaser-body.open { display: block; }
+.teaser-body .tb-intro { font-size: 0.88rem; color: #333; font-weight: 600; margin: 16px 0 12px; line-height: 1.5; }
+.teaser-body ul { list-style: none; padding: 0; margin: 0 0 16px; display: flex; flex-direction: column; gap: 7px; }
+.teaser-body ul li { font-size: 0.83rem; color: #444; padding-left: 24px; position: relative; line-height: 1.5; }
+.teaser-body ul li::before { content: '✓'; position: absolute; left: 0; color: #27ae60; font-weight: 800; }
+.teaser-body .tb-anchor { background: linear-gradient(135deg,#0d1f3c,#1a3a6b); color: rgba(255,255,255,0.9); border-radius: 8px; padding: 12px 16px; font-size: 0.82rem; margin-bottom: 16px; }
+.teaser-body .tb-anchor strong { color: #f39c12; }
+.teaser-body .tb-price { font-size: 0.8rem; color: #888; margin-bottom: 14px; }
+.teaser-body .tb-price strong { color: #1a2a4a; font-size: 1rem; }
+.inline-form { background: #f5f7fb; border-radius: 10px; padding: 16px 18px; }
+.inline-form p { font-size: 0.82rem; color: #555; margin-bottom: 12px; font-weight: 600; }
+.inline-form input, .inline-form select, .inline-form textarea { width: 100%; padding: 10px 13px; border: 1.5px solid #c8d6f0; border-radius: 7px; font-size: 0.85rem; font-family: inherit; background: #fff; margin-bottom: 9px; }
+.inline-form input:focus, .inline-form select:focus { outline: none; border-color: #2c4a7c; }
+.inline-form textarea { height: 68px; resize: vertical; }
+.btn-service { background: linear-gradient(135deg,#1a2a4a,#2c4a7c); color: #fff; border: none; padding: 11px 22px; border-radius: 25px; font-size: 0.86rem; font-weight: 700; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; }
+.btn-service:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(28,42,74,0.3); }
+.btn-service-gold { background: linear-gradient(135deg,#f39c12,#e67e22); }
+.service-success { display:none; background:#d4edda; border:1px solid #27ae60; border-radius:7px; padding:13px; text-align:center; color:#155724; font-weight:700; font-size:0.88rem; margin-top:10px; }
+.teaser-body .divider { border:none; border-top:1px solid #e8ecf4; margin:14px 0; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div class="header-left">
+      <div class="header-label">Interni prilezitost - system AI vyberu vozidel</div>
+      <h1 class="header-main-title">Skoda Octavia RS z nemecke aukce</h1>
+      <div class="price-hero">
+        <div class="price-row">
+          <span class="price-lbl">Pro vas</span>
+          <span class="price-our">429 000<span class="sep">-</span>629 000<span class="unit"> Kc</span></span>
+        </div>
+        <div class="price-row">
+          <span class="price-lbl">Trh CR</span>
+          <span class="price-market">648 000 - 739 000<span class="unit"> Kc</span></span>
+        </div>
+        <hr class="price-divider">
+        <span class="price-save-pill">Max bezpecny bid 17 583 EUR - doporuceny strop 17 300 EUR</span>
+      </div>
+      <p class="header-sub" style="margin-top:12px;">Predbezne vyhodnoceno podle postupu 2026-05-24 pro vyber aut z OPENLANE.</p>
+      <p class="header-car-spec">Skoda Octavia Combi RS 2.0 TDI DSG &bull; 147 kW / 200 hp &bull; 69 920 km &bull; 2022 &bull; automat DSG</p>
+    </div>
+    <div class="header-right">
+      <div class="badge-system">Podminecne</div>
+      <p style="color:rgba(255,255,255,0.55);font-size:0.75rem;margin-top:4px;">Zpracoval: <strong style="color:#fff;">Jaroslav Batko</strong></p>
+      <p class="header-ref">Ref.: #10997205</p>
+    </div>
+  </div>
+</div>
+
+<div class="sender-bar">
+  <span>Batko Digital AI</span>
+  <span><a href="mailto:batko.digital.ai@gmail.com">batko.digital.ai@gmail.com</a></span>
+  <span>+420 725 360 151</span>
+  <span style="margin-left:auto;font-size:0.75rem;opacity:0.5;">Zdroj: OPENLANE Europe (jen pro registrovane)</span>
+</div>
+
+<div class="kurz-strip">
+  <span class="kr-label">Kurz z detailu</span>
+  <span class="kr-rate">1 EUR = 24,4267 Kc</span>
+  <span style="opacity:0.4;">&middot;</span>
+  <span>Vstup: <strong>24. 5. 2026</strong></span>
+  <span style="opacity:0.5;font-size:0.72rem;margin-left:4px;">Pred prihozem overit aktualni kurz a finalni proformu.</span>
+</div>
+
+<div class="urgency-block">
+  <div class="urgency-inner">
+    <div class="urgency-label">Pozor - omezena casova prilezitost</div>
+    <div class="urgency-headline" id="urgency-headline">Aukce končí podle aktuálního odpočtu.</div>
+    <div class="countdown" id="countdown">
+      <div class="cd-unit"><div class="cd-num" id="cd-h">00</div><div class="cd-label">hodin</div></div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit"><div class="cd-num" id="cd-m">00</div><div class="cd-label">minut</div></div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit"><div class="cd-num" id="cd-s">00</div><div class="cd-label">sekund</div></div>
+    </div>
+    <div class="urgency-ended" id="urgency-ended">Aukce skoncila - podobne vozidlo lze vyhledat na zadost</div>
+    <div class="urgency-sub" id="urgency-sub">Cilova aukce / x-Time &bull; Moenchengladbach, DE &bull; OPENLANE ref. 10997205</div>
+  </div>
+</div>
+
+<div class="gallery-wrap">
+  <div class="gallery-main" id="gallery">
+    <div class="gallery-badge" id="gallery-badge"><div class="gbadge visible" id="gbadge">Vybrano systemem AI</div></div>
+    <img src="img/foto_01.jpg" class="active" alt="Skoda Octavia RS report 1">
+    <img src="img/foto_02.jpg" alt="Skoda Octavia RS report 2">
+    <img src="img/foto_03.jpg" alt="Skoda Octavia RS report 3">
+    <img src="img/foto_04.jpg" alt="Skoda Octavia RS report 4">
+    <img src="img/foto_05.jpg" alt="Skoda Octavia RS report 5">
+    <button class="gallery-nav prev" onclick="changeSlide(-1)">&#8249;</button>
+    <button class="gallery-nav next" onclick="changeSlide(1)">&#8250;</button>
+    <div class="gallery-counter" id="counter">1 / 5</div>
+  </div>
+  <div class="thumbs" id="thumbs">
+    <img src="img/foto_01.jpg" class="active" onclick="goSlide(0)">
+    <img src="img/foto_02.jpg" onclick="goSlide(1)">
+    <img src="img/foto_03.jpg" onclick="goSlide(2)">
+    <img src="img/foto_04.jpg" onclick="goSlide(3)">
+    <img src="img/foto_05.jpg" onclick="goSlide(4)">
+  </div>
+</div>
+
+<div class="content">
+  <div class="why-box">
+    <div class="wb-label">Hodnoceni systemu</div>
+    <h2>Proc bylo toto vozidlo vybrano</h2>
+    <div class="why-grid">
+      <div class="why-item"><span class="wi-icon">+</span> Octavia Combi RS TDI DSG - velmi likvidni model v CR</div>
+      <div class="why-item"><span class="wi-icon">+</span> Nizky najezd 69 920 km a prvni registrace 08/2022</div>
+      <div class="why-item"><span class="wi-icon">+</span> Bohata vybava: Matrix LED, ACC, HUD, Columbus, kamera, tazne</div>
+      <div class="why-item"><span class="wi-icon">+</span> COC k dispozici a registrace kompletni podle OPENLANE</div>
+      <div class="why-item"><span class="wi-icon">!</span> Lak na vice dilech - nutna rezerva na kosmetiku</div>
+      <div class="why-item"><span class="wi-icon">!</span> Testovaci jizda nebyla provedena - overit DSG a podvozek</div>
+    </div>
+    <div class="wb-label" style="margin-bottom:10px;">Predbezne skore systemu</div>
+    <div class="scoring-row">
+      <div class="score-item"><div class="sc-label">Prilezitost</div><div class="sc-val sc-high">Vysoka</div></div>
+      <div class="score-item"><div class="sc-label">Riziko</div><div class="sc-val sc-mid">Stredni</div></div>
+      <div class="score-item"><div class="sc-label">Likvidita</div><div class="sc-val sc-high">Silna</div></div>
+      <div class="score-item"><div class="sc-label">Vhodnost: klient</div><div class="sc-val sc-high">Ano</div></div>
+      <div class="score-item"><div class="sc-label">Vhodnost: preprodej</div><div class="sc-val sc-mid">Podminecne</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Zakladni parametry vozidla</h2>
+    <div class="specs-grid">
+      <div class="spec-item"><div class="slabel">Rok / 1. registrace</div><div class="sval">2022 / 22.08.2022</div></div>
+      <div class="spec-item"><div class="slabel">Najezd</div><div class="sval">69 920 km</div></div>
+      <div class="spec-item"><div class="slabel">Vykon</div><div class="sval">147 kW / 200 hp</div></div>
+      <div class="spec-item"><div class="slabel">Palivo</div><div class="sval">Nafta</div></div>
+      <div class="spec-item"><div class="slabel">Prevodovka</div><div class="sval">7st. DSG automat</div></div>
+      <div class="spec-item"><div class="slabel">Karoserie</div><div class="sval">Kombi / Combi RS</div></div>
+      <div class="spec-item"><div class="slabel">Aktualni nabidka</div><div class="sval">16 600 EUR / 405 483 Kc</div></div>
+      <div class="spec-item"><div class="slabel">Zadany bid</div><div class="sval">16 700 EUR / celkem 422 216 Kc</div></div>
+      <div class="spec-item"><div class="slabel">Max bezpecny bid</div><div class="sval">17 583 EUR</div></div>
+    </div>
+    <div class="locked-block" id="lock-specs">
+      <div class="locked-inner">
+        <div class="lock-icon">LOCK</div>
+        <div class="lock-text">Dalsi technicke informace dostupne po odemceni</div>
+        <div class="lock-sub">VIN &bull; dokumenty &bull; klice &bull; servis &bull; registrace</div>
+        <button class="btn-unlock" onclick="openModal('modal-lead', 'specs')">Odemknout podrobnosti zdarma</button>
+      </div>
+    </div>
+    <div class="unlocked-content" id="unlocked-specs">
+      <div class="specs-grid" style="margin-top:14px;">
+        <div class="spec-item"><div class="slabel">VIN</div><div class="sval">TMBJK8NX4NY122596</div></div>
+        <div class="spec-item"><div class="slabel">Objem motoru</div><div class="sval">1 968 cc</div></div>
+        <div class="spec-item"><div class="slabel">Emisni norma</div><div class="sval">EU6d / 133 g CO2</div></div>
+        <div class="spec-item"><div class="slabel">Barva</div><div class="sval">Black-Magic Perleffekt</div></div>
+        <div class="spec-item"><div class="slabel">Klice</div><div class="sval">rozpor: OPENLANE 1 / TUV 2</div></div>
+        <div class="spec-item"><div class="slabel">COC</div><div class="sval">k dispozici</div></div>
+      </div>
+      <div class="warn-box" style="margin-top:14px;"><strong>Overit pred prihozem</strong> Pocet klicu je v podkladech rozporny. OPENLANE uvadi 1 klic, TUV uvadi 2/2.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Vybava vozidla</h2>
+    <div class="eq-tags" style="margin-bottom:12px;">
+      <span class="eq-tag highlight">Matrix LED</span><span class="eq-tag highlight">ACC</span><span class="eq-tag highlight">Head-up display</span><span class="eq-tag highlight">Columbus navigace</span><span class="eq-tag highlight">Zadni kamera</span><span class="eq-tag highlight">Elektricke viko</span><span class="eq-tag highlight">Tazne zarizeni</span><span class="eq-tag highlight">Vyhrivany volant</span>
+    </div>
+    <div class="locked-block" id="lock-eq">
+      <div class="locked-inner"><div class="lock-icon">LOCK</div><div class="lock-text">Kompletni vybava a rizika dostupne po odemceni</div><div class="lock-sub">Asistenti &bull; komfort &bull; svetla &bull; infotainment &bull; kola</div><button class="btn-unlock" onclick="openModal('modal-lead', 'eq')">Zobrazit kompletni vybavu zdarma</button></div>
+    </div>
+    <div class="unlocked-content" id="unlocked-eq">
+      <div style="margin-top:14px;" class="eq-tags">
+        <span class="eq-tag">Lane Assist</span><span class="eq-tag">Traveller Assist</span><span class="eq-tag">Traffic sign recognition</span><span class="eq-tag">DAB</span><span class="eq-tag">Phonebox</span><span class="eq-tag">18'' alu kola</span><span class="eq-tag">Sportovni sedadla</span><span class="eq-tag">Vyhrivana predni sedadla</span><span class="eq-tag">3-zonova klimatizace</span><span class="eq-tag">Park & Lights paket</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="section"><h2>Stav vozidla</h2><div class="info-box"><strong>Silne body</strong> 1 majitel, digitalni servisni doklad, posledni servis 06/2025 pri 54 866 km, COC k dispozici, bez zjistitelne nehody a bez zjistitelneho prelakovani podle TUV.</div><div class="warn-box"><strong>Rizika</strong> Testovaci jizda nebyla provedena. Lakove skrabance jsou na zadnim narazniku, obou bocich, pravem blatniku, pravych prednich dverich a kapote.</div><div class="info-box"><strong>Pneumatiky</strong> Letni Goodyear 225/45 R18, predek 4 mm, zadek 5 mm. Prodejni, ale ne silna rezerva.</div></div>
+    <div class="section"><h2>Dokumenty a puvod</h2><div class="doc-summary"><div class="doc-item"><span class="di-icon">OK</span><span class="di-text">Registrace kompletni</span></div><div class="doc-item"><span class="di-icon">OK</span><span class="di-text">COC k dispozici</span></div><div class="doc-item"><span class="di-icon">DE</span><span class="di-text">Puvod Nemecko</span></div><div class="doc-item"><span class="di-icon">TUV</span><span class="di-text">TUV SUD protokol 20.05.2026</span></div><div class="doc-item"><span class="di-icon">!</span><span class="di-text">ZB#1 nebyl pri TUV k dispozici</span></div><div class="doc-item"><span class="di-icon">!</span><span class="di-text">Servisni zaznam v OPENLANE neni k dispozici</span></div></div><div class="info-box"><strong>Doprava</strong> Standard do hubu Hulin 9 086,73 Kc; standard na adresu 11 211,86 Kc; Optimo na adresu 15 168,98 Kc.</div></div>
+  </div>
+
+  <div class="audit-cta"><div class="audit-cta-left"><div class="al-tag">Placena premiova sluzba</div><div class="al-title">Detailni audit rizik a bid strategie</div><div class="al-sub">Lak &bull; DSG &bull; servis &bull; trh CR &bull; maximalni bid &bull; ROI &bull; kontrolni checklist</div></div><button class="btn-audit" onclick="openModal('modal-audit', null)">Pozadat o audit</button></div>
+
+  <div class="lead-section" id="lead-main"><div class="ls-tag">Bezplatna konzultace</div><h2>Mate zajem? Zanechte kontakt.</h2><p class="ls-sub">Ozveme se do nekolika hodin. Bez zavazku. Posoudime prilezitost spolecne.</p><div class="lead-form" id="lead-form-main"><div class="lf-row"><input type="text" id="lf-jmeno" placeholder="Jmeno a prijmeni" required><input type="tel" id="lf-telefon" placeholder="Telefon (+420 ...)"></div><input type="email" id="lf-email" placeholder="E-mail (povinne)" required><select id="lf-zajem"><option value="">- Jak chcete vozidlo vyuzit? -</option><option value="rodinne">Auto pro vlastni potrebu</option><option value="preprodej-fo">Preprodej - fyzicka osoba</option><option value="preprodej-ico">Preprodej - firma / ICO</option><option value="agentura">Chci zastoupeni v aukci</option><option value="podobne">Hledam podobne vozidlo</option></select><textarea id="lf-zprava" placeholder="Doplnujici informace nebo dotaz..."></textarea><button class="btn-lead" onclick="submitLead('main')">Odeslat - chci se dozvedet vice</button><p class="lead-privacy">Vase udaje slouzi pouze pro kontaktovani zpracovatele.</p></div><div class="lead-success" id="lead-success-main">Dekuji. Ozve se Jaroslav Batko.</div></div>
+
+  <div class="kaskada"><h2>Co muzete ziskat dal</h2><div class="kaskada-items"><div class="kaska-item"><div class="kaska-num">1</div><div class="kaska-body"><div class="kaska-title">Rychle vyhodnoceni vozidla</div><div class="kaska-desc">Orientační posouzeni prilezitosti, zakladni parametry a verdikt k dalsimu postupu.</div><span class="kaska-price free">Zdarma pri kontaktu</span></div></div><div class="kaska-item"><div class="kaska-num">2</div><div class="kaska-body"><div class="kaska-title">Detailni audit rizik vozidla</div><div class="kaska-desc">Technicka rizika, predikce nakladu, odhad ROI, checklist a jasny verdikt.</div><span class="kaska-price">Od 990 Kc</span></div></div><div class="kaska-item"><div class="kaska-num">3</div><div class="kaska-body"><div class="kaska-title">Zastupovani v aukci</div><div class="kaska-desc">Schvalite maximalni cenu, my sledujeme aukci a drzime disciplinu bidu.</div><span class="kaska-price top">Premiova sluzba</span></div></div></div><div style="text-align:center;margin-top:20px;"><button class="btn-audit" onclick="document.getElementById('lead-main').scrollIntoView({behavior:'smooth'})">Mam zajem - kontaktujte me</button></div></div>
+</div>
+
+<div class="company-id-bar"><h4>Identifikace zpracovatele - povinne udaje</h4><div class="cid-grid"><div><div class="cid-row"><span class="cid-label">Jmeno:</span><span class="cid-val">Ing. Jaroslav Batko-Linet</span></div><div class="cid-row"><span class="cid-label">ICO:</span><span class="cid-val">14600153</span></div><div class="cid-row"><span class="cid-label">DIC:</span><span class="cid-val">CZ5912280418 - Platce DPH</span></div><div class="cid-row"><span class="cid-label">Sidlo:</span><span class="cid-val">Ostrava 1, Vitkovicka 1, PSC 701 00</span></div></div><div><div class="cid-row"><span class="cid-label">Telefon:</span><span class="cid-val">+420 725 360 151</span></div><div class="cid-row"><span class="cid-label">E-mail:</span><span class="cid-val">batko.digital.ai@gmail.com</span></div><div class="cid-row"><span class="cid-label">Ref.:</span><span class="cid-val">OPENLANE #10997205</span></div></div></div><div style="margin-top:8px;font-size:0.7rem;color:#aaa;">Kurz z detailu: 1 EUR = 24,4267 Kc &middot; Generovano: 24. 5. 2026</div><div class="privacy-law-note"><strong>Ochrana osobních údajů:</strong> Údaje z kontaktních a objednávkových formulářů zpracováváme výhradně za účelem vyřízení vaší poptávky, přípravy nabídky a navazující komunikace. S údaji nakládáme důvěrně, v souladu s platnými právními předpisy na ochranu osobních údajů; nejsou prodávány ani předávány třetím osobám bez právního důvodu nebo vašeho souhlasu.</div></div>
+<div class="footer"><p style="opacity:0.5;">Tato stranka slouzi jako informacni podklad. Ceny jsou orientacni a zavisi na aukci, kurzu a skutecnem stavu vozidla.</p></div>
+
+<div class="modal-overlay" id="modal-lead"><div class="modal-box"><button class="modal-close" onclick="closeModal('modal-lead')">x</button><h3>Odemknout podrobnosti</h3><p class="ms-sub">Zanechte kontakt a zobrazime skryte informace. Zdarma. Bez zavazku.</p><div class="modal-form" id="modal-lead-form"><input type="text" id="ml-jmeno" placeholder="Jmeno a prijmeni" required><input type="email" id="ml-email" placeholder="E-mail (povinne)" required><input type="tel" id="ml-telefon" placeholder="Telefon"><button class="btn-lead" style="margin-top:4px;width:100%;" onclick="submitModalLead()">Odemknout zdarma</button><p class="lead-privacy" style="margin-top:10px;">Vase udaje jsou v bezpeci.</p></div><div class="lead-success" id="modal-lead-success">Pristup odemcen.</div></div></div>
+<div class="modal-overlay" id="modal-audit"><div class="modal-box"><button class="modal-close" onclick="closeModal('modal-audit')">x</button><h3>Pozadat o detailni audit rizik</h3><p class="ms-sub">Technicka rizika, predikce nakladu, odhad ROI a verdikt ke koupi. Cena auditu od 990 Kc.</p><div class="modal-form" id="modal-audit-form"><input type="text" id="ma-jmeno" placeholder="Jmeno a prijmeni" required><input type="email" id="ma-email" placeholder="E-mail" required><input type="tel" id="ma-telefon" placeholder="Telefon"><select id="ma-typ"><option value="">- Typ auditu -</option><option value="standard">Audit standard</option><option value="premium">Audit premium + call</option><option value="full">Full servis</option></select><button class="btn-audit" style="margin-top:6px;width:100%;" onclick="submitAuditLead()">Odeslat objednavku auditu</button></div><div class="lead-success" id="modal-audit-success">Objednavka prijata.</div></div></div>
+<script>
+var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwcFA8bRyHnBB_4XlgH5_IMR4IBqUfvTD8vScGZPiuCh0gR5f4Mp_9OjOAw1u3lNEjI/exec';
+var AUTO_NAZEV = 'Skoda Octavia Combi RS 2.0 TDI DSG 2022';
+var AUKCE_ID   = '10997205';
+var AUKCE_URL  = window.location.href;
+
+function sendToSheets(payload) {
+  fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) }).catch(function(e) { console.warn('Sheet send error:', e); });
+}
+function fval(id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; }
+
+function toggleTeaser(id) {
+  var body = document.getElementById(id);
+  var arr  = document.getElementById('arr-' + id);
+  if (!body) return;
+  var isOpen = body.style.display === 'block';
+  body.style.display = isOpen ? 'none' : 'block';
+  if (arr) arr.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(90deg)';
+}
+
+function submitService(id, formType) {
+  var jmeno = fval(id+'-jmeno'), email = fval(id+'-email'), tel = fval(id+'-tel');
+  var pozn = fval(id+'-pozn'), typ = fval(id+'-typ'), forma = fval(id+'-forma');
+  if (!email) { alert('Vyplňte prosím e-mail.'); return; }
+  var note = pozn;
+  if (typ)   note += (note ? ' | ' : '') + 'Typ: ' + typ;
+  if (forma) note += (note ? ' | ' : '') + 'Forma: ' + forma;
+  sendToSheets({ auto_nazev: AUTO_NAZEV, aukce_id: AUKCE_ID, aukce_url: AUKCE_URL, nabidka_url: window.location.href, source: 'nabidka_KONVERZE_'+AUKCE_ID, formType: formType, jmeno: jmeno, email: email, telefon_text: tel, note: note, url_aukce: AUKCE_URL });
+  var wrap = document.getElementById('form-wrap-'+id);
+  var succ = document.getElementById('succ-'+id);
+  if (wrap) wrap.style.display = 'none';
+  if (succ) succ.style.display = 'block';
+}
+
+function submitLead(id) {
+  var jmeno = fval('lf-jmeno'), email = fval('lf-email'), tel = fval('lf-telefon'), msg = fval('lf-zprava');
+  if (!email) { alert('Vyplňte prosím e-mail.'); return; }
+  sendToSheets({ auto_nazev: AUTO_NAZEV, aukce_id: AUKCE_ID, aukce_url: AUKCE_URL, nabidka_url: window.location.href, source: 'nabidka_KONVERZE_'+AUKCE_ID, formType: 'E-Konzultace', jmeno: jmeno, email: email, telefon_text: tel, note: msg, url_aukce: AUKCE_URL });
+  var form = document.getElementById('lead-form-main');
+  var succ = document.getElementById('lead-success-main');
+  if (form) form.style.display = 'none';
+  if (succ) succ.style.display = 'block';
+}
+
+var pendingUnlock = null;
+function openModal(id, unlockTarget) { pendingUnlock = unlockTarget || null; document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+document.querySelectorAll('.modal-overlay').forEach(function(el) { el.addEventListener('click', function(e) { if (e.target === el) el.classList.remove('open'); }); });
+
+function submitModalLead() {
+  var jmeno = fval('ml-jmeno'), email = fval('ml-email'), tel = fval('ml-telefon');
+  if (!email) { alert('Vyplňte prosím e-mail.'); return; }
+  sendToSheets({ auto_nazev: AUTO_NAZEV, aukce_id: AUKCE_ID, aukce_url: AUKCE_URL, nabidka_url: window.location.href, source: 'nabidka_KONVERZE_'+AUKCE_ID, formType: 'F-Odemceni', jmeno: jmeno, email: email, telefon_text: tel, note: 'Odemčení obsahu' + (pendingUnlock ? ' / '+pendingUnlock : ''), url_aukce: AUKCE_URL });
+  if (pendingUnlock === 'specs') { var ls = document.getElementById('lock-specs'); var us = document.getElementById('unlocked-specs'); if (ls) ls.style.display='none'; if (us) { us.classList.add('visible'); us.style.display='block'; } }
+  if (pendingUnlock === 'eq') { var le = document.getElementById('lock-eq'); var ue = document.getElementById('unlocked-eq'); if (le) le.style.display='none'; if (ue) { ue.classList.add('visible'); ue.style.display='block'; } }
+  if (pendingUnlock === 'docs') { closeModal('modal-lead'); var lm = document.getElementById('lead-main'); if (lm) lm.scrollIntoView({behavior:'smooth'}); return; }
+  document.getElementById('modal-lead-form').style.display = 'none';
+  document.getElementById('modal-lead-success').style.display = 'block';
+  setTimeout(function() { closeModal('modal-lead'); }, 1600);
+}
+
+function submitAuditLead() {
+  var jmeno = fval('ma-jmeno'), email = fval('ma-email'), tel = fval('ma-telefon'), typ = fval('ma-typ');
+  if (!email) { alert('Vyplňte prosím e-mail.'); return; }
+  sendToSheets({ auto_nazev: AUTO_NAZEV, aukce_id: AUKCE_ID, aukce_url: AUKCE_URL, nabidka_url: window.location.href, source: 'nabidka_KONVERZE_'+AUKCE_ID, formType: 'A-Expertiza', jmeno: jmeno, email: email, telefon_text: tel, note: typ ? 'Typ auditu: '+typ : '', url_aukce: AUKCE_URL });
+  document.getElementById('modal-audit-form').style.display = 'none';
+  document.getElementById('modal-audit-success').style.display = 'block';
+}
+
+var imgs = document.querySelectorAll('.gallery-main img');
+var thumbs = document.querySelectorAll('.thumbs img');
+var current = 0;
+function showSlide(n) {
+  if (!imgs.length) return;
+  imgs[current].classList.remove('active');
+  if (thumbs[current]) thumbs[current].classList.remove('active');
+  current = (n + imgs.length) % imgs.length;
+  imgs[current].classList.add('active');
+  if (thumbs[current]) { thumbs[current].classList.add('active'); thumbs[current].scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'}); }
+  var counter = document.getElementById('counter');
+  if (counter) counter.textContent = (current+1) + ' / ' + imgs.length;
+}
+function changeSlide(d) { showSlide(current + d); }
+function goSlide(n) { showSlide(n); }
+document.addEventListener('keydown', function(e) { if (e.key==='ArrowLeft') changeSlide(-1); if (e.key==='ArrowRight') changeSlide(1); });
+
+var badgeTexts = ['✦ Vybráno systémem AI','✦ Předběžně vyhodnoceno','✦ Fleetový původ Ayvens','✦ Výběr z tisíců aukcí','✦ Tažný hák v ceně','✦ Omezená příležitost','✦ Passat Business — prémiová výbava'];
+var bIdx = 0;
+var gbadge = document.getElementById('gbadge');
+if (gbadge) {
+  setInterval(function() {
+    gbadge.classList.remove('visible');
+    setTimeout(function() { bIdx = (bIdx+1) % badgeTexts.length; gbadge.textContent = badgeTexts[bIdx]; gbadge.classList.add('visible'); }, 600);
+  }, 3500);
+}
+
+var auctionEnd = new Date(2026, 4, 27, 23, 59, 0);
+function czechDayWord(n) {
+  return n === 1 ? 'den' : (n >= 2 && n <= 4 ? 'dny' : 'dní');
+}
+function updateCountdown() {
+  var now = new Date(), diff = auctionEnd - now;
+  if (diff <= 0) {
+    var cdEl = document.getElementById('countdown'), endEl = document.getElementById('urgency-ended'), subEl = document.getElementById('urgency-sub'), headlineEl = document.getElementById('urgency-headline');
+    if (cdEl) cdEl.style.display='none'; if (endEl) endEl.style.display='block'; if (subEl) subEl.style.display='none';
+    if (headlineEl) headlineEl.style.display='none';
+    return;
+  }
+  var h = Math.floor(diff/3600000), m = Math.floor((diff%3600000)/60000), s = Math.floor((diff%60000)/1000);
+  var cdH = document.getElementById('cd-h'), cdM = document.getElementById('cd-m'), cdS = document.getElementById('cd-s');
+  if (cdH) cdH.textContent = String(h).padStart(2,'0');
+  if (cdM) cdM.textContent = String(m).padStart(2,'0');
+  if (cdS) cdS.textContent = String(s).padStart(2,'0');
+  var headline = document.getElementById('urgency-headline');
+  if (headline) {
+    var daysRemaining = Math.ceil(diff / 86400000);
+    headline.textContent = daysRemaining <= 1
+      ? 'Aukce končí za méně než 24 hodin.'
+      : 'Aukce končí za méně než ' + daysRemaining + ' ' + czechDayWord(daysRemaining) + '.';
+  }
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+</script>
+</body>
+</html>

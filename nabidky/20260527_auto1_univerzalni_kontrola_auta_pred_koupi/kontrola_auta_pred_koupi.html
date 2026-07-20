@@ -1,0 +1,733 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Auto před koupí bez rizika | první síto před prohlídkou</title>
+  <meta name="description" content="Pošlete odkaz na auto, fotky nebo PDF. Nejdřív zjistíte, jestli má smysl jet auto vidět, vyjednávat cenu, nebo ho rovnou pustit.">
+  <style>
+    :root {
+      --ink: #111827;
+      --muted: #4b5563;
+      --line: #d8e0ea;
+      --bg: #f3f6f8;
+      --panel: #ffffff;
+      --blue: #155e93;
+      --gold: #b7791f;
+      --green: #147a4b;
+      --red: #b4232b;
+      --dark: #071827;
+      --soft: #eef6ff;
+      --shadow: 0 16px 42px rgba(15, 23, 42, .12);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      font-size: 17px;
+      line-height: 1.55;
+    }
+    a { color: inherit; }
+    .hero {
+      min-height: 88vh;
+      display: grid;
+      align-items: end;
+      color: #fff;
+      padding: 28px;
+      background:
+        linear-gradient(180deg, rgba(7, 24, 39, .14), rgba(7, 24, 39, .90)),
+        url("img/fallback_car.jpg") center / cover no-repeat;
+    }
+    .topbar {
+      position: absolute;
+      top: 22px;
+      left: 28px;
+      right: 28px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+    .brand, .source-pill {
+      background: rgba(7, 24, 39, .66);
+      border: 1px solid rgba(255,255,255,.24);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-weight: 850;
+    }
+    .source-pill { font-size: 14px; font-weight: 700; color: rgba(255,255,255,.9); }
+    .hero-inner { max-width: 1180px; margin: 0 auto; width: 100%; padding-bottom: 34px; }
+    h1 {
+      margin: 0 0 14px;
+      max-width: 980px;
+      font-size: clamp(34px, 5vw, 66px);
+      line-height: 1.03;
+      letter-spacing: 0;
+    }
+    .lead {
+      max-width: 790px;
+      margin: 0 0 22px;
+      color: rgba(255,255,255,.92);
+      font-size: 21px;
+    }
+    .hero-card {
+      display: none;
+      max-width: 760px;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: 10px;
+      padding: 14px;
+      margin: 0 0 18px;
+    }
+    .hero-card.is-visible { display: grid; grid-template-columns: 110px 1fr; gap: 14px; align-items: center; }
+    .hero-card img { width: 110px; height: 82px; object-fit: cover; border-radius: 8px; border: 1px solid rgba(255,255,255,.28); }
+    .hero-card strong { display: block; font-size: 18px; }
+    .hero-card span { display: block; color: rgba(255,255,255,.82); font-size: 14px; overflow-wrap: anywhere; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 13px 18px;
+      border: 2px solid transparent;
+      border-radius: 8px;
+      background: var(--blue);
+      color: #fff;
+      font-weight: 850;
+      text-decoration: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .btn.gold { background: var(--gold); }
+    .btn.light { background: #eef6ff; color: var(--blue); border-color: #cfe3f7; }
+    .btn.alt { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.56); }
+    main { max-width: 1180px; margin: 0 auto; padding: 24px; }
+    section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      padding: 24px;
+      margin: 0 0 20px;
+    }
+    .section-title { margin: 0 0 14px; font-size: 28px; line-height: 1.18; }
+    .muted { color: var(--muted); }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .two { grid-template-columns: repeat(2, 1fr); }
+    .card { border: 1px solid var(--line); border-radius: 8px; padding: 16px; background: #fff; }
+    .card strong { display: block; font-size: 18px; margin-bottom: 5px; }
+    .signal { border-left: 6px solid var(--blue); background: #f3f9ff; }
+    .safe { border-left: 6px solid var(--green); background: #ecfdf3; }
+    .risk { border-left: 6px solid var(--gold); background: #fff9eb; }
+    .stop { border-left: 6px solid var(--red); background: #fff1f2; }
+    .score-preview {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .score-box {
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      min-height: 116px;
+    }
+    .score-box b { display: block; font-size: 28px; color: var(--blue); }
+    .score-box span { display: block; color: var(--muted); font-size: 14px; }
+    .price-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .price-card {
+      border: 2px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+      background: #fff;
+    }
+    .price-card.featured { border-color: #9bc8eb; background: #f3f9ff; }
+    .price { font-size: 34px; font-weight: 900; color: var(--blue); margin: 4px 0 8px; }
+    .sample-output {
+      border: 2px solid #b7d7ee;
+      border-radius: 10px;
+      background: #f8fbff;
+      overflow: hidden;
+      margin-top: 14px;
+    }
+    .sample-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      background: var(--dark);
+      color: #fff;
+      padding: 14px 16px;
+      font-weight: 900;
+    }
+    .sample-badge {
+      border-radius: 999px;
+      background: #ecfdf3;
+      color: #14532d;
+      padding: 4px 10px;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+    .sample-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      padding: 16px;
+    }
+    .sample-line {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 12px;
+    }
+    .sample-line strong { display: block; margin-bottom: 4px; }
+    .sample-line.full-row { grid-column: 1 / -1; }
+    .steps { display: grid; gap: 10px; counter-reset: step; }
+    .step { display: grid; grid-template-columns: 42px 1fr; gap: 12px; align-items: start; }
+    .step::before {
+      counter-increment: step;
+      content: counter(step);
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--dark);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+    }
+    details {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 14px 16px;
+      margin: 10px 0;
+    }
+    summary { cursor: pointer; font-weight: 850; }
+    form { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    label { display: block; font-size: 14px; margin-bottom: 5px; font-weight: 850; }
+    input, select, textarea {
+      width: 100%;
+      border: 2px solid #b9c7d6;
+      border-radius: 8px;
+      min-height: 46px;
+      padding: 10px;
+      font: inherit;
+      color: var(--ink);
+      background: #fff;
+    }
+    textarea { min-height: 110px; resize: vertical; }
+    .full { grid-column: 1 / -1; }
+    .help-box {
+      margin-top: 8px;
+      border: 1px solid #b7d7ee;
+      background: #f3f9ff;
+      border-radius: 8px;
+      padding: 12px;
+      color: #203244;
+      font-size: 15px;
+    }
+    .file-summary {
+      display: none;
+      margin-top: 8px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 10px 12px;
+      font-size: 15px;
+    }
+    .file-summary.is-visible { display: block; }
+    .file-summary strong { display: block; margin-bottom: 6px; }
+    .file-summary ul { margin: 0; padding-left: 20px; }
+    .sticky {
+      position: sticky;
+      bottom: 0;
+      z-index: 5;
+      background: rgba(7, 24, 39, .96);
+      color: #fff;
+      border-top: 1px solid rgba(255,255,255,.14);
+      padding: 10px 16px;
+    }
+    .sticky-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+    }
+    .footer { color: #dce7f2; background: var(--dark); padding: 24px; margin-top: 24px; }
+    .footer-inner { max-width: 1180px; margin: 0 auto; }
+    .small { font-size: 13px; color: #6b7788; }
+    .footer .small { color: #b8c7d6; }
+    @media (max-width: 900px) {
+      .grid, .two, .score-preview, .price-row, form { grid-template-columns: 1fr; }
+      .sample-body { grid-template-columns: 1fr; }
+      .sample-line.full-row { grid-column: auto; }
+      .sample-head { display: block; }
+      .sample-badge { display: inline-block; margin-top: 8px; }
+      .topbar { position: static; margin-bottom: 120px; }
+      .hero { padding: 18px; min-height: 92vh; }
+      .hero-card.is-visible { grid-template-columns: 1fr; }
+      main { padding: 14px; }
+      section { padding: 18px; }
+      .sticky-inner { display: block; }
+      .sticky .btn { width: 100%; margin-top: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero" id="hero">
+    <div class="topbar">
+      <div class="brand">Auto před koupí bez rizika</div>
+      <div class="source-pill" id="sourcePill">První síto před prohlídkou</div>
+    </div>
+    <div class="hero-inner">
+      <div class="hero-card" id="refCard">
+        <img id="refImgPreview" src="img/fallback_car.jpg" alt="Vybrané auto">
+        <div>
+          <strong id="refVehiclePreview">Vybrané auto</strong>
+          <span id="refUrlPreview"></span>
+        </div>
+      </div>
+      <h1 id="heroTitle">Než koupíte auto, zjistěte, jestli má vůbec smysl jet se na něj podívat</h1>
+      <p class="lead">Nejsme fyzická prohlídka. Jsme první krok: vzdálená analýza inzerátu, rizik modelu, ceny a podkladů. Za nižší částku zjistíte, jestli pokračovat, vyjednávat, objednat mechanika, nebo auto pustit.</p>
+      <div class="actions">
+        <a class="btn gold" href="#poptavka" data-button="Chci nezávazně posoudit auto" data-section="Hero" data-task="Klient chce posoudit konkrétní auto před cestou nebo prohlídkou">Chci nezávazně posoudit auto</a>
+        <a class="btn alt" href="#jak-to-funguje" data-button="Chci vědět, co dostanu" data-section="Hero" data-task="Klient chce vysvětlit výstup služby">Co přesně dostanu</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="safe">
+      <h2 class="section-title">Krok před drahou fyzickou kontrolou</h2>
+      <p>Fyzická prohlídka mechanikem dává smysl až ve chvíli, kdy auto projde prvním sítem. Moje služba je předkrok: z odkazu, fotek, VIN, PDF reportu a dostupných informací odhadnu, jestli auto stojí za další čas a peníze.</p>
+      <div class="grid">
+        <div class="card">
+          <strong>Nešetříte na kontrole</strong>
+          <p>Šetříte na špatných kandidátech. Ne každé auto si zaslouží cestu, rezervaci nebo placenou fyzickou prohlídku.</p>
+        </div>
+        <div class="card">
+          <strong>Neříkám, že auto fyzicky vidím</strong>
+          <p>Bez prohlídky neměřím lak, nedělám diagnostiku a nejedu testovací jízdu. Říkám jasně, co jde poznat na dálku a co už musí ověřit mechanik.</p>
+        </div>
+        <div class="card">
+          <strong>Dostanete rozhodnutí</strong>
+          <p>Cílem není dlouhý text pro text. Cílem je říct: pokračovat, vyjednat, chtít další ověření, objednat fyzickou kontrolu, nebo nekoupit.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="jak-to-funguje">
+      <h2 class="section-title">Co v posouzení dostanete</h2>
+      <div class="score-preview">
+        <div class="score-box"><b>1-10</b><span>Celkové skóre kandidáta podle dostupných podkladů.</span></div>
+        <div class="score-box"><b>Cena</b><span>Jestli cena odpovídá trhu, riziku a dalším nákladům.</span></div>
+        <div class="score-box"><b>Rizika</b><span>Co je podezřelé, co chybí a co si ověřit.</span></div>
+        <div class="score-box"><b>Verdikt</b><span>Pokračovat, vyjednat, ověřit fyzicky, nebo pustit.</span></div>
+      </div>
+      <div class="grid" style="margin-top:14px;">
+        <div class="card signal">
+          <strong>Rychlé síto inzerátu</strong>
+          <p>Zkontroluji, jestli nabídka na první pohled dává smysl, nebo má červené signály.</p>
+        </div>
+        <div class="card risk">
+          <strong>Kritický rozbor auta</strong>
+          <p>Podle odkazu, fotek, VIN, reportu a popisu rozeberu pravděpodobná rizika.</p>
+        </div>
+        <div class="card safe">
+          <strong>Další krok</strong>
+          <p>Doporučím, jestli má cenu jet na prohlídku, ptát se prodejce, objednat mechanika, nebo hledat dál.</p>
+        </div>
+      </div>
+      <div class="sample-output" aria-label="Ukazka vystupu">
+        <div class="sample-head">
+          <span>Ukazka, jak muze vypadat vysledek prvniho sita</span>
+          <span class="sample-badge">Vzorovy vystup</span>
+        </div>
+        <div class="sample-body">
+          <div class="sample-line">
+            <strong>Verdikt</strong>
+            Pokracovat opatrne. Zatim nerezervovat ani neposilat zalohu bez VIN, servisni historie a potvrzeni konecne ceny.
+          </div>
+          <div class="sample-line">
+            <strong>Skore</strong>
+            7/10 podle verejneho inzeratu. Auto vypada zajimave, ale chybi podklady pro finalni doporuceni.
+          </div>
+          <div class="sample-line">
+            <strong>Hlavni plusy</strong>
+            Zajimava konfigurace, rozumny najezd, dobre prodejny motor, automat, karoserie combi.
+          </div>
+          <div class="sample-line">
+            <strong>Hlavni rizika</strong>
+            Chybi VIN, neni potvrzena servisni historie, vybava a skutecna konecna cena bez podminek financovani.
+          </div>
+          <div class="sample-line full-row">
+            <strong>Co bych chtel doplnit</strong>
+            VIN, servisni zaznamy, pocet klicu, informace o nehodach/lakovani, podminky zaruky, cenu bez financovani a souhlas s nezavislou fyzickou kontrolou.
+          </div>
+          <div class="sample-line full-row">
+            <strong>Dalsi krok pro klienta</strong>
+            Vyzadat od prodejce chybejici podklady. Po jejich doplneni rozhodnout, jestli jet auto videt, vyjednavat cenu, objednat mechanika, nebo auto pustit.
+          </div>
+        </div>
+        <p class="small" style="padding:0 16px 16px;margin:0;">Ukazka je zamerne zkracena. Skutecny vystup se prizpusobi konkretnimu autu a dodanym podkladum.</p>
+      </div>
+    </section>
+
+    <section class="stop">
+      <h2 class="section-title">Co tahle služba není</h2>
+      <p>Tohle není fyzická kontrola auta v bazaru. Bez fyzické přítomnosti neslibuji měření laku, diagnostiku řídicích jednotek, testovací jízdu ani kontrolu podvozku na zvedáku. Pokud auto projde prvním sítem, může být dalším rozumným krokem fyzická prohlídka mechanikem.</p>
+    </section>
+
+    <section>
+      <h2 class="section-title">Vyberte rozsah</h2>
+      <div class="price-row">
+        <div class="price-card featured">
+          <strong>První síto auta podle odkazu</strong>
+          <div class="price">790 Kč</div>
+          <p>Pro člověka, který ještě neví, jestli má smysl autem ztrácet čas.</p>
+          <p class="muted">Výstup: krátký verdikt, hlavní rizika, orientační skóre a doporučení dalšího kroku.</p>
+        </div>
+        <div class="price-card">
+          <strong>Detailnější rozbor podkladů</strong>
+          <div class="price">1 490 Kč</div>
+          <p>Pro auto, které vás opravdu zajímá a máte víc podkladů.</p>
+          <p class="muted">Výstup: podrobnější rizika, dotazy na prodejce, cenové pásmo a rozhodnutí.</p>
+        </div>
+      </div>
+      <div class="help-box">Odesláním formuláře nic neplatíte. Nejdřív potvrdím, jestli mám dost podkladů, jaký rozsah dává smysl a kolik to bude stát. Práce začíná až po vašem souhlasu a zaplacení.</div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Jak to probíhá</h2>
+      <div class="steps">
+        <div class="step"><div><strong>Pošlete odkaz nebo podklady.</strong><br><span class="muted">Stačí inzerát. Lepší je přidat VIN, fotky, PDF report, Cebii nebo screenshoty.</span></div></div>
+        <div class="step"><div><strong>Potvrdím rozsah a cenu.</strong><br><span class="muted">Když podklady nestačí, napíšu, co chybí. Kliknutí vás k ničemu nezavazuje.</span></div></div>
+        <div class="step"><div><strong>Po zaplacení udělám analýzu.</strong><br><span class="muted">Dostanete verdikt, skóre 1-10, rizika a doporučený další krok.</span></div></div>
+        <div class="step"><div><strong>Rozhodnete se bezpečněji.</strong><br><span class="muted">Pokračovat, vyjednat, objednat fyzickou prohlídku, chtít další podklady, nebo nekoupit.</span></div></div>
+      </div>
+    </section>
+
+    <section class="safe">
+      <h2 class="section-title">Jak probíhá platba</h2>
+      <p>Odesláním formuláře nic neplatíte. Nejdřív zkontroluji, jestli mám dost podkladů, a potvrdím vhodný rozsah služby i cenu. Teprve potom vám pošlu platební údaje nebo QR platbu.</p>
+      <div class="grid">
+        <div class="card">
+          <strong>1. Nezávazná poptávka</strong>
+          <p>Pošlete odkaz, fotky, VIN, PDF nebo popis situace. V této fázi nic neplatíte.</p>
+        </div>
+        <div class="card">
+          <strong>2. Potvrzení ceny</strong>
+          <p>Napíšu vám, jestli stačí první síto za 790 Kč, detailnější rozbor, nebo jestli potřebuji doplnit podklady.</p>
+        </div>
+        <div class="card">
+          <strong>3. Platba až po souhlasu</strong>
+          <p>Platební údaje posílám až po vašem potvrzení. Práci zahajuji po zaplacení domluvené částky.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Časté otázky</h2>
+      <details open>
+        <summary>Stačí jen odkaz na inzerát?</summary>
+        <p>Ano, pro první síto často stačí odkaz. Když bude potřeba víc, napíšu vám, co doplnit.</p>
+      </details>
+      <details>
+        <summary>Je to náhrada fyzické prohlídky?</summary>
+        <p>Ne. Je to krok před ní. Pomůže rozhodnout, jestli má smysl jet auto vidět nebo platit mechanika.</p>
+      </details>
+      <details>
+        <summary>Co když auto vyjde špatně?</summary>
+        <p>To je pořád dobrý výsledek. Největší hodnota často je nekoupit auto, které by stálo peníze a nervy.</p>
+      </details>
+      <details>
+        <summary>Platím hned po odeslání formuláře?</summary>
+        <p>Ne. Nejdřív potvrdím rozsah, cenu a platební údaje. Práce začíná až po vašem souhlasu a zaplacení.</p>
+      </details>
+      <details>
+        <summary>Můžu poslat auto z AAA, ESA, Sauto, TipCars nebo Marketplace?</summary>
+        <p>Ano. Pošlete jakýkoliv odkaz nebo screenshot. Stránka umí přijmout i předvyplněný odkaz na konkrétní auto.</p>
+      </details>
+    </section>
+
+    <section id="poptavka">
+      <h2 class="section-title">Pošlete auto k nezávaznému posouzení</h2>
+      <p class="muted">Formulář zapíše také zdroj odkazu, tlačítko, sekci a UTM parametry, abych poznal, odkud poptávka přišla.</p>
+      <form id="leadForm">
+        <div>
+          <label for="name">Jméno</label>
+          <input id="name" name="name" placeholder="Vaše jméno">
+        </div>
+        <div>
+          <label for="email">E-mail</label>
+          <input id="email" name="email" type="email" placeholder="vas@email.cz">
+        </div>
+        <div>
+          <label for="phone">Telefon</label>
+          <input id="phone" name="phone" placeholder="+420 ...">
+        </div>
+        <div>
+          <label for="service">Co chcete</label>
+          <select id="service" name="service">
+            <option>První síto auta podle odkazu - 790 Kč</option>
+            <option>Detailnější rozbor podkladů - 1 490 Kč</option>
+            <option>Nejsem si jistý, navrhněte rozsah</option>
+          </select>
+        </div>
+        <div class="full">
+          <label for="carLink">Odkaz na auto nebo inzerát</label>
+          <input id="carLink" name="carLink" placeholder="Vložte odkaz na AAA, ESA, Sauto, TipCars, Marketplace nebo jiný inzerát">
+        </div>
+        <div>
+          <label for="vehicleName">Název auta</label>
+          <input id="vehicleName" name="vehicleName" placeholder="Např. Škoda Octavia 2.0 TDI">
+        </div>
+        <div>
+          <label for="budget">Rozpočet / cena auta</label>
+          <input id="budget" name="budget" placeholder="Např. 350 000 Kč">
+        </div>
+        <div class="full">
+          <label for="materials">Jaké podklady máte?</label>
+          <textarea id="materials" name="materials" placeholder="Např. VIN, fotky, Cebia, servisní historie, PDF report, screenshoty, komunikace s prodejcem."></textarea>
+          <div class="help-box">Menší soubory můžete přiložit níže. Větší balík fotek vložte raději jako sdílený odkaz.</div>
+        </div>
+        <div class="full">
+          <label for="attachments">Přílohy k autu</label>
+          <input id="attachments" name="attachments" type="file" multiple accept=".jpg,.jpeg,.png,.webp,.pdf,.txt,.doc,.docx">
+          <div class="file-summary" id="attachmentSummary" aria-live="polite"></div>
+          <div class="help-box">Můžete přiložit až 5 menších souborů dohromady cca do 8 MB. Vhodné jsou fotky, PDF a běžné dokumenty.</div>
+        </div>
+        <div class="full">
+          <label for="message">Zadání nebo poznámka</label>
+          <textarea id="message" name="message">Chci nezávazně posoudit auto před koupí. Prosím nejdřív potvrdit, jestli máte dost podkladů, jaký rozsah služby dává smysl a kolik bude stát.</textarea>
+        </div>
+        <div class="full actions">
+          <button class="btn gold" type="submit" id="submitLeadButton">Odeslat nezávaznou poptávku</button>
+          <a class="btn light" href="#jak-to-funguje">Ještě se podívat, co dostanu</a>
+        </div>
+        <div class="full">
+          <p class="small" id="leadStatus">Odesláním nic neplatíte. Nejdřív potvrdím rozsah, cenu a platební údaje.</p>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <div class="sticky">
+    <div class="sticky-inner">
+      <strong>Nezávazná poptávka. Platba až po potvrzení rozsahu a ceny.</strong>
+      <a class="btn gold" href="#poptavka" data-button="Chci bezpečně posoudit auto" data-section="Spodní lišta" data-task="Klient klikl na sticky CTA a chce posoudit auto">Chci bezpečně posoudit auto</a>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <strong>Jaroslav Batko</strong>
+      <p class="small">Poptávkové údaje slouží pouze pro vyřízení dotazu, přípravu nabídky a navazující komunikaci. Neprodávají se ani nepředávají třetím osobám bez právního důvodu nebo vašeho souhlasu.</p>
+      <p class="small">Tato stránka je veřejná zákaznická nabídka pro první vzdálené posouzení auta před koupí. Nejde o fyzickou prohlídku vozidla.</p>
+    </div>
+  </footer>
+
+  <script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwcFA8bRyHnBB_4XlgH5_IMR4IBqUfvTD8vScGZPiuCh0gR5f4Mp_9OjOAw1u3lNEjI/exec";
+    const PAGE_ID = "univerzalni_kontrola_auta_pred_koupi";
+    const PAGE_TYPE = "verejna_univerzalni_kontrola_auta_pred_koupi";
+    let lastCta = {
+      button: "Odeslat nezávaznou poptávku",
+      section: "Formulář poptávky",
+      task: "Klient odeslal univerzální formulář kontroly auta před koupí"
+    };
+    const params = new URLSearchParams(window.location.search);
+    const refUrl = params.get("refUrl") || params.get("url") || "";
+    const refImg = params.get("refImg") || params.get("img") || "";
+    const refVehicle = params.get("refVehicle") || params.get("vehicle") || "";
+    const utm = {
+      source: params.get("utm_source") || "",
+      medium: params.get("utm_medium") || "",
+      campaign: params.get("utm_campaign") || "",
+      content: params.get("utm_content") || ""
+    };
+
+    function setValue(id, value) {
+      const el = document.getElementById(id);
+      if (el && value) el.value = value;
+    }
+
+    function applyDynamicReference() {
+      setValue("carLink", refUrl);
+      setValue("vehicleName", refVehicle);
+      if (refVehicle) {
+        document.getElementById("heroTitle").textContent = "Než koupíte " + refVehicle + ", zjistěte, jestli má smysl jet se na něj podívat";
+        document.getElementById("refVehiclePreview").textContent = refVehicle;
+      }
+      if (refUrl) {
+        document.getElementById("refUrlPreview").textContent = refUrl;
+        document.getElementById("refCard").classList.add("is-visible");
+      }
+      if (refImg) {
+        document.getElementById("refImgPreview").src = refImg;
+        document.getElementById("hero").style.backgroundImage = "linear-gradient(180deg, rgba(7, 24, 39, .14), rgba(7, 24, 39, .90)), url('" + refImg.replace(/'/g, "%27") + "')";
+        document.getElementById("refCard").classList.add("is-visible");
+      }
+      const sourceLabel = [utm.source, utm.medium].filter(Boolean).join(" / ");
+      if (sourceLabel) document.getElementById("sourcePill").textContent = "Zdroj: " + sourceLabel;
+    }
+
+    document.querySelectorAll("[data-button]").forEach(button => {
+      button.addEventListener("click", () => {
+        lastCta = {
+          button: button.dataset.button || button.textContent.trim(),
+          section: button.dataset.section || "Neurčená sekce",
+          task: button.dataset.task || "Navázat na kliknuté CTA"
+        };
+      });
+    });
+
+    function readFileAsBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const dataUrl = String(reader.result || "");
+          resolve({
+            name: file.name,
+            type: file.type || "application/octet-stream",
+            size: file.size,
+            data: dataUrl.includes(",") ? dataUrl.split(",").pop() : dataUrl
+          });
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function formatBytes(bytes) {
+      if (!bytes) return "0 KB";
+      const mb = bytes / (1024 * 1024);
+      if (mb >= 1) return mb.toFixed(mb >= 10 ? 0 : 1).replace(".", ",") + " MB";
+      return Math.max(1, Math.round(bytes / 1024)) + " KB";
+    }
+
+    function updateAttachmentSummary() {
+      const input = document.getElementById("attachments");
+      const summary = document.getElementById("attachmentSummary");
+      const files = Array.from(input.files || []);
+      if (!files.length) {
+        summary.classList.remove("is-visible");
+        summary.innerHTML = "";
+        return;
+      }
+      const totalBytes = files.reduce((sum, file) => sum + file.size, 0);
+      summary.classList.add("is-visible");
+      summary.innerHTML = "<strong>Vybráno " + files.length + " souborů, celkem " + formatBytes(totalBytes) + ":</strong><ul>" + files.map(file => "<li>" + file.name + " (" + formatBytes(file.size) + ")</li>").join("") + "</ul>";
+    }
+
+    async function collectAttachments() {
+      const input = document.getElementById("attachments");
+      const files = Array.from(input.files || []);
+      const maxFiles = 5;
+      const maxBytes = 8 * 1024 * 1024;
+      if (files.length > maxFiles) throw new Error("Vyberte prosím maximálně " + maxFiles + " souborů. Větší balík pošlete sdíleným odkazem.");
+      const totalBytes = files.reduce((sum, file) => sum + file.size, 0);
+      if (totalBytes > maxBytes) throw new Error("Přílohy mají dohromady víc než 8 MB. Vložte raději sdílený odkaz.");
+      return Promise.all(files.map(readFileAsBase64));
+    }
+
+    document.getElementById("attachments").addEventListener("change", updateAttachmentSummary);
+
+    document.getElementById("leadForm").addEventListener("submit", async event => {
+      event.preventDefault();
+      const status = document.getElementById("leadStatus");
+      const submit = document.getElementById("submitLeadButton");
+      const data = new FormData(event.currentTarget);
+      let attachments = [];
+      try {
+        attachments = await collectAttachments();
+      } catch (err) {
+        status.textContent = err.message || "Přílohy se nepodařilo připravit.";
+        return;
+      }
+      const selectedService = data.get("service") || "";
+      const carLink = data.get("carLink") || refUrl || "";
+      const vehicleName = data.get("vehicleName") || refVehicle || "";
+      const note = [
+        "Stránka: " + PAGE_ID,
+        "Typ stránky: " + PAGE_TYPE,
+        "Auto: " + vehicleName,
+        "Odkaz: " + carLink,
+        "Formulář: univerzální kontrola auta před koupí",
+        "Sekce: " + lastCta.section,
+        "Tlačítko: " + lastCta.button,
+        "Úkol: " + lastCta.task,
+        "UTM source: " + utm.source,
+        "UTM medium: " + utm.medium,
+        "UTM campaign: " + utm.campaign,
+        "UTM content: " + utm.content,
+        "Rozpočet/cena: " + (data.get("budget") || ""),
+        "Podklady klienta: " + (data.get("materials") || ""),
+        "Zadání: " + (data.get("message") || "")
+      ].join(" | ");
+      const payload = {
+        source: PAGE_ID + " | " + (utm.source || "bez_utm") + " | " + vehicleName,
+        formType: "Univerzální kontrola auta - " + selectedService,
+        name: data.get("name") || "",
+        email: data.get("email") || "",
+        phone: data.get("phone") || "",
+        budget: "Cena/rozpočet: " + (data.get("budget") || "") + " | Odkaz: " + carLink,
+        note: note,
+        carInfo: vehicleName + " | " + carLink,
+        url_aukce: carLink || "vlastní odkaz klienta",
+        button_text: lastCta.button,
+        unlock_section: lastCta.section,
+        lead_task: lastCta.task,
+        processing_status: "PRIJATO",
+        approval_required: "CEKA_NA_SCHVALENI",
+        sent_status: "NEODESLANO",
+        page_id: PAGE_ID,
+        page_type: PAGE_TYPE,
+        car_id: "univerzalni",
+        car_name: vehicleName,
+        selected_service: selectedService,
+        car_link: carLink,
+        materials: data.get("materials") || "",
+        podklady_info: "Text podkladů: " + (data.get("materials") || "") + " | Přiložené soubory: " + (attachments.length ? attachments.map(file => file.name).join(", ") : "žádné"),
+        attachments: attachments,
+        referrer: document.referrer || "",
+        current_url: window.location.href
+      };
+
+      submit.disabled = true;
+      status.textContent = "Odesílám nezávaznou poptávku...";
+      fetch(SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload)
+      }).then(() => {
+        status.textContent = "Poptávka byla odeslána. Nic tím neplatíte ani závazně neobjednáváte. Ozvu se s potvrzením rozsahu, ceny a dalšího kroku.";
+        event.currentTarget.reset();
+        updateAttachmentSummary();
+        applyDynamicReference();
+      }).catch(() => {
+        status.textContent = "Poptávka byla odeslána ke zpracování.";
+      }).finally(() => {
+        setTimeout(() => { submit.disabled = false; }, 1200);
+      });
+    });
+
+    applyDynamicReference();
+  </script>
+</body>
+</html>

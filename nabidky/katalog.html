@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aukce aut — BATKO.DIGITAL.AI</title>
+<meta name="description" content="Aktivní aukce ojetých aut za reálné ceny. Přihazujte online, výsledky okamžitě.">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#1a1a1a;min-height:100vh}
+
+/* ── HEADER ── */
+.header{background:linear-gradient(135deg,#0d1f3c 0%,#1a2a4a 60%,#2c4a7c 100%);color:#fff;padding:32px 36px 28px;text-align:center}
+.h-badge{display:inline-block;background:rgba(243,156,18,.15);border:1px solid rgba(243,156,18,.4);color:#f39c12;padding:4px 16px;border-radius:20px;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:14px}
+.h-title{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:900;line-height:1.15;margin-bottom:10px}
+.h-title span{color:#f39c12}
+.h-sub{font-size:.92rem;opacity:.75;max-width:560px;margin:0 auto 18px;line-height:1.6}
+.h-stats{display:flex;gap:28px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+.hs-item{text-align:center}
+.hs-val{font-size:1.5rem;font-weight:900;color:#f39c12}
+.hs-lbl{font-size:.68rem;opacity:.6;text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+
+/* ── NAV BAR ── */
+.nav-bar{background:#fff;border-bottom:2px solid #e8ecf2;padding:0 36px;display:flex;gap:0;overflow-x:auto}
+.nav-tab{padding:14px 22px;font-size:.82rem;font-weight:700;color:#888;border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap;transition:color .2s,border-color .2s}
+.nav-tab.active{color:#1a2a4a;border-bottom-color:#2c4a7c}
+.nav-tab:hover{color:#2c4a7c}
+
+/* ── SEARCH / FILTER ── */
+.filter-bar{background:#fff;border-bottom:1px solid #e8ecf2;padding:14px 36px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.filter-bar input{padding:9px 14px;border:1.5px solid #c8d6f0;border-radius:8px;font-size:.85rem;min-width:220px;outline:none}
+.filter-bar input:focus{border-color:#2c4a7c}
+.filter-bar select{padding:9px 14px;border:1.5px solid #c8d6f0;border-radius:8px;font-size:.85rem;background:#fff;cursor:pointer;outline:none}
+.filter-sort{margin-left:auto;display:flex;gap:8px;align-items:center;font-size:.8rem;color:#888}
+.filter-sort select{font-size:.8rem}
+
+/* ── MAIN ── */
+.main{max-width:1200px;margin:0 auto;padding:28px 18px}
+
+/* ── STATUS MSG ── */
+.status-msg{text-align:center;padding:40px;color:#888;font-size:.9rem}
+.loading-dots::after{content:'...';animation:dots 1.2s steps(4,end) infinite}
+@keyframes dots{0%,20%{content:'.'}40%{content:'..'}60%,100%{content:'...'}}
+
+/* ── GRID ── */
+.auction-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+
+/* ── AUCTION CARD ── */
+.auction-card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.07);transition:transform .2s,box-shadow .2s;cursor:pointer;text-decoration:none;color:inherit;display:block}
+.auction-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.13)}
+
+/* thumbnail */
+.ac-thumb{position:relative;height:200px;overflow:hidden;background:#0d1420}
+.ac-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
+.auction-card:hover .ac-thumb img{transform:scale(1.03)}
+.ac-thumb-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.3);font-size:2rem}
+
+/* status badge on thumb */
+.ac-status{position:absolute;top:12px;left:12px;padding:4px 12px;border-radius:20px;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.ac-status.live{background:rgba(231,76,60,.85);color:#fff;display:flex;align-items:center;gap:5px}
+.ac-status.live::before{content:'';width:6px;height:6px;background:#fff;border-radius:50%;animation:pulse 1.2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.ac-status.ending{background:rgba(243,156,18,.9);color:#fff}
+.ac-status.ended{background:rgba(100,100,100,.8);color:#fff}
+
+/* countdown badge on thumb */
+.ac-countdown{position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,.7);color:#fff;padding:4px 10px;border-radius:8px;font-size:.72rem;font-weight:700;font-variant-numeric:tabular-nums}
+
+/* body */
+.ac-body{padding:16px 18px}
+.ac-make{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#888;margin-bottom:3px}
+.ac-model{font-size:1.05rem;font-weight:800;color:#1a2a4a;line-height:1.2;margin-bottom:6px}
+.ac-meta{font-size:.75rem;color:#888;margin-bottom:12px}
+.ac-meta span{margin-right:10px}
+
+/* bid area */
+.ac-bid-row{display:flex;justify-content:space-between;align-items:flex-end;padding-top:12px;border-top:1px solid #f0f2f5}
+.ac-bid-left .abl-label{font-size:.62rem;text-transform:uppercase;letter-spacing:.5px;color:#aaa;margin-bottom:2px}
+.ac-bid-left .abl-amount{font-size:1.35rem;font-weight:900;color:#c0392b;letter-spacing:-0.5px}
+.ac-bid-left .abl-amount .abl-unit{font-size:.8rem;font-weight:600;margin-left:2px}
+.ac-bid-left .abl-count{font-size:.7rem;color:#aaa;margin-top:2px}
+.ac-bid-right .btn-bid{background:linear-gradient(135deg,#1a2a4a,#2c4a7c);color:#fff;border:none;padding:10px 18px;border-radius:8px;font-size:.82rem;font-weight:700;cursor:pointer;transition:opacity .2s}
+.ac-bid-right .btn-bid:hover{opacity:.85}
+.ac-no-bids{font-size:.78rem;color:#aaa;font-style:italic}
+
+/* ── SECTION TITLE ── */
+.section-title{font-size:1.05rem;font-weight:800;color:#1a2a4a;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.section-title span.count{background:#e8ecf2;color:#555;font-size:.72rem;padding:2px 10px;border-radius:10px;font-weight:700}
+
+/* ── ENDED SECTION ── */
+.ended-toggle{background:none;border:1.5px solid #e0e4ea;color:#888;padding:10px 20px;border-radius:8px;font-size:.82rem;font-weight:700;cursor:pointer;margin-top:28px;width:100%;text-align:center}
+.ended-toggle:hover{background:#f5f7fb;color:#555}
+.ended-section{display:none;margin-top:16px}
+.ended-section.open{display:block}
+.ended-section .auction-card{opacity:.65}
+.ended-section .auction-card:hover{opacity:1}
+
+/* ── SELLER CTA ── */
+.seller-cta{background:linear-gradient(135deg,#0d1f3c,#1a3461);border-radius:16px;padding:36px;margin-top:36px;color:#fff;display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start}
+@media(max-width:680px){.seller-cta{grid-template-columns:1fr;gap:24px}}
+.sc-left h2{font-size:1.35rem;font-weight:900;line-height:1.3;margin-bottom:10px}
+.sc-left h2 span{color:#f39c12}
+.sc-left p{font-size:.85rem;opacity:.75;line-height:1.7;margin-bottom:14px}
+.sc-bullets{list-style:none;margin-bottom:18px}
+.sc-bullets li{font-size:.83rem;opacity:.8;padding:4px 0;display:flex;align-items:flex-start;gap:8px}
+.sc-bullets li::before{content:'✓';color:#f39c12;font-weight:900;flex-shrink:0;margin-top:1px}
+.sc-note{font-size:.72rem;opacity:.5;font-style:italic}
+.sc-right{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:24px}
+.sc-right h3{font-size:.95rem;font-weight:800;margin-bottom:16px;color:#f39c12}
+.sf-group{margin-bottom:12px}
+.sf-group label{display:block;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.3px;color:rgba(255,255,255,.6);margin-bottom:4px}
+.sf-group input,.sf-group select,.sf-group textarea{width:100%;padding:10px 13px;border:1.5px solid rgba(255,255,255,.15);border-radius:8px;background:rgba(255,255,255,.08);color:#fff;font-size:.87rem;font-family:inherit;outline:none;transition:border-color .2s}
+.sf-group input::placeholder,.sf-group textarea::placeholder{color:rgba(255,255,255,.35)}
+.sf-group input:focus,.sf-group select:focus,.sf-group textarea:focus{border-color:rgba(243,156,18,.6)}
+.sf-group select option{background:#1a2a4a;color:#fff}
+.sf-group textarea{height:80px;resize:vertical}
+.sf-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:400px){.sf-row{grid-template-columns:1fr}}
+.btn-seller{width:100%;background:linear-gradient(135deg,#f39c12,#e67e22);color:#fff;border:none;padding:13px;border-radius:9px;font-size:.95rem;font-weight:800;cursor:pointer;transition:opacity .2s;margin-top:4px}
+.btn-seller:hover{opacity:.9}
+.sf-ok{display:none;background:rgba(39,174,96,.15);border:1px solid rgba(39,174,96,.4);color:#a8f0c6;border-radius:8px;padding:12px 16px;font-size:.83rem;text-align:center;margin-top:10px}
+.sf-ok.show{display:block}
+.sf-err{display:none;background:rgba(231,76,60,.15);border:1px solid rgba(231,76,60,.4);color:#ffb3b3;border-radius:8px;padding:12px 16px;font-size:.83rem;margin-top:10px}
+.sf-err.show{display:block}
+
+/* ── BUYER CTA ── */
+.buyer-cta{background:#fff;border-radius:14px;padding:28px;margin-top:20px;border:2px solid #e8ecf2;text-align:center}
+.buyer-cta h3{font-size:1rem;font-weight:800;color:#1a2a4a;margin-bottom:8px}
+.buyer-cta p{font-size:.83rem;color:#888;margin-bottom:18px;max-width:460px;margin-left:auto;margin-right:auto;line-height:1.6}
+.btn-buyer{display:inline-block;background:linear-gradient(135deg,#1a2a4a,#2c4a7c);color:#fff;text-decoration:none;padding:12px 28px;border-radius:9px;font-size:.9rem;font-weight:700;transition:opacity .2s}
+.btn-buyer:hover{opacity:.85}
+
+/* ── FOOTER ── */
+.footer{background:#1a2a4a;color:rgba(255,255,255,.5);text-align:center;padding:24px 36px;font-size:.75rem;line-height:1.8;margin-top:40px}
+.footer strong{color:rgba(255,255,255,.85)}
+.footer a{color:rgba(116,185,255,.8);text-decoration:none}
+
+@media(max-width:600px){
+  .header{padding:24px 18px}
+  .filter-bar{padding:12px 18px}
+  .main{padding:18px 12px}
+  .seller-cta{padding:24px 18px}
+}
+</style>
+</head>
+<body>
+
+<!-- ════ HEADER ════ -->
+<div class="header">
+  <div class="h-badge">🔴 Živé aukce</div>
+  <h1 class="h-title">Auta za <span>reálné tržní ceny</span></h1>
+  <p class="h-sub">Řízené aukce ojetých vozidel. Přihazujte online — žádné skryté příplatky, žádné odhady. Výsledek vidíte v reálném čase.</p>
+  <div class="h-stats">
+    <div class="hs-item"><div class="hs-val" id="stat-active">—</div><div class="hs-lbl">Aktivních aukcí</div></div>
+    <div class="hs-item"><div class="hs-val" id="stat-bids">—</div><div class="hs-lbl">Celkem příhozů</div></div>
+    <div class="hs-item"><div class="hs-val" id="stat-ending">—</div><div class="hs-lbl">Končí dnes</div></div>
+  </div>
+</div>
+
+<!-- ════ NAV ════ -->
+<div class="nav-bar">
+  <div class="nav-tab active" onclick="setTab('active',this)">Aktivní aukce</div>
+  <div class="nav-tab" onclick="setTab('all',this)">Všechny</div>
+  <div class="nav-tab" onclick="scrollToSeller()">Prodat auto →</div>
+</div>
+
+<!-- ════ FILTER ════ -->
+<div class="filter-bar">
+  <input type="text" id="search-input" placeholder="🔍 Hledat (Škoda, Passat, SUV...)" oninput="renderCards()">
+  <select id="sort-select" onchange="renderCards()">
+    <option value="ending">Řadit: Nejdříve končící</option>
+    <option value="price-asc">Cena: od nejnižší</option>
+    <option value="price-desc">Cena: od nejvyšší</option>
+    <option value="bids">Nejvíce příhozů</option>
+  </select>
+</div>
+
+<!-- ════ MAIN ════ -->
+<div class="main">
+  <div id="active-section">
+    <div class="section-title">Aktivní aukce <span class="count" id="active-count">načítám</span></div>
+    <div class="auction-grid" id="active-grid">
+      <div class="status-msg"><span class="loading-dots">Načítám aukce</span></div>
+    </div>
+  </div>
+
+  <!-- Tlačítko pro zobrazení skončených -->
+  <button class="ended-toggle" id="ended-toggle-btn" onclick="toggleEnded()" style="display:none">
+    ▼ Zobrazit proběhlé aukce (<span id="ended-count">0</span>)
+  </button>
+  <div class="ended-section" id="ended-section">
+    <div class="section-title" style="margin-top:8px">Proběhlé aukce <span class="count" id="ended-count-label">0</span></div>
+    <div class="auction-grid" id="ended-grid"></div>
+  </div>
+
+  <!-- ════ SELLER CTA ════ -->
+  <div class="seller-cta" id="seller-section">
+    <div class="sc-left">
+      <h2>Chcete prodat auto<br>za <span>reálnou tržní cenu</span>?</h2>
+      <p>Každý den, kdy auto stojí v inzerci, vás stojí peníze. Zjistěte, kolik je trh skutečně ochoten zaplatit — bez odhadu, bez čekání.</p>
+      <ul class="sc-bullets">
+        <li>Zařazení do katalogu a propagace</li>
+        <li>Sběr reálných nabídek od zájemců</li>
+        <li>Transparentní výsledek — vidíte každý příhoz</li>
+        <li>Výsledek zpravidla do několika dní</li>
+        <li>Platíte jen při úspěšném prodeji</li>
+      </ul>
+      <p class="sc-note">Nejdražší auto bývá často to, které se neprodá včas.</p>
+    </div>
+    <div class="sc-right">
+      <h3>📋 Mám zájem o aukci</h3>
+      <div class="sf-row">
+        <div class="sf-group">
+          <label>Jméno *</label>
+          <input type="text" id="sf-name" placeholder="Jan Novák">
+        </div>
+        <div class="sf-group">
+          <label>Telefon *</label>
+          <input type="tel" id="sf-phone" placeholder="+420 xxx xxx xxx">
+        </div>
+      </div>
+      <div class="sf-group">
+        <label>E-mail *</label>
+        <input type="email" id="sf-email" placeholder="email@example.cz">
+      </div>
+      <div class="sf-row">
+        <div class="sf-group">
+          <label>Auto (make + model)</label>
+          <input type="text" id="sf-car" placeholder="Škoda Octavia">
+        </div>
+        <div class="sf-group">
+          <label>Rok / km</label>
+          <input type="text" id="sf-spec" placeholder="2021 / 95 000 km">
+        </div>
+      </div>
+      <div class="sf-group">
+        <label>Vaše cena / poznámka</label>
+        <textarea id="sf-note" placeholder="Požaduji min. 350 000 Kč, auto je ve výborném stavu..."></textarea>
+      </div>
+      <button class="btn-seller" onclick="submitSeller()">Chci zjistit reálnou cenu →</button>
+      <div class="sf-ok" id="sf-ok">✓ Poptávka odeslána. Ozveme se do 24 hodin.</div>
+      <div class="sf-err" id="sf-err">Vyplňte prosím jméno, telefon a e-mail.</div>
+    </div>
+  </div>
+
+  <!-- ════ BUYER CTA ════ -->
+  <div class="buyer-cta">
+    <h3>🔔 Chcete dostávat upozornění na nové aukce?</h3>
+    <p>Registrujte se zdarma — pošleme vám e-mail nebo SMS, kdykoli přibude nové auto ve vašem segmentu.</p>
+    <a href="buyer_registration.html" class="btn-buyer">Registrovat se jako kupující →</a>
+  </div>
+</div>
+
+<!-- ════ FOOTER ════ -->
+<div class="footer">
+  <strong>Ing. Jaroslav Batko-Linet | Batko Digital AI</strong><br>
+  IČO: 14600153 | DIČ: CZ5912280418 | Plátce DPH<br>
+  <a href="mailto:batko.digital.ai@gmail.com">batko.digital.ai@gmail.com</a> | <a href="tel:+420725360151">+420 725 360 151</a><br>
+  Odesláním formuláře souhlasíte se zpracováním osobních údajů za účelem zprostředkování prodeje vozidla.
+</div>
+
+<script>
+// ════════════════════════════════════════════════
+// CONFIG
+// ════════════════════════════════════════════════
+const REST_BASE = 'https://batko-aukce-default-rtdb.europe-west1.firebasedatabase.app';
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbzJ9Xsqmv_Av9rjOTRYqXbpO8aqhddKqf8y1Vg17k7u3gvyuXMUk2q7v5v1FQjX6mA/exec';
+const GITHUB_PAGES_BASE = 'https://batkodigitalai.github.io/batko-digital-ai/nabidky';
+
+// Katalog aukcí — přidej nový záznam při každé nové aukci
+// Živá data (topBid, bidCount, status) se načítají z Firebase automaticky
+const AUCTION_CATALOG = [
+  {
+    auctionId: 'AUK-006',
+    folder:    '20260607_AUK-006_Skoda_Karoq_2022_Clever',
+    make:      'Škoda',
+    model:     'Karoq Clever 2.0 TDI',
+    year:      2022,
+    km:        '75 000',
+    engine:    '2.0 TDI 110 kW DSG',
+    startPrice: 420000,
+    endTime:   '2026-06-09T20:00:00',
+  },
+  {
+    auctionId: 'AUK-CR-001',
+    folder:    '20260606_AUK-CR-001_Skoda_Kodiaq_2021_Sportline_147kW_4x4_DSG_Webasto',
+    make:      'Škoda',
+    model:     'Kodiaq Sportline 4×4 DSG',
+    year:      2021,
+    km:        '68 000',
+    engine:    '2.0 TSI 147 kW 4×4 DSG',
+    startPrice: 623000,
+    endTime:   '2026-06-13T18:00:00',
+  },
+  {
+    auctionId: 'AUK-CR-002',
+    folder:    '20260606_AUK-CR-002_VW_Passat_2023_Business_2_0_TDI_DSG_Tazne',
+    make:      'Volkswagen',
+    model:     'Passat Business 2.0 TDI DSG',
+    year:      2023,
+    km:        '76 000',
+    engine:    '2.0 TDI 110 kW DSG',
+    startPrice: 359000,
+    endTime:   '2026-06-13T18:00:00',
+  },
+  {
+    auctionId: 'AUK-005',
+    folder:    '20260606_AUK-005_VW_Passat_2023_Business',
+    make:      'Volkswagen',
+    model:     'Passat Variant Business',
+    year:      2023,
+    km:        '75 857',
+    engine:    '2.0 TDI 110 kW DSG',
+    startPrice: 400000,
+    endTime:   '2026-06-08T10:30:00',
+  },
+  {
+    auctionId: 'AUK-003',
+    folder:    '20260601_AUK-003_VW_Passat_2023_Business',
+    make:      'Volkswagen',
+    model:     'Passat Variant Business',
+    year:      2023,
+    km:        '75 857',
+    engine:    '2.0 TDI 110 kW DSG',
+    startPrice: 350000,
+    endTime:   '2026-06-08T18:00:00',
+  },
+];
+
+// ════════════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════════════
+let liveData  = {};   // { auctionId: { topBid, bidCount, status, endTime } }
+let activeTab = 'active';
+let countdownTimers = {};
+
+// ════════════════════════════════════════════════
+// FIREBASE POLLING
+// ════════════════════════════════════════════════
+async function fetchAllLiveData() {
+  try {
+    const r = await fetch(`${REST_BASE}/auctions.json?_=${Date.now()}`);
+    if (!r.ok) return;
+    const all = await r.json();
+    if (!all) return;
+
+    for (const [id, data] of Object.entries(all)) {
+      const bids   = data.bids ? Object.values(data.bids) : [];
+      const sorted = bids.sort((a, b) => (b.amount || 0) - (a.amount || 0));
+      liveData[id] = {
+        topBid:    sorted[0]?.amount || 0,
+        bidCount:  bids.length,
+        status:    data.status || 'active',
+        endTime:   data.endTime || null,
+      };
+    }
+    renderCards();
+    updateStats();
+  } catch(e) {
+    console.warn('Firebase fetch error:', e);
+  }
+}
+
+// ════════════════════════════════════════════════
+// HELPERS
+// ════════════════════════════════════════════════
+function fKc(n) {
+  return Number(n).toLocaleString('cs-CZ') + ' Kč';
+}
+
+function getTimeLeft(endTimeStr) {
+  const diff = new Date(endTimeStr).getTime() - Date.now();
+  if (diff <= 0) return null;
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor((diff % 86400000) / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  const s = Math.floor((diff % 60000) / 1000);
+  if (d > 0) return `${d}d ${h}h ${m}m`;
+  if (h > 0) return `${h}h ${m}m ${s}s`;
+  return `${m}m ${s}s`;
+}
+
+function isEnding(endTimeStr) {
+  const diff = new Date(endTimeStr).getTime() - Date.now();
+  return diff > 0 && diff < 3600000 * 24; // méně než 24 hodin
+}
+
+function isActive(auction) {
+  const live   = liveData[auction.auctionId];
+  const endT   = (live?.endTime) || auction.endTime;
+  const status = live?.status || 'active';
+  const ended  = new Date(endT).getTime() < Date.now();
+  return !ended && status !== 'ended' && status !== 'cancelled';
+}
+
+function buildThumbUrl(auction) {
+  return `${GITHUB_PAGES_BASE}/${auction.folder}/img/foto_01.jpg`;
+}
+
+function buildAuctionUrl(auction) {
+  return `${GITHUB_PAGES_BASE}/${auction.folder}/index.html`;
+}
+
+// ════════════════════════════════════════════════
+// RENDER
+// ════════════════════════════════════════════════
+function buildCard(auction) {
+  const live      = liveData[auction.auctionId] || {};
+  const endT      = live.endTime || auction.endTime;
+  const topBid    = live.topBid  || 0;
+  const bidCount  = live.bidCount || 0;
+  const active    = isActive(auction);
+  const ending    = active && isEnding(endT);
+  const thumbUrl  = buildThumbUrl(auction);
+  const pageUrl   = buildAuctionUrl(auction);
+  const timeLeft  = getTimeLeft(endT);
+
+  const statusHtml = active
+    ? (ending
+        ? `<div class="ac-status ending">⚡ Brzy končí</div>`
+        : `<div class="ac-status live">ŽIVÁ AUKCE</div>`)
+    : `<div class="ac-status ended">Skončeno</div>`;
+
+  const countdownHtml = active && timeLeft
+    ? `<div class="ac-countdown" id="cd-${auction.auctionId}">${timeLeft}</div>`
+    : '';
+
+  const bidHtml = topBid > 0
+    ? `<div class="ac-bid-left">
+         <div class="abl-label">Aktuální příhoz</div>
+         <div class="abl-amount">${fKc(topBid)}<span class="abl-unit"></span></div>
+         <div class="abl-count">${bidCount} příhozů</div>
+       </div>`
+    : `<div class="ac-bid-left">
+         <div class="abl-label">Vyvolávací cena</div>
+         <div class="abl-amount">${fKc(auction.startPrice)}</div>
+         <div class="abl-count ac-no-bids">Zatím žádný příhoz</div>
+       </div>`;
+
+  const ctaHtml = active
+    ? `<div class="ac-bid-right"><button class="btn-bid">Přihodit →</button></div>`
+    : `<div class="ac-bid-right" style="font-size:.72rem;color:#aaa">archiv</div>`;
+
+  return `
+<a class="auction-card" href="${pageUrl}" target="_blank" onclick="trackClick('${auction.auctionId}')">
+  <div class="ac-thumb">
+    <img src="${thumbUrl}" alt="${auction.make} ${auction.model}" onerror="this.style.display='none';this.parentNode.querySelector('.ac-thumb-placeholder').style.display='flex'">
+    <div class="ac-thumb-placeholder" style="display:none">🚗</div>
+    ${statusHtml}
+    ${countdownHtml}
+  </div>
+  <div class="ac-body">
+    <div class="ac-make">${auction.make}</div>
+    <div class="ac-model">${auction.model} (${auction.year})</div>
+    <div class="ac-meta">
+      <span>🛣 ${auction.km} km</span>
+      <span>⚙️ ${auction.engine}</span>
+    </div>
+    <div class="ac-bid-row">
+      ${bidHtml}
+      ${ctaHtml}
+    </div>
+  </div>
+</a>`;
+}
+
+function applyFilterSort(list) {
+  const q    = document.getElementById('search-input')?.value.toLowerCase() || '';
+  const sort = document.getElementById('sort-select')?.value || 'ending';
+
+  let filtered = list.filter(a => {
+    if (!q) return true;
+    return (a.make + ' ' + a.model + ' ' + a.year + ' ' + a.engine)
+      .toLowerCase().includes(q);
+  });
+
+  filtered.sort((a, b) => {
+    const la = liveData[a.auctionId] || {};
+    const lb = liveData[b.auctionId] || {};
+    if (sort === 'ending') {
+      return new Date(la.endTime || a.endTime) - new Date(lb.endTime || b.endTime);
+    }
+    if (sort === 'price-asc') return (la.topBid || a.startPrice) - (lb.topBid || b.startPrice);
+    if (sort === 'price-desc') return (lb.topBid || b.startPrice) - (la.topBid || a.startPrice);
+    if (sort === 'bids')       return (lb.bidCount || 0) - (la.bidCount || 0);
+    return 0;
+  });
+
+  return filtered;
+}
+
+function renderCards() {
+  const all     = applyFilterSort(AUCTION_CATALOG);
+  const active  = all.filter(a => isActive(a));
+  const ended   = all.filter(a => !isActive(a));
+
+  const activeGrid = document.getElementById('active-grid');
+  const endedGrid  = document.getElementById('ended-grid');
+  const activeCount = document.getElementById('active-count');
+  const endedCountLabel = document.getElementById('ended-count-label');
+  const endedCountSpan  = document.getElementById('ended-count');
+  const endedToggle     = document.getElementById('ended-toggle-btn');
+
+  activeCount.textContent = active.length;
+
+  if (active.length === 0) {
+    activeGrid.innerHTML = '<div class="status-msg">Momentálně žádné aktivní aukce. Přijďte brzy nebo se <a href="buyer_registration.html">registrujte na upozornění</a>.</div>';
+  } else {
+    activeGrid.innerHTML = active.map(buildCard).join('');
+  }
+
+  endedCountLabel.textContent = ended.length;
+  endedCountSpan.textContent  = ended.length;
+
+  if (ended.length > 0) {
+    endedToggle.style.display = 'block';
+    endedGrid.innerHTML = ended.map(buildCard).join('');
+  } else {
+    endedToggle.style.display = 'none';
+  }
+
+  startCountdowns(active);
+}
+
+// ════════════════════════════════════════════════
+// COUNTDOWN TICK (každou sekundu)
+// ════════════════════════════════════════════════
+function startCountdowns(activeList) {
+  // Zruš staré timery
+  Object.values(countdownTimers).forEach(clearInterval);
+  countdownTimers = {};
+
+  activeList.forEach(auction => {
+    const id  = `cd-${auction.auctionId}`;
+    const endT = (liveData[auction.auctionId]?.endTime) || auction.endTime;
+    countdownTimers[auction.auctionId] = setInterval(() => {
+      const el = document.getElementById(id);
+      if (!el) { clearInterval(countdownTimers[auction.auctionId]); return; }
+      const t = getTimeLeft(endT);
+      if (!t) {
+        el.textContent = 'Skončeno';
+        clearInterval(countdownTimers[auction.auctionId]);
+        // Za 2s překresli celé karty (aukce zmizí z aktivních)
+        setTimeout(() => renderCards(), 2000);
+      } else {
+        el.textContent = t;
+      }
+    }, 1000);
+  });
+}
+
+// ════════════════════════════════════════════════
+// STATS
+// ════════════════════════════════════════════════
+function updateStats() {
+  const activeList = AUCTION_CATALOG.filter(a => isActive(a));
+  const totalBids  = Object.values(liveData).reduce((s, d) => s + (d.bidCount || 0), 0);
+  const endingToday = activeList.filter(a => isEnding(a.endTime)).length;
+
+  const el = (id, v) => { const e = document.getElementById(id); if(e) e.textContent = v; };
+  el('stat-active',  activeList.length);
+  el('stat-bids',    totalBids);
+  el('stat-ending',  endingToday);
+}
+
+// ════════════════════════════════════════════════
+// UI
+// ════════════════════════════════════════════════
+function setTab(tab, el) {
+  activeTab = tab;
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  const endedSec = document.getElementById('ended-section');
+  const endedBtn = document.getElementById('ended-toggle-btn');
+  if (tab === 'all') {
+    endedSec.classList.add('open');
+    endedBtn.style.display = 'none';
+  } else {
+    endedSec.classList.remove('open');
+    const cnt = parseInt(document.getElementById('ended-count').textContent) || 0;
+    endedBtn.style.display = cnt > 0 ? 'block' : 'none';
+  }
+}
+
+function toggleEnded() {
+  const s = document.getElementById('ended-section');
+  const b = document.getElementById('ended-toggle-btn');
+  s.classList.toggle('open');
+  b.textContent = s.classList.contains('open')
+    ? `▲ Skrýt proběhlé aukce`
+    : `▼ Zobrazit proběhlé aukce (${document.getElementById('ended-count').textContent})`;
+}
+
+function scrollToSeller() {
+  document.getElementById('seller-section').scrollIntoView({behavior:'smooth'});
+}
+
+function trackClick(auctionId) {
+  // analytika — tichý zápis do Sheetu
+  try {
+    fetch(SHEET_URL, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        action:'sheet_append',
+        sheet:'Leads',
+        row:{
+          timestamp:     new Date().toISOString(),
+          formType:      'katalog_click',
+          source:        `Katalog — klik na aukci ${auctionId}`,
+          auctionId:     auctionId,
+          note:          `TLAČÍTKO: Karta aukce | SEKCE: Katalog | UKOL: Sledovat zájem`,
+        }
+      })
+    }).catch(()=>{});
+  } catch(e){}
+}
+
+// ════════════════════════════════════════════════
+// SELLER FORM
+// ════════════════════════════════════════════════
+function submitSeller() {
+  const name  = document.getElementById('sf-name').value.trim();
+  const phone = document.getElementById('sf-phone').value.trim();
+  const email = document.getElementById('sf-email').value.trim();
+  const car   = document.getElementById('sf-car').value.trim();
+  const spec  = document.getElementById('sf-spec').value.trim();
+  const note  = document.getElementById('sf-note').value.trim();
+  const ok    = document.getElementById('sf-ok');
+  const err   = document.getElementById('sf-err');
+
+  ok.classList.remove('show');
+  err.classList.remove('show');
+
+  if (!name || !phone || !email) { err.classList.add('show'); return; }
+
+  fetch(SHEET_URL, {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({
+      action:'sheet_append',
+      sheet:'Leads',
+      row:{
+        timestamp:  new Date().toISOString(),
+        formType:   'prodej_auto_poptavka',
+        source:     'Katalog aukcí — formulář Prodat auto',
+        name:       name,
+        phone:      phone,
+        email:      email,
+        auto:       car,
+        spec:       spec,
+        note:       note || '—',
+        budget:     'dle poptávky',
+        selected_service: 'Aukce vozidla',
+        lead_task:  'UKOL: Kontaktovat prodejce, zjistit auto a cenu, nabídnout balíček',
+      }
+    })
+  }).then(()=> ok.classList.add('show'))
+    .catch(()=> ok.classList.add('show')); // zobraz OK vždy — backend se postará
+}
+
+// ════════════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+  renderCards(); // první render z katalogu bez live dat
+  fetchAllLiveData(); // načti live data z Firebase
+  setInterval(fetchAllLiveData, 15000); // polling každých 15s
+});
+</script>
+</body>
+</html>
