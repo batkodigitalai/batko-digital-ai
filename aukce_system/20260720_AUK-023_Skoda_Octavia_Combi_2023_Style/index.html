@@ -220,38 +220,15 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#1a1a1a}
 .calc-row label{font-size:.82rem;color:#555;min-width:140px}
 .calc-input{padding:8px 12px;border:1.5px solid #c8d6f0;border-radius:7px;font-size:.88rem;font-family:inherit;width:140px}
 .calc-input:focus{outline:none;border-color:#2c4a7c}
+.calc-inline{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.3);border-radius:6px;color:#fff;font-size:.85rem;font-family:inherit;padding:4px 8px;width:100px;text-align:right}
+.calc-inline:focus{outline:none;border-color:#f39c12;background:rgba(255,255,255,.22)}
+.calc-inline::placeholder{color:rgba(255,255,255,.35)}
 .calc-result{background:linear-gradient(135deg,#0d1f3c,#1a3461);color:#fff;border-radius:10px;padding:16px 20px;margin-top:6px}
 .cr-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.1);font-size:.83rem}
 .cr-row:last-child{border-bottom:none;padding-top:10px}
 .cr-label{opacity:.75}
 .cr-val{font-weight:700}
 .cr-total{font-size:1.05rem;font-weight:900;color:#f39c12}
-
-
-/* ── HYBRID AUKCE: EVROPSKÁ AUKCE VS. NABÍDKY ZÁJEMCŮ ── */
-.hybrid-auction-wrap{background:#fff;border-bottom:3px solid #e8ecf2;padding:18px 36px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
-@media(max-width:760px){.hybrid-auction-wrap{grid-template-columns:1fr;padding:16px 18px}}
-.hybrid-card{border:1.5px solid #e8ecf2;border-radius:12px;padding:18px 20px;background:#f8fafc;box-shadow:0 2px 8px rgba(0,0,0,.04)}
-.hybrid-card.external{background:linear-gradient(135deg,#0d1f3c,#1a3461);color:#fff;border-color:#2c4a7c}
-.hybrid-card.internal{background:#fff;border-color:#f39c12}
-.hybrid-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px}
-.hybrid-label{font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:1.4px;color:#999}
-.hybrid-card.external .hybrid-label{color:#f39c12}
-.hybrid-pill{font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.8px;padding:4px 10px;border-radius:20px;background:rgba(39,174,96,.12);color:#1e8449;white-space:nowrap}
-.hybrid-card.external .hybrid-pill{background:rgba(243,156,18,.16);color:#f39c12;border:1px solid rgba(243,156,18,.35)}
-.hybrid-amount{font-size:2.25rem;font-weight:900;line-height:1;color:#c0392b;letter-spacing:-.8px;font-variant-numeric:tabular-nums}
-.hybrid-card.external .hybrid-amount{color:#f39c12}
-.hybrid-sub{font-size:.78rem;color:#777;margin-top:6px;line-height:1.45}
-.hybrid-card.external .hybrid-sub{color:rgba(255,255,255,.68)}
-.hybrid-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
-.hybrid-mini{background:rgba(0,0,0,.04);border-radius:8px;padding:9px 10px}
-.hybrid-card.external .hybrid-mini{background:rgba(255,255,255,.08)}
-.hybrid-mini .hm-label{font-size:.62rem;text-transform:uppercase;letter-spacing:.7px;color:#999;margin-bottom:3px}
-.hybrid-card.external .hm-label{color:rgba(255,255,255,.45)}
-.hybrid-mini .hm-val{font-size:.86rem;font-weight:800;color:#1a2a4a;font-variant-numeric:tabular-nums}
-.hybrid-card.external .hm-val{color:#fff}
-.hybrid-warning{background:#fff8e1;border-left:4px solid #f39c12;border-radius:6px;padding:10px 12px;font-size:.78rem;color:#7d5a00;margin:14px 36px 0}
-@media(max-width:760px){.hybrid-warning{margin:12px 18px 0}}
 
 /* ── UTILS ── */
 .info-box{background:#fff8e1;border-left:4px solid #f39c12;border-radius:6px;padding:11px 14px;font-size:.82rem;color:#7d5a00;margin-top:12px}
@@ -267,53 +244,26 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#1a1a1a}
      (nebo použij aukce_admin.html pro GUI)
      ═══════════════════════════════════════════════════════ -->
 <script>
-const AUCTION_CONFIG = {
+var AUCTION_CONFIG = {
   auctionId:    "AUK-023",
   carId:        "11282007",
-
   make:         "Škoda",
   model:        "Octavia Combi 2.0 TDI Style",
   year:         2023,
-  engine:       "2.0 TDI 110 kW",
+  engine:       "2.0 TDI, 110 kW / 150 PS",
   transmission: "DSG automat",
   km:           142458,
   color:        "Modrá",
-
-  startPrice:   241000,
+  startPrice:   263000,
   minIncrement: 1000,
   endTime:      "2026-07-24T12:00:00",
   auctionRef:   "OPENLANE-11282007",
   openlaneUrl:  "https://www.openlane.eu/cs/car/info?auctionId=11282007",
-  externalAuction: {
-    enabled: true,
-    sourceLabel: "Evropská aukce",
-    platformLabel: "OPENLANE",
-    currentBid: 8200,
-    currency: "EUR",
-    rateEurCzk: 24.90,
-    updatedAt: "2026-07-20T22:00:00+02:00",
-    endTime: "2026-07-21T14:55:00+02:00",
-    status: "watching"
-  },
+  externalAuction: { enabled: true, sourceLabel: "Evropská aukce", platformLabel: "OPENLANE", currentBid: 8200, currency: "EUR", rateEurCzk: 25.21, updatedAt: "2026-07-20T22:00:00+02:00", endTime: "2026-07-21T14:55:00+02:00", status: "watching" },
   depositNote:  "10 000 Kč",
   commissionNote: "8 000–12 000 Kč",
-
   detailPageUrl: "analyza_uspory.html",
-
-  roi: {
-    marketPriceCZ:  390000,
-    transportCZ:    0,
-    registrationCZ: 7500,
-    stkCZ:          1200,
-    deliveryDaysMin: 3,
-    deliveryDaysMax: 10,
-    carScore:       76,
-    scoreLabel:     "Doporučeno",
-    b2bMarketLow:   380000,
-    b2bSaleTarget:  390000,
-    b2bDaysSale:    20
-  },
-
+  roi: { marketPriceCZ: 390000, transportCZ: 0, registrationCZ: 7500, stkCZ: 1200, deliveryDaysMin: 3, deliveryDaysMax: 10, carScore: 78, scoreLabel: "Doporučeno", b2bMarketLow: 374400, b2bSaleTarget: 390000, b2bDaysSale: 20 },
   photos: [
     "img/foto_01.jpg",
     "img/foto_02.jpg",
@@ -326,28 +276,24 @@ const AUCTION_CONFIG = {
     "img/foto_09.jpg",
     "img/foto_10.jpg"
   ],
-
   risks: [
     "Vyšší nájezd (142 tis. km) — kompenzuje bohatá výbava a servisní kniha",
     "Původ DE — servisní historie k dispozici",
     "Externí zpráva o poškození k dispozici — prověřit stav",
     "Aukce se může zrušit při nedostatečné nabídce"
   ],
-
   specs: {
     "Rok výroby": "2023",
-    "Najetých km": "142 458 km",
-    "Motor": "2.0 TDI 110 kW (150 PS)",
+    "Najetých km": "142,458".replace(",", " ")+" km",
+    "Motor": "2.0 TDI, 110 kW / 150 PS",
     "Převodovka": "DSG automat",
     "Palivo": "Diesel",
     "Karoserie": "Kombi",
-    "Pohon": "Přední",
-    "Střešní okno": "Ano",
-    "Servisní kniha": "Ano — k dispozici",
+    "VIN": "TMBJJ8NX4PY102984",
+    "Registrace": "17. 5. 2023",
     "Barva": "Modrá",
     "Původ": "Německo"
   },
-
   firebase: {
     apiKey:            "AIzaSyCzqE91qCN7CAHYNIlilzkyWLW3zYhlT8s",
     authDomain:        "batko-aukce.firebaseapp.com",
@@ -358,7 +304,11 @@ const AUCTION_CONFIG = {
     appId:             "1:567644084257:web:d4a8b172324b3d54092b60"
   },
   sheetUrl: "https://script.google.com/macros/s/AKfycbwcFA8bRyHnBB_4XlgH5_IMR4IBqUfvTD8vScGZPiuCh0gR5f4Mp_9OjOAw1u3lNEjI/exec",
-  documents: []
+  documents: [
+    { label: "Zpráva o externí inspekci (OPENLANE)", file: "docs/report_inspekce.pdf", icon: "📄" },
+    { label: "Externí zpráva o poškození", file: "docs/report_skoda.pdf", icon: "📄" },
+    { label: "Certifikát o shodě (COC)", file: "docs/report_coc.pdf", icon: "📄" }
+  ]
 };
 </script>
 
@@ -384,7 +334,7 @@ const AUCTION_CONFIG = {
 </div>
 
 <div class="sender-bar">
-  <span><strong>BATKO.DIGITAL.AI</strong> | Ing. Jaroslav Batko – Linet | IČO 14600153</span>
+  <span><strong>BATKO.DIGITAL.AI</strong> | Ing. Jaroslav Batko-Linet | IČO 14600153</span>
   <a href="mailto:batko.digital.ai@gmail.com">batko.digital.ai@gmail.com</a>
 </div>
 
@@ -401,7 +351,7 @@ const AUCTION_CONFIG = {
 <!-- Odpočet -->
 <div class="urgency-block" id="urgencyBlock">
   <div class="urgency-inner">
-    <div class="urgency-label">Aukce končí za</div>
+    <div class="urgency-label" id="urgencyLabel">Aukce končí za</div>
     <div class="urgency-headline" id="urgencyHeadline">Přihazujte nyní!</div>
     <div class="countdown" id="countdown">
       <div class="cd-unit"><div class="cd-num" id="cd-d">--</div><div class="cd-label">Dny</div></div>
@@ -430,46 +380,6 @@ const AUCTION_CONFIG = {
   </div>
 </div>
 
-<!-- Hybridní aukční panel: evropská aukce vs. nabídky zájemců -->
-<div class="hybrid-auction-wrap" id="hybridAuctionWrap">
-  <div class="hybrid-card external">
-    <div class="hybrid-top">
-      <div>
-        <div class="hybrid-label">Evropská aukce</div>
-        <div class="hybrid-amount" id="extCurrentBid">Načítám…</div>
-        <div class="hybrid-sub" id="extSub">Skutečný stav z externí aukce. Slouží pouze ke sledování.</div>
-      </div>
-      <div class="hybrid-pill" id="extSource">OPENLANE</div>
-    </div>
-    <div class="hybrid-grid">
-      <div class="hybrid-mini"><div class="hm-label">Přepočet Kč</div><div class="hm-val" id="extBidCzk">—</div></div>
-      <div class="hybrid-mini"><div class="hm-label">Aktualizace</div><div class="hm-val" id="extUpdated">—</div></div>
-      <div class="hybrid-mini"><div class="hm-label">Konec</div><div class="hm-val" id="extEnd">—</div></div>
-      <div class="hybrid-mini"><div class="hm-label">Stav dat</div><div class="hm-val" id="extFreshness">—</div></div>
-    </div>
-  </div>
-
-  <div class="hybrid-card internal">
-    <div class="hybrid-top">
-      <div>
-        <div class="hybrid-label">Nabídky zájemců</div>
-        <div class="hybrid-amount" id="intCurrentBidMirror">Zatím žádné</div>
-        <div class="hybrid-sub" id="intSub">Tady lidé zadávají svoji předběžnou nabídku / příhoz v Kč.</div>
-      </div>
-      <div class="hybrid-pill" id="intBidCount">0 příhozů</div>
-    </div>
-    <div class="hybrid-grid">
-      <div class="hybrid-mini"><div class="hm-label">Další minimum</div><div class="hm-val" id="intNextMin">—</div></div>
-      <div class="hybrid-mini"><div class="hm-label">Záloha vítěze</div><div class="hm-val" id="intDeposit">—</div></div>
-      <div class="hybrid-mini"><div class="hm-label">Odhad CZ trhu</div><div class="hm-val" id="intMarket">—</div></div>
-      <div class="hybrid-mini"><div class="hm-label">Rozdíl k trhu</div><div class="hm-val" id="intSpread">—</div></div>
-    </div>
-  </div>
-</div>
-<div class="hybrid-warning">
-  <strong>Důležité:</strong> Evropská aukce je pouze sledovaný zdroj. Nabídky zájemců na této stránce slouží k ověření reálného zájmu a navazující komunikaci. Vozidlo nemusí být získáno, pokud se cena nebo podmínky změní.
-</div>
-
 <!-- Galerie -->
 <div class="gallery-wrap">
   <div class="gallery-main" id="galleryMain">
@@ -496,9 +406,9 @@ const AUCTION_CONFIG = {
       <div class="mb-val green" id="mb-saving">—</div>
       <div class="mb-lbl">Vaše potenciální úspora</div>
     </div>
-    <div class="mb-item">
+    <div class="mb-item" id="mb-costs-wrap">
       <div class="mb-val orange" id="mb-costs">—</div>
-      <div class="mb-lbl">Náklady dovozu (STK+přepis)</div>
+      <div class="mb-lbl" id="mb-costs-lbl">Další náklady</div>
     </div>
   </div>
   <div class="mb-note" id="mb-note"></div>
@@ -539,23 +449,26 @@ const AUCTION_CONFIG = {
   <div class="bid-form-box" id="bidFormBox">
     <div class="bfb-label">Zadejte svůj příhoz</div>
     <div class="bfb-title">Přihodit na toto vozidlo</div>
-    <div class="bfb-sub">Příhoz je závazný. Po skončení aukce vítěze kontaktujeme pro složení zálohy a dohodnutí dalšího postupu.</div>
+    <div class="bfb-sub">Příhoz vyjadřuje váš zájem o koupi za danou cenu. Aukce slouží ke zjištění reálné tržní ceny — není závaznou smlouvou. K prodeji dojde přímou dohodou s prodávajícím.</div>
 
-    <form id="bidForm">
+    <form id="bidForm" autocomplete="off" data-no-autofill="true">
       <div class="bfb-row">
-        <input class="bfb-input" type="text" id="bf-name" placeholder="Jméno a příjmení *" required>
-        <input class="bfb-input" type="email" id="bf-email" placeholder="E-mail *" required>
+        <input class="bfb-input" type="text" id="bf-name" name="auk005_bidder_name" placeholder="Jméno a příjmení *" required autocomplete="new-password" readonly onfocus="this.removeAttribute('readonly')">
+        <input class="bfb-input" type="email" id="bf-email" name="auk005_bidder_email" placeholder="E-mail *" required autocomplete="new-password" readonly onfocus="this.removeAttribute('readonly')">
       </div>
       <div class="bfb-row">
-        <input class="bfb-input" type="tel" id="bf-phone" placeholder="Telefon *" required>
-        <div class="bfb-amount-wrap">
-          <input class="bfb-input bfb-amount" type="number" id="bf-amount" placeholder="Výše příhozu (Kč) *" required min="0" step="1000">
-          <span class="currency">Kč</span>
+        <input class="bfb-input" type="tel" id="bf-phone" name="auk005_bidder_phone" placeholder="Telefon *" required autocomplete="new-password" readonly onfocus="this.removeAttribute('readonly')">
+        <div class="bfb-amount-wrap" style="display:flex;gap:6px;align-items:center">
+          <input class="bfb-input bfb-amount" type="number" id="bf-amount" name="auk005_bid_amount" placeholder="Výše příhozu (Kč) *" required min="0" step="1000" autocomplete="off" style="flex:1">
+          <button type="button" id="btnPlusIncrement" onclick="addIncrement()"
+            style="white-space:nowrap;background:#f39c12;color:#fff;border:none;border-radius:8px;padding:12px 14px;font-size:.85rem;font-weight:800;cursor:pointer;flex-shrink:0">
+            +<span id="incrementLabel">1 000</span> Kč
+          </button>
         </div>
       </div>
       <div class="bfb-check">
         <input type="checkbox" id="bf-terms" required>
-        <label for="bf-terms">Rozumím, že příhoz je závazný závazek. Pokud vyhraji, složím zálohu <strong id="depositLabel"></strong> a postupuji dle podmínek aukce. Souhlasím se zpracováním osobních údajů za účelem vyřízení aukce.</label>
+        <label for="bf-terms">Rozumím, že příhoz vyjadřuje můj zájem o koupi za tuto cenu. Aukce není závazná smlouva — k prodeji dojde přímou dohodou s prodávajícím. Zavazuji se jednat v dobré víře. Souhlasím se zpracováním osobních údajů za účelem vyřízení aukce.</label>
       </div>
       <!-- Honeypot (proti botům) -->
       <input type="text" name="_hp" style="display:none" tabindex="-1" autocomplete="off">
@@ -582,7 +495,7 @@ const AUCTION_CONFIG = {
       <div class="how-item">
         <div class="how-num">1</div>
         <div class="how-title">Přihodíte</div>
-        <div class="how-desc">Zadáte jméno, e-mail, telefon a svou nabídku v Kč. Příhoz je závazný závazek. Minimální příhoz je <strong id="how-increment"></strong> Kč nad aktuální nejvyšší nabídku.</div>
+        <div class="how-desc">Zadáte jméno, e-mail, telefon a svou nabídku v Kč. Příhoz vyjadřuje váš zájem — není závaznou smlouvou. Minimální příhoz je <strong id="how-increment"></strong> Kč nad aktuální nejvyšší nabídku.</div>
       </div>
       <div class="how-item">
         <div class="how-num">2</div>
@@ -591,13 +504,17 @@ const AUCTION_CONFIG = {
       </div>
       <div class="how-item">
         <div class="how-num">3</div>
-        <div class="how-title">Vítěz složí zálohu</div>
-        <div class="how-desc">Po skončení aukce kontaktujeme vítěze do 24 hod. Záloha <strong id="how-deposit"></strong> potvrzuje zájem. Zbylá částka se platí při převzetí vozidla.</div>
+        <div class="how-title">Vítěz dostane kontakt</div>
+        <div class="how-desc">Po skončení aukce předáme vítězi kontakt na prodávajícího do 24 hod. Prodej, cena a podmínky se dohodnou přímo mezi vami — bez prostředníka.</div>
       </div>
     </div>
     <div class="info-box" style="margin-top:16px">
       <strong>⚠️ Podmínky zpracovatele</strong>
       Zpracovatel si vyhrazuje právo aukci zrušit bez udání důvodu, pokud se vozidlo nepodaří zajistit. V takovém případě jsou příhozy bezpředmětné a zálohy se nevyžadují. Ke zrušení aukce dojde vždy s předstihem před skončením, nebo ihned po zjištění překážky.
+    </div>
+    <div class="info-box">
+      <strong>DPH</strong>
+      Vyvolávací cena, příhozy a náklady v kalkulačce jsou posuzované jako částky bez DPH pro plátce DPH. Srovnání s českým trhem je orientačně vč. DPH; interní B2B výpočet marže pracuje s cenami bez DPH.
     </div>
   </div>
 
@@ -614,26 +531,33 @@ const AUCTION_CONFIG = {
   </div>
 
   <!-- ── PROVIZNÍ KALKULAČKA ── -->
-  <div class="calc-block" id="calcBlock" style="display:none">
+  <div class="calc-block" id="calcBlock">
     <h2>🧮 Kalkulačka celkové ceny</h2>
-    <div class="calc-row">
-      <label>Můj příhoz (Kč)</label>
-      <input class="calc-input" type="number" id="calc-bid" placeholder="350 000" step="1000" oninput="updateCalc()">
+    <div class="calc-result" id="calcResult">
+      <div class="cr-row">
+        <span class="cr-label">Můj příhoz</span>
+        <span class="cr-val"><input class="calc-inline" type="text" inputmode="numeric" id="calc-bid" placeholder="380 000" oninput="updateCalc()" autocomplete="off"> Kč</span>
+      </div>
+      <div class="cr-row" id="calc-row-reg">
+        <span class="cr-label" id="calc-label-reg">Doprava + přepis + příprava + servis bez DPH</span>
+        <span class="cr-val"><input class="calc-inline" type="text" inputmode="numeric" id="calc-reg" oninput="updateCalc()" autocomplete="off"> Kč</span>
+      </div>
+      <div class="cr-row" id="calc-row-processing">
+        <span class="cr-label" id="calc-label-processing">Zpracování / provize bez DPH</span>
+        <span class="cr-val"><input class="calc-inline" type="text" inputmode="numeric" id="calc-processing" oninput="updateCalc()" autocomplete="off"> Kč</span>
+      </div>
+      <div class="cr-row" style="border-top:2px solid rgba(255,255,255,.25);margin-top:4px;padding-top:8px">
+        <span class="cr-label cr-total">Celkem odhadem bez DPH</span>
+        <span class="cr-val cr-total" id="cr-total">—</span>
+      </div>
     </div>
-    <div class="calc-result" id="calcResult" style="display:none">
-      <div class="cr-row"><span class="cr-label">Vítězná nabídka</span><span class="cr-val" id="cr-bid">—</span></div>
-      <div class="cr-row"><span class="cr-label">Doprava DE→ČR (odhad)</span><span class="cr-val" id="cr-transport">—</span></div>
-      <div class="cr-row"><span class="cr-label">STK + přepis (odhad)</span><span class="cr-val" id="cr-reg">—</span></div>
-      <div class="cr-row"><span class="cr-label">Odměna zpracovatele</span><span class="cr-val" id="cr-commission">—</span></div>
-      <div class="cr-row"><span class="cr-label cr-total">Celkem odhadem</span><span class="cr-val cr-total" id="cr-total">—</span></div>
-    </div>
-    <div style="font-size:.72rem;color:#aaa;margin-top:10px">* Kalkulačka je orientační. Přesná cena závisí na skutečné výši příhozu a dohodnutých podmínkách. Odměna zpracovatele se platí při předání vozidla.</div>
+    <div style="font-size:.72rem;color:#aaa;margin-top:10px">* Kalkulačka je orientační a v tomto režimu počítá bez DPH. Přesná cena závisí na skutečné výši příhozu a finálním daňovém režimu prodeje.</div>
   </div>
 
   <!-- ── B2B BLOK PRO AUTOBAZARY ── -->
   <div class="b2b-block" id="b2bBlock" style="display:none">
     <div class="b2b-label">Pro autobazary a obchodníky</div>
-    <div class="b2b-title">Kalkulace marže při přeprodeji</div>
+    <div class="b2b-title">Kolik můžete vydělat (marže dražitele)</div>
     <div class="b2b-grid" id="b2bGrid"><!-- vloží JS --></div>
     <div class="b2b-cta" id="b2bNote"></div>
   </div>
@@ -648,13 +572,15 @@ const AUCTION_CONFIG = {
   <div class="section">
     <h2>📋 Podmínky aukce</h2>
     <ul class="cond-list">
-      <li>Příhoz je závazný závazek k odkupu vozidla při výhře v aukci.</li>
-      <li>Vítěz složí zálohu do 48 hodin od ukončení aukce — teprve poté se zahajuje zajištění vozidla.</li>
-      <li>Zpracovatel (Ing. Jaroslav Batko – Linet, IČO 14600153) jedná jako zprostředkovatel a agenturní zástupce kupujícího.</li>
-      <li>Vozidlo je zajišťováno z evropského trhu. Doprava, STK a přepis jsou v ceně zákazníka nad rámec vítězné nabídky, pokud není dohodnuto jinak.</li>
-      <li>Zpracovatel si vyhrazuje právo aukci zrušit bez udání důvodu. Zálohy se v takovém případě nevyžadují.</li>
-      <li>Nejsme autobazar. Vozidlo neprodáváme ze skladu — zajišťujeme ho na základě vítězné nabídky.</li>
-      <li id="cond-commission">Odměna zpracovatele za agenturní nákup je splatná při předání vozidla.</li>
+      <li>Tato aukce <strong>není veřejná dražba</strong> ani závazná smlouva. Slouží ke zjištění reálné tržní ceny formou časově omezené online nabídky.</li>
+      <li>Příhoz vyjadřuje zájem kupujícího o koupi za danou cenu. <strong>Nezakládá právní závazek</strong> ani kupujícímu, ani prodávajícímu.</li>
+      <li>DPH: vyvolávací cena, příhozy a náklady v kalkulačce jsou posuzované jako částky bez DPH pro plátce DPH; české tržní srovnání je orientačně vč. DPH.</li>
+      <li>Po skončení aukce prodávající sám rozhodne zda za vydraženou cenu prodá. Pokud ano, vítěz dostane jeho kontakt přímo.</li>
+      <li>Prodávající se zavazuje jednat s vítězem v dobré víře pokud vydražená cena dosáhne jeho stanoveného minima.</li>
+      <li>Kupující se zavazuje jednat v dobré víře — spekulativní příhozy bez zájmu o koupi jsou porušením podmínek.</li>
+      <li>Zprostředkovatel (Ing. Jaroslav Batko-Linet, IČO 14600153) organizuje aukci a zajišťuje propagaci. <strong>Neúčastní se finančního vypořádání</strong> mezi stranami.</li>
+      <li>Zprostředkovatel si vyhrazuje právo aukci zrušit bez udání důvodu.</li>
+      <li>Osobní údaje jsou zpracovávány výhradně za účelem vedení aukce v souladu s GDPR (Nařízení EU 2016/679).</li>
     </ul>
   </div>
 
@@ -664,10 +590,12 @@ const AUCTION_CONFIG = {
 <div class="company-id-bar">
   <h4>Identifikace zpracovatele</h4>
   <div class="cid-grid">
-    <div class="cid-row"><span class="cid-label">Jméno a příjmení:</span><span class="cid-val">Ing. Jaroslav Batko – Linet</span></div>
+    <div class="cid-row"><span class="cid-label">Jméno a příjmení:</span><span class="cid-val">Ing. Jaroslav Batko-Linet</span></div>
     <div class="cid-row"><span class="cid-label">IČO:</span><span class="cid-val">14600153</span></div>
-    <div class="cid-row"><span class="cid-label">Sídlo:</span><span class="cid-val">Klimkovice, Česká republika</span></div>
+    <div class="cid-row"><span class="cid-label">DIČ:</span><span class="cid-val">CZ5912280418</span></div>
+    <div class="cid-row"><span class="cid-label">Sídlo:</span><span class="cid-val">Lískovec 170, 273 51 Velké Přítočno, Česká republika</span></div>
     <div class="cid-row"><span class="cid-label">E-mail:</span><span class="cid-val">batko.digital.ai@gmail.com</span></div>
+    <div class="cid-row"><span class="cid-label">Telefon:</span><span class="cid-val">+420 725 360 151</span></div>
     <div class="cid-row"><span class="cid-label">Značka:</span><span class="cid-val">BATKO.DIGITAL.AI</span></div>
     <div class="cid-row"><span class="cid-label">Reference aukce:</span><span class="cid-val" id="footer-ref">—</span></div>
   </div>
@@ -677,7 +605,7 @@ const AUCTION_CONFIG = {
 </div>
 
 <div class="footer">
-  &copy; BATKO.DIGITAL.AI | Ing. Jaroslav Batko – Linet | IČO 14600153 | Klimkovice, CZ
+  &copy; BATKO.DIGITAL.AI | Ing. Jaroslav Batko-Linet | IČO 14600153 | DIČ CZ5912280418 | Lískovec 170, 273 51 Velké Přítočno
 </div>
 
 <!-- ════════════════ JAVASCRIPT ════════════════ -->
@@ -690,38 +618,6 @@ const AUCTION_CONFIG = {
 function fKc(n)      { return Number(n).toLocaleString('cs') + ' Kč'; }
 function fDate(ts)   { const d = new Date(ts); return d.toLocaleTimeString('cs',{hour:'2-digit',minute:'2-digit'}) + ' ' + d.toLocaleDateString('cs',{day:'2-digit',month:'2-digit'}); }
 function anonymize(name) { const p = String(name).trim().split(' '); return p.map((s,i) => i===0 ? s : s[0]+'.').join(' '); }
-function fEur(n)     { return Number(n).toLocaleString('cs') + ' €'; }
-function safeDateTime(ts) { if (!ts) return '—'; const d = new Date(ts); if (isNaN(d.getTime())) return '—'; return d.toLocaleDateString('cs',{day:'2-digit',month:'2-digit'}) + ' ' + d.toLocaleTimeString('cs',{hour:'2-digit',minute:'2-digit'}); }
-function minutesSince(ts) { const d = new Date(ts).getTime(); if (!ts || isNaN(d)) return null; return Math.floor((Date.now()-d)/60000); }
-function renderExternalAuction(data) {
-  const cfg = AUCTION_CONFIG.externalAuction || {};
-  const ext = Object.assign({}, cfg, data || {});
-  const rate = Number(ext.rateEurCzk || cfg.rateEurCzk || 24.70);
-  const amount = Number(ext.currentBid || 0);
-  const currency = ext.currency || 'EUR';
-  const updated = ext.updatedAt || ext.timestamp || null;
-  const ageMin = minutesSince(updated);
-
-  document.getElementById('extSource').textContent = ext.platformLabel || cfg.platformLabel || 'OPENLANE';
-  document.getElementById('extCurrentBid').textContent = amount ? (currency === 'EUR' ? fEur(amount) : fKc(amount)) : 'Bez dat';
-  document.getElementById('extBidCzk').textContent = amount ? fKc(Math.round(amount * rate)) : '—';
-  document.getElementById('extUpdated').textContent = safeDateTime(updated);
-  document.getElementById('extEnd').textContent = safeDateTime(ext.endTime || AUCTION_CONFIG.endTime);
-  document.getElementById('extFreshness').textContent = ageMin === null ? 'ruční údaj' : (ageMin <= 2 ? 'živé' : `před ${ageMin} min`);
-  document.getElementById('extSub').textContent = ext.sourceLabel ? `${ext.sourceLabel}: pouze ke sledování, nepřepisuje nabídky zájemců.` : 'Skutečný stav externí aukce. Slouží pouze ke sledování.';
-}
-function renderInternalMirror() {
-  const top = currentTopBid || 0;
-  const nextMin = top > 0 ? top + AUCTION_CONFIG.minIncrement : AUCTION_CONFIG.startPrice;
-  const market = (AUCTION_CONFIG.roi && AUCTION_CONFIG.roi.marketPriceCZ) || 0;
-  document.getElementById('intCurrentBidMirror').textContent = top ? fKc(top) : 'Zatím žádné';
-  document.getElementById('intBidCount').textContent = `${bidCount || 0} příhozů`;
-  document.getElementById('intNextMin').textContent = fKc(nextMin);
-  document.getElementById('intDeposit').textContent = AUCTION_CONFIG.depositNote || '—';
-  document.getElementById('intMarket').textContent = market ? fKc(market) : '—';
-  document.getElementById('intSpread').textContent = market && top ? fKc(market - top) : 'čeká na nabídku';
-}
-
 
 // ════════════════════════════════════════════════════════
 // GALERIE
@@ -744,23 +640,30 @@ function galleryMove(dir) {
 // ════════════════════════════════════════════════════════
 // INICIALIZACE STRÁNKY (nezávislá na Firebase)
 // ════════════════════════════════════════════════════════
+function setEl(id, prop, val) { const el = document.getElementById(id); if (el) el[prop] = val; }
+
 function initPage() {
   const C = AUCTION_CONFIG;
   document.title = `Aukce: ${C.year} ${C.make} ${C.model} — BATKO.DIGITAL.AI`;
-  document.getElementById('pageDesc').content = `Přihoďte na ${C.year} ${C.make} ${C.model}. Živá internetová aukce.`;
-  document.getElementById('h-title').innerHTML = `${C.year} <span>${C.make} ${C.model}</span>`;
-  document.getElementById('h-sub').textContent  = `${C.engine} | ${C.transmission} | ${C.km.toLocaleString('cs')} km`;
-  document.getElementById('h-spec').textContent = `Barva: ${C.color} | Aukce: ${C.auctionRef}`;
-  document.getElementById('h-ref').textContent  = `Ref. ${C.auctionId}`;
-  document.getElementById('footer-ref').textContent = C.auctionId;
-  document.getElementById('depositLabel').textContent  = C.depositNote;
-  document.getElementById('how-increment').textContent = C.minIncrement.toLocaleString('cs');
-  document.getElementById('how-deposit').textContent   = C.depositNote;
-  document.getElementById('cond-commission').textContent =
-    `Odměna zpracovatele za agenturní nákup (orientačně ${C.commissionNote}) je splatná při předání vozidla.`;
-  document.getElementById('minBidDisplay').textContent = fKc(C.startPrice);
-  document.getElementById('bf-amount').min         = C.startPrice;
-  document.getElementById('bf-amount').placeholder = `Min. ${fKc(C.startPrice)}`;
+  setEl('pageDesc', 'content', `Přihoďte na ${C.year} ${C.make} ${C.model}. Živá internetová aukce.`);
+  setEl('h-title', 'innerHTML', `${C.year} <span>${C.make} ${C.model}</span>`);
+  setEl('h-sub', 'textContent', `${C.engine} | ${C.transmission} | ${C.km.toLocaleString('cs')} km`);
+  setEl('h-spec', 'textContent', `Barva: ${C.color} | Aukce: ${C.auctionRef}`);
+  setEl('h-ref', 'textContent', `Ref. ${C.auctionId}`);
+  setEl('footer-ref', 'textContent', C.auctionId);
+  setEl('depositLabel', 'textContent', C.depositNote || '');
+  setEl('how-increment', 'textContent', C.minIncrement.toLocaleString('cs'));
+  setEl('how-deposit', 'textContent', C.depositNote || '');
+  setEl('cond-commission', 'textContent', 'Poplatek za zpracování aukce (2 490 Kč) hradí prodávající předem. Kupující platí pouze dohodnutou kupní cenu přímo majiteli vozidla.');
+  setEl('minBidDisplay', 'textContent', fKc(C.startPrice));
+  setEl('bf-amount', 'min', C.startPrice);
+  setEl('bf-amount', 'placeholder', `Min. ${fKc(C.startPrice)}`);
+
+  // Předvyplnit kontakt z minulého příhozu
+  prefillBidderContact();
+  setTimeout(prefillBidderContact, 250);
+  setTimeout(prefillBidderContact, 1000);
+  updateIncrementLabel();
 
   // Gallery
   const gMain  = document.getElementById('galleryMain');
@@ -807,6 +710,56 @@ function initPage() {
 }
 
 // ════════════════════════════════════════════════════════
+// ZAPAMATOVÁNÍ KONTAKTU (localStorage) + TLAČÍTKO +příhoz
+// ════════════════════════════════════════════════════════
+const LEGACY_BIDDER_KEY = 'batko_bidder_contact';
+const BIDDER_KEY = 'batko_bidder_contact_' + AUCTION_CONFIG.auctionId;
+
+function saveBidderContact(name, email, phone) {
+  try {
+    localStorage.removeItem(LEGACY_BIDDER_KEY);
+    localStorage.setItem(BIDDER_KEY, JSON.stringify({ name, email, phone }));
+  } catch(e) {}
+}
+
+function prefillBidderContact() {
+  try { localStorage.removeItem(LEGACY_BIDDER_KEY); } catch(e) {}
+  let saved = null;
+  try { saved = JSON.parse(localStorage.getItem(BIDDER_KEY) || 'null'); } catch(e) {}
+  if (!saved) {
+    clearBidFormPersonalData(true);
+    return;
+  }
+  const n = document.getElementById('bf-name');
+  const e = document.getElementById('bf-email');
+  const p = document.getElementById('bf-phone');
+  if (n) n.value = saved.name || '';
+  if (e) e.value = saved.email || '';
+  if (p) p.value = saved.phone || '';
+}
+
+function clearBidFormPersonalData(force = false) {
+  try { localStorage.removeItem(LEGACY_BIDDER_KEY); } catch(e) {}
+  ['bf-name','bf-email','bf-phone'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el && (force || document.activeElement !== el)) el.value = '';
+  });
+}
+// Tlačítko +příhoz — zvýší hodnotu o minIncrement (nebo nastaví minimum pokud je pole prázdné)
+function addIncrement() {
+  const inp  = document.getElementById('bf-amount');
+  const minV = parseInt(inp.min, 10) || AUCTION_CONFIG.startPrice;
+  const cur  = parseInt(inp.value, 10);
+  inp.value  = isNaN(cur) || cur < minV ? minV : cur + AUCTION_CONFIG.minIncrement;
+}
+
+// Aktualizuje popisek tlačítka při změně minIncrement
+function updateIncrementLabel() {
+  const el = document.getElementById('incrementLabel');
+  if (el) el.textContent = AUCTION_CONFIG.minIncrement.toLocaleString('cs');
+}
+
+// ════════════════════════════════════════════════════════
 // EXTRA BLOKY (tržní srovnání, skóre, doručení, B2B, kalkulačka)
 // ════════════════════════════════════════════════════════
 function initExtras() {
@@ -814,14 +767,36 @@ function initExtras() {
   const R = C.roi || {};
 
   // ① Tržní srovnání
-  if (R.marketPriceCZ) {
-    const costs  = (R.transportCZ||0) + (R.registrationCZ||0) + (R.stkCZ||0);
-    const saving = R.marketPriceCZ - C.startPrice - costs;
-    document.getElementById('mb-market').textContent  = fKc(R.marketPriceCZ);
-    document.getElementById('mb-saving').textContent  = saving > 0 ? 'až ' + fKc(saving) : 'závisí na příhozu';
-    document.getElementById('mb-costs').textContent   = fKc(costs);
-    document.getElementById('mb-note').textContent    =
-      `Při výhře za vyvolávací cenu ${fKc(C.startPrice)} a nákladech dovozu ${fKc(costs)} ušetříte oproti tržní ceně přibližně ${saving > 0 ? fKc(saving) : 'dle výhry'}.`;
+  if (false) {  // BROKER: tržní blok skrytý — na stránce svítí jen marže dražitele
+    const extras  = R.extrasAmount || 0;
+    const vatRate = R.vatRate || 0.21;
+    const marketGross = R.marketPriceCZ;
+    const marketNet = R.marketPriceNetCZ || Math.round(marketGross / (1 + vatRate));
+    const compareBase = R.vatPayerMode ? marketNet : marketGross;
+    const saving  = compareBase - C.startPrice - extras;
+    document.getElementById('mb-market').textContent = fKc(R.marketPriceCZ);
+    document.getElementById('mb-saving').textContent = saving > 0 ? 'až ' + fKc(saving) : 'závisí na příhozu';
+
+    // Sloupec "Další náklady" — skryje se pokud je extrasAmount 0 nebo chybí
+    const costsWrap = document.getElementById('mb-costs-wrap');
+    if (extras > 0) {
+      document.getElementById('mb-costs').textContent   = fKc(extras);
+      document.getElementById('mb-costs-lbl').textContent = R.extrasLabel || 'Další náklady';
+      costsWrap.style.display = '';
+    } else {
+      costsWrap.style.display = 'none';
+    }
+
+    // Poznámka pod tabulkou
+    const extrasNote = extras > 0
+      ? ` a dalších nákladech ${fKc(extras)}${R.extrasLabel ? ' (' + R.extrasLabel + ')' : ''}`
+      : '';
+    const vatNote = R.vatPayerMode
+      ? ` Tržní cena ČR je uvedena vč. DPH; pro plátce DPH se interně porovnává netto cca ${fKc(marketNet)}.`
+      : '';
+    document.getElementById('mb-note').textContent =
+      `Při výhře za vyvolávací cenu ${fKc(C.startPrice)}${extrasNote} vychází rozdíl proti srovnávací ceně přibližně ${saving > 0 ? fKc(saving) : 'dle výhry'}.${vatNote}`;
+
     document.getElementById('marketBlock').style.display = 'block';
   }
 
@@ -879,75 +854,98 @@ function initExtras() {
   }
 
   // ⑤ Provizní kalkulačka
-  document.getElementById('cr-transport').textContent  = fKc(R.transportCZ || 8000);
-  document.getElementById('cr-reg').textContent        = fKc((R.registrationCZ||7500) + (R.stkCZ||1200));
-  document.getElementById('cr-commission').textContent = C.commissionNote || '8 000–12 000 Kč';
-  document.getElementById('calcBlock').style.display   = 'block';
+  const setTxt = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+  const setDisp = (id, val) => { const el = document.getElementById(id); if (el) el.style.display = val; };
+  setDisp('calcBlock', 'block');
+  // předvyplň kalkulačku výchozími hodnotami
+  function setCalcField(id, val) {
+    const el = document.getElementById(id);
+    if (el && !el.value && val) el.value = val;
+  }
+  const R2 = C.roi || {};
+  setCalcField('calc-bid',       C.startPrice || '');
+  setCalcField('calc-reg',       R2.extrasAmount || '');
+  setCalcField('calc-processing', R2.processingCostAmount || '');
+  // labely kalkulačky z konfigurace
+  const lbReg   = document.getElementById('calc-label-reg');
+  if (lbReg   && R2.extrasLabel)    lbReg.textContent   = R2.extrasLabel;
+  const lbProcessing = document.getElementById('calc-label-processing');
+  if (lbProcessing && R2.processingCostLabel) lbProcessing.textContent = R2.processingCostLabel;
+  updateCalc();
 
   // ⑥ B2B blok
-  if (R.b2bMarketLow && R.b2bSaleTarget) {
-    const buyCost  = (R.transportCZ||8000) + (R.registrationCZ||7500) + (R.stkCZ||1200) + 8000;
-    const b2bGross = R.b2bSaleTarget - C.startPrice - buyCost;
-    const b2bROI   = ((b2bGross / (C.startPrice + buyCost)) * 100 / (R.b2bDaysSale||20)).toFixed(2);
+  if (R.b2bSaleTarget) {
+    const euro   = R.europeanCost || 0;
+    const prep   = R.bidderPrepCost || ((R.extrasAmount || 0) + (R.processingCostAmount || 0));
+    const saleNet = R.marketPriceNetCZ || Math.round((R.b2bSaleTarget||0) / (1 + (R.vatRate||0.21)));
+    const margin = saleNet - C.startPrice - prep;
+    const roiDay = ((margin / (C.startPrice + prep)) * 100 / (R.b2bDaysSale||30)).toFixed(2);
     document.getElementById('b2bGrid').innerHTML = `
-      <div class="b2b-item"><div class="bi-val">${fKc(C.startPrice)}</div><div class="bi-lbl">Vyvolávací cena</div></div>
-      <div class="b2b-item"><div class="bi-val">${fKc(buyCost)}</div><div class="bi-lbl">Náklady dovozu</div></div>
-      <div class="b2b-item"><div class="bi-val">${fKc(R.b2bSaleTarget)}</div><div class="bi-lbl">Ref. prod. cena CZ</div></div>
-      <div class="b2b-item"><div class="bi-val" style="color:#2ecc71">${fKc(Math.max(0,b2bGross))}</div><div class="bi-lbl">Hrubá marže</div></div>`;
+      <div class="b2b-item"><div class="bi-val">${fKc(euro)}</div><div class="bi-lbl">Pořízení z evropské aukce vč. dovozu</div></div>
+      <div class="b2b-item"><div class="bi-val">${fKc(C.startPrice)}</div><div class="bi-lbl">Vyvolávací cena aukce</div></div>
+      <div class="b2b-item"><div class="bi-val">${fKc(prep)}</div><div class="bi-lbl">Vaše náklady (přepis, příprava, servis, rezerva)</div></div>
+      <div class="b2b-item"><div class="bi-val">${fKc(R.b2bSaleTarget)}</div><div class="bi-lbl">Orientační prodejní cena ČR (vč. DPH)</div></div>
+      <div class="b2b-item"><div class="bi-val" style="color:#2ecc71">${fKc(Math.max(0,margin))}</div><div class="bi-lbl">Vaše marže při vyvolávací ceně (netto)</div></div>`;
     document.getElementById('b2bNote').innerHTML =
-      `Při koupi za vyvolávací cenu a prodeji do ${R.b2bDaysSale||20} dní: ROI přibližně <strong>${b2bROI} %/den</strong>. Kalkulace dle katalogu nákladů — přesný výpočet na vyžádání.`;
+      `Vyvolávací cena je nastavená blízko evropské pořizovací ceny, aby prostor pro vaši marži zůstal co největší. Při prodeji do ${R.b2bDaysSale||30} dní ≈ <strong>${roiDay} %/den</strong>. Každý příhoz snižuje vaši marži o svou výši. Marže je počítaná net-vs-net pro plátce DPH: prodejní cena v ČR je uvedená vč. DPH (720 000 Kč), ale do marže vstupuje jako netto (595 041 Kč), protože plátce DPH odvede/odečte.`;
     document.getElementById('b2bBlock').style.display = 'block';
   }
 }
 
 function updateCalc() {
-  const raw = document.getElementById('calc-bid').value;
-  const bid = parseInt(raw, 10);
-  const C   = AUCTION_CONFIG;
-  const R   = C.roi || {};
-  const res = document.getElementById('calcResult');
-  if (!bid || bid < 1000) { res.style.display = 'none'; return; }
-
-  const transport = (R.deliveryDaysMin === 0) ? 0 : (R.transportEstimate || 15000);
-  const extras    = R.extrasAmount || 0;
-  const commMin   = R.commissionMin || 8000;
-  const commMax   = R.commissionMax || 12000;
-
-  document.getElementById('cr-bid').textContent        = fKc(bid);
-  document.getElementById('cr-transport').textContent  = fKc(transport);
-  document.getElementById('cr-reg').textContent        = fKc(extras);
-  document.getElementById('cr-commission').textContent = `${fKc(commMin)} – ${fKc(commMax)}`;
-  document.getElementById('cr-total').textContent      =
-    `${fKc(bid + transport + extras + commMin)} – ${fKc(bid + transport + extras + commMax)}`;
-
-  res.style.display = 'block';
+  try {
+    function parseKc(id) {
+      const raw = (document.getElementById(id) || {}).value || '';
+      return parseInt(raw.replace(/\s/g,'').replace(/[^0-9]/g,''), 10) || 0;
+    }
+    const bid      = parseKc('calc-bid');
+    const reg      = parseKc('calc-reg');
+    const processing = parseKc('calc-processing');
+        const total    = document.getElementById('cr-total');
+    if (!total) return;
+    if (bid < 1000) { total.textContent = '—'; return; }
+    total.textContent = fKc(bid + reg + processing);
+  } catch(e) {}
 }
 
 // ════════════════════════════════════════════════════════
 // ODPOČET
 // ════════════════════════════════════════════════════════
 function updateCountdown() {
-  const end  = new Date(AUCTION_CONFIG.endTime).getTime();
-  const diff = end - Date.now();
-  if (diff <= 0) {
-    document.getElementById('countdown').style.display   = 'none';
-    document.getElementById('urgencyEnded').style.display = 'block';
-    if (auctionStatus === 'active') { auctionStatus = 'ended'; lockForm('Čas aukce vypršel.'); }
-    return;
-  }
-  const d = Math.floor(diff / 86400000);
-  const h = Math.floor((diff % 86400000) / 3600000);
-  const m = Math.floor((diff % 3600000) / 60000);
-  const s = Math.floor((diff % 60000) / 1000);
-  document.getElementById('cd-d').textContent = String(d).padStart(2,'0');
-  document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
-  document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
-  document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
-  const uh = document.getElementById('urgencyHeadline');
-  if (d === 0 && h < 1)  uh.textContent = '⚡ Méně než 1 hodina do konce!';
-  else if (d === 0)       uh.textContent = `Dnes v ${new Date(AUCTION_CONFIG.endTime).toLocaleTimeString('cs',{hour:'2-digit',minute:'2-digit'})} aukce končí!`;
-  else if (d === 1)       uh.textContent = 'Zítra aukce končí — přihoďte nyní!';
-  else                    uh.textContent = `Aukce končí za ${d} ${d===1?'den':d<5?'dny':'dní'}`;
+  try {
+    const end  = new Date(AUCTION_CONFIG.endTime).getTime();
+    if (isNaN(end)) return;
+    const diff = end - Date.now();
+    const setEl = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+    if (diff <= 0) {
+      setEl('cd-d','00'); setEl('cd-h','00'); setEl('cd-m','00'); setEl('cd-s','00');
+      const cd = document.getElementById('countdown');
+      const uh = document.getElementById('urgencyHeadline');
+      const ul = document.getElementById('urgencyLabel');
+      const ue = document.getElementById('urgencyEnded');
+      if (cd) cd.style.display = 'none';
+      if (uh) uh.style.display = 'none';
+      if (ul) ul.style.display = 'none';
+      if (ue) ue.style.display = 'block';
+      if (auctionStatus === 'active') { auctionStatus = 'ended'; lockForm('Čas aukce vypršel.'); }
+      return;
+    }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    setEl('cd-d', String(d).padStart(2,'0'));
+    setEl('cd-h', String(h).padStart(2,'0'));
+    setEl('cd-m', String(m).padStart(2,'0'));
+    setEl('cd-s', String(s).padStart(2,'0'));
+    const uh = document.getElementById('urgencyHeadline');
+    if (uh) {
+      if (d === 0 && h < 1)  uh.textContent = '⚡ Méně než 1 hodina do konce!';
+      else if (d === 0)       uh.textContent = `Dnes v ${new Date(AUCTION_CONFIG.endTime).toLocaleTimeString('cs',{hour:'2-digit',minute:'2-digit'})} aukce končí!`;
+      else if (d === 1)       uh.textContent = 'Zítra aukce končí — přihoďte nyní!';
+      else                    uh.textContent = `Aukce končí za ${d} ${d===1?'den':d<5?'dny':'dní'}`;
+    }
+  } catch(e) { console.error('countdown err:', e); }
 }
 
 // ════════════════════════════════════════════════════════
@@ -984,7 +982,6 @@ function renderBids(bids) {
   const container = document.getElementById('bidHistory');
   if (bids.length === 0) {
     container.innerHTML = '<div class="no-bids">Zatím nebyl podán žádný příhoz. Buďte první!</div>';
-    renderInternalMirror();
     return;
   }
   container.innerHTML = bids.slice(0, 10).map((b, i) => `
@@ -994,7 +991,6 @@ function renderBids(bids) {
       <div class="br-amount ${i===0?'gold':''}">${fKc(b.amount)}</div>
       <div class="br-time">${fDate(b.timestamp)}</div>
     </div>`).join('');
-  renderInternalMirror();
 }
 
 function applyStatus(status, cancelReason) {
@@ -1052,9 +1048,11 @@ if (IS_DEMO) {
     const name   = document.getElementById('bf-name').value.trim();
     const email  = document.getElementById('bf-email').value.trim();
     const phone  = document.getElementById('bf-phone').value.trim();
-    const amount = parseInt(document.getElementById('bf-amount').value, 10);
+    const rawAmt = (document.getElementById('bf-amount').value || '').replace(/\s/g,'').replace(/[^0-9]/g,'');
+    const amount = parseInt(rawAmt, 10);
     const minReq = currentTopBid > 0 ? currentTopBid + AUCTION_CONFIG.minIncrement : AUCTION_CONFIG.startPrice;
     const errEl  = document.getElementById('bidError');
+    if (!amount || isNaN(amount)) { errEl.textContent = 'Zadejte platnou číselnou částku.'; errEl.style.display='block'; return; }
     if (amount < minReq) { errEl.textContent = `Příhoz musí být minimálně ${fKc(minReq)}.`; errEl.style.display='block'; return; }
     if (lsGetStatus() !== 'active' || Date.now() > new Date(AUCTION_CONFIG.endTime).getTime()) {
       errEl.textContent = 'Aukce již není aktivní.'; errEl.style.display='block'; return;
@@ -1064,6 +1062,7 @@ if (IS_DEMO) {
     btn.disabled = true; btn.textContent = 'Odesílám…';
 
     lsSaveBid({ name, email, phone, amount, timestamp: Date.now() });
+    saveBidderContact(name, email, phone);
 
     // Sheet záloha
     if (AUCTION_CONFIG.sheetUrl && !AUCTION_CONFIG.sheetUrl.includes('TVOJE_ID')) {
@@ -1074,7 +1073,7 @@ if (IS_DEMO) {
           formType:'aukce_bid', source:`Aukce ${AUCTION_CONFIG.auctionId} — tlačítko Přihodit`,
           tlacitko:'Přihodit', sekce:`Aukční formulář`, ukol:'Kontaktovat při výhře',
           stav_zpracovani:'PRIJATO',
-          note:`TLAČÍTKO: Přihodit | SEKCE: Aukce ${AUCTION_CONFIG.auctionId} | UKOL: Záloha ${AUCTION_CONFIG.depositNote}`,
+          note:`TLAČÍTKO: Přihodit | SEKCE: Aukce ${AUCTION_CONFIG.auctionId} | UKOL: Kontaktovat vítěze, domluvit podmínky prodeje`,
           jmeno:name, email, telefon:phone, nabidka_kc:amount,
           auto:`${AUCTION_CONFIG.year} ${AUCTION_CONFIG.make} ${AUCTION_CONFIG.model}`,
           carId:AUCTION_CONFIG.carId, auctionId:AUCTION_CONFIG.auctionId,
@@ -1083,8 +1082,10 @@ if (IS_DEMO) {
       }).catch(()=>{});
     }
 
-    document.getElementById('bidSuccess').style.display = 'block';
+    saveBidderContact(name, email, phone);
+        document.getElementById('bidSuccess').style.display = 'block';
     this.reset();
+    prefillBidderContact();
     btn.textContent = '✅ Příhoz přijat';
     setTimeout(() => { btn.disabled=false; btn.textContent='🔨 Přihodit znovu'; }, 3000);
   });
@@ -1095,13 +1096,28 @@ if (IS_DEMO) {
     firebase.initializeApp(AUCTION_CONFIG.firebase);
     const db         = firebase.database();
     const auctionRef = db.ref('auctions/' + AUCTION_CONFIG.auctionId);
-    const externalRef = auctionRef.child('externalAuction');
 
     // Načti dynamická data z Firebase (endTime, startPrice, minIncrement)
     auctionRef.once('value', snap => {
       const d = snap.val();
       if (d) {
-        if (d.endTime)      AUCTION_CONFIG.endTime      = d.endTime;
+        // endTime z Firebase VŽDY přepíše lokální config
+        if (d.endTime) {
+          AUCTION_CONFIG.endTime = d.endTime;
+          // Pokud je endTime v budoucnosti, odblokuj countdown (mohl být předčasně zastaven starým fallbackem)
+          if (new Date(d.endTime).getTime() > Date.now()) {
+            const cd = document.getElementById('countdown');
+            const uh = document.getElementById('urgencyHeadline');
+            const ul = document.getElementById('urgencyLabel');
+            const ue = document.getElementById('urgencyEnded');
+            if (cd) cd.style.display = '';
+            if (uh) uh.style.display = '';
+            if (ul) ul.style.display = '';
+            if (ue) ue.style.display = 'none';
+            if (auctionStatus === 'ended') { auctionStatus = 'active'; unlockForm(); }
+          }
+          updateCountdown();
+        }
         if (d.startPrice)   AUCTION_CONFIG.startPrice   = d.startPrice;
         if (d.minIncrement) AUCTION_CONFIG.minIncrement = d.minIncrement;
         if (d.make)         AUCTION_CONFIG.make         = d.make;
@@ -1117,11 +1133,6 @@ if (IS_DEMO) {
       }
     });
 
-    // Externí evropská aukce listener — zapisuje sem Playwright/Selenium nebo admin
-    externalRef.on('value', snap => {
-      renderExternalAuction(snap.val());
-    });
-
     // Status listener
     auctionRef.child('status').on('value', snap => {
       const st = snap.val() || 'active';
@@ -1130,12 +1141,27 @@ if (IS_DEMO) {
       }
     });
 
-    // Bids listener
-    auctionRef.child('bids').on('value', snap => {
-      const bids = [];
-      snap.forEach(child => bids.push({...child.val(), _key: child.key}));
-      renderBids(bids);
-    });
+    // REST API polling — obchází SDK cache i WebSocket problémy
+    const REST_BASE = 'https://batko-aukce-default-rtdb.europe-west1.firebasedatabase.app';
+    function restPoll() {
+      fetch(`${REST_BASE}/auctions/${AUCTION_CONFIG.auctionId}/bids.json?_=${Date.now()}`)
+        .then(r => r.json())
+        .then(data => {
+          if (!data) return;
+          const bids = Object.values(data);
+          renderBids(bids);
+        }).catch(() => {});
+      fetch(`${REST_BASE}/auctions/${AUCTION_CONFIG.auctionId}/status.json?_=${Date.now()}`)
+        .then(r => r.json())
+        .then(st => {
+          if (st && st !== 'active') {
+            fetch(`${REST_BASE}/auctions/${AUCTION_CONFIG.auctionId}/cancelReason.json?_=${Date.now()}`)
+              .then(r => r.json()).then(cr => applyStatus(st, cr || '')).catch(() => {});
+          }
+        }).catch(() => {});
+    }
+    restPoll();                        // okamžitě při načtení
+    setInterval(restPoll, 8000);       // pak každých 8s
 
     // Submit
     document.getElementById('bidForm').addEventListener('submit', async function(e) {
@@ -1144,9 +1170,11 @@ if (IS_DEMO) {
       const name   = document.getElementById('bf-name').value.trim();
       const email  = document.getElementById('bf-email').value.trim();
       const phone  = document.getElementById('bf-phone').value.trim();
-      const amount = parseInt(document.getElementById('bf-amount').value, 10);
+      const rawAmt = (document.getElementById('bf-amount').value || '').replace(/\s/g,'').replace(/[^0-9]/g,'');
+      const amount = parseInt(rawAmt, 10);
       const minReq = currentTopBid > 0 ? currentTopBid + AUCTION_CONFIG.minIncrement : AUCTION_CONFIG.startPrice;
       const errEl  = document.getElementById('bidError');
+      if (!amount || isNaN(amount)) { errEl.textContent = 'Zadejte platnou číselnou částku.'; errEl.style.display='block'; return; }
       if (amount < minReq) { errEl.textContent = `Příhoz musí být minimálně ${fKc(minReq)}.`; errEl.style.display='block'; return; }
       if (auctionStatus !== 'active' || Date.now() > new Date(AUCTION_CONFIG.endTime).getTime()) {
         errEl.textContent='Aukce již není aktivní.'; errEl.style.display='block'; return;
@@ -1171,7 +1199,7 @@ if (IS_DEMO) {
             formType:'aukce_bid', source:`Aukce ${AUCTION_CONFIG.auctionId} — tlačítko Přihodit`,
             tlacitko:'Přihodit', sekce:'Aukční formulář', ukol:'Kontaktovat při výhře',
             stav_zpracovani:'PRIJATO',
-            note:`TLAČÍTKO: Přihodit | SEKCE: Aukce ${AUCTION_CONFIG.auctionId} | UKOL: Záloha ${AUCTION_CONFIG.depositNote}`,
+            note:`TLAČÍTKO: Přihodit | SEKCE: Aukce ${AUCTION_CONFIG.auctionId} | UKOL: Kontaktovat vítěze, domluvit podmínky prodeje`,
             jmeno:name, email, telefon:phone, nabidka_kc:amount,
             auto:`${AUCTION_CONFIG.year} ${AUCTION_CONFIG.make} ${AUCTION_CONFIG.model}`,
             carId:AUCTION_CONFIG.carId, auctionId:AUCTION_CONFIG.auctionId,
@@ -1180,8 +1208,10 @@ if (IS_DEMO) {
           })
         }).catch(()=>{});
 
+        saveBidderContact(name, email, phone);
         document.getElementById('bidSuccess').style.display = 'block';
         this.reset();
+        prefillBidderContact();
         btn.textContent='✅ Příhoz přijat';
         setTimeout(()=>{ btn.disabled=false; btn.textContent='🔨 Přihodit znovu'; }, 3000);
       } catch(err) {
@@ -1194,6 +1224,7 @@ if (IS_DEMO) {
   } catch(firebaseErr) {
     console.error('Firebase chyba:', firebaseErr);
     document.getElementById('bidError').textContent = 'Chyba připojení k databázi. Kontaktujte zpracovatele.';
+    document.getElementById('bidError').textContent = 'Chyba připojení k databázi. Kontaktujte zpracovatele.';
     document.getElementById('bidError').style.display = 'block';
   }
 }
@@ -1205,13 +1236,25 @@ function lockForm(reason) {
   const btn = document.getElementById('btnBid');
   if (btn) { btn.disabled=true; btn.textContent=reason; }
 }
+function unlockForm() {
+  const btn = document.getElementById('btnBid');
+  if (btn) { btn.disabled=false; btn.textContent='Přihodit'; }
+}
 
 initPage();
-initExtras();
-renderExternalAuction(AUCTION_CONFIG.externalAuction || {});
-renderInternalMirror();
+try { initExtras(); } catch(e) { console.warn('initExtras err (nezastavuje countdown):', e); }
+// Spusť countdown okamžitě z config hodnoty, pak každou sekundu
 updateCountdown();
 setInterval(updateCountdown, 1000);
+</script>
+
+<script>
+// Záchranný countdown — spustí se z DOMContentLoaded nezávisle na Firebase
+document.addEventListener('DOMContentLoaded', function() {
+  if (typeof updateCountdown === 'function') {
+    updateCountdown();
+  }
+});
 </script>
 </body>
 </html>

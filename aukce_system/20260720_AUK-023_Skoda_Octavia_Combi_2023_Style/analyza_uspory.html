@@ -1,125 +1,41 @@
-<!doctype html><html lang="cs"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AUK-023 | Škoda Octavia Combi 2.0 TDI Style | Úspora klienta</title>
-<style>
-:root{--bg:#f6f8fb;--ink:#18212f;--mut:#657082;--card:#fff;--line:#e5e9f0;--g:#1f8f5f;--gbg:#e7f7ed;--accent:#18212f}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Arial,Helvetica,sans-serif}
-a{color:#1558c0;text-decoration:none}a:hover{text-decoration:underline}
-.wrap{max-width:960px;margin:0 auto;padding:0 18px}
-header.nav{position:sticky;top:0;background:rgba(246,248,251,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);z-index:5}
-.nav .wrap{display:flex;gap:16px;align-items:center;flex-wrap:wrap;padding:12px 18px}
-.brand{font-weight:800;letter-spacing:.3px}
-.nav nav a{color:var(--mut);font-size:14px;margin-right:2px}
-.hero{padding:26px 0 6px}
-.tag{display:inline-block;background:#eef2f8;color:var(--mut);font-size:12px;font-weight:700;padding:4px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px}
-h1{font-size:30px;line-height:1.2;margin:12px 0 6px;font-weight:800}
-.sub{color:var(--mut);font-size:15px;margin-bottom:14px}
-.verdikt{background:var(--gbg);border:1px solid #cdeadb;border-radius:14px;padding:14px 16px;margin:14px 0}
-.verdikt b{color:#0f6b42}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:18px 0}
-.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
-.stat .l{font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:.4px}
-.stat .v{font-size:22px;font-weight:800;margin-top:4px}
-.stat .n{font-size:12px;color:var(--mut);margin-top:2px}
-.stat.good{background:var(--gbg);border-color:#cdeadb}.stat.good .v{color:#0f6b42}
-h2{font-size:20px;margin:30px 0 10px}
-table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
-th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;font-size:14px;vertical-align:top}
-th{background:#f0f3f8;font-size:12px;text-transform:uppercase;letter-spacing:.4px;color:var(--mut)}
-tr:last-child td{border-bottom:0}
-td.r,th.r{text-align:right}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
-.spec{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
-.spec .k{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.4px}
-.spec .val{font-weight:700;margin-top:2px}
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:6px 12px;font-size:13px}
-.rep{display:flex;gap:10px;flex-wrap:wrap}
-.rep span{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:13px}
-.ok{color:#0f6b42;font-weight:700}.no{color:#b23b3b;font-weight:700}
-.imgph{background:linear-gradient(135deg,#20304a,#3a5378);color:#dfe8f5;border-radius:16px;height:260px;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:700;font-size:18px;padding:20px}
-.hero-img{width:100%;max-height:340px;object-fit:cover;border-radius:16px;display:block}
-.note{color:var(--mut);font-size:13px;margin-top:8px}
-footer{margin:36px 0 20px;padding-top:18px;border-top:1px solid var(--line);color:var(--mut);font-size:13px}
-footer b{color:var(--ink)}
-</style></head><body>
-<header class="nav"><div class="wrap"><span class="brand">BATKO.DIGITAL.AI</span>
-<nav><a href="#cisla">Čísla</a><a href="#uspora">Úspora</a><a href="#roi">ROI</a><a href="#auto">Auto</a><a href="#vybava">Výbava</a><a href="#zdroje">Zdroje</a></nav></div></header>
-<div class="wrap">
-<section class="hero">
-<span class="tag">AUK-023 · reálné vozidlo z evropské aukce</span>
+<!doctype html><html lang="cs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AUK-023 | Škoda Octavia Combi 2.0 TDI Style | Úspora klienta</title><style>:root{--ink:#18212f;--muted:#657082;--line:#d8dee8;--paper:#f6f8fb;--panel:#fff;--accent:#0f766e;--accent-dark:#0b5c56;--good:#15803d;--soft-good:#e7f7ed;--warn:#b45309;--risk:#b91c1c;--shadow:0 16px 45px rgba(24,33,47,.10)}*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:var(--paper);line-height:1.5}.wrap{max-width:1000px;margin:0 auto;padding:22px 18px 56px}h1{font-size:30px;margin:6px 0 6px}h2{font-size:20px;margin:28px 0 10px}.eyebrow{color:var(--accent-dark);text-transform:uppercase;font-size:12px;font-weight:800;letter-spacing:.08em}.lead{color:var(--muted)}.verdict{border-left:5px solid var(--accent);background:var(--soft-good);padding:14px 16px;border-radius:6px;margin:14px 0}.verdict b{color:#0b5c56}.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:16px 0}.metric{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px}.metric .label{color:var(--muted);font-size:12px;text-transform:uppercase;font-weight:800;letter-spacing:.06em}.metric .value{font-size:20px;font-weight:800;margin-top:6px}.metric .sub{color:var(--muted);font-size:12px;margin-top:4px}.metric.good{background:var(--soft-good);border-color:#bfe6cd}.metric.good .value{color:#0b5c56}table{width:100%;border-collapse:collapse;font-size:14px;background:var(--panel);border:1px solid var(--line);border-radius:8px;overflow:hidden}th,td{padding:10px 10px;border-bottom:1px solid #edf1f6;text-align:left;vertical-align:top}th{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.05em;background:#f0f3f8}td.num,th.num{text-align:right}tr:last-child td{border-bottom:0}.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 16px;font-size:14px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:16px}.fact b{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;margin-bottom:2px}.docs a{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--line);border-radius:8px;padding:9px 13px;text-decoration:none;color:var(--ink);background:#fff;margin:4px 6px 4px 0;font-size:14px}.note{color:var(--muted);font-size:13px;margin-top:8px}.hero-img{width:100%;max-height:360px;object-fit:cover;border-radius:8px;display:block}footer{color:var(--muted);font-size:12px;margin-top:28px;padding-top:16px;border-top:1px solid var(--line)}</style></head><body><div class="wrap">
+<div class="eyebrow">AUK-023 · reálné vozidlo z evropské aukce</div>
 <h1>Škoda Octavia Combi 2.0 TDI Style</h1>
-<div class="sub">Nafta · Automat DSG · 142 458 km · první registrace 17. 5. 2023 · aktuální nabídka 8 200 EUR bez DPH</div>
-<img class="hero-img" src="img/foto_01.jpg" alt="foto vozu" onerror="this.style.display=&#39;none&#39;;document.getElementById(&#39;foto-ph&#39;).style.display=&#39;flex&#39;"><div class="imgph" id="foto-ph" style="display:none">Vlož foto_01.jpg do složky img/</div>
-<div class="verdikt"><b>Verdikt:</b> Vyšší nájezd, ale bohatá výbava (střešní okno, park. senzory, přídavné topení) a jako jediný má K DISPOZICI servisní knihu. Silná poptávka po Octavii Combi Style.</div>
-</section>
+<p class="lead">Diesel · DSG automat · 142,458 km · první registrace 17. 5. 2023 · aktuální nabídka 8,200 EUR bez DPH</p>
+<img class="hero-img" src="img/foto_01.jpg" alt="Škoda Octavia Combi 2.0 TDI Style" onerror="this.style.display='none'">
+<div class="verdict"><b>Úspora klienta počítáme jako rozdíl mezi cenou stejného vozu v českém autobazaru a vaší pořizovací cenou přes nás — zvlášť pro fyzickou osobu a zvlášť pro plátce DPH.</b> Vůz má k dispozici servisní knihu.</div>
 
-<section id="cisla"><div class="stats">
-<div class="stat"><div class="l">Aktuální nabídka</div><div class="v">8 200 EUR</div><div class="n">bez DPH · evropská aukce</div></div>
-<div class="stat"><div class="l">Pořízení venku (netto)</div><div class="v">204 180 Kč</div><div class="n">kurz 24,90 Kč/EUR</div></div>
-<div class="stat"><div class="l">All-in dražitel (netto)</div><div class="v">241 180 Kč</div><div class="n">vč. dopravy, přípravy, rezervy</div></div>
-<div class="stat good"><div class="l">ROI dražitele</div><div class="v">33,6 %</div><div class="n">denní ROI 1,12 % · 30 dní</div></div>
-<div class="stat good"><div class="l">Úspora klienta</div><div class="v">81 134 Kč</div><div class="n">25,2 % z ceny v bazaru</div></div>
-</div></section>
+<div class="metrics">
+<div class="metric"><div class="label">Aktuální nabídka</div><div class="value">8,200 EUR</div><div class="sub">bez DPH · evropská aukce</div></div>
+<div class="metric"><div class="label">All-in (netto / plátce)</div><div class="value">263 359 Kč</div><div class="sub">kurz KB deviza prodej 25,21</div></div>
+<div class="metric"><div class="label">All-in (vč. DPH / FO)</div><div class="value">318 664 Kč</div><div class="sub">+21 % samovyměření z dovozu EU</div></div>
+<div class="metric good"><div class="label">Úspora klienta</div><div class="value">58 955 Kč–71 336 tis.</div><div class="sub">18.3 % z ceny v ČR</div></div>
+</div>
 
-<section id="uspora"><h2>Úspora klienta vs. český autobazar</h2>
-<table><thead><tr><th>Typ klienta</th><th class="r">Pořízení přes nás</th><th class="r">Cena v CZ bazaru</th><th class="r">Úspora</th><th class="r">Úspora %</th></tr></thead><tbody>
-<tr><td>Fyzická osoba / neplátce<br><span class="note">porovnává vč. DPH</span></td><td class="r">291 828 Kč</td><td class="r">390 000 Kč</td><td class="r">98 172 Kč</td><td class="r">25,2 %</td></tr>
-<tr><td>Plátce DPH<br><span class="note">odpočet, porovnává netto</span></td><td class="r">241 180 Kč</td><td class="r">322 314 Kč</td><td class="r">81 134 Kč</td><td class="r">25,2 %</td></tr>
+<h2>Úspora klienta vs. český autobazar</h2>
+<table><thead><tr><th>Typ klienta</th><th class="num">Pořízení přes nás</th><th class="num">Cena v CZ bazaru</th><th class="num">Úspora</th><th class="num">Úspora %</th></tr></thead><tbody>
+<tr><td><b>Fyzická osoba / neplátce</b><br><span class="note">porovnává ceny vč. DPH; platí 21 % DPH státu při dovozu z EU</span></td><td class="num">318 664 Kč</td><td class="num">390 000 Kč</td><td class="num">71 336 Kč</td><td class="num">18.3 %</td></tr>
+<tr><td><b>Plátce DPH (právnická osoba)</b><br><span class="note">DPH si odečte, porovnává netto (cena ÷ 1,21)</span></td><td class="num">263 359 Kč</td><td class="num">322 314 Kč</td><td class="num">58 955 Kč</td><td class="num">18.3 %</td></tr>
 </tbody></table>
-<p class="note">CZ cena = nejnižší srovnatelný inzerát na sauto.cz (konzervativní podlaha). Pro plátce přepočtena na netto (÷1,21). Fyzická osoba k netto pořízení připočítá 21 % DPH (samovyměření z dovozu EU).</p></section>
+<p class="note"><b>Definice zisku/úspory:</b> Fyzická osoba (neplátce) srovnává ceny <b>včetně DPH</b> — její úspora je rozdíl mezi cenou v ČR bazaru a pořizovací cenou přes nás po zaplacení 21 % DPH státu (samovyměření z dovozu EU). Plátce DPH (právnická osoba) si DPH odečte, proto pracuje s cenami <b>netto</b>; jeho úspora = tržní cena netto (÷1,21) − pořizovací cena netto. Procento úspory je u obou stejné, absolutní částka vyšší u fyzické osoby. CZ cena = nejnižší srovnatelný inzerát na sauto.cz (konzervativní podlaha), NEOVĚŘENO.</p>
 
-<section id="roi"><h2>Marže dražitele / ROI</h2>
-<table><tbody>
-<tr><td>Investice (all-in netto)</td><td class="r">241 180 Kč</td></tr>
-<tr><td>Prodej v ČR – netto (÷1,21)</td><td class="r">322 314 Kč</td></tr>
-<tr><td><b>Zisk (plátce DPH)</b></td><td class="r"><b>81 134 Kč</b></td></tr>
-<tr><td>ROI z nákladů</td><td class="r"><b>33,6 %</b></td></tr>
-<tr><td>Denní ROI (doba prodeje 30 dní)</td><td class="r"><b>1,12 %</b></td></tr>
-</tbody></table>
-<p class="note">Denní ROI = ROI / 30 dní. Doba prodeje je odhad; dieselové kombíky/SUV se v ČR obrací rychle. Nabídka je živá – finální aukční cena může být vyšší, což ROI sníží.</p></section>
+<h2>Rozpad pořízení (netto)</h2>
+<table><tbody><tr><td>Nabídka 8200 EUR × 25.21</td><td class='num'>206 722 Kč</td></tr><tr><td>Aukční poplatek + náklady pro zemi</td><td class='num'>11 350 Kč</td></tr><tr><td>Doprava DE→ČR</td><td class='num'>9 787 Kč</td></tr><tr><td>Registrace / administrativa</td><td class='num'>7 500 Kč</td></tr><tr><td>Příprava / detailing</td><td class='num'>8 000 Kč</td></tr><tr><td>Servisní rezerva (orient., report nestažen)</td><td class='num'>10 000 Kč</td></tr><tr><td>Zpracování / provize</td><td class='num'>10 000 Kč</td></tr><tr><td><b>All-in — plátce DPH (netto)</b></td><td class="num"><b>263 359 Kč</b></td></tr>
+<tr><td><b>All-in — fyzická osoba (vč. 21 % DPH)</b></td><td class="num"><b>318 664 Kč</b></td></tr></tbody></table>
+<p class="note">Fyzická osoba k netto částce připočítá 21 % DPH ze samovyměření při dovozu z EU. Plátce DPH si tuto DPH odečte, proto pracuje s netto částkou.</p>
 
-<section id="rozpad"><h2>Rozpad pořízení (netto)</h2>
-<table><tbody>
-<tr><td>Nabídka 8 200 EUR × 24,90</td><td class="r">204 180 Kč</td></tr>
-<tr><td>Aukční poplatek + náklady pro zemi</td><td class='r'>9 000 Kč</td></tr><tr><td>Doprava DE→ČR</td><td class='r'>9 000 Kč</td></tr><tr><td>Registrace / COC / STK / administrativa</td><td class='r'>11 000 Kč</td></tr><tr><td>Příprava / detailing / rezerva</td><td class='r'>8 000 Kč</td></tr>
-<tr><td><b>All-in dražitel (netto)</b></td><td class="r"><b>241 180 Kč</b></td></tr>
-</tbody></table>
-<p class="note">Fyzická osoba připočte 21 % DPH (samovyměření z dovozu EU) = 291 828 Kč vč. DPH.</p></section>
+<h2>Reporty o stavu vozidla ke stažení</h2>
+<div class="docs"><a href='docs/report_inspekce.pdf'>📄 Zpráva o externí inspekci (OPENLANE)</a><a href='docs/report_skoda.pdf'>📄 Externí zpráva o poškození</a><a href='docs/report_coc.pdf'>📄 Certifikát o shodě (COC)</a></div>
+<p class="note">Nezávislé podklady o stavu vozu z evropské aukce. (PDF se nahrávají do složky <code>docs/</code>.)</p>
 
-<section id="auto"><h2>Základ auta</h2><div class="grid">
-<div class="spec"><div class="k">VIN</div><div class="val">TMBJJ8NX4PY102984</div></div>
-<div class="spec"><div class="k">Model</div><div class="val">Škoda Octavia Combi 2.0 TDI Style</div></div>
-<div class="spec"><div class="k">Motor</div><div class="val">2.0 TDI, 110 kW / 150 PS</div></div>
-<div class="spec"><div class="k">Převodovka</div><div class="val">Automat DSG</div></div>
-<div class="spec"><div class="k">Pohon</div><div class="val">Přední (FWD)</div></div>
-<div class="spec"><div class="k">Nájezd</div><div class="val">142 458 km</div></div>
-<div class="spec"><div class="k">Registrace</div><div class="val">17. 5. 2023</div></div>
-<div class="spec"><div class="k">Barva</div><div class="val">Modrá</div></div>
-<div class="spec"><div class="k">Místo vyzvednutí</div><div class="val">Leipzig (Německo)</div></div>
-<div class="spec"><div class="k">Prodejce</div><div class="val">Skóre 4,3/5</div></div>
-</div></section>
+<h2>Základ auta</h2>
+<div class="facts"><div class='fact'><b>VIN</b>TMBJJ8NX4PY102984</div><div class='fact'><b>Model</b>Škoda Octavia Combi 2.0 TDI Style</div><div class='fact'><b>Motor</b>2.0 TDI, 110 kW / 150 PS</div><div class='fact'><b>Převodovka</b>DSG automat</div><div class='fact'><b>Nájezd</b>142 458 km</div><div class='fact'><b>Registrace</b>17. 5. 2023</div><div class='fact'><b>Barva</b>Modrá</div><div class='fact'><b>Servisní kniha</b>Ano</div><div class='fact'><b>Místo vyzvednutí</b>Leipzig (Německo)</div><div class='fact'><b>Skóre prodejce</b>4,3/5</div></div>
+<p class="note" style="margin-top:12px"><b>Výbava:</b> Střešní okno, park. senzory vpředu+vzadu, paměť sedadel, vyhř. sedadla, LED, ambient, přídavné topení, servisní kniha</p>
 
-<section id="vybava"><h2>Výbava</h2><div class="chips"><span class='chip'>Asistent jízdního pruhu</span><span class='chip'>Digitální kokpit</span><span class='chip'>Snímač deště</span><span class='chip'>Tempomat</span><span class='chip'>Bluetooth</span><span class='chip'>DAB rádio</span><span class='chip'>Automatická klimatizace</span><span class='chip'>Alu kola</span><span class='chip'>El. přední okna</span><span class='chip'>Tónovaná zadní okna</span><span class='chip'>Vyhřívaná přední i zadní sedadla</span><span class='chip'>Přední i zadní parkovací senzory</span><span class='chip'>El. paměť sedadla</span><span class='chip'>Isofix</span><span class='chip'>El. otevírané střešní okno</span><span class='chip'>Střešní lišty</span><span class='chip'>Asistent dálkových světel</span><span class='chip'>LED světlomety</span><span class='chip'>El. sklopná vyhřívaná zrcátka</span><span class='chip'>Ambientní osvětlení</span><span class='chip'>Přídavné topení</span><span class='chip'>Metalíza</span></div></section>
+<h2>Rizika</h2>
+<ul><li>Vyšší nájezd (142 tis. km) — kompenzuje bohatá výbava a servisní kniha</li><li>Původ DE — servisní historie k dispozici</li><li>Externí zpráva o poškození k dispozici — prověřit stav</li><li>Aukce se může zrušit při nedostatečné nabídce</li></ul>
 
-<section id="reporty"><h2>Reporty a dokumenty</h2><div class="rep">
-<span>Externí zpráva o škodě <span class="ok">✓</span></span>
-<span>Zpráva o externí inspekci <span class="ok">✓</span></span>
-<span>Certifikát o shodě (COC) <span class="ok">✓</span></span>
-<span>Servisní kniha <span class='ok'>✓ k dispozici</span></span>
-</div><p class="note">Reporty jsou k dispozici v přihlášené session evropské aukce. Obsah reportu o poškození před příhozem osobně prověřit (NEOVĚŘENO).</p></section>
-
-<section id="zdroje"><h2>Zdroje a ověření</h2>
-<p class="note">Detail vozu ověřen v přihlášené session evropské aukce (20. 7. 2026): aktuální nabídka 8 200 EUR, VIN TMBJJ8NX4PY102984, 142 458 km, registrace 17. 5. 2023.</p>
-<p class="note"><b>CZ komparabil (sauto.cz, 20. 7. 2026) – 5 nejnižších srovnatelných:</b></p>
-<table><thead><tr><th>Cena vč. DPH</th><th>Nájezd / rok</th></tr></thead><tbody><tr><td>390 000 Kč</td><td>163 tis. km, 2022</td></tr><tr><td>429 999 Kč</td><td>141 tis. km, 2022</td></tr><tr><td>458 999 Kč</td><td>111 tis. km, 2023</td></tr><tr><td>513 999 Kč</td><td>148 tis. km, 2023</td></tr><tr><td>514 999 Kč</td><td>147 tis. km, 2023</td></tr></tbody></table>
-<p class="note">Kurz: ČNB střed 24,20 Kč/EUR (20. 7. 2026); pro pořízení použit komerční kurz 24,90 Kč/EUR (banka devizy-prodej). Vícenáklady 37 000 Kč netto nad rámec nabídky.</p></section>
-
-<footer>
-<b>Ing. Jaroslav Batko-Linet | Batko Digital AI</b><br>
-IČO: 14600153 | DIČ: CZ5912280418 | Plátce DPH<br>
-Lískovec 170, 273 51 Velké Přítočno<br>
-batko.digital.ai@gmail.com | +420 725 360 151<br>
-<span class="note">Podklad vytvořen 20. 7. 2026 pro AUK-023. Nejde o garanci ani daňové doporučení; režim DPH ověřte s daňovým poradcem. CZ ceny jsou orientační z sauto.cz. Nabídka aukce je živá a může se změnit.</span>
-</footer>
+<footer><b>Ing. Jaroslav Batko-Linet | Batko Digital AI</b><br>IČO: 14600153 | DIČ: CZ5912280418 | Plátce DPH<br>batko.digital.ai@gmail.com | +420 725 360 151<br>
+<span class="note">Podklad AUK-023 vytvořen 20.–21. 7. 2026. Nejde o garanci ani daňové doporučení; režim DPH (samovyměření z dovozu EU) ověřte s daňovým poradcem. CZ ceny orientační z sauto.cz. Aukce je živá a může se změnit.</span></footer>
 </div></body></html>
