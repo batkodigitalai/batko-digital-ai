@@ -7,7 +7,7 @@ import ipaddress
 import urllib.request
 import urllib.error
 from urllib.parse import urlparse, urljoin
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 
 # ─── CONFIG ────────────────────────────────────────────────────────────────────
 APP_TITLE    = "AI Visibility Auditor"
@@ -158,6 +158,23 @@ def _is_public_host(hostname: str) -> bool:
         if ip.is_private or ip.is_loopback or ip.is_link_local or ip.is_reserved:
             return False
     return True
+
+
+def _now_cz(fmt: str = "%d. %m. %Y %H:%M") -> str:
+    """Čas v české zóně. Streamlit Cloud běží v UTC, takže `datetime.now()` by dal
+    čas o 1–2 h pozadu — a u souhlasu dle § 1837 jde o právní doklad o okamžiku udělení.
+    Když v kontejneru chybí tzdata, spočítá se posun CET/CEST ručně."""
+    now_utc = datetime.now(timezone.utc)
+    try:
+        from zoneinfo import ZoneInfo
+        return now_utc.astimezone(ZoneInfo("Europe/Prague")).strftime(fmt)
+    except Exception:
+        def _last_sunday(year: int, month: int):
+            d = datetime(year, month, 31, 1, 0, tzinfo=timezone.utc)
+            return d - timedelta(days=(d.weekday() + 1) % 7)
+        y = now_utc.year
+        offset = 2 if _last_sunday(y, 3) <= now_utc < _last_sunday(y, 10) else 1
+        return (now_utc + timedelta(hours=offset)).strftime(fmt)
 
 
 def _fetch(url: str, limit: int = MAX_HTML_BYTES):
@@ -1053,7 +1070,7 @@ def score_label(score: int) -> str:
 
 
 def generate_html_download(report_text: str, probe: dict, description: str, score: int) -> str:
-    date_str = datetime.now().strftime("%d. %m. %Y")
+    date_str = _now_cz("%d. %m. %Y")
     body_html = md_to_html_body(report_text)
     facts_html = md_to_html_body("\n".join("- " + l for l in probe_facts_text(probe).split("\n")))
     color, label = score_color(score), score_label(score)
@@ -1212,7 +1229,7 @@ def render_input(unlocked: bool = False):
         )
         if consent:
             st.session_state.consent_at = st.session_state.get(
-                "consent_at", datetime.now().strftime("%d. %m. %Y %H:%M")
+                "consent_at", _now_cz()
             )
 
     label = "📄 Vygenerovat můj Fix Report" if unlocked else "🔍 Zkontrolovat mou viditelnost v AI"
@@ -1339,7 +1356,7 @@ def render_paywall():
                 "obsah zpřístupnit okamžitě — zákon to neumožňuje.")
     else:
         st.session_state.consent_at = st.session_state.get(
-            "consent_at", datetime.now().strftime("%d. %m. %Y %H:%M")
+            "consent_at", _now_cz()
         )
         if link_ready:
             st.link_button("🔐 Zaplatit a získat report", payment_link,
@@ -1382,7 +1399,7 @@ def render_report(report_text: str, probe: dict, description: str, score: int):
         st.download_button(
             label="⬇️ Stáhnout AI Visibility Fix Report (HTML)",
             data=html_report.encode("utf-8"),
-            file_name=f"AI_Visibility_Fix_Report_{datetime.now().strftime('%Y%m%d')}.html",
+            file_name=f"AI_Visibility_Fix_Report_{_now_cz('%Y%m%d')}.html",
             mime="text/html", use_container_width=True, type="primary",
         )
     with col2:
