@@ -1187,8 +1187,8 @@ def load_demo() -> None:
 
 def render_input(unlocked: bool = False):
     if unlocked:
-        st.success("✅ Platba ověřena — přístup odemčen. Zadejte web a nabídku, "
-                   "report vygenerujeme rovnou bez dalšího kroku.")
+        st.success("✅ Platba ověřena — přístup odemčen. Zadejte web a nabídku "
+                   "a potvrďte souhlas pod formulářem.")
     url = st.text_input("URL vašeho webu nebo e-shopu:", placeholder="www.mujweb.cz", key="url_input")
     desc = st.text_area(
         "Co nabízíte a komu? (čím konkrétněji, tím přesnější kód dostanete)",
@@ -1199,12 +1199,30 @@ def render_input(unlocked: bool = False):
     )
     st.caption("🔒 Nezadávejte prosím osobní údaje třetích stran. Zadaný text odesíláme "
                "do OpenAI API a nikde jej neukládáme.")
+
+    # Souhlas dle § 1837 musí dát zákazník sám, i když přišel s odemčeným přístupem
+    # přes ?unlock=. Dřív si ho appka nastavovala sama, což byla nepravda v reportu.
+    if unlocked:
+        consent = st.checkbox(
+            "Souhlasím s tím, aby mi byl digitální obsah zpřístupněn ihned, "
+            "a beru na vědomí, že tímto souhlasem mi zaniká právo odstoupit od smlouvy "
+            "do 14 dnů (§ 1837 písm. l) občanského zákoníku). Dobrovolná garance "
+            "vrácení peněz do 14 dnů tím není dotčena.",
+            key="consent_1837",
+        )
+        if consent:
+            st.session_state.consent_at = st.session_state.get(
+                "consent_at", datetime.now().strftime("%d. %m. %Y %H:%M")
+            )
+
     label = "📄 Vygenerovat můj Fix Report" if unlocked else "🔍 Zkontrolovat mou viditelnost v AI"
     if st.button(label, type="primary", use_container_width=True):
         if not url.strip():
             st.warning("Zadejte prosím adresu svého webu.")
         elif not desc or len(desc.strip()) < 20:
             st.warning("Popište prosím v 1–2 větách, co nabízíte — bez toho nelze vygenerovat funkční kód.")
+        elif unlocked and not st.session_state.get("consent_1837"):
+            st.warning("Pro vygenerování reportu prosím potvrďte souhlas výše.")
         else:
             st.session_state.url = normalize_url(url)
             st.session_state.description = desc.strip()
@@ -1555,14 +1573,16 @@ def _check_url_unlock():
         supplied = supplied[0] if supplied else None
     if supplied and str(supplied).strip() == expected:
         st.session_state.unlocked = True
-        st.session_state.consent_at = st.session_state.get(
-            "consent_at", datetime.now().strftime("%d. %m. %Y %H:%M")
-        )
+        # consent_at se ZDE NENASTAVUJE. Odemčení přes URL neznamená souhlas —
+        # ten dává zákazník sám zaškrtnutím políčka v render_input().
 
 
 def _reset():
+    # "url_unlock_checked" se maže záměrně: po rerunu se _check_url_unlock() spustí
+    # znovu, přečte ?unlock= z URL a zaplacenému zákazníkovi vrátí přístup.
+    # Souhlas dle § 1837 se ale maže s ním — na nový report je potřeba nový souhlas.
     for k in ["step", "teaser", "url", "description", "report", "probe", "score",
-              "consent_1837", "consent_at", "unlocked", "demo"]:
+              "consent_1837", "consent_at", "unlocked", "demo", "url_unlock_checked"]:
         st.session_state.pop(k, None)
 
 
