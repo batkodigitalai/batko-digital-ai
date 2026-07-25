@@ -1203,6 +1203,31 @@ def render_report(report_text: str, probe: dict, description: str, score: int):
 
     st.caption("💡 Tip: Soubory otevřete v prohlížeči a vytiskněte jako PDF (Ctrl+P → Uložit jako PDF).")
 
+    # Přístupový kód pro pozdější návrat — aby zákazník o přístup nepřišel zavřením okna.
+    code = get_config("ACCESS_CODE", DEFAULT_ACCESS_CODE)
+    if code and st.session_state.get("unlocked"):
+        st.markdown("---")
+        st.markdown(
+            f"""
+<div style="background:#fffbea;border:1.5px solid #f0c000;border-radius:10px;padding:1rem 1.3rem;">
+  <div style="font-weight:700;color:#7a5c00;margin-bottom:.4rem;">🔑 Uschovejte si přístupový kód</div>
+  <div style="color:#5c4600;font-size:.92rem;line-height:1.6;">
+    Kdybyste okno zavřel a chtěl se k reportu vrátit, otevřete aplikaci znovu,
+    rozbalte „Mám přístupový kód" a zadejte:
+  </div>
+  <div style="font-family:Consolas,'Courier New',monospace;font-size:1.5rem;font-weight:800;
+              color:#13231b;background:#fff;border:1.5px dashed #f0c000;border-radius:8px;
+              padding:.6rem 1rem;margin:.7rem 0 .4rem;text-align:center;letter-spacing:.06em;">
+    {code}
+  </div>
+  <div style="color:#8a7300;font-size:.8rem;">
+    Doporučujeme rovnou stáhnout oba soubory výše — máte je pak natrvalo u sebe.
+  </div>
+</div>
+            """,
+            unsafe_allow_html=True,
+        )
+
     upsell_price = get_config("UPSELL_PRICE", DEFAULT_UPSELL_PRICE)
     st.markdown("---")
     st.markdown(f"""
