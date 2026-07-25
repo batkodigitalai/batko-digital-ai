@@ -1405,6 +1405,21 @@ def main():
     step = st.session_state.step
     unlocked = bool(st.session_state.get("unlocked"))
 
+    # Ochrana proti nekonzistentnimu session_state (napr. kdyz se appka
+    # znovu nasadi, zatimco ma nekdo rozdelanou praci ve starsi verzi).
+    _potreba = {
+        "probing": ["url"],
+        "teaser": ["teaser", "probe", "score"],
+        "generating_report": ["probe"],
+        "report": ["report", "probe"],
+    }
+    if step in _potreba and any(k not in st.session_state for k in _potreba[step]):
+        _reset()
+        st.session_state.step = "input"
+        step = "input"
+        st.warning("Aplikace byla mezitím aktualizována, takže jsme museli začít znovu. "
+                   "Zadejte prosím adresu webu ještě jednou — zabere to 10 sekund.")
+
     if step == "input":
         render_input(unlocked=unlocked)
 
