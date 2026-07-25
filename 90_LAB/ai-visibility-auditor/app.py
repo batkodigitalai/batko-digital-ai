@@ -20,6 +20,12 @@ DEFAULT_PAYMENT_LINK         = "https://buy.stripe.com/YOUR_LINK_HERE"
 # Teaser je zdarma a hromadný → Luna (cost-sensitive, high-volume).
 # Report je placený a generuje KÓD → Sol (complex reasoning and coding).
 # Zdroj ID: developers.openai.com/api/docs/models (ověřeno 25.7.2026)
+#
+# ZÁMĚRNĚ se nečtou ze Secrets. Volba modelu je produktové rozhodnutí, které
+# má být verzované gitem, ne schované v runtime konfiguraci. Překlep v názvu
+# modelu v Secrets by jinak shodil volání do fallbacku a zákazník by dostal
+# šablonový výstup, aniž by si toho kdokoli všiml. Případné staré klíče
+# TEASER_MODEL / REPORT_MODEL v Secrets se prostě ignorují.
 DEFAULT_TEASER_MODEL         = "gpt-5.6-luna"   # $1 / $6 za MTok
 DEFAULT_REPORT_MODEL         = "gpt-5.6-sol"    # $5 / $30 za MTok, alias gpt-5.6
 # Když zadaný model neexistuje nebo selže, zkusí se popořadě tyhle. Až pak fallback.
@@ -641,7 +647,7 @@ def generate_teaser(probe: dict) -> dict:
     try:
         text, _used = call_llm(
             client,
-            get_config("TEASER_MODEL", DEFAULT_TEASER_MODEL),
+            DEFAULT_TEASER_MODEL,
             [
                 {"role": "system", "content": "Jsi GEO auditor. Mluvíš pouze o změřených faktech. Odpovídáš POUZE validním JSON objektem."},
                 {"role": "user", "content": PROMPT_A + probe_facts_text(probe)},
@@ -682,7 +688,7 @@ def generate_report(probe: dict, description: str) -> str:
     try:
         text, _used = call_llm(
             client,
-            get_config("REPORT_MODEL", DEFAULT_REPORT_MODEL),
+            DEFAULT_REPORT_MODEL,
             [{"role": "system", "content": sys_msg},
              {"role": "user", "content": user_msg}],
             max_out=16000,     # report má 5–8 stran a dva kódové bloky
@@ -703,7 +709,7 @@ def generate_report(probe: dict, description: str) -> str:
     try:
         fixed, _used = call_llm(
             client,
-            get_config("REPORT_MODEL", DEFAULT_REPORT_MODEL),
+            DEFAULT_REPORT_MODEL,
             [{"role": "system", "content": sys_msg},
              {"role": "user", "content": user_msg},
              {"role": "assistant", "content": text},
