@@ -16,9 +16,19 @@ APP_SUBTITLE = "Zjistěte za 30 sekund, zda ChatGPT a Gemini doporučují vás �
 
 DEFAULT_ACCESS_CODE          = ""
 DEFAULT_PAYMENT_LINK         = "https://buy.stripe.com/YOUR_LINK_HERE"
-DEFAULT_TEASER_MODEL         = "gpt-4.1-mini"
-DEFAULT_REPORT_MODEL         = "gpt-4.1"
-DEFAULT_ALLOW_LOCAL_FALLBACK = "true"
+# ─── MODELY ───────────────────────────────────────────────────────────────────
+# Teaser je zdarma a hromadný → Luna (cost-sensitive, high-volume).
+# Report je placený a generuje KÓD → Sol (complex reasoning and coding).
+# Zdroj ID: developers.openai.com/api/docs/models (ověřeno 25.7.2026)
+DEFAULT_TEASER_MODEL         = "gpt-5.6-luna"   # $1 / $6 za MTok
+DEFAULT_REPORT_MODEL         = "gpt-5.6-sol"    # $5 / $30 za MTok, alias gpt-5.6
+# Když zadaný model neexistuje nebo selže, zkusí se popořadě tyhle. Až pak fallback.
+MODEL_SAFETY_NET             = ["gpt-5.6-terra", "gpt-4.1"]
+
+# Fallback na lokální šablonu: rozdělený, protože teaser a report mají jiná rizika.
+DEFAULT_ALLOW_LOCAL_FALLBACK = "true"           # zpětná kompatibilita, výchozí pro teaser
+DEFAULT_ALLOW_TEASER_FALLBACK = ""              # prázdné = zdědí ALLOW_LOCAL_FALLBACK
+DEFAULT_ALLOW_REPORT_FALLBACK = "false"         # platící zákazník nesmí dostat šablonu mlčky
 DEFAULT_PRICE_TEXT           = "1 490 Kč vč. DPH"
 DEFAULT_UPSELL_PRICE         = "9 900 Kč"
 
@@ -384,6 +394,92 @@ def get_openai_client():
     return OpenAI(api_key=key)
 
 
+def _model_chain(configured: str) -> list:
+    """Zadaný model první, pak záchranná síť. Bez duplikátů, bez prázdných."""
+    chain = [configured] + MODEL_SAFETY_NET
+    seen, out = set(), []
+    for m in chain:
+        m = (m or "").strip()
+        if m and m not in seen:
+            seen.add(m)
+            out.append(m)
+    return out
+
+
+def _call_model(client, model: str, messages: list, max_out: int,
+                temperature=None, effort=None) -> str:
+    """Jedno volání, které přežije rozdíly mezi generacemi modelů.
+
+    Modely řady gpt-5.6 neberou `max_tokens` ani `temperature` a naopak
+    umí `reasoning_effort`. Starší modely je to naopak. Zkoušíme od
+    nejmodernějšího tvaru volání k nejstaršímu.
+    """
+    base = {"model": model, "messages": messages}
+    attempts = []
+    if effort:
+        attempts.append({**base, "max_completion_tokens": max_out, "reasoning_effort": effort})
+    attempts.append({**base, "max_completion_tokens": max_out})
+    legacy = {**base, "max_tokens": max_out}
+    if temperature is not None:
+        legacy["temperature"] = temperature
+    attempts.append(legacy)
+
+    last_err = None
+    for kwargs in attempts:
+        try:
+            resp = client.chat.completions.create(**kwargs)
+            text = (resp.choices[0].message.content or "").strip()
+            if text:
+                return text
+            last_err = RuntimeError("model vrátil prázdnou odpověď")
+        except Exception as e:
+            last_err = e
+    raise last_err if last_err else RuntimeError("volání modelu selhalo")
+
+
+def call_llm(client, configured_model: str, messages: list, max_out: int,
+             temperature=None, effort=None):
+    """Projde model chain. Vrací (text, jméno modelu, který uspěl)."""
+    last_err = None
+    for model in _model_chain(configured_model):
+        try:
+            return _call_model(client, model, messages, max_out, temperature, effort), model
+        except Exception as e:
+            last_err = e
+    raise last_err if last_err else RuntimeError("žádný model neodpověděl")
+
+
+# ─── VALIDACE VLASTNÍHO VÝSTUPU ────────────────────────────────────────────────
+def extract_jsonld_blocks(md: str) -> list:
+    """Vytáhne z markdown reportu bloky, které mají být JSON-LD."""
+    out = []
+    for block in re.findall(r"```[a-zA-Z-]*\s*(.*?)```", md, re.S):
+        s = block.strip()
+        m = re.search(r"<script[^>]*ld\+json[^>]*>(.*?)</script>", s, re.S | re.I)
+        if m:
+            s = m.group(1).strip()
+        if s[:1] in ("{", "["):
+            out.append(s)
+    return out
+
+
+def report_jsonld_valid(md: str) -> bool:
+    """Report musí obsahovat aspoň jeden JSON-LD blok a všechny musí být validní.
+
+    Prodáváme hotový kód k nasazení. Rozbitý JSON-LD je vrácení peněz,
+    takže si vlastní výstup kontrolujeme stejně, jako měříme cizí weby.
+    """
+    blocks = extract_jsonld_blocks(md)
+    if not blocks:
+        return False
+    for b in blocks:
+        try:
+            json.loads(b)
+        except Exception:
+            return False
+    return True
+
+
 PROMPT_A = """Jsi auditor sémantické čitelnosti webu pro AI vyhledávače (GEO / AEO specialist).
 
 Níže dostaneš SKUTEČNĚ ZMĚŘENÁ ZJIŠTĚNÍ z webu klienta (stáhli jsme jeho robots.txt a homepage).
@@ -522,56 +618,111 @@ def parse_teaser(text: str, probe: dict) -> dict:
     return _fallback_teaser(probe)
 
 
+def _teaser_fallback_allowed() -> bool:
+    v = get_config("ALLOW_TEASER_FALLBACK", DEFAULT_ALLOW_TEASER_FALLBACK).strip()
+    if not v:  # nenastaveno → zdědí starý společný přepínač
+        v = get_config("ALLOW_LOCAL_FALLBACK", DEFAULT_ALLOW_LOCAL_FALLBACK)
+    return v.strip().lower() == "true"
+
+
+def _report_fallback_allowed() -> bool:
+    return get_config("ALLOW_REPORT_FALLBACK",
+                      DEFAULT_ALLOW_REPORT_FALLBACK).strip().lower() == "true"
+
+
 def generate_teaser(probe: dict) -> dict:
+    """Teaser je zdarma. Šablona je tu lepší než chybová stránka."""
     client = get_openai_client()
-    fallback = get_config("ALLOW_LOCAL_FALLBACK", DEFAULT_ALLOW_LOCAL_FALLBACK).lower() == "true"
     if client is None:
-        if fallback:
+        if _teaser_fallback_allowed():
             return _fallback_teaser(probe)
         st.error("Chybí OpenAI API klíč.")
         st.stop()
     try:
-        resp = client.chat.completions.create(
-            model=get_config("TEASER_MODEL", DEFAULT_TEASER_MODEL),
-            messages=[
+        text, _used = call_llm(
+            client,
+            get_config("TEASER_MODEL", DEFAULT_TEASER_MODEL),
+            [
                 {"role": "system", "content": "Jsi GEO auditor. Mluvíš pouze o změřených faktech. Odpovídáš POUZE validním JSON objektem."},
                 {"role": "user", "content": PROMPT_A + probe_facts_text(probe)},
             ],
-            max_tokens=500,
+            max_out=2000,      # rezerva na reasoning tokeny; platí se jen za skutečně použité
             temperature=0.5,
+            effort="low",      # teaser slibuje výsledek do 30 s
         )
-        return parse_teaser(resp.choices[0].message.content, probe)
+        return parse_teaser(text, probe)
     except Exception:
-        if fallback:
+        if _teaser_fallback_allowed():
             return _fallback_teaser(probe)
         st.error("Analýzu se nepodařilo dokončit. Zkuste to prosím znovu.")
         st.stop()
 
 
 def generate_report(probe: dict, description: str) -> str:
+    """Report je placený a obsahuje kód k nasazení.
+
+    Politika selhání je záměrně jiná než u teaseru:
+      • API vůbec nejede  → spadne nahlas, ať si toho provozovatel všimne
+      • model vrátí nevalidní JSON-LD → jeden opravný pokus, pak deterministická
+        šablona, protože fungující šablona je pro zákazníka lepší než rozbitý kód
+    """
     client = get_openai_client()
-    fallback = get_config("ALLOW_LOCAL_FALLBACK", DEFAULT_ALLOW_LOCAL_FALLBACK).lower() == "true"
     if client is None:
-        if fallback:
+        if _report_fallback_allowed():
             return _local_report(probe)
-        st.error("Chybí OpenAI API klíč.")
+        st.error("Report nelze vygenerovat — chybí OpenAI API klíč. "
+                 "Napište nám a pošleme ho ručně: " + COMPANY_EMAIL)
         st.stop()
+
+    sys_msg = ("Jsi GEO/AEO konzultant. Generuješ hotový validní kód k nasazení. "
+               "Tvrdíš jen to, co potvrzují změřená zjištění. Česky.")
+    user_msg = PROMPT_B.format(facts=probe_facts_text(probe), description=description)
+
+    text = None
     try:
-        resp = client.chat.completions.create(
-            model=get_config("REPORT_MODEL", DEFAULT_REPORT_MODEL),
-            messages=[
-                {"role": "system", "content": "Jsi GEO/AEO konzultant. Generuješ hotový validní kód k nasazení. Tvrdíš jen to, co potvrzují změřená zjištění. Česky."},
-                {"role": "user", "content": PROMPT_B.format(facts=probe_facts_text(probe), description=description)},
-            ],
-            max_tokens=3500,
+        text, _used = call_llm(
+            client,
+            get_config("REPORT_MODEL", DEFAULT_REPORT_MODEL),
+            [{"role": "system", "content": sys_msg},
+             {"role": "user", "content": user_msg}],
+            max_out=16000,     # report má 5–8 stran a dva kódové bloky
             temperature=0.4,
+            effort="high",     # generuje se kód, tady se nespěchá
         )
-        return resp.choices[0].message.content
     except Exception:
-        if fallback:
+        if _report_fallback_allowed():
             return _local_report(probe)
-        st.error("Report se nepodařilo vygenerovat. Napište nám a pošleme ho ručně: " + COMPANY_EMAIL)
+        st.error("Report se nepodařilo vygenerovat. Napište nám a pošleme ho ručně: "
+                 + COMPANY_EMAIL)
         st.stop()
+
+    if report_jsonld_valid(text):
+        return text
+
+    # Jeden opravný pokus — nevalidní JSON-LD je pro zákazníka nepoužitelný.
+    try:
+        fixed, _used = call_llm(
+            client,
+            get_config("REPORT_MODEL", DEFAULT_REPORT_MODEL),
+            [{"role": "system", "content": sys_msg},
+             {"role": "user", "content": user_msg},
+             {"role": "assistant", "content": text},
+             {"role": "user", "content":
+              "JSON-LD blok v sekci 4 není validní JSON, takže by ho zákazník "
+              "nemohl nasadit. Vrať CELÝ report znovu ve stejné struktuře, ale "
+              "s JSON-LD, který projde `json.loads()` — jeden kódový blok, "
+              "bez komentářů, bez koncových čárek, správně uzavřené uvozovky."}],
+            max_out=16000,
+            temperature=0.2,
+            effort="high",
+        )
+        if report_jsonld_valid(fixed):
+            return fixed
+    except Exception:
+        pass
+
+    # Dvakrát nevalidní → radši ověřená šablona než rozbitý kód.
+    return _local_report(probe)
 
 
 def _local_report(probe: dict) -> str:
