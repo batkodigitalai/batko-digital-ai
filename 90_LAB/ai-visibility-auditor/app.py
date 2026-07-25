@@ -444,14 +444,28 @@ def _call_model(client, model: str, messages: list, max_out: int,
 
 
 def call_llm(client, configured_model: str, messages: list, max_out: int,
-             temperature=None, effort=None):
-    """Projde model chain. Vrací (text, jméno modelu, který uspěl)."""
-    last_err = None
-    for model in _model_chain(configured_model):
+             temperature=None, effort=None, label: str = "llm"):
+    """Projde model chain. Vrací (text, jméno modelu, který uspěl).
+
+    Propad na záložní model se hlásí do logu. Tiché degradování kvality je
+    horší než hlasitá chyba — provozovatel musí vědět, že primární model
+    neodpovídá, jinak měsíce prodává slabší výstup a nikdy se to nedozví.
+    """
+    chain = _model_chain(configured_model)
+    last_err = first_err = None
+    for i, model in enumerate(chain):
         try:
-            return _call_model(client, model, messages, max_out, temperature, effort), model
+            text = _call_model(client, model, messages, max_out, temperature, effort)
+            if i > 0:
+                print(f"[MODEL-FALLBACK] {label}: primární '{chain[0]}' selhal "
+                      f"({type(first_err).__name__}: {first_err}) → použit '{model}'", flush=True)
+            return text, model
         except Exception as e:
             last_err = e
+            if i == 0:
+                first_err = e
+    print(f"[MODEL-FAIL] {label}: žádný z {chain} neodpověděl. "
+          f"Poslední chyba: {type(last_err).__name__}: {last_err}", flush=True)
     raise last_err if last_err else RuntimeError("žádný model neodpověděl")
 
 
@@ -655,6 +669,7 @@ def generate_teaser(probe: dict) -> dict:
             max_out=2000,      # rezerva na reasoning tokeny; platí se jen za skutečně použité
             temperature=0.5,
             effort="low",      # teaser slibuje výsledek do 30 s
+            label="teaser",
         )
         return parse_teaser(text, probe)
     except Exception:
@@ -694,6 +709,7 @@ def generate_report(probe: dict, description: str) -> str:
             max_out=16000,     # report má 5–8 stran a dva kódové bloky
             temperature=0.4,
             effort="high",     # generuje se kód, tady se nespěchá
+            label="report",
         )
     except Exception:
         if _report_fallback_allowed():
@@ -721,6 +737,7 @@ def generate_report(probe: dict, description: str) -> str:
             max_out=16000,
             temperature=0.2,
             effort="high",
+            label="report-retry",
         )
         if report_jsonld_valid(fixed):
             return fixed
