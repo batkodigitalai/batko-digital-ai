@@ -46,17 +46,23 @@ h2 .em{color:#f39c12}
 
 <div class="header">
  <div class="h-label">BATKO.DIGITAL.AI · dražby informací</div>
- <div class="h-title">Dnes jsem prošel <span>2 509 aut</span>, abych našel <span>3 ziskové</span>. Právo na každou z nich se draží tady.</div>
+ <div class="h-title">Prošel jsem <span id="st-n">2 509</span> aut, abych našel <span id="st-v">3</span> ziskové. Právo na každou z nich se draží tady.</div>
  <div class="h-sub">Nedražíme auta — dražíme <b>ziskové příležitosti</b>. Kompletní analýzu vozu z ověřené evropské aukce, se všemi náklady dovozu spočítanými na koruny a s cenovou mapou českého trhu. Jeden lot, jeden vítěz, informace expiruje koncem aukce vozu.</div>
 </div>
 
 <div class="stats">
- <div class="stat"><b>2 509</b><span>prověřených lotů</span></div>
- <div class="stat"><b>168</b><span>po tvrdém sítu</span></div>
- <div class="stat"><b>22</b><span>nad laťkou zisku</span></div>
- <div class="stat hot"><b>3</b><span>vypsané dražby</span></div>
- <div class="stat"><b>0,12 %</b><span>úspěšnost síta</span></div>
+ <div class="stat"><b id="s1">2 509</b><span>prověřených lotů</span></div>
+ <div class="stat"><b id="s2">168</b><span>po tvrdém sítu</span></div>
+ <div class="stat"><b id="s3">22</b><span>nad laťkou zisku</span></div>
+ <div class="stat hot"><b id="s4">3</b><span>vypsané dražby</span></div>
+ <div class="stat"><b id="s5">0,12 %</b><span>úspěšnost síta · <span id="s6">1. 8. 2026</span></span></div>
 </div>
+<script>
+fetch('stav.json?_='+Date.now()).then(function(r){return r.json()}).then(function(s){
+ var f=function(id,v){var e=document.getElementById(id);if(e&&v!=null)e.textContent=(typeof v==='number')?v.toLocaleString('cs-CZ'):v;};
+ f('s1',s.provereno);f('s2',s.po_situ);f('s3',s.nad_latkou);f('s4',s.vypsano);f('s5',s.uspesnost);f('s6',s.datum);
+ f('st-n',s.provereno);f('st-v',s.vypsano);}).catch(function(){});
+</script>
 
 <div class="content">
 
