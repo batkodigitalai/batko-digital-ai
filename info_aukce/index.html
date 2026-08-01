@@ -95,6 +95,7 @@ const AUKCE=[
  {ref:'AUK-INFO-003',nazev:'Kombi nižší střední · 2020 · nafta · automat',
   url:'auk-info-003.html',
   endISO:'2026-08-02T09:00:00+02:00',
+  bar:{inv:55,invL:'~262 tis.',medL:'479 tis.',ziskL:'+67 až +134 tis.'},
   data:{'Poměr k ceně prodejce':'<b class="ok">119 % — jde vyhrát rovnou</b>',
    'Investice celkem':'<b>~262 000 Kč</b> (vč. druhého klíče)',
    'Medián českého trhu':'<b>479 000 Kč</b> (21 inzerátů)',
@@ -104,6 +105,7 @@ const AUKCE=[
  {ref:'AUK-INFO-001',nazev:'SUV vyšší střední · 2024 · nafta · automat · 4×4',
   url:'auk-info-001.html',
   endISO:'2026-08-02T09:00:00+02:00',
+  bar:{inv:68,invL:'~750 tis.',medL:'přes 1,1 mil.',ziskL:'+30 až +165 tis.'},
   data:{'Poměr k ceně prodejce':'<b class="warn">97 % — šance v negotiation</b>',
    'Investice celkem':'<b>~750 000 Kč</b>',
    'Medián českého trhu':'<b>přes 1 100 000 Kč</b> (250+ inzerátů)',
@@ -113,6 +115,7 @@ const AUKCE=[
  {ref:'AUK-INFO-002',nazev:'Kombi střední třídy · 2022 · nafta · automat',
   url:'auk-info-002.html',
   endISO:'2026-08-03T10:30:00+02:00',
+  bar:{inv:57,invL:'~341 tis.',medL:'598 tis.',ziskL:'+66 až +154 tis.'},
   data:{'Poměr k ceně prodejce':'<b class="ok">114 % — jde vyhrát rovnou</b>',
    'Investice celkem':'<b>~341 000 Kč</b> (vč. výměny předních pneu)',
    'Medián českého trhu':'<b>598 000 Kč</b> (92 inzerátů)',
@@ -133,6 +136,11 @@ function render(){
     <div>${ended?'<span class="badge">UKONČENA</span>':'<span class="badge live">● ŽIVÁ DRAŽBA</span>'}</div>
    </div>
    <div class="card-body">${Object.entries(a.data).map(([k,v])=>`<div>${k}: ${v}</div>`).join('')}</div>
+   ${a.bar?`<div style="padding:4px 18px 12px">
+    <div style="font-size:.68rem;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Investice vs. český trh</div>
+    <div style="background:#1a2a4a;color:#fff;border-radius:5px;padding:3px 10px;font-size:.76rem;font-weight:700;width:${a.bar.inv}%;min-width:170px;white-space:nowrap">investice ${a.bar.invL}</div>
+    <div style="background:linear-gradient(90deg,#7ac59a,#2a7a4f);color:#0d3320;border-radius:5px;padding:3px 10px;font-size:.76rem;font-weight:800;width:100%;margin-top:4px;white-space:nowrap">medián trhu ${a.bar.medL} → prostor pro zisk ${a.bar.ziskL}</div>
+   </div>`:''}
    <div class="card-foot">
     <div class="cd">① Dražba informace končí <b>${endTxt}</b> · zbývá <b id="cd${i}">${zbyva}</b><br>② Aukce vozu končí ${a.carEnd||''}</div>
     <a class="btn" href="${a.url}">${ended?'Zobrazit':'🔨 Přejít do dražby →'}</a>
