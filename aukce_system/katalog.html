@@ -8,8 +8,6 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#1a1a1a;min-height:100vh}
-
-/* ── HEADER ── */
 .header{background:linear-gradient(135deg,#0d1f3c 0%,#1a2a4a 60%,#2c4a7c 100%);color:#fff;padding:32px 36px 28px;text-align:center}
 .h-badge{display:inline-block;background:rgba(243,156,18,.15);border:1px solid rgba(243,156,18,.4);color:#f39c12;padding:4px 16px;border-radius:20px;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:14px}
 .h-title{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:900;line-height:1.15;margin-bottom:10px}
@@ -19,61 +17,39 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#1a1a1a;mi
 .hs-item{text-align:center}
 .hs-val{font-size:1.5rem;font-weight:900;color:#f39c12}
 .hs-lbl{font-size:.68rem;opacity:.6;text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
-
-/* ── NAV BAR ── */
 .nav-bar{background:#fff;border-bottom:2px solid #e8ecf2;padding:0 36px;display:flex;gap:0;overflow-x:auto}
 .nav-tab{padding:14px 22px;font-size:.82rem;font-weight:700;color:#888;border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap;transition:color .2s,border-color .2s}
 .nav-tab.active{color:#1a2a4a;border-bottom-color:#2c4a7c}
 .nav-tab:hover{color:#2c4a7c}
-
-/* ── SEARCH / FILTER ── */
 .filter-bar{background:#fff;border-bottom:1px solid #e8ecf2;padding:14px 36px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
 .filter-bar input{padding:9px 14px;border:1.5px solid #c8d6f0;border-radius:8px;font-size:.85rem;min-width:220px;outline:none}
 .filter-bar input:focus{border-color:#2c4a7c}
 .filter-bar select{padding:9px 14px;border:1.5px solid #c8d6f0;border-radius:8px;font-size:.85rem;background:#fff;cursor:pointer;outline:none}
 .filter-sort{margin-left:auto;display:flex;gap:8px;align-items:center;font-size:.8rem;color:#888}
 .filter-sort select{font-size:.8rem}
-
-/* ── MAIN ── */
 .main{max-width:1200px;margin:0 auto;padding:28px 18px}
-
-/* ── STATUS MSG ── */
 .status-msg{text-align:center;padding:40px;color:#888;font-size:.9rem}
 .loading-dots::after{content:'...';animation:dots 1.2s steps(4,end) infinite}
 @keyframes dots{0%,20%{content:'.'}40%{content:'..'}60%,100%{content:'...'}}
-
-/* ── GRID ── */
 .auction-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
-
-/* ── AUCTION CARD ── */
 .auction-card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.07);transition:transform .2s,box-shadow .2s;cursor:pointer;text-decoration:none;color:inherit;display:block}
 .auction-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.13)}
-
-/* thumbnail */
 .ac-thumb{position:relative;height:200px;overflow:hidden;background:#0d1420}
 .ac-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
 .auction-card:hover .ac-thumb img{transform:scale(1.03)}
 .ac-thumb-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.3);font-size:2rem}
-
-/* status badge on thumb */
 .ac-status{position:absolute;top:12px;left:12px;padding:4px 12px;border-radius:20px;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
 .ac-status.live{background:rgba(231,76,60,.85);color:#fff;display:flex;align-items:center;gap:5px}
 .ac-status.live::before{content:'';width:6px;height:6px;background:#fff;border-radius:50%;animation:pulse 1.2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 .ac-status.ending{background:rgba(243,156,18,.9);color:#fff}
 .ac-status.ended{background:rgba(100,100,100,.8);color:#fff}
-
-/* countdown badge on thumb */
 .ac-countdown{position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,.7);color:#fff;padding:4px 10px;border-radius:8px;font-size:.72rem;font-weight:700;font-variant-numeric:tabular-nums}
-
-/* body */
 .ac-body{padding:16px 18px}
 .ac-make{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#888;margin-bottom:3px}
 .ac-model{font-size:1.05rem;font-weight:800;color:#1a2a4a;line-height:1.2;margin-bottom:6px}
 .ac-meta{font-size:.75rem;color:#888;margin-bottom:12px}
 .ac-meta span{margin-right:10px}
-
-/* bid area */
 .ac-bid-row{display:flex;justify-content:space-between;align-items:flex-end;padding-top:12px;border-top:1px solid #f0f2f5}
 .ac-bid-left .abl-label{font-size:.62rem;text-transform:uppercase;letter-spacing:.5px;color:#aaa;margin-bottom:2px}
 .ac-bid-left .abl-amount{font-size:1.35rem;font-weight:900;color:#c0392b;letter-spacing:-0.5px}
@@ -82,26 +58,18 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#1a1a1a;mi
 .ac-bid-right .btn-bid{background:linear-gradient(135deg,#1a2a4a,#2c4a7c);color:#fff;border:none;padding:10px 18px;border-radius:8px;font-size:.82rem;font-weight:700;cursor:pointer;transition:opacity .2s}
 .ac-bid-right .btn-bid:hover{opacity:.85}
 .ac-no-bids{font-size:.78rem;color:#aaa;font-style:italic}
-
-/* ── SECTION TITLE ── */
 .section-title{font-size:1.05rem;font-weight:800;color:#1a2a4a;margin-bottom:16px;display:flex;align-items:center;gap:10px}
 .section-title span.count{background:#e8ecf2;color:#555;font-size:.72rem;padding:2px 10px;border-radius:10px;font-weight:700}
-
-/* ── ENDED SECTION ── */
 .ended-toggle{background:none;border:1.5px solid #e0e4ea;color:#888;padding:10px 20px;border-radius:8px;font-size:.82rem;font-weight:700;cursor:pointer;margin-top:28px;width:100%;text-align:center}
 .ended-toggle:hover{background:#f5f7fb;color:#555}
 .ended-section{display:none;margin-top:16px}
 .ended-section.open{display:block}
 .ended-section .auction-card{opacity:.65}
-
-/* ── WHATSAPP BTN ── */
 .btn-wa{display:block;width:100%;margin-top:10px;padding:9px 12px;background:#25D366;color:#fff;border:none;border-radius:8px;font-size:.78rem;font-weight:700;cursor:pointer;letter-spacing:.2px;transition:background .15s;text-align:center}
 .btn-wa:hover{background:#1ebe5d}
 .wa-toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:#1a2a4a;color:#fff;padding:12px 28px;border-radius:24px;font-size:.85rem;font-weight:700;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none}
 .wa-toast.show{opacity:1}
 .ended-section .auction-card:hover{opacity:1}
-
-/* ── SELLER CTA ── */
 .seller-cta{background:linear-gradient(135deg,#0d1f3c,#1a3461);border-radius:16px;padding:36px;margin-top:36px;color:#fff;display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start}
 @media(max-width:680px){.seller-cta{grid-template-columns:1fr;gap:24px}}
 .sc-left h2{font-size:1.35rem;font-weight:900;line-height:1.3;margin-bottom:10px}
@@ -128,19 +96,14 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#1a1a1a;mi
 .sf-ok.show{display:block}
 .sf-err{display:none;background:rgba(231,76,60,.15);border:1px solid rgba(231,76,60,.4);color:#ffb3b3;border-radius:8px;padding:12px 16px;font-size:.83rem;margin-top:10px}
 .sf-err.show{display:block}
-
-/* ── BUYER CTA ── */
 .buyer-cta{background:#fff;border-radius:14px;padding:28px;margin-top:20px;border:2px solid #e8ecf2;text-align:center}
 .buyer-cta h3{font-size:1rem;font-weight:800;color:#1a2a4a;margin-bottom:8px}
 .buyer-cta p{font-size:.83rem;color:#888;margin-bottom:18px;max-width:460px;margin-left:auto;margin-right:auto;line-height:1.6}
 .btn-buyer{display:inline-block;background:linear-gradient(135deg,#1a2a4a,#2c4a7c);color:#fff;text-decoration:none;padding:12px 28px;border-radius:9px;font-size:.9rem;font-weight:700;transition:opacity .2s}
 .btn-buyer:hover{opacity:.85}
-
-/* ── FOOTER ── */
 .footer{background:#1a2a4a;color:rgba(255,255,255,.5);text-align:center;padding:24px 36px;font-size:.75rem;line-height:1.8;margin-top:40px}
 .footer strong{color:rgba(255,255,255,.85)}
 .footer a{color:rgba(116,185,255,.8);text-decoration:none}
-
 @media(max-width:600px){
   .header{padding:24px 18px}
   .filter-bar{padding:12px 18px}
@@ -161,6 +124,22 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#1a1a1a;mi
     <div class="hs-item"><div class="hs-val" id="stat-bids">—</div><div class="hs-lbl">Celkem příhozů</div></div>
     <div class="hs-item"><div class="hs-val" id="stat-ending">—</div><div class="hs-lbl">Končí dnes</div></div>
   </div>
+</div>
+
+<!-- ════ BANNER: DRAŽBY INFORMACÍ ════ -->
+<div style="background:linear-gradient(135deg,#0d1f3c 0%,#1a2a4a 60%,#2c4a7c 100%);border-radius:14px;padding:24px 28px;margin:18px auto;max-width:920px;color:#fff;font-family:'Segoe UI',Arial,sans-serif;box-shadow:0 4px 14px rgba(13,31,60,.25)">
+ <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#f39c12;margin-bottom:6px">🆕 Nové · dražby informací pro obchodníky</div>
+ <div style="font-size:1.3rem;font-weight:900;line-height:1.3;margin-bottom:6px">
+  Dnes jsem prošel <span style="color:#f39c12">2 509 aut</span> z evropských aukcí.
+  Ziskové po všech nákladech? <span style="color:#f39c12">Tři.</span></div>
+ <div style="font-size:.86rem;opacity:.85;margin-bottom:14px;max-width:600px">
+  Nedražíme auta — dražíme <b>právo první ruky</b> na kompletní analýzu ziskové příležitosti:
+  náklady na koruny, cenová mapa českého trhu, strop příhozu, strategie prodeje.
+  Hodnota práce ~17 500 Kč, vyvolávací 1 500 Kč. Jeden lot, jeden vítěz.</div>
+ <a href="../info_aukce/index.html"
+    style="display:inline-block;background:linear-gradient(135deg,#e67e22,#f39c12);color:#fff;font-weight:800;padding:12px 26px;border-radius:9px;text-decoration:none;font-size:.95rem">
+  🔨 Zobrazit aktivní dražby →</a>
+ <span style="font-size:.74rem;opacity:.6;margin-left:12px">pro podnikatele (IČO)</span>
 </div>
 
 <!-- ════ NAV ════ -->
