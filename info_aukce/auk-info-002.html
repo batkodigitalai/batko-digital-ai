@@ -1,0 +1,429 @@
+<!DOCTYPE html><html lang="cs"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Dražba exkluzivního práva na analýzu ziskového vozu z evropské aukce.">
+<title>AUK-INFO-002 · Právo první ruky — BATKO.DIGITAL.AI</title><style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#1a1a1a}
+.wrap{max-width:860px;margin:0 auto}
+/* ── HEADER (styl BATKO.DIGITAL.AI) ── */
+.header{background:linear-gradient(135deg,#0d1f3c 0%,#1a2a4a 60%,#2c4a7c 100%);color:#fff;padding:28px 36px 22px}
+.header-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:14px}
+.h-label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#f39c12;margin-bottom:8px}
+.h-title{font-size:1.75rem;font-weight:900;line-height:1.25;margin-bottom:6px;max-width:560px}
+.h-title span{color:#f39c12}
+.h-sub{font-size:.85rem;opacity:.75;max-width:560px}
+.h-right{text-align:right}
+.badge-live{background:rgba(231,76,60,.2);border:1px solid #e74c3c;color:#ff6b6b;padding:5px 14px;border-radius:20px;font-size:.72rem;font-weight:700;letter-spacing:.5px;display:inline-flex;align-items:center;gap:6px}
+.badge-live::before{content:'';width:8px;height:8px;background:#e74c3c;border-radius:50%;animation:puls 1.2s infinite}
+@keyframes puls{50%{opacity:.3}}
+.h-ref{font-size:.72rem;opacity:.55;margin-top:8px}
+/* ── URGENCY / COUNTDOWN ── */
+.urgency-block{background:#fff;border-bottom:3px solid #e74c3c;padding:20px 36px;text-align:center}
+.urgency-label{font-size:.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#e74c3c}
+.urgency-headline{font-size:1.15rem;font-weight:800;color:#1a2a4a;margin:6px 0 2px}
+.urgency-until{font-size:.95rem;color:#1a2a4a;margin-bottom:12px}
+.urgency-until b{color:#e74c3c}
+.countdown{display:flex;justify-content:center;gap:10px}
+.cd-unit{background:#0d1f3c;color:#fff;border-radius:10px;min-width:74px;padding:10px 8px}
+.cd-unit b{display:block;font-size:1.9rem;font-weight:900;font-variant-numeric:tabular-nums;line-height:1.1}
+.cd-unit span{font-size:.66rem;text-transform:uppercase;letter-spacing:1px;opacity:.6}
+.cd-sep{font-size:1.7rem;font-weight:900;color:#c8d6f0;align-self:center}
+/* ── FOTO ── */
+.hero-img{position:relative;background:linear-gradient(180deg,#dfe7f2,#c9d6e8)}
+.hero-img svg{display:block;width:100%;height:auto}
+.hero-note{position:absolute;left:12px;bottom:10px;background:rgba(13,31,60,.85);color:#fff;font-size:.72rem;padding:4px 10px;border-radius:6px}
+/* ── BID HERO ── */
+.bid-hero{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;background:#fff;padding:18px 36px;border-bottom:1px solid #e2e6ee}
+.bh-label{font-size:.72rem;text-transform:uppercase;letter-spacing:1px;color:#666}
+.bh-amount{font-size:2rem;font-weight:900;color:#1a2a4a;font-variant-numeric:tabular-nums}
+.bh-amount small{font-size:.9rem;color:#888;font-weight:600}
+.bm-label{font-size:.72rem;text-transform:uppercase;letter-spacing:1px;color:#666;text-align:right}
+.bm-amount{font-size:1.15rem;font-weight:800;color:#2a7a4f;text-align:right}
+/* ── OBSAH ── */
+.content{padding:20px 36px 8px}
+.card{background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.07);padding:18px 20px;margin-bottom:16px}
+.card h2{font-size:1rem;color:#1a2a4a;margin-bottom:10px}
+.card h2 .em{color:#f39c12}
+table{width:100%;border-collapse:collapse;font-size:.86rem}
+th{background:#f5f7fb;text-align:left;padding:8px;font-size:.68rem;text-transform:uppercase;letter-spacing:.5px;color:#666;border-bottom:1px solid #e2e6ee}
+td{padding:8px;border-bottom:1px solid #eef1f6;vertical-align:top}
+td.r{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;font-weight:600}
+.ok{color:#2a7a4f}.bad{color:#c0392b}.warn{color:#b06000}.dim{color:#777}
+.stack td:last-child{text-align:right;white-space:nowrap;font-weight:700}
+.stack .total td{background:#fff8e1;font-weight:900;color:#7d5a00}
+.info-box{background:#fff8e1;border-left:4px solid #f39c12;border-radius:6px;padding:11px 14px;font-size:.82rem;color:#7d5a00;margin-top:12px}
+.info-box strong{display:block;margin-bottom:3px}
+.guarantee{background:#eaf7ef;border-left:4px solid #2a7a4f;border-radius:6px;padding:12px 15px;font-size:.86rem;color:#1a5c38}
+.guarantee strong{display:block;font-size:.95rem;margin-bottom:4px}
+ul,ol{margin:6px 0 6px 20px}li{margin:5px 0;font-size:.88rem}
+/* ── FORMULÁŘ ── */
+input{width:100%;padding:11px 13px;margin:5px 0;border:1.5px solid #c8d6f0;border-radius:8px;font:inherit;font-size:.9rem}
+input:focus{outline:none;border-color:#f39c12}
+.chk{display:flex;gap:8px;align-items:flex-start;font-size:.78rem;color:#666;margin:8px 0}
+.chk input{width:auto;margin:2px 0 0}
+.cta{width:100%;background:linear-gradient(135deg,#e67e22,#f39c12);color:#fff;font-weight:900;font-size:1.05rem;padding:15px;border:none;border-radius:10px;cursor:pointer;letter-spacing:.3px}
+.cta:hover{filter:brightness(1.07)}
+#msg{margin-top:8px;font-size:.85rem}
+.bidlog li{font-variant-numeric:tabular-nums;font-size:.85rem}
+/* ── FOOTER ── */
+.footer{background:#0d1f3c;color:#fff;padding:20px 36px;font-size:.76rem;opacity:.95;margin-top:8px}
+.footer b{color:#f39c12}
+@media(max-width:600px){.header,.urgency-block,.bid-hero,.content,.footer{padding-left:16px;padding-right:16px}.cd-unit{min-width:60px}}
+</style></head><body><div class="wrap">
+<div class="header"><div class="header-top">
+<div>
+ <div class="h-label">BATKO.DIGITAL.AI · Dražba informace</div>
+ <div class="h-title">Vím o kombi, na kterém se dá vydělat <span>66–154 tisíc Kč</span>. Dražím právo to vědět taky.</div>
+ <div class="h-sub">Nedražíme auto — dražíme obchodníkovi exkluzivní přístup ke kompletní analýze jednoho konkrétního vozu z ověřené evropské aukce. Vybíráme jen vozy, které se v ČR statisticky prodávají nejrychleji. Jeden lot. Jeden vítěz. Po konci aukce vozu je informace bezcenná.</div>
+</div>
+<div class="h-right"><span class="badge-live">ŽIVÁ DRAŽBA</span><div class="h-ref">Ref: AUK-INFO-002</div></div>
+</div></div>
+
+<div class="urgency-block">
+ <div class="urgency-label">⏱ Konec dražby informace</div>
+ <div class="urgency-headline" id="endbig">—</div>
+ <div class="urgency-until">Aukce skutečného vozu končí <b>ve středu 5. 8. dopoledne</b>. Tuto dražbu informace uzavíráme s předstihem, aby měl vítěz čas na rozhodnutí, zálohu a strategii. Přesný čas konce aukce vozu (na minuty) je součástí balíčku.</div>
+ <div class="countdown">
+  <div class="cd-unit"><b id="cd">--</b><span>dní</span></div><div class="cd-sep">:</div>
+  <div class="cd-unit"><b id="ch">--</b><span>hodin</span></div><div class="cd-sep">:</div>
+  <div class="cd-unit"><b id="cm">--</b><span>minut</span></div><div class="cd-sep">:</div>
+  <div class="cd-unit"><b id="cs">--</b><span>sekund</span></div>
+ </div>
+ <div style="display:flex;justify-content:center;gap:26px;flex-wrap:wrap;margin-top:14px;font-size:.88rem">
+  <div style="background:#fff3f0;border:1px solid #e74c3c;border-radius:9px;padding:8px 16px">
+   <span style="color:#c0392b;font-weight:800">① DRAŽBA INFORMACE končí</span><br>
+   <b id="endbig2">—</b> <span style="color:#888">(odpočet výše)</span></div>
+  <div style="background:#edf2fb;border:1px solid #2c4a7c;border-radius:9px;padding:8px 16px">
+   <span style="color:#1a2a4a;font-weight:800">② AUKCE SKUTEČNÉHO VOZU končí</span><br>
+   <b>středa 5. 8. dopoledne</b> <span style="color:#888">(na minuty v balíčku)</span></div>
+ </div>
+ <div style="margin-top:12px">
+  <a id="gcal" href="#" target="_blank" rel="noopener" style="display:inline-block;background:#fff;border:1.5px solid #2c4a7c;color:#1a2a4a;font-weight:700;padding:8px 16px;border-radius:8px;text-decoration:none;font-size:.82rem;margin:0 5px">📅 Přidat do Google Kalendáře</a>
+  <a id="ical" href="#" download="drazba.ics" style="display:inline-block;background:#fff;border:1.5px solid #2c4a7c;color:#1a2a4a;font-weight:700;padding:8px 16px;border-radius:8px;text-decoration:none;font-size:.82rem;margin:0 5px">📅 Apple / Outlook (.ics)</a>
+  <div style="font-size:.72rem;color:#888;margin-top:5px">upomínka 10 minut před koncem dražby</div>
+ </div>
+</div>
+
+<div class="hero-img"><!-- Vlastní foto: ulož vedle stránky soubor foto.jpg a odkomentuj řádek níž. POZOR: nesmí identifikovat model (žádné foto z aukční platformy!). -->
+<!-- <img src="foto.jpg" alt="Ilustrační foto" style="width:100%;display:block"> -->
+<svg viewBox="0 0 860 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustrační silueta kombi">
+ <defs>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8eef7"/><stop offset="1" stop-color="#c3d1e4"/></linearGradient>
+  <linearGradient id="bodyg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2c4a7c"/><stop offset=".5" stop-color="#16294a"/><stop offset="1" stop-color="#0d1f3c"/></linearGradient>
+  <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d8e6f5"/><stop offset="1" stop-color="#8aa6c9"/></linearGradient>
+  <radialGradient id="shadow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#5c7191" stop-opacity=".5"/><stop offset="1" stop-color="#5c7191" stop-opacity="0"/></radialGradient>
+ </defs>
+ <rect width="860" height="260" fill="url(#sky)"/>
+ <ellipse cx="430" cy="232" rx="300" ry="14" fill="url(#shadow)"/>
+
+ <!-- střešní ližiny -->
+ 
+
+ <!-- kabina -->
+ <rect x="240" y="74" width="320" height="66" rx="22" fill="url(#bodyg)"/>
+ <!-- karoserie -->
+ <rect x="182" y="114" width="468" height="82" rx="24" fill="url(#bodyg)"/>
+ <!-- příď / kapota -->
+ <path d="M636,118 q38,8 54,20 q12,8 12,24 v14 q0,20 -20,20 h-46 z" fill="url(#bodyg)"/>
+
+ <!-- okna -->
+ <rect x="256" y="86" width="110" height="42" rx="9" fill="url(#glass)"/>
+ <rect x="376" y="86" width="116" height="42" rx="9" fill="url(#glass)"/>
+ <path d="M502,86 h14 q28,6 42,26 l12,16 h-68 z" fill="url(#glass)"/>
+
+ <!-- zrcátko -->
+ <path d="M550,106 l14,-7 q9,-4 11,3 q2,7 -7,9 l-16,2 z" fill="#16294a"/>
+
+ <!-- dveřní spáry a kliky -->
+ <line x1="374" y1="130" x2="374" y2="188" stroke="#0a1830" stroke-width="2.5" opacity=".7"/>
+ <line x1="496" y1="130" x2="496" y2="188" stroke="#0a1830" stroke-width="2.5" opacity=".7"/>
+ <rect x="326" y="142" width="32" height="6" rx="3" fill="#8aa6c9"/>
+ <rect x="440" y="142" width="32" height="6" rx="3" fill="#8aa6c9"/>
+
+ <!-- práh + oranžová linka -->
+ <rect x="214" y="186" width="414" height="4" rx="2" fill="#f39c12" opacity=".9"/>
+ <rect x="206" y="192" width="430" height="7" rx="3.5" fill="#0a1830"/>
+
+ <!-- světla -->
+ <path d="M668,142 q22,6 26,16 l-3,10 -28,-5 z" fill="#d8e6f5"/>
+ <rect x="180" y="138" width="9" height="28" rx="4" fill="#c0392b"/>
+
+ <!-- podběhy + kola -->
+ <circle cx="296" cy="196" r="52" fill="url(#sky)"/>
+ <circle cx="566" cy="196" r="52" fill="url(#sky)"/>
+ <g>
+  <circle cx="296" cy="196" r="38" fill="#0a1830"/>
+  <circle cx="296" cy="196" r="22" fill="#1d3355"/>
+  <circle cx="296" cy="196" r="19" fill="none" stroke="#8aa6c9" stroke-width="2"/>
+  <g stroke="#8aa6c9" stroke-width="3.5" stroke-linecap="round">
+   <line x1="296" y1="181" x2="296" y2="211"/>
+   <line x1="283" y1="189" x2="309" y2="203"/>
+   <line x1="283" y1="203" x2="309" y2="189"/>
+  </g>
+  <circle cx="296" cy="196" r="5" fill="#d8e6f5"/>
+ </g>
+ <g>
+  <circle cx="566" cy="196" r="38" fill="#0a1830"/>
+  <circle cx="566" cy="196" r="22" fill="#1d3355"/>
+  <circle cx="566" cy="196" r="19" fill="none" stroke="#8aa6c9" stroke-width="2"/>
+  <g stroke="#8aa6c9" stroke-width="3.5" stroke-linecap="round">
+   <line x1="566" y1="181" x2="566" y2="211"/>
+   <line x1="553" y1="189" x2="579" y2="203"/>
+   <line x1="553" y1="203" x2="579" y2="189"/>
+  </g>
+  <circle cx="566" cy="196" r="5" fill="#d8e6f5"/>
+ </g>
+
+ <!-- jemný odlesk -->
+ <path d="M212,126 q214,-18 436,-4" stroke="#fff" stroke-width="3" fill="none" opacity=".18"/>
+
+ <text x="430" y="32" text-anchor="middle" font-size="17" font-weight="800" fill="#1a2a4a" font-family="Segoe UI,Arial">KOMBI · nafta · automat · servisní historie</text>
+ <text x="430" y="254" text-anchor="middle" font-size="12" fill="#41567a" font-family="Segoe UI,Arial">značku, model, fotografie a přesnou lokalitu obsahuje vydražený balíček · ilustrační silueta</text>
+</svg>
+
+</div>
+
+<div class="bid-hero">
+ <div><div class="bh-label">Aktuální nejvyšší nabídka</div>
+  <div class="bh-amount" id="top">1 500 Kč <small>+ DPH · vyvolávací</small></div></div>
+ <div><div class="bm-label">Minimální příhoz</div>
+  <div class="bm-amount">+500 Kč</div></div>
+</div>
+
+<div class="content">
+
+<div class="card">
+<h2>Úplná specifikace vozu <span class="em">— chybí jen značka, model a lokalita</span></h2>
+<table>
+<tr><td>Karoserie</td><td class="r">kombi střední třídy, 5 dveří, evropská výroba</td></tr>
+<tr><td>Motor</td><td class="r">2,0 vznětový (nafta) · 110 kW (150 koní)</td></tr>
+<tr><td>Převodovka</td><td class="r">automatická dvouspojková</td></tr>
+<tr><td>Rok výroby</td><td class="r"><b>2022</b></td></tr>
+<tr><td>Nájezd</td><td class="r"><b>90 000 – 92 000 km</b>, doložený z inspekce</td></tr>
+<tr><td>Výbava</td><td class="r">vyšší výbavová řada (název řady v balíčku — identifikoval by model)</td></tr>
+<tr><td>Země</td><td class="r"><b>Belgie</b> · flotilový vůz · doprava do ČR započtena v kalkulaci</td></tr>
+<tr><td>Aukce vozu končí</td><td class="r"><b>ve středu 5. 8. dopoledne</b> (přesný čas v balíčku)</td></tr>
+<tr><td>Cena prodejce v aukci</td><td class="r"><b>≈ €12 500 – 13 000</b> (přepočtem ~305 000 – 315 000 Kč bez DPH)</td></tr>
+</table>
+<h2 style="margin-top:16px">Stav — přímo z inspekčního protokolu</h2>
+<table>
+<tr><td>Klíče</td><td class="r ok">2 kusy — u aukčních vozů vzácnost, ušetříte 4–8 tis. Kč</td></tr>
+<tr><td>Pneumatiky</td><td class="r warn">vzadu 5,0 mm · <b>vpředu jen 2–3 mm — počítejte s výměnou ~7 000 Kč</b> (v kalkulaci započteno)</td></tr>
+<tr><td>Technické poškození</td><td class="r ok">žádné evidované · vůz je pojízdný, bez příznaku havárie</td></tr>
+<tr><td>Kosmetický stav</td><td class="r">drobnosti běžné u flotily — položkový soupis z inspekce je v balíčku</td></tr>
+<tr><td>Servisní historie</td><td class="r ok"><b>doložena (Available)</b> — u aukčních vozů výjimka, zvedá prodejnost</td></tr>
+<tr><td>Servisní historie</td><td class="r">poslední servisní záznam vč. km a data je v balíčku</td></tr>
+<tr><td>Dokumenty</td><td class="r ok">COC doložen (Available)</td></tr>
+</table>
+<div class="info-box"><strong>Proč neuvádíme značku a model?</strong>
+Změřili jsme to: kdybychom napsali značku, model a rok, odpovídá tomu v evropských aukcích právě teď <b>jen 5 vozů</b> — ten správný byste měli dohledaný za pár minut a tahle dražba by neměla smysl. Značka + model + fotografie + lokalita + přesná čísla jsou přesně to, co se tu draží.
+<br><br><strong>Podstatné je něco jiného než značka:</strong> do dražby vybíráme výhradně vozy, o kterých <b>statistika českého trhu říká, že se prodávají nejrychleji</b> — segmenty s nejkratší dobou inzerce (nafta + automat, žádané ročníky a nájezdy, ceněné výbavy). Značku se dozvíte po výhře; rychlost obratu a marži kupujete už teď.</div>
+<div class="info-box" style="background:#edf2fb;border-left-color:#2c4a7c;color:#1a2a4a"><strong>Komu je tahle informace určena</strong>
+Obchodníkovi s vozy — je to <b>informace o příležitosti k zisku</b>, ne inzerát pro koncového kupce. Kupujete náskok: vůz, čísla a strategii dřív, než je uvidí ostatní. Koncovému zákazníkovi vůz prodáte vy, za cenu z naší cenové mapy.</div>
+</div>
+
+<div class="card">
+<h2>⚠ Co musí vědět každý, kdo bude dražit auto</h2>
+<ul>
+<li><b>Stav motoru, DPF a převodovky z inspekce zjistit nelze.</b> Vůz nikdo nenastartoval na diagnostice. Konzervativní scénář proto počítá s prodejem pod trhem a rychle. Rozpočet na opravy v kalkulaci není — to je vaše rezerva.</li>
+<li><b>Příhozy v aukci vozu jsou právně závazné.</b> Kdo vyhraje, kupuje. Proto varianta A vyžaduje 100% zálohu předem — nikdy nedražím bez krytí.</li>
+<li><b>Poměr 114 % znamená:</b> náš maximální rozumný příhoz je NAD cenou, kterou prodejce chce — vůz jde vyhrát přímo v aukci a pořád vydělat. V balíčku je přesný strop, kam až přihazovat.</li>
+<li><b>Časování:</b> aukce vozu končí <b>ve středu 5. 8. dopoledne</b>. Mezi koncem této dražby a koncem aukce vozu zůstává dost času na rozhodnutí, podpis dohody a složení zálohy. Přesný čas na minuty dostane vítěz.</li>
+<li><b>Daně:</b> nákup v aukci je pro plátce DPH v režimu reverse charge — DPH neváže hotovost. Prodej v ČR je s DPH 21 %. Kalkulace v balíčku obojí odděluje.</li>
+<li><b>Kalkulace počítá s prodejem do 30 dnů.</b> Každý den navíc ukusuje z výnosu — v balíčku dostanete Dmax: přesný počet dní, kdy je obchod ještě ziskový, pro konzervativní i tržní cenu.</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>Čísla, která vítěz dostane rozklíčovaná <span class="em">do poslední koruny</span></h2>
+<table>
+<tr><th>Ukazatel</th><th style="text-align:right">Hodnota</th></tr>
+<tr><td>Celková investice (vůz + poplatky + doprava + přihlášení + přední pneu)</td><td class="r">~341 000 Kč</td></tr>
+<tr><td>Medián srovnatelných vozů na českém trhu <span class="dim">(vzorek 92 inzerátů)</span></td><td class="r">598 000 Kč</td></tr>
+<tr><td>Zisk při rychlém prodeji pod trhem <span class="dim">(konzervativní scénář, p25 −7 %)</span></td><td class="r ok">+66 000 Kč</td></tr>
+<tr><td>Zisk při prodeji za medián trhu</td><td class="r ok">+154 000 Kč</td></tr>
+<tr><td>Poměr našeho max. příhozu k ceně prodejce</td><td class="r ok">114 % — vůz jde vyhrát rovnou</td></tr>
+<tr><td>Kolik dní si smíte dovolit vůz držet (Dmax)</td><td class="r">v balíčku, spočteno pro obě ceny</td></tr>
+</table>
+</div>
+
+<div class="card">
+<h2>Co přesně vydražíte <span class="em">(hodnota jednotlivě přes 12 000 Kč)</span></h2>
+<table class="stack">
+<tr><td>Identifikace vozu + odkaz na jeho aukci (končí v pondělí)</td><td>k nezaplacení včas</td></tr>
+<tr><td>Cenová mapa českého trhu: rozptyl p10–p90 z 92 inzerátů, doporučená prodejní cena, cenové dno</td><td>4 900 Kč</td></tr>
+<tr><td>Rozpad všech nákladů: aukční poplatky v €, doprava na vaši adresu, přihlášení v ČR</td><td>2 900 Kč</td></tr>
+<tr><td>Max. příhoz + strategie pro vyjednávání po aukci (negotiation fáze)</td><td>2 900 Kč</td></tr>
+<tr><td>Shrnutí inspekce vlastními slovy: stav, výbava, rizika</td><td>1 900 Kč</td></tr>
+<tr class="total"><td>Hodnota balíčku — vy dražíte od</td><td>1 500 Kč</td></tr>
+</table>
+</div>
+
+<div class="card">
+<h2>Přihoďte <span class="em">— jeden vítěz, žádné „možná"</span></h2>
+<input id="fn" placeholder="Jméno a příjmení / firma *">
+<input id="fi" placeholder="IČO * (nabídka pro podnikatele)">
+<input id="fd" placeholder="DIČ (pokud máte, např. CZ12345678)">
+<input id="fe" placeholder="E-mail *" type="email">
+<input id="ft" placeholder="Telefon *" type="tel">
+<input id="fb" type="number" placeholder="Váš příhoz v Kč bez DPH (min. 2 000)" min="1500" max="200000" step="500">
+<label class="chk"><input type="checkbox" id="fc"> Rozumím, že dražím právo na informaci, cena informace je po předání nevratná a jednám jako podnikatel. Souhlasím se zpracováním osobních údajů pro vedení dražby (GDPR).</label>
+<button class="cta" id="bidbtn" type="button">🔨 PŘIHODIT A ZÍSKAT PRÁVO PRVNÍ RUKY</button>
+<div id="msg"></div>
+</div>
+
+<div class="card">
+<h2>Průběh dražby</h2>
+<ul class="bidlog" id="log"><li class="dim">Zatím žádný příhoz — buďte první.</li></ul>
+</div>
+
+<div class="card">
+<h2>Po výhře: dvě cesty, obojí s jasnými pravidly</h2>
+<table>
+<tr><th></th><th>A · Vydražím vůz já a přeprodám vám ho</th><th>B · Dražíte sami</th></tr>
+<tr><td>Podmínka</td><td>—</td><td>vlastní účet na evropské aukční platformě</td></tr>
+<tr><td>Platba předem</td><td>záloha 100 % předpokládaných nákladů vč. odměny</td><td>odměna předem</td></tr>
+<tr><td>Odměna</td><td><b>8 % z předpokládaného zisku</b>, min. 4 900 Kč + DPH</td><td><b>paušál 4 900 Kč + DPH</b> — vždy, bez ohledu na zisk</td></tr>
+<tr><td>Když vůz nevydražíme</td><td class="ok"><b>vracím celou zálohu + polovinu odměny</b></td><td>odměna se nevrací</td></tr>
+</table>
+<div class="guarantee" style="margin-top:12px"><strong>Garance, kterou nesu já, ne vy</strong>
+U cesty A: nevyhraju-li vůz, vracím vám celou zálohu do posledního haléře a k tomu polovinu své odměny. Riziko neúspěšné dražby jde za mnou. Záloha leží na odděleném účtu a nepoužije se na nic jiného. Právně jde o můj nákup a následný prodej vozu vám — dvě transakce, obě s řádnými doklady. Jsem plátce DPH.</div>
+</div>
+
+<div class="card">
+<h2>Podmínky dražby informace</h2>
+<ol>
+<li>Předmětem dražby je <b>exkluzivní právo na informační balíček</b> popsaný výše. Nejde o veřejnou dražbu ve smyslu zák. č. 26/2000 Sb. ani o prodej vozidla.</li>
+<li>Příhoz je závazný projev zájmu o koupi informace za nabídnutou cenu. Nabídka je určena <b>podnikatelům (IČO)</b>.</li>
+<li>Vítěz obdrží výzvu k platbě e-mailem; cena informace + DPH je splatná do 2 hodin, poté právo přechází na dalšího v pořadí. Po zaplacení do 1 hodiny obdrží kompletní balíček. <b>Cena informace je po předání nevratná.</b></li>
+<li>Analýza je autorským dílem zpracovatele, vychází z měřených dat. Zpracovatel negarantuje výsledek aukce vozu ani technický stav nad rámec dostupné inspekce.</li>
+<li>Zpracovatel si vyhrazuje právo dražbu zrušit (např. při předčasném prodeji vozu) — v tom případě se nic neplatí.</li>
+<li>Osobní údaje jsou zpracovávány výhradně pro vedení dražby dle GDPR (EU 2016/679).</li>
+</ol>
+</div>
+
+</div>
+<div class="footer"><b>BATKO.DIGITAL.AI</b> · Ing. Jaroslav Batko – Linet · IČO 14600153 · DIČ CZ5912280418 · plátce DPH · Klimkovice<br>
+batko.digital.ai@gmail.com · +420 725 360 151 · Reference: AUK-INFO-002<br><br>
+P.S. Až aukce vozu skončí, skončí i hodnota téhle informace — a stránka s ní. Další ziskový vůz bude mít vlastní dražbu — kdo vyhraje dnes, dostane na ni přednostní pozvánku.</div>
+</div>
+<!-- Firebase SDK (stejně jako aukce aut) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script>
+/* ============ CONFIG — jediné místo, které se mění pro další aukci ============ */
+const CONFIG={
+ ref:'AUK-INFO-002',
+ carEndISO:'2026-08-05T10:30:00+02:00', // konec aukce VOZU (neveřejný)
+ lead_h:48,                             // PRAVIDLO: konec = carEnd − 48 h
+ startPrice:1500, minStep:500,
+ firebase:{apiKey:"AIzaSyCzqE91qCN7CAHYNIlilzkyWLW3zYhlT8s",
+  authDomain:"batko-aukce.firebaseapp.com",
+  databaseURL:"https://batko-aukce-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId:"batko-aukce",storageBucket:"batko-aukce.firebasestorage.app",
+  messagingSenderId:"567644084257",appId:"1:567644084257:web:d4a8b172324b3d54092b60"},
+ sheetUrl:"https://script.google.com/macros/s/AKfycbwcFA8bRyHnBB_4XlgH5_IMR4IBqUfvTD8vScGZPiuCh0gR5f4Mp_9OjOAw1u3lNEjI/exec",
+ mail:'batko.digital.ai@gmail.com'
+};
+/* ============================================================================ */
+const $=id=>document.getElementById(id);
+const CKEY='auk_info_contact';
+function saveContact(c){try{localStorage.setItem(CKEY,JSON.stringify(c));}catch(_){}}
+function prefillContact(){try{const c=JSON.parse(localStorage.getItem(CKEY)||'null');
+ if(!c)return;['fn','fi','fd','fe','ft'].forEach(k=>{if(c[k]&&$(k)&&!$(k).value)$(k).value=c[k];});}catch(_){}}
+let end=CONFIG.endISOOverride?new Date(CONFIG.endISOOverride):new Date(new Date(CONFIG.carEndISO).getTime()-CONFIG.lead_h*36e5);
+let topBid=0, bidsArr=[], live=false;
+function showEnd(){$('endbig').textContent=end.toLocaleString('cs-CZ',{weekday:'long',day:'numeric',month:'numeric',year:'numeric',hour:'2-digit',minute:'2-digit'});
+ if($('endbig2'))$('endbig2').textContent=$('endbig').textContent;
+ (function(){
+  const pageUrl='https://batkodigitalai.github.io/batko-digital-ai/info_aukce/'+location.pathname.split('/').pop();
+  const t='KONEC dražby REF — Právo první ruky'.replace('REF','AUK-INFO-002');
+  const fmt=d=>d.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
+  const e2=new Date(end.getTime()+30*60000);
+  const g=$('gcal');
+  if(g)g.href='https://calendar.google.com/calendar/render?action=TEMPLATE'
+   +'&text='+encodeURIComponent('Dražba informace: kombi 2022 — Právo první ruky')
+   +'&dates='+fmt(end)+'/'+fmt(e2)
+   +'&details='+encodeURIComponent('Dražba práva první ruky končí. Přihoďte včas: '+pageUrl);
+  const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//BATKO.DIGITAL.AI//CS','BEGIN:VEVENT',
+   'UID:AUK-INFO-002@batko.digital.ai','DTSTAMP:'+fmt(new Date()),'DTSTART:'+fmt(end),'DTEND:'+fmt(e2),
+   'SUMMARY:Dražba informace: kombi 2022 — Právo první ruky','DESCRIPTION:Dražba práva první ruky končí. Přihoďte včas: '+pageUrl,
+   'URL:'+pageUrl,'BEGIN:VALARM','TRIGGER:-PT10M','ACTION:DISPLAY','DESCRIPTION:Dražba končí za 10 minut','END:VALARM',
+   'END:VEVENT','END:VCALENDAR'].join('\r\n');
+  const a=$('ical');
+  if(a){a.href='data:text/calendar;charset=utf-8,'+encodeURIComponent(ics);a.download='AUK-INFO-002.ics';}
+ })();}
+showEnd();
+function tick(){
+ const ms=end-new Date();
+ if(ms<=0){['cd','ch','cm','cs'].forEach(i=>$(i).textContent='0');
+  $('bidbtn').disabled=true;$('bidbtn').textContent='⏱ Dražba skončila — vítěze kontaktujeme do 2 hodin';return;}
+ $('cd').textContent=Math.floor(ms/864e5);
+ $('ch').textContent=String(Math.floor(ms/36e5)%24).padStart(2,'0');
+ $('cm').textContent=String(Math.floor(ms/6e4)%60).padStart(2,'0');
+ $('cs').textContent=String(Math.floor(ms/1e3)%60).padStart(2,'0');
+ setTimeout(tick,1000);}
+tick();
+function render(){
+ const t=topBid||CONFIG.startPrice;
+ $('top').innerHTML=t.toLocaleString('cs-CZ')+' Kč <small>+ DPH'+(topBid?'':' · vyvolávací')+'</small>';
+ if(bidsArr.length)$('log').innerHTML=bidsArr.slice().sort((a,b)=>b.amount-a.amount).map(b=>
+  `<li><b>${(+b.amount).toLocaleString('cs-CZ')} Kč</b> · ${(b.name||'?').split(' ')[0]} *** · ${new Date(b.timestamp).toLocaleTimeString('cs-CZ',{hour:'2-digit',minute:'2-digit'})}</li>`).join('');}
+render();
+/* ── FIREBASE LIVE (stejný mechanismus jako aukce aut) ── */
+let auctionRef=null;
+try{
+ if(typeof firebase!=='undefined'){
+  firebase.initializeApp(CONFIG.firebase);
+  auctionRef=firebase.database().ref('auctions/'+CONFIG.ref);
+  live=true;
+  auctionRef.once('value',snap=>{const d=snap.val();
+   if(d){if(d.endTime){end=new Date(d.endTime);showEnd();}
+    if(d.startPrice)CONFIG.startPrice=d.startPrice;
+    if(d.minIncrement)CONFIG.minStep=d.minIncrement;render();}});
+  const REST=CONFIG.firebase.databaseURL;
+  function poll(){
+   fetch(`${REST}/auctions/${CONFIG.ref}/bids.json?_=${Date.now()}`).then(r=>r.json())
+    .then(d=>{if(d){bidsArr=Object.values(d);topBid=Math.max(0,...bidsArr.map(b=>+b.amount||0));render();}}).catch(()=>{});
+   fetch(`${REST}/auctions/${CONFIG.ref}/status.json?_=${Date.now()}`).then(r=>r.json())
+    .then(st=>{if(st&&st!=='active'){$('bidbtn').disabled=true;$('bidbtn').textContent='🚫 Dražba byla zrušena — nic se neplatí';}}).catch(()=>{});}
+  poll();setInterval(poll,8000);
+ }
+}catch(e){console.error('Firebase chyba:',e);live=false;}
+$('bidbtn').addEventListener('click',async()=>{
+ const n=$('fn').value.trim(),ic=$('fi').value.trim(),dic=$('fd').value.trim().toUpperCase(),e=$('fe').value.trim(),t=$('ft').value.trim(),v=+$('fb').value;
+ const m=$('msg');
+ if(!n||!ic||!e||!t){m.innerHTML='<span class="bad">Vyplňte jméno, IČO, e-mail a telefon.</span>';return;}
+ if(!/^\d{8}$/.test(ic.replace(/\s/g,''))){m.innerHTML='<span class="bad">IČO má 8 číslic.</span>';return;}
+ if(dic&&!/^[A-Z]{2}[0-9A-Z]{8,10}$/.test(dic.replace(/\s/g,''))){m.innerHTML='<span class="bad">DIČ má tvar CZ + 8–10 znaků (nebo nechte prázdné).</span>';return;}
+ if(!$('fc').checked){m.innerHTML='<span class="bad">Potvrďte souhlas s podmínkami.</span>';return;}
+ const minReq=topBid?topBid+CONFIG.minStep:CONFIG.startPrice+CONFIG.minStep;
+ if(!(v>=minReq)){m.innerHTML=`<span class="bad">Minimální příhoz je ${minReq.toLocaleString('cs-CZ')} Kč.</span>`;return;}
+ if(new Date()>end){m.innerHTML='<span class="bad">Dražba již skončila.</span>';return;}
+ const bid={name:n,ico:ic,dic:dic||null,email:e,phone:t,amount:v,timestamp:Date.now(),
+  auctionId:CONFIG.ref,car:'AUK-INFO balíček — právo první ruky'};
+ let ok=false;
+ if(live&&auctionRef){
+  try{await auctionRef.child('bids').push(bid);ok=true;
+   fetch(CONFIG.sheetUrl,{method:'POST',mode:'no-cors',
+    headers:{'Content-Type':'text/plain;charset=utf-8'},
+    body:JSON.stringify({formType:'aukce_info_bid',
+     source:`Dražba informace ${CONFIG.ref}`,tlacitko:'Přihodit',
+     sekce:'AUK-INFO formulář',ukol:'Kontaktovat vítěze, výzva k platbě do 2 h',
+     stav_zpracovani:'PRIJATO',jmeno:n,ico:ic,dic:dic||'',email:e,telefon:t,nabidka_kc:v,
+     auctionId:CONFIG.ref,endTime:end.toISOString(),datum:new Date().toISOString()})}).catch(()=>{});
+  }catch(err){ok=false;}}
+ if(!ok){
+  location.href='mailto:'+CONFIG.mail
+   +'?subject='+encodeURIComponent(CONFIG.ref+' příhoz '+v+' Kč — '+n)
+   +'&body='+encodeURIComponent('Příhoz: '+v+' Kč bez DPH\nJméno/firma: '+n+'\nIČO: '+ic+'\nE-mail: '+e+'\nTelefon: '+t+'\n\nOdesláním potvrzuji podmínky dražby '+CONFIG.ref+'.');
+  saveContact({fn:n,fi:ic,fd:dic,fe:e,ft:t});
+  bidsArr.push(bid);topBid=Math.max(topBid,v);render();
+  m.innerHTML='<span class="ok">✅ Příhoz přijat — dokončete odeslání e-mailu, tím je platný.</span>';return;}
+ saveContact({fn:n,fi:ic,fd:dic,fe:e,ft:t});
+ topBid=Math.max(topBid,v);bidsArr.push(bid);render();
+ $('fb').value='';
+ m.innerHTML='<span class="ok">✅ Příhoz zapsán do dražby. Pokud vás někdo přehodí, uvidíte to zde do 8 sekund.</span>';
+});
+prefillContact();
+</script></body></html>

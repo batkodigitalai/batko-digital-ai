@@ -1,0 +1,142 @@
+<!DOCTYPE html><html lang="cs"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Dražby práva první ruky — ziskové příležitosti z evropských autoaukcí, spočítané do koruny.">
+<title>Ziskové příležitosti — dražby informací | BATKO.DIGITAL.AI</title><style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#1a1a1a}
+.wrap{max-width:960px;margin:0 auto}
+.header{background:linear-gradient(135deg,#0d1f3c 0%,#1a2a4a 60%,#2c4a7c 100%);color:#fff;padding:30px 36px 26px}
+.h-label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#f39c12;margin-bottom:8px}
+.h-title{font-size:1.8rem;font-weight:900;line-height:1.25;margin-bottom:8px;max-width:640px}
+.h-title span{color:#f39c12}
+.h-sub{font-size:.9rem;opacity:.8;max-width:640px}
+.stats{display:flex;gap:0;background:#fff;border-bottom:3px solid #f39c12;flex-wrap:wrap}
+.stat{flex:1;min-width:120px;text-align:center;padding:16px 8px;border-right:1px solid #eef1f6}
+.stat b{display:block;font-size:1.6rem;font-weight:900;color:#1a2a4a;font-variant-numeric:tabular-nums}
+.stat span{font-size:.7rem;text-transform:uppercase;letter-spacing:.5px;color:#888}
+.stat.hot b{color:#e74c3c}
+.content{padding:22px 36px}
+h2{font-size:1.05rem;color:#1a2a4a;margin:18px 0 10px}
+h2 .em{color:#f39c12}
+.card{background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.07);margin-bottom:16px;overflow:hidden}
+.card-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 18px;background:#f8f9fb;border-bottom:1px solid #eef1f6;flex-wrap:wrap}
+.ref{font-size:.72rem;font-weight:700;color:#888;letter-spacing:.5px}
+.car-name{font-weight:800;font-size:1.05rem;color:#1a2a4a}
+.badge{padding:2px 10px;border-radius:12px;font-size:.72rem;font-weight:700}
+.badge.live{background:#ffe9e6;color:#c0392b;border:1px solid #e74c3c}
+.badge.ratio{background:#eaf7ef;color:#1a6b3a}
+.card-body{padding:14px 18px;display:grid;grid-template-columns:1fr 1fr;gap:6px 22px;font-size:.86rem}
+.card-body div b{font-variant-numeric:tabular-nums}
+.ok{color:#2a7a4f}.warn{color:#b06000}
+.card-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 18px;border-top:1px solid #eef1f6;flex-wrap:wrap;background:#fff}
+.cd{font-size:.82rem;color:#666}
+.cd b{color:#e74c3c;font-variant-numeric:tabular-nums;font-size:1rem}
+.btn{display:inline-block;background:linear-gradient(135deg,#e67e22,#f39c12);color:#fff;font-weight:800;padding:11px 22px;border-radius:9px;text-decoration:none;font-size:.9rem}
+.btn:hover{filter:brightness(1.07)}
+.card.ended{opacity:.55}
+.how{background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.07);padding:18px 20px;margin-bottom:16px}
+.how ol{margin:8px 0 8px 20px}
+.how li{margin:6px 0;font-size:.9rem}
+.info-box{background:#fff8e1;border-left:4px solid #f39c12;border-radius:6px;padding:11px 14px;font-size:.84rem;color:#7d5a00;margin-top:10px}
+.guarantee{background:#eaf7ef;border-left:4px solid #2a7a4f;border-radius:6px;padding:12px 15px;font-size:.86rem;color:#1a5c38;margin-top:10px}
+.footer{background:#0d1f3c;color:#fff;padding:20px 36px;font-size:.76rem;margin-top:10px}
+.footer b{color:#f39c12}
+@media(max-width:640px){.header,.content,.footer{padding-left:16px;padding-right:16px}.card-body{grid-template-columns:1fr}}
+</style></head><body><div class="wrap">
+
+<div class="header">
+ <div class="h-label">BATKO.DIGITAL.AI · dražby informací</div>
+ <div class="h-title">Dnes jsem prošel <span>2 509 aut</span>, abych našel <span>3 ziskové</span>. Právo na každou z nich se draží tady.</div>
+ <div class="h-sub">Nedražíme auta — dražíme <b>ziskové příležitosti</b>. Kompletní analýzu vozu z ověřené evropské aukce, se všemi náklady dovozu spočítanými na koruny a s cenovou mapou českého trhu. Jeden lot, jeden vítěz, informace expiruje koncem aukce vozu.</div>
+</div>
+
+<div class="stats">
+ <div class="stat"><b>2 509</b><span>prověřených lotů</span></div>
+ <div class="stat"><b>168</b><span>po tvrdém sítu</span></div>
+ <div class="stat"><b>22</b><span>nad laťkou zisku</span></div>
+ <div class="stat hot"><b>3</b><span>vypsané dražby</span></div>
+ <div class="stat"><b>0,12 %</b><span>úspěšnost síta</span></div>
+</div>
+
+<div class="content">
+
+<h2>Aktivní dražby <span class="em">— každou vyhraje jen jeden</span></h2>
+<div id="cards"></div>
+
+<div class="how">
+<h2 style="margin-top:0">O co jde <span class="em">ve třech větách</span></h2>
+<ol>
+<li>Každý den strojově proseju tisíce aut v evropských aukcích a <b>vyřadím všechna, která po započtení VŠECH nákladů dovozu nevydělají</b> — dnes i vůz, který by kupce stál −214 000 Kč.</li>
+<li>K těm několika, co projdou, spočítám <b>do koruny</b>: aukční poplatky, dopravu na vaši adresu, přihlášení v ČR, a proti desítkám skutečných českých inzerátů cenovou mapu p10–p90, strop příhozu a Dmax — kolik dní si vůz smíte dovolit držet.</li>
+<li><b>Právo na tu analýzu dražím</b> — hodnota práce ~17 500 Kč, vyvolávací 1 500 Kč. Vítěz jedná dřív, než si vozu kdokoli všimne: buď draží sám, nebo vydražím já a vůz mu přeprodám.</li>
+</ol>
+<div class="guarantee"><b>Garance, kterou nesu já:</b> když pro vítěze dražím a vůz nevyhraju, vracím celou zálohu + polovinu své odměny. Riziko neúspěšné dražby jde za mnou.</div>
+<div class="info-box"><b>Poctivost především:</b> do dražby pouštím jen vozy se ziskem v konzervativním i tržním scénáři (rychlá obrátka vs. maximum — obě spočítané v balíčku). Co čísla vidět neumí — motor, DPF, převodovku — říkám předem. Kupujete spočítanou pravděpodobnost s náskokem, ne slib.</div>
+</div>
+
+<h2>Zisk × čas <span class="em">— vy si vyberete strategii, já ji spočítám</span></h2>
+<div class="how" style="font-size:.9rem">
+<b>Rychlá obrátka:</b> prodej pod čtvrtinou trhu → menší zisk (např. +66 tis.), ale kapitál je za pár týdnů zpět a jede na další aukci. Denní výnos ~0,7 %.<br><br>
+<b>Maximum:</b> prodej za medián trhu → zisk až +154 tis., ale kapitál stojí déle — a každý den držení má u takového vozu cenu ~2 200 Kč.<br><br>
+Vlastní scénář? „Co když prodám za 550 za tři týdny?" — přepočítám. <b>Rozhodnutí je vaše, čísla jsou moje.</b>
+</div>
+</div>
+
+<div class="footer">
+<b>BATKO.DIGITAL.AI</b> · Ing. Jaroslav Batko – Linet · IČO 14600153 · DIČ CZ5912280418 · plátce DPH · Klimkovice<br>
+batko.digital.ai@gmail.com · +420 725 360 151<br><br>
+Dražby jsou určeny podnikatelům (IČO). Nejde o veřejnou dražbu dle zák. č. 26/2000 Sb. ani o prodej vozidla. Cena informace je po předání nevratná. Osobní údaje zpracováváme výhradně pro vedení dražeb (GDPR).
+</div>
+</div>
+
+<script>
+/* ===== KATALOG CONFIG — přidání aukce = přidat objekt ===== */
+const AUKCE=[
+ {ref:'AUK-INFO-003',nazev:'Kombi nižší střední · 2020 · nafta · automat',
+  url:'auk-info-003.html',
+  endISO:'2026-08-02T09:00:00+02:00',
+  data:{'Poměr k ceně prodejce':'<b class="ok">119 % — jde vyhrát rovnou</b>',
+   'Investice celkem':'<b>~262 000 Kč</b> (vč. druhého klíče)',
+   'Medián českého trhu':'<b>479 000 Kč</b> (21 inzerátů)',
+   'Zisk konzervativně / medián':'<b class="ok">+67 000 / +134 000 Kč</b>',
+   'Nájezd':'107–110 tis. km · Belgie',
+   'Segment':'nejprodávanější v ČR'},carEnd:'<b>v úterý 4. 8. ráno</b>'},
+ {ref:'AUK-INFO-001',nazev:'SUV vyšší střední · 2024 · nafta · automat · 4×4',
+  url:'auk-info-001.html',
+  endISO:'2026-08-02T09:00:00+02:00',
+  data:{'Poměr k ceně prodejce':'<b class="warn">97 % — šance v negotiation</b>',
+   'Investice celkem':'<b>~750 000 Kč</b>',
+   'Medián českého trhu':'<b>přes 1 100 000 Kč</b> (250+ inzerátů)',
+   'Zisk konzervativně / medián':'<b class="ok">+30 000 / +165 000 Kč</b>',
+   'Nájezd':'33–34 tis. km · Německo · 2 klíče',
+   'Stav':'bez evidovaného poškození'},carEnd:'<b>v pondělí 3. 8. dopoledne</b>'},
+ {ref:'AUK-INFO-002',nazev:'Kombi střední třídy · 2022 · nafta · automat',
+  url:'auk-info-002.html',
+  endISO:'2026-08-03T10:30:00+02:00',
+  data:{'Poměr k ceně prodejce':'<b class="ok">114 % — jde vyhrát rovnou</b>',
+   'Investice celkem':'<b>~341 000 Kč</b> (vč. výměny předních pneu)',
+   'Medián českého trhu':'<b>598 000 Kč</b> (92 inzerátů)',
+   'Zisk konzervativně / medián':'<b class="ok">+66 000 / +154 000 Kč</b>',
+   'Nájezd':'90–92 tis. km · Belgie · 2 klíče',
+   'Bonus':'doložená servisní historie + COC'},carEnd:'<b>ve středu 5. 8. dopoledne</b>'}
+];
+/* ========================================================== */
+function render(){
+ const el=document.getElementById('cards');
+ el.innerHTML=AUKCE.map((a,i)=>{
+  const end=new Date(a.endISO), ms=end-new Date(), ended=ms<=0;
+  const zbyva=ended?'skončila':(Math.floor(ms/36e5)+' h '+String(Math.floor(ms/6e4)%60).padStart(2,'0')+' min');
+  const endTxt=end.toLocaleString('cs-CZ',{weekday:'short',day:'numeric',month:'numeric',hour:'2-digit',minute:'2-digit'});
+  return `<div class="card${ended?' ended':''}">
+   <div class="card-head">
+    <div><div class="ref">${a.ref}</div><div class="car-name">${a.nazev}</div></div>
+    <div>${ended?'<span class="badge">UKONČENA</span>':'<span class="badge live">● ŽIVÁ DRAŽBA</span>'}</div>
+   </div>
+   <div class="card-body">${Object.entries(a.data).map(([k,v])=>`<div>${k}: ${v}</div>`).join('')}</div>
+   <div class="card-foot">
+    <div class="cd">① Dražba informace končí <b>${endTxt}</b> · zbývá <b id="cd${i}">${zbyva}</b><br>② Aukce vozu končí ${a.carEnd||''}</div>
+    <a class="btn" href="${a.url}">${ended?'Zobrazit':'🔨 Přejít do dražby →'}</a>
+   </div></div>`;}).join('');
+}
+render(); setInterval(render,30000);
+</script></body></html>
