@@ -41,9 +41,9 @@ td.r{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
 
 <div class="stats" id="stats">
 <div class="stat"><b id="s-celkem">—</b><span>vyhodnocených lotů</span></div>
-<div class="stat ok"><b id="s-trefa">—</b><span>trefa</span></div>
-<div class="stat bad"><b id="s-mimo">—</b><span>mimo strop</span></div>
-<div class="stat warn"><b id="s-neprodano">—</b><span>neprodáno</span></div>
+<div class="stat ok"><b id="s-trefa">—</b><span>skončilo pod stropem</span></div>
+<div class="stat bad"><b id="s-mimo">—</b><span>přerostlo strop</span></div>
+<div class="stat warn"><b id="s-nedosahlo">—</b><span>nedosáhlo ceny prodejce</span></div>
 <div class="stat"><b id="s-presnost">—</b><span>medián odchylky</span></div>
 </div>
 
@@ -52,11 +52,12 @@ td.r{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
 <div id="tabulka"><div class="empty">Načítám…</div></div>
 
 <div class="metod">
-<b>Jak to čteme.</b> <b>Strop</b> je maximální příhoz, který jsme spočítali <i>před</i> koncem aukce — cena, nad kterou už obchod nesplňuje naši laťku ziskovosti (0,40 % denního ROI při 30 dnech držení). <b>Trefa</b> znamená, že aukce skončila pod naším stropem, tedy vůz se dal koupit se ziskem. <b>Mimo</b> znamená, že cena přerostla strop — kdo by šel výš, koupil by pod naši laťku. <b>Neprodáno</b> znamená, že vůz nedosáhl ceny prodejce a aukce skončila bez vítěze.
+<b>Jak to čteme.</b> <b>Strop</b> je maximální příhoz, který jsme spočítali <i>před</i> koncem aukce — cena, nad kterou už obchod nesplňuje naši laťku ziskovosti (0,40 % denního ROI při 30 dnech držení). <b>Pod stropem</b> znamená, že aukce skončila v našem rozpětí — příležitost byla reálná. <b>Přerostlo strop</b> znamená, že cena vyšplhala výš, než dávalo smysl zaplatit; pokud jsme takový lot nedoporučili, rozhodnutí se potvrdilo. <b>Typ „dražba"</b> jsou loty, na které jsme vypsali dražbu informace, <b>„predikce"</b> jsou loty, které jsme ocenili, ale záměrně nevypsali — patří sem stejně, protože správně nedoporučit je půlka práce.
 </div>
 
-<div class="info-box"><strong>Co tahle čísla neříkají</strong>
-Vyhodnocujeme <b>predikci stropu proti výsledku aukce</b>, ne skutečný zisk z dokončeného obchodu. Prodejní cena vychází z inzerátových cen na českém trhu (25. percentil snížený o 7 %), ne z realizovaných prodejů — ta data zatím nikdo veřejně nemá. Až proběhne první dokončený obchod, doplníme sem i skutečnou prodejní cenu a dobu do inkasa.
+<div class="info-box"><strong>Co tahle čísla neříkají — přečtěte dřív než tabulku</strong>
+<b>Nevíme, jestli se vůz nakonec prodal.</b> Aukční platforma u cizích lotů nezveřejňuje konečnou prodejní cenu ani to, zda transakce proběhla. Vyhodnocujeme proto <b>poslední veřejně viditelný příhoz</b> proti našemu stropu — tedy „dal se vůz v aukci koupit v našem rozpětí?", ne „za kolik se prodal".<br><br>
+Druhé omezení: prodejní cena v našich kalkulacích vychází z <b>inzerátových</b> cen na českém trhu (25. percentil snížený o 7 %), ne z realizovaných prodejů — ta data veřejně nemá nikdo. Až proběhne první dokončený obchod, doplníme sem skutečnou prodejní cenu a dobu do inkasa. Do té doby je tohle track record <b>přesnosti odhadu</b>, ne důkaz zisku.
 </div>
 </div>
 
@@ -69,39 +70,40 @@ Vyhodnocujeme <b>predikci stropu proti výsledku aukce</b>, ne skutečný zisk z
 
 <script>
 (async function(){
- const kc=n=>Math.round(n).toLocaleString('cs-CZ');
- const eur=n=>'€'+Math.round(n).toLocaleString('cs-CZ');
+ const eur=n=>(n===null||n===undefined)?'—':'€'+Math.round(n).toLocaleString('cs-CZ');
  let d;
  try{ d=await (await fetch('vysledky.json?cb='+Date.now(),{cache:'no-store'})).json(); }
  catch(e){ document.getElementById('tabulka').innerHTML='<div class="empty">Data se nepodařilo načíst.</div>'; return; }
  const P=(d.polozky||[]).slice().sort((a,b)=>(a.konec_aukce<b.konec_aukce?1:-1));
  if(!P.length){
-  document.getElementById('tabulka').innerHTML='<div class="empty">Zatím žádný vyhodnocený lot. První přibude po skončení aukce prvního vypsaného vozu.</div>';
-  ['s-celkem','s-trefa','s-mimo','s-neprodano','s-presnost'].forEach(i=>document.getElementById(i).textContent='0');
-  document.getElementById('s-presnost').textContent='—';
-  return;}
- let trefa=0,mimo=0,nepr=0,odch=[];
- let t='<table><tr><th>dražba</th><th>vůz</th><th class="r">cíl prodejce</th><th class="r">náš strop</th><th class="r">skončilo na</th><th class="r">odchylka</th><th>výsledek</th></tr>';
+  document.getElementById('tabulka').innerHTML='<div class="empty">Zatím žádný vyhodnocený lot.</div>';
+  ['s-celkem','s-trefa','s-mimo','s-nedosahlo'].forEach(i=>document.getElementById(i).textContent='0');
+  document.getElementById('s-presnost').textContent='—'; return;}
+ let pod=0,nad=0,neds=0,odch=[];
+ let t='<table><tr><th>lot</th><th>vůz</th><th class="r">cena prodejce</th><th class="r">náš strop</th><th class="r">poslední příhoz</th><th class="r">odchylka</th><th>výsledek</th></tr>';
  for(const v of P){
   let tag,cls;
-  if(!v.final_eur||v.prodano===false){ tag='neprodáno'; cls='t-warn'; nepr++; }
-  else if(v.final_eur<=v.strop_eur){ tag='trefa'; cls='t-ok'; trefa++; }
-  else { tag='mimo'; cls='t-bad'; mimo++; }
-  if(v.odchylka_pct!==undefined&&v.final_eur) odch.push(Math.abs(v.odchylka_pct));
-  t+='<tr><td><a href="'+(v.url||'#')+'">'+v.ref+'</a><br><span style="font-size:.72rem;color:#888">'+(v.konec_aukce||'').slice(0,10)+'</span></td>'
+  if(!v.strop_eur){ tag='strop nezaznamenán'; cls='t-warn'; }
+  else if(v.posledni_prihoz<=v.strop_eur){ tag='pod stropem'; cls='t-ok'; pod++; }
+  else { tag='přerostlo strop'; cls='t-bad'; nad++; }
+  if(v.posledni_prihoz<v.cil_eur) neds++;
+  if(v.odchylka_pct!==null&&v.odchylka_pct!==undefined) odch.push(Math.abs(v.odchylka_pct));
+  const label = v.url ? '<a href="'+v.url+'">'+v.ref+'</a>' : '<span class="dim">bez dražby</span>';
+  t+='<tr><td>'+label+'<br><span style="font-size:.72rem;color:#888">'+(v.konec_aukce||'').slice(0,10)+'</span></td>'
    +'<td>'+(v.vuz||'—')+'</td>'
    +'<td class="r">'+eur(v.cil_eur)+'</td>'
    +'<td class="r"><b>'+eur(v.strop_eur)+'</b></td>'
-   +'<td class="r">'+(v.final_eur?'<b>'+eur(v.final_eur)+'</b>':'—')+'</td>'
-   +'<td class="r">'+(v.odchylka_pct!==undefined&&v.final_eur?((v.odchylka_pct>=0?'+':'')+v.odchylka_pct.toFixed(1)+' %'):'—')+'</td>'
-   +'<td><span class="tag '+cls+'">'+tag+'</span></td></tr>';
+   +'<td class="r"><b>'+eur(v.posledni_prihoz)+'</b><br><span style="font-size:.72rem;color:#888">'
+     +(v.cil_eur?Math.round(v.posledni_prihoz/v.cil_eur*100)+' % ceny prodejce':'')+'</span></td>'
+   +'<td class="r">'+((v.odchylka_pct!==null&&v.odchylka_pct!==undefined)?((v.odchylka_pct>=0?'+':'')+v.odchylka_pct.toFixed(1)+' %'):'—')+'</td>'
+   +'<td><span class="tag '+cls+'">'+tag+'</span>'+(v.poznamka?'<br><span style="font-size:.72rem;color:#666">'+v.poznamka+'</span>':'')+'</td></tr>';
  }
  t+='</table>';
  document.getElementById('tabulka').innerHTML=t;
  document.getElementById('s-celkem').textContent=P.length;
- document.getElementById('s-trefa').textContent=trefa;
- document.getElementById('s-mimo').textContent=mimo;
- document.getElementById('s-neprodano').textContent=nepr;
+ document.getElementById('s-trefa').textContent=pod;
+ document.getElementById('s-mimo').textContent=nad;
+ document.getElementById('s-nedosahlo').textContent=neds;
  if(odch.length>=3){ odch.sort((a,b)=>a-b);
   document.getElementById('s-presnost').textContent=odch[Math.floor(odch.length/2)].toFixed(1)+' %'; }
  else document.getElementById('s-presnost').textContent='—';
