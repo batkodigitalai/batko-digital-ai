@@ -1,105 +1,199 @@
 <!DOCTYPE html>
 <html lang="cs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Veřejný track record predikcí BATKO.DIGITAL.AI — jak dopadly aukce vozů proti našim stropům. Včetně případů, kdy jsme se netrefili.">
-<title>Track record predikcí | BATKO.DIGITAL.AI</title>
+<meta name="description" content="Jak dopadly naše odhady cen aut z evropských aukcí. Včetně případů, kdy jsme se netrefili. Vysvětleno i pro toho, kdo o aukcích nikdy neslyšel.">
+<title>Trefili jsme se? Veřejný přehled našich odhadů | BATKO.DIGITAL.AI</title>
 <style>
-body{margin:0;font-family:"Segoe UI",Arial,sans-serif;background:#eef2f8;color:#233}
-.page{max-width:960px;margin:0 auto;background:#fff;box-shadow:0 0 30px rgba(13,31,60,.15)}
-.header{background:linear-gradient(135deg,#0d1f3c,#2c4a7c);color:#fff;padding:28px 36px}
+body{margin:0;font-family:"Segoe UI",Arial,sans-serif;background:#eef2f8;color:#233;line-height:1.55}
+.page{max-width:980px;margin:0 auto;background:#fff;box-shadow:0 0 30px rgba(13,31,60,.15)}
+.header{background:linear-gradient(135deg,#0d1f3c,#2c4a7c);color:#fff;padding:30px 36px}
 .h-kicker{font-size:.72rem;font-weight:700;letter-spacing:1.5px;color:#f39c12;text-transform:uppercase}
-.h-title{font-size:1.7rem;font-weight:900;margin:8px 0 6px}
-.h-sub{font-size:.9rem;opacity:.8;max-width:680px}
+.h-title{font-size:1.8rem;font-weight:900;margin:8px 0 8px;line-height:1.2}
+.h-sub{font-size:.95rem;opacity:.88;max-width:700px}
 .stats{display:flex;background:#fff;border-bottom:3px solid #f39c12;flex-wrap:wrap}
-.stat{flex:1;min-width:130px;text-align:center;padding:18px 8px;border-right:1px solid #eef1f6}
-.stat b{display:block;font-size:1.7rem;font-weight:900;color:#1a2a4a;font-variant-numeric:tabular-nums}
-.stat span{font-size:.7rem;text-transform:uppercase;letter-spacing:.5px;color:#888}
+.stat{flex:1;min-width:120px;text-align:center;padding:16px 8px;border-right:1px solid #eef1f6}
+.stat b{display:block;font-size:1.6rem;font-weight:900;color:#1a2a4a;font-variant-numeric:tabular-nums}
+.stat span{font-size:.68rem;text-transform:uppercase;letter-spacing:.4px;color:#888;line-height:1.3;display:block}
 .stat.ok b{color:#2a7a4f}.stat.bad b{color:#c0392b}.stat.warn b{color:#b06000}
-.content{padding:22px 36px 36px}
-h2{font-size:1.05rem;color:#1a2a4a;margin:22px 0 10px}
-table{width:100%;border-collapse:collapse;font-size:.85rem}
+.content{padding:24px 36px 36px}
+h2{font-size:1.15rem;color:#1a2a4a;margin:26px 0 12px}
+h2 .em{color:#f39c12}
+h3{font-size:.98rem;color:#1a2a4a;margin:18px 0 8px}
+p{font-size:.92rem;margin:8px 0}
+table{width:100%;border-collapse:collapse;font-size:.86rem}
 th{background:#f5f7fb;text-align:left;padding:9px;font-size:.68rem;text-transform:uppercase;color:#666;border-bottom:1px solid #e2e6ee}
 td{padding:9px;border-bottom:1px solid #eef1f6;vertical-align:top}
 td.r{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
-.tag{display:inline-block;padding:2px 9px;border-radius:12px;font-size:.7rem;font-weight:700;white-space:nowrap}
+.tag{display:inline-block;padding:2px 10px;border-radius:12px;font-size:.7rem;font-weight:700;white-space:nowrap}
 .t-ok{background:#eaf7ef;color:#1a6b3a;border:1px solid #2a7a4f}
 .t-bad{background:#fdecea;color:#a3271c;border:1px solid #c0392b}
 .t-warn{background:#fff5e6;color:#8a5000;border:1px solid #b06000}
-.info-box{background:#fff8e1;border-left:4px solid #f39c12;border-radius:6px;padding:12px 15px;font-size:.85rem;color:#7d5a00;margin:14px 0}
+.vysvetleni{background:linear-gradient(180deg,#f8fafd,#eef3fa);border:1px solid #d5e0f0;border-radius:12px;padding:20px 24px;margin:18px 0}
+.krok{display:flex;gap:14px;margin:14px 0;align-items:flex-start}
+.krok-c{flex:0 0 32px;height:32px;background:#0d1f3c;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.9rem}
+.krok-t{flex:1;font-size:.92rem}
+.krok-t b{color:#1a2a4a}
+.priklad{background:#fff;border-left:4px solid #f39c12;border-radius:6px;padding:14px 16px;margin:14px 0;font-size:.9rem}
+.priklad b{color:#1a2a4a}
+.cislo-velke{font-size:1.35rem;font-weight:900;color:#2a7a4f;font-variant-numeric:tabular-nums}
+.info-box{background:#fff8e1;border-left:4px solid #f39c12;border-radius:6px;padding:13px 16px;font-size:.87rem;color:#7d5a00;margin:16px 0}
 .info-box strong{display:block;margin-bottom:4px}
-.metod{background:#f5f7fb;border-radius:8px;padding:14px 16px;font-size:.83rem;color:#445;margin-top:16px}
-.metod b{color:#1a2a4a}
-.footer{background:#0d1f3c;color:#fff;padding:20px 36px;font-size:.76rem}
+.detail{margin-top:8px}
+.detail summary{cursor:pointer;font-size:.85rem;color:#2c4a7c;font-weight:700;padding:6px 0;list-style:none}
+.detail summary::before{content:'▸ ';font-size:.9rem}
+.detail[open] summary::before{content:'▾ '}
+.detail-body{background:#f8fafd;border-radius:8px;padding:14px 16px;margin-top:8px}
+.scen th{background:#eef3fa}
+.scen td.zisk{font-weight:800;color:#2a7a4f}
+.scen tr.nase{background:#fff8e1}
+.scen tr.nase td{font-weight:700}
+.rozklad{font-size:.84rem;margin-bottom:12px}
+.rozklad td{padding:5px 8px;border-bottom:1px dashed #dde4ee}
+.rozklad tr:last-child td{border-top:2px solid #1a2a4a;border-bottom:none;font-weight:800;padding-top:8px}
+.footer{background:#0d1f3c;color:#fff;padding:22px 36px;font-size:.78rem}
 .footer a{color:#f39c12}
-.empty{text-align:center;padding:40px 20px;color:#888;font-size:.9rem}
+.empty{text-align:center;padding:40px 20px;color:#888}
+.dim{color:#888}
+@media(max-width:700px){.content{padding:18px 18px 28px}.header{padding:22px 18px}.h-title{font-size:1.4rem}}
 </style></head><body><div class="page">
 
 <div class="header">
-<div class="h-kicker">BATKO.DIGITAL.AI · veřejný track record</div>
-<div class="h-title">Jak naše predikce dopadly ve skutečnosti</div>
-<div class="h-sub">Ke každé vypsané dražbě informace zveřejňujeme, na jaké ceně skončila aukce vozu a jestli se náš strop trefil. <b>Včetně případů, kdy jsme se netrefili</b> — bez nich by tahle stránka byla jen reklama.</div>
+<div class="h-kicker">BATKO.DIGITAL.AI · veřejný přehled</div>
+<div class="h-title">Trefili jsme se? Tady je odpověď u každého auta.</div>
+<div class="h-sub">Počítáme, kolik má smysl zaplatit za auto v evropské aukci, aby se dalo v Česku prodat se ziskem. Tady zveřejňujeme, jak ty výpočty dopadly ve skutečnosti — <b>i když jsme se netrefili</b>.</div>
 </div>
 
-<div class="stats" id="stats">
-<div class="stat"><b id="s-celkem">—</b><span>vyhodnocených lotů</span></div>
-<div class="stat ok"><b id="s-trefa">—</b><span>skončilo pod stropem</span></div>
-<div class="stat bad"><b id="s-mimo">—</b><span>přerostlo strop</span></div>
+<div class="stats">
+<div class="stat"><b id="s-celkem">—</b><span>vyhodnocených aut</span></div>
+<div class="stat ok"><b id="s-trefa">—</b><span>šlo koupit v našem rozpětí</span></div>
+<div class="stat bad"><b id="s-mimo">—</b><span>vydražilo se dráž</span></div>
 <div class="stat warn"><b id="s-nedosahlo">—</b><span>nedosáhlo ceny prodejce</span></div>
 <div class="stat"><b id="s-presnost">—</b><span>medián odchylky</span></div>
 </div>
 
 <div class="content">
-<h2>Všechny vyhodnocené loty</h2>
+
+<h2>Jste tu poprvé? <span class="em">Za minutu budete vědět, o co jde</span></h2>
+
+<div class="vysvetleni">
+<div class="krok"><div class="krok-c">1</div><div class="krok-t">
+<b>V Německu, Belgii a Nizozemsku se každý týden draží tisíce ojetých aut.</b> Jsou to hlavně vozy z firemních flotil a leasingů. Dostat se k nim může jen registrovaný obchodník — ne veřejnost.</div></div>
+
+<div class="krok"><div class="krok-c">2</div><div class="krok-t">
+<b>Většina těch aut je pro český trh nezajímavá.</b> Špatný motor, poškození, nevýhodný daňový režim, nebo prostě cena, za kterou se to u nás nedá prodat se ziskem. Z dvanácti tisíc vozů jich projde naším sítem devět.</div></div>
+
+<div class="krok"><div class="krok-c">3</div><div class="krok-t">
+<b>U těch zbylých spočítáme jedno číslo: náš strop.</b> To je nejvyšší částka, kterou má smysl v aukci nabídnout. Ne cena, za kterou se auto prodá — ale hranice, za kterou už na tom neušetříte dost, aby se vám vyplatilo podstupovat riziko.</div></div>
+
+<div class="krok"><div class="krok-c">4</div><div class="krok-t">
+<b>Pak sledujeme, kde aukce doopravdy skončila.</b> Skončila pod naším stropem? Auto se dalo koupit v našem rozpětí — příležitost byla reálná. Skončila nad stropem? Někdo zaplatil víc, než dávalo smysl.</div></div>
+</div>
+
+<div class="priklad">
+<b>Co strop obsahuje — na skutečném autě z 3. srpna</b><br><br>
+SUV z roku 2024, nafta, automat, 34 tisíc kilometrů. Prodejce za něj chtěl <b>€29 400</b>. Náš strop vyšel <b>€27 255</b>.<br><br>
+Proč zrovna tolik? Ke kupní ceně se připočítá aukční poplatek, poplatek země původu, doprava do Česka a přihlášení vozu — u tohohle auta dohromady <b>34 357 Kč</b>. Pak jsme se podívali, za kolik se stejná auta prodávají v Česku (256 inzerátů) a odečetli daň z přidané hodnoty, kterou z prodeje odvedete státu. Co zbylo, je zisk. Strop je bod, kde ten zisk klesne na hranici, pod kterou už to nestojí za vázaný kapitál a riziko.<br><br>
+<b>Aukce skončila na €26 800</b> — tedy 455 eur pod naším stropem. Auto se v aukci dalo koupit v našem rozpětí.
+</div>
+
+<div class="info-box"><strong>Je tahle informace pro vás?</strong>
+Pokud kupujete auto pro sebe, spíš ne — jednorázový dovoz jednoho vozu se přes aukci obvykle nevyplatí. <b>Dává to smysl, když s auty obchodujete</b> a hledáte, kde koupit levněji než v českém velkoobchodu. Pak je nejcennější právě ten strop: víte, kam až můžete jít, a kdy přestat.
+</div>
+
+<h2>Všechna vyhodnocená auta</h2>
+<p class="dim" style="font-size:.86rem">U každého auta rozklikněte <b>„Kolik by se na tom dalo vydělat"</b> — uvidíte celý rozpočet a výdělek podle toho, za kolik a jak rychle byste auto prodali.</p>
 <div id="tabulka"><div class="empty">Načítám…</div></div>
 
-<div class="metod">
-<b>Jak to čteme.</b> <b>Strop</b> je maximální příhoz, který jsme spočítali <i>před</i> koncem aukce — cena, nad kterou už obchod nesplňuje naši laťku ziskovosti (0,40 % denního ROI při 30 dnech držení). <b>Pod stropem</b> znamená, že aukce skončila v našem rozpětí — příležitost byla reálná. <b>Přerostlo strop</b> znamená, že cena vyšplhala výš, než dávalo smysl zaplatit; pokud jsme takový lot nedoporučili, rozhodnutí se potvrdilo. <b>Typ „dražba"</b> jsou loty, na které jsme vypsali dražbu informace, <b>„predikce"</b> jsou loty, které jsme ocenili, ale záměrně nevypsali — patří sem stejně, protože správně nedoporučit je půlka práce.
-</div>
+<h2>Čemu tahle čísla <span class="em">nerozumí</span></h2>
+<div class="info-box"><strong>1. Nevíme, jestli se auto nakonec prodalo</strong>
+Aukční platforma u cizích aut nezveřejňuje konečnou prodejní cenu ani to, jestli obchod proběhl. Vidíme jen poslední veřejnou nabídku. Proto neříkáme „prodalo se za tolik", ale „aukce skončila na tolika" — to je rozdíl, na kterém záleží.</div>
 
-<div class="info-box"><strong>Co tahle čísla neříkají — přečtěte dřív než tabulku</strong>
-<b>Nevíme, jestli se vůz nakonec prodal.</b> Aukční platforma u cizích lotů nezveřejňuje konečnou prodejní cenu ani to, zda transakce proběhla. Vyhodnocujeme proto <b>poslední veřejně viditelný příhoz</b> proti našemu stropu — tedy „dal se vůz v aukci koupit v našem rozpětí?", ne „za kolik se prodal".<br><br>
-Druhé omezení: prodejní cena v našich kalkulacích vychází z <b>inzerátových</b> cen na českém trhu (25. percentil snížený o 7 %), ne z realizovaných prodejů — ta data veřejně nemá nikdo. Až proběhne první dokončený obchod, doplníme sem skutečnou prodejní cenu a dobu do inkasa. Do té doby je tohle track record <b>přesnosti odhadu</b>, ne důkaz zisku.
-</div>
+<div class="info-box"><strong>2. Ceny v Česku bereme z inzerátů, ne z uzavřených prodejů</strong>
+Za kolik se auta v Česku skutečně prodávají, veřejně neví nikdo. Pracujeme proto s inzerátovými cenami, a to ještě opatrně: bereme spodní čtvrtinu trhu a odečítáme dalších 7 % na smlouvání. Skutečná prodejní cena může být níž.</div>
+
+<div class="info-box"><strong>3. Zisk v tabulkách je propočet, ne slib</strong>
+Kolik se vydělá, závisí na tom, za kolik a jak rychle auto prodáte — a to je na vás. Do rozpočtu nepočítáme opravy, protože stav motoru, filtru pevných částic ani převodovky se z aukční inspekce zjistit nedá. To je vaše rezerva a vaše riziko.</div>
+
+<div class="info-box" style="background:#eaf7ef;border-color:#2a7a4f;color:#1a5c38"><strong>Co doplníme, až to budeme mít</strong>
+Až projde první dokončený obchod, přidáme sem skutečnou prodejní cenu a počet dní od aukce do peněz na účtu. Teprve to bude důkaz, ne odhad. Do té doby berte tuhle stránku jako přehled o <b>přesnosti našich propočtů</b>.</div>
+
 </div>
 
 <div class="footer">
 <b>Ing. Jaroslav Batko – LINET</b> · IČO 14600153 · DIČ CZ5912280418 · Lískovec 170, 273 51 Velké Přítočno<br>
-<a href="index.html">Aktuální dražby</a> · <a href="https://batkoai.cz">batkoai.cz</a> · batko.digital.ai@gmail.com<br>
-Žádná garance zisku. Kalkulace pracuje s odhady, které jsou v každém balíčku označené.
+<a href="index.html">Aktuální nabídky</a> · <a href="https://batkoai.cz">batkoai.cz</a> · batko.digital.ai@gmail.com<br>
+Žádná garance zisku. Nejde o investiční doporučení. Všechny odhady jsou v každém balíčku označené jako odhady.
 </div>
 </div>
 
 <script>
 (async function(){
  const eur=n=>(n===null||n===undefined)?'—':'€'+Math.round(n).toLocaleString('cs-CZ');
+ const kc=n=>(n===null||n===undefined)?'—':Math.round(n).toLocaleString('cs-CZ')+' Kč';
  let d;
  try{ d=await (await fetch('vysledky.json?cb='+Date.now(),{cache:'no-store'})).json(); }
  catch(e){ document.getElementById('tabulka').innerHTML='<div class="empty">Data se nepodařilo načíst.</div>'; return; }
  const P=(d.polozky||[]).slice().sort((a,b)=>(a.konec_aukce<b.konec_aukce?1:-1));
- if(!P.length){
-  document.getElementById('tabulka').innerHTML='<div class="empty">Zatím žádný vyhodnocený lot.</div>';
-  ['s-celkem','s-trefa','s-mimo','s-nedosahlo'].forEach(i=>document.getElementById(i).textContent='0');
-  document.getElementById('s-presnost').textContent='—'; return;}
- let pod=0,nad=0,neds=0,odch=[];
- let t='<table><tr><th>lot</th><th>vůz</th><th class="r">cena prodejce</th><th class="r">náš strop</th><th class="r">poslední příhoz</th><th class="r">odchylka</th><th>výsledek</th></tr>';
+ if(!P.length){ document.getElementById('tabulka').innerHTML='<div class="empty">Zatím žádné vyhodnocené auto.</div>'; return; }
+
+ let pod=0,nad=0,neds=0,odch=[],html='';
  for(const v of P){
-  let tag,cls;
-  if(!v.strop_eur){ tag='strop nezaznamenán'; cls='t-warn'; }
-  else if(v.posledni_prihoz<=v.strop_eur){ tag='pod stropem'; cls='t-ok'; pod++; }
-  else { tag='přerostlo strop'; cls='t-bad'; nad++; }
+  let tag,cls,shrn;
+  if(!v.strop_eur){ tag='nelze vyhodnotit'; cls='t-warn';
+   shrn='U tohohle auta jsme si strop tehdy nezapsali, takže nemůžeme poctivě říct, jestli jsme se trefili.'; }
+  else if(v.posledni_prihoz<=v.strop_eur){ tag='šlo koupit v našem rozpětí'; cls='t-ok'; pod++;
+   shrn='Aukce skončila '+eur(v.strop_eur-v.posledni_prihoz)+' <b>pod</b> naším stropem — auto se dalo koupit za cenu, která podle našeho propočtu dávala smysl.'; }
+  else { tag='vydražilo se dráž'; cls='t-bad'; nad++;
+   shrn='Aukce skončila '+eur(v.posledni_prihoz-v.strop_eur)+' <b>nad</b> naším stropem. Kdo šel výš, zaplatil víc, než podle nás dávalo smysl.'; }
   if(v.posledni_prihoz<v.cil_eur) neds++;
   if(v.odchylka_pct!==null&&v.odchylka_pct!==undefined) odch.push(Math.abs(v.odchylka_pct));
-  const label = v.url ? '<a href="'+v.url+'">'+v.ref+'</a>' : '<span class="dim">bez dražby</span>';
-  t+='<tr><td>'+label+'<br><span style="font-size:.72rem;color:#888">'+(v.konec_aukce||'').slice(0,10)+'</span></td>'
-   +'<td>'+(v.vuz||'—')+'</td>'
+
+  html+='<div style="border:1px solid #e2e6ee;border-radius:10px;padding:16px 18px;margin-bottom:14px">';
+  html+='<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap">';
+  html+='<div><div style="font-weight:800;color:#1a2a4a;font-size:1rem">'+(v.vuz||'—')+'</div>'
+       +'<div style="font-size:.75rem;color:#888">aukce skončila '+(v.konec_aukce||'').slice(0,10).split('-').reverse().join('. ')
+       +(v.url?' · <a href="'+v.url+'">'+v.ref+'</a>':' · dražbu jsme nevypsali')+'</div></div>';
+  html+='<span class="tag '+cls+'">'+tag+'</span></div>';
+
+  html+='<table style="margin-top:12px"><tr>'
+   +'<th>chtěl prodejce</th><th>náš strop</th><th>skončilo na</th><th class="r">rozdíl</th></tr><tr>'
    +'<td class="r">'+eur(v.cil_eur)+'</td>'
    +'<td class="r"><b>'+eur(v.strop_eur)+'</b></td>'
-   +'<td class="r"><b>'+eur(v.posledni_prihoz)+'</b><br><span style="font-size:.72rem;color:#888">'
-     +(v.cil_eur?Math.round(v.posledni_prihoz/v.cil_eur*100)+' % ceny prodejce':'')+'</span></td>'
+   +'<td class="r"><b>'+eur(v.posledni_prihoz)+'</b><div style="font-size:.72rem;color:#888;font-weight:400">'
+     +(v.cil_eur?Math.round(v.posledni_prihoz/v.cil_eur*100)+' % toho, co chtěl prodejce':'')+'</div></td>'
    +'<td class="r">'+((v.odchylka_pct!==null&&v.odchylka_pct!==undefined)?((v.odchylka_pct>=0?'+':'')+v.odchylka_pct.toFixed(1)+' %'):'—')+'</td>'
-   +'<td><span class="tag '+cls+'">'+tag+'</span>'+(v.poznamka?'<br><span style="font-size:.72rem;color:#666">'+v.poznamka+'</span>':'')+'</td></tr>';
+   +'</tr></table>';
+  html+='<p style="font-size:.88rem;margin:10px 0 0">'+shrn+'</p>';
+
+  if(v.scenare&&v.rozklad){
+   const r=v.rozklad;
+   html+='<details class="detail"><summary>Kolik by se na tom dalo vydělat</summary><div class="detail-body">';
+   html+='<h3 style="margin-top:0">Nejdřív kolik by vás auto stálo</h3>';
+   html+='<table class="rozklad">'
+    +'<tr><td>auto v aukci ('+eur(v.posledni_prihoz)+')</td><td class="r">'+kc(r.vuz_kc)+'</td></tr>'
+    +'<tr><td>aukční poplatek + poplatek země</td><td class="r">'+kc(r.poplatky_kc)+'</td></tr>'
+    +'<tr><td>doprava do Česka</td><td class="r">'+kc(r.doprava_kc)+'</td></tr>'
+    +'<tr><td>přihlášení, technická, emise</td><td class="r">'+kc(r.papiry_kc)+'</td></tr>'
+    +'<tr><td>celkem vložíte</td><td class="r">'+kc(r.kapital_kc)+'</td></tr></table>';
+   html+='<h3>A kolik vyděláte podle toho, za kolik a jak rychle prodáte</h3>';
+   html+='<table class="scen"><tr><th>prodáte za</th><th class="r">zůstane vám po DPH</th><th class="r">ZISK</th>'
+        +'<th class="r">za 30 dní</th><th class="r">za 60 dní</th><th class="r">za 90 dní</th></tr>';
+   for(const s of v.scenare){
+    const nase = s.nazev.indexOf('konzervativ')>=0;
+    html+='<tr'+(nase?' class="nase"':'')+'><td>'+s.nazev+'<div style="font-size:.72rem;color:#888">'+kc(s.cena)+' s DPH</div></td>'
+     +'<td class="r">'+kc(s.trzba)+'</td>'
+     +'<td class="r zisk">+'+kc(s.zisk)+'<div style="font-size:.72rem;color:#888;font-weight:400">'+s.marze+' % z vložených peněz</div></td>'
+     +'<td class="r">'+s.d30.toFixed(2)+' %<div style="font-size:.68rem;color:#888">denně</div></td>'
+     +'<td class="r">'+s.d60.toFixed(2)+' %</td><td class="r">'+s.d90.toFixed(2)+' %</td></tr>';
+   }
+   html+='</table>';
+   html+='<p style="font-size:.83rem;color:#666;margin-top:10px"><b>Jak to číst.</b> Žlutě zvýrazněný řádek je cena, se kterou počítáme my — spodní čtvrtina českého trhu snížená o dalších 7 % na smlouvání. Sloupce vpravo říkají, kolik vyděláte <i>denně</i> z vložených peněz, když auto prodáte za 30, 60 nebo 90 dní. Naše laťka je 0,40 % denně; pod ní už kapitál pracuje moc pomalu. Vzorek českého trhu: '+r.vzorek_n+' inzerátů. Opravy v rozpočtu nejsou.</p>';
+   html+='</div></details>';
+  } else if(v.scenare_duvod){
+   html+='<p style="font-size:.83rem;color:#888;margin-top:8px">'+v.scenare_duvod+'</p>';
+  }
+  html+='</div>';
  }
- t+='</table>';
- document.getElementById('tabulka').innerHTML=t;
+ document.getElementById('tabulka').innerHTML=html;
  document.getElementById('s-celkem').textContent=P.length;
  document.getElementById('s-trefa').textContent=pod;
  document.getElementById('s-mimo').textContent=nad;

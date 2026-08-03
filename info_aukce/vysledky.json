@@ -2,7 +2,7 @@
  "_popis": "Verejny track record predikci BATKO.DIGITAL.AI. Zapisuji se VSECHNY vyhodnocene loty, i ty, kde jsme se netrefili, i ty, kde jsme drazbu zamerne nevypsali.",
  "_metodika": "strop_eur = nas maximalni prihoz pri D=30 a prahu 0,40 %/den, spocteny PRED koncem aukce z percentilu sauto.cz. posledni_prihoz = posledni verejne viditelna cena v aukci (CurrentPrice). final_eur = skutecna prodejni cena — platforma ji u cizich transakci NEZVEREJNUJE, proto zustava null.",
  "_omezeni": "Nevime, zda se vuz nakonec prodal. OPENLANE u cizich lotu neukazuje FinalPrice ani IsSold jinak nez 0/false. Vyhodnocujeme tedy POSLEDNI PRIHOZ proti nasemu stropu, ne prodejni cenu.",
- "aktualizovano": "2026-08-03T12:20:00+02:00",
+ "aktualizovano": "2026-08-03T12:45:00+02:00",
  "polozky": [
   {
    "ref": "AUK-INFO-001",
@@ -18,7 +18,67 @@
    "kurz": 24.345,
    "odchylka_pct": -1.7,
    "datum_vyhodnoceni": "3. 8. 2026",
-   "poznamka": "Aukce skončila na 91,2 % ceny prodejce, tedy pod ní. Poslední příhoz byl zároveň pod naším stropem — vůz šel v aukci koupit v našem rozpětí. Zda se nakonec prodal v následné negotiation, platforma nezveřejňuje."
+   "poznamka": "Aukce skončila na 91,2 % ceny prodejce, tedy pod ní. Poslední příhoz byl zároveň pod naším stropem — vůz šel v aukci koupit v našem rozpětí. Zda se nakonec prodal v následné negotiation, platforma nezveřejňuje.",
+   "rozklad": {
+    "vuz_kc": 652446,
+    "poplatky_kc": 16798,
+    "doprava_kc": 13609,
+    "papiry_kc": 3950,
+    "kapital_kc": 686803,
+    "vzorek_n": 256
+   },
+   "scenare": [
+    {
+     "nazev": "rychle (p10, spodní 10 %)",
+     "cena": 949000,
+     "trzba": 784298,
+     "zisk": 97494,
+     "marze": 14.2,
+     "d30": 0.47,
+     "d60": 0.24,
+     "d90": 0.16
+    },
+    {
+     "nazev": "konzervativně (p25 −7 %)",
+     "cena": 953250,
+     "trzba": 787810,
+     "zisk": 101007,
+     "marze": 14.7,
+     "d30": 0.49,
+     "d60": 0.25,
+     "d90": 0.16
+    },
+    {
+     "nazev": "p25 — spodní čtvrtina",
+     "cena": 1025000,
+     "trzba": 847107,
+     "zisk": 160304,
+     "marze": 23.3,
+     "d30": 0.78,
+     "d60": 0.39,
+     "d90": 0.26
+    },
+    {
+     "nazev": "medián trhu",
+     "cena": 1117000,
+     "trzba": 923140,
+     "zisk": 236337,
+     "marze": 34.4,
+     "d30": 1.15,
+     "d60": 0.57,
+     "d90": 0.38
+    },
+    {
+     "nazev": "p75 — horní čtvrtina",
+     "cena": 1170000,
+     "trzba": 966942,
+     "zisk": 280139,
+     "marze": 40.8,
+     "d30": 1.36,
+     "d60": 0.68,
+     "d90": 0.45
+    }
+   ]
   },
   {
    "ref": "—",
@@ -34,7 +94,67 @@
    "kurz": 24.345,
    "odchylka_pct": 2.2,
    "datum_vyhodnoceni": "3. 8. 2026",
-   "poznamka": "Hodnoceno 89,5 % — dražbu jsme nevypsali. Aukce skončila 358 € nad naším stropem, rozhodnutí nevypsat bylo správné."
+   "poznamka": "Hodnoceno 89,5 % — dražbu jsme nevypsali. Aukce skončila 358 € nad naším stropem, rozhodnutí nevypsat bylo správné.",
+   "rozklad": {
+    "vuz_kc": 413865,
+    "poplatky_kc": 14485,
+    "doprava_kc": 11150,
+    "papiry_kc": 3950,
+    "kapital_kc": 443450,
+    "vzorek_n": 79
+   },
+   "scenare": [
+    {
+     "nazev": "rychle (p10, spodní 10 %)",
+     "cena": 579000,
+     "trzba": 478512,
+     "zisk": 35062,
+     "marze": 7.9,
+     "d30": 0.26,
+     "d60": 0.13,
+     "d90": 0.09
+    },
+    {
+     "nazev": "konzervativně (p25 −7 %)",
+     "cena": 601710,
+     "trzba": 497281,
+     "zisk": 53831,
+     "marze": 12.1,
+     "d30": 0.4,
+     "d60": 0.2,
+     "d90": 0.13
+    },
+    {
+     "nazev": "p25 — spodní čtvrtina",
+     "cena": 647000,
+     "trzba": 534711,
+     "zisk": 91260,
+     "marze": 20.6,
+     "d30": 0.69,
+     "d60": 0.34,
+     "d90": 0.23
+    },
+    {
+     "nazev": "medián trhu",
+     "cena": 748000,
+     "trzba": 618182,
+     "zisk": 174732,
+     "marze": 39.4,
+     "d30": 1.31,
+     "d60": 0.66,
+     "d90": 0.44
+    },
+    {
+     "nazev": "p75 — horní čtvrtina",
+     "cena": 779900,
+     "trzba": 644545,
+     "zisk": 201095,
+     "marze": 45.3,
+     "d30": 1.51,
+     "d60": 0.76,
+     "d90": 0.5
+    }
+   ]
   },
   {
    "ref": "—",
@@ -50,7 +170,10 @@
    "kurz": 24.345,
    "odchylka_pct": 11.6,
    "datum_vyhodnoceni": "3. 8. 2026",
-   "poznamka": "Hodnoceno 86,7 % — dražbu jsme nevypsali. Aukce skončila 1 212 € nad naším stropem, rozhodnutí nevypsat bylo správné."
+   "poznamka": "Hodnoceno 86,7 % — dražbu jsme nevypsali. Aukce skončila 1 212 € nad naším stropem, rozhodnutí nevypsat bylo správné.",
+   "rozklad": null,
+   "scenare": null,
+   "scenare_duvod": "Pro tenhle model nemá český trh dost srovnatelných inzerátů (méně než 20), takže cenu neodhadujeme — a bez ceny nejde spočítat, kolik by se vydělalo."
   },
   {
    "ref": "—",
@@ -66,7 +189,10 @@
    "kurz": 24.345,
    "odchylka_pct": null,
    "datum_vyhodnoceni": "3. 8. 2026",
-   "poznamka": "Ruční analýza z 28. 7., strop v eurech nebyl zaznamenán — nelze vyhodnotit trefu. Aukce skončila na 88,7 % ceny prodejce."
+   "poznamka": "Ruční analýza z 28. 7., strop v eurech nebyl zaznamenán — nelze vyhodnotit trefu. Aukce skončila na 88,7 % ceny prodejce.",
+   "rozklad": null,
+   "scenare": null,
+   "scenare_duvod": "Pro tenhle model nemá český trh dost srovnatelných inzerátů (méně než 20), takže cenu neodhadujeme — a bez ceny nejde spočítat, kolik by se vydělalo."
   },
   {
    "ref": "—",
@@ -82,7 +208,10 @@
    "kurz": 24.345,
    "odchylka_pct": null,
    "datum_vyhodnoceni": "3. 8. 2026",
-   "poznamka": "Ruční analýza z 28. 7., strop v eurech nebyl zaznamenán. Aukce skončila na 90,1 % ceny prodejce."
+   "poznamka": "Ruční analýza z 28. 7., strop v eurech nebyl zaznamenán. Aukce skončila na 90,1 % ceny prodejce.",
+   "rozklad": null,
+   "scenare": null,
+   "scenare_duvod": "Pro tenhle model nemá český trh dost srovnatelných inzerátů (méně než 20), takže cenu neodhadujeme — a bez ceny nejde spočítat, kolik by se vydělalo."
   }
  ]
 }
