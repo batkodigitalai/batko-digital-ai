@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="cs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Veřejný track record predikcí BATKO.DIGITAL.AI — jak dopadly aukce vozů proti našim stropům. Včetně případů, kdy jsme se netrefili.">
+<title>Track record predikcí | BATKO.DIGITAL.AI</title>
+<style>
+body{margin:0;font-family:"Segoe UI",Arial,sans-serif;background:#eef2f8;color:#233}
+.page{max-width:960px;margin:0 auto;background:#fff;box-shadow:0 0 30px rgba(13,31,60,.15)}
+.header{background:linear-gradient(135deg,#0d1f3c,#2c4a7c);color:#fff;padding:28px 36px}
+.h-kicker{font-size:.72rem;font-weight:700;letter-spacing:1.5px;color:#f39c12;text-transform:uppercase}
+.h-title{font-size:1.7rem;font-weight:900;margin:8px 0 6px}
+.h-sub{font-size:.9rem;opacity:.8;max-width:680px}
+.stats{display:flex;background:#fff;border-bottom:3px solid #f39c12;flex-wrap:wrap}
+.stat{flex:1;min-width:130px;text-align:center;padding:18px 8px;border-right:1px solid #eef1f6}
+.stat b{display:block;font-size:1.7rem;font-weight:900;color:#1a2a4a;font-variant-numeric:tabular-nums}
+.stat span{font-size:.7rem;text-transform:uppercase;letter-spacing:.5px;color:#888}
+.stat.ok b{color:#2a7a4f}.stat.bad b{color:#c0392b}.stat.warn b{color:#b06000}
+.content{padding:22px 36px 36px}
+h2{font-size:1.05rem;color:#1a2a4a;margin:22px 0 10px}
+table{width:100%;border-collapse:collapse;font-size:.85rem}
+th{background:#f5f7fb;text-align:left;padding:9px;font-size:.68rem;text-transform:uppercase;color:#666;border-bottom:1px solid #e2e6ee}
+td{padding:9px;border-bottom:1px solid #eef1f6;vertical-align:top}
+td.r{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.tag{display:inline-block;padding:2px 9px;border-radius:12px;font-size:.7rem;font-weight:700;white-space:nowrap}
+.t-ok{background:#eaf7ef;color:#1a6b3a;border:1px solid #2a7a4f}
+.t-bad{background:#fdecea;color:#a3271c;border:1px solid #c0392b}
+.t-warn{background:#fff5e6;color:#8a5000;border:1px solid #b06000}
+.info-box{background:#fff8e1;border-left:4px solid #f39c12;border-radius:6px;padding:12px 15px;font-size:.85rem;color:#7d5a00;margin:14px 0}
+.info-box strong{display:block;margin-bottom:4px}
+.metod{background:#f5f7fb;border-radius:8px;padding:14px 16px;font-size:.83rem;color:#445;margin-top:16px}
+.metod b{color:#1a2a4a}
+.footer{background:#0d1f3c;color:#fff;padding:20px 36px;font-size:.76rem}
+.footer a{color:#f39c12}
+.empty{text-align:center;padding:40px 20px;color:#888;font-size:.9rem}
+</style></head><body><div class="page">
+
+<div class="header">
+<div class="h-kicker">BATKO.DIGITAL.AI · veřejný track record</div>
+<div class="h-title">Jak naše predikce dopadly ve skutečnosti</div>
+<div class="h-sub">Ke každé vypsané dražbě informace zveřejňujeme, na jaké ceně skončila aukce vozu a jestli se náš strop trefil. <b>Včetně případů, kdy jsme se netrefili</b> — bez nich by tahle stránka byla jen reklama.</div>
+</div>
+
+<div class="stats" id="stats">
+<div class="stat"><b id="s-celkem">—</b><span>vyhodnocených lotů</span></div>
+<div class="stat ok"><b id="s-trefa">—</b><span>trefa</span></div>
+<div class="stat bad"><b id="s-mimo">—</b><span>mimo strop</span></div>
+<div class="stat warn"><b id="s-neprodano">—</b><span>neprodáno</span></div>
+<div class="stat"><b id="s-presnost">—</b><span>medián odchylky</span></div>
+</div>
+
+<div class="content">
+<h2>Všechny vyhodnocené loty</h2>
+<div id="tabulka"><div class="empty">Načítám…</div></div>
+
+<div class="metod">
+<b>Jak to čteme.</b> <b>Strop</b> je maximální příhoz, který jsme spočítali <i>před</i> koncem aukce — cena, nad kterou už obchod nesplňuje naši laťku ziskovosti (0,40 % denního ROI při 30 dnech držení). <b>Trefa</b> znamená, že aukce skončila pod naším stropem, tedy vůz se dal koupit se ziskem. <b>Mimo</b> znamená, že cena přerostla strop — kdo by šel výš, koupil by pod naši laťku. <b>Neprodáno</b> znamená, že vůz nedosáhl ceny prodejce a aukce skončila bez vítěze.
+</div>
+
+<div class="info-box"><strong>Co tahle čísla neříkají</strong>
+Vyhodnocujeme <b>predikci stropu proti výsledku aukce</b>, ne skutečný zisk z dokončeného obchodu. Prodejní cena vychází z inzerátových cen na českém trhu (25. percentil snížený o 7 %), ne z realizovaných prodejů — ta data zatím nikdo veřejně nemá. Až proběhne první dokončený obchod, doplníme sem i skutečnou prodejní cenu a dobu do inkasa.
+</div>
+</div>
+
+<div class="footer">
+<b>Ing. Jaroslav Batko – LINET</b> · IČO 14600153 · DIČ CZ5912280418 · Lískovec 170, 273 51 Velké Přítočno<br>
+<a href="index.html">Aktuální dražby</a> · <a href="https://batkoai.cz">batkoai.cz</a> · batko.digital.ai@gmail.com<br>
+Žádná garance zisku. Kalkulace pracuje s odhady, které jsou v každém balíčku označené.
+</div>
+</div>
+
+<script>
+(async function(){
+ const kc=n=>Math.round(n).toLocaleString('cs-CZ');
+ const eur=n=>'€'+Math.round(n).toLocaleString('cs-CZ');
+ let d;
+ try{ d=await (await fetch('vysledky.json?cb='+Date.now(),{cache:'no-store'})).json(); }
+ catch(e){ document.getElementById('tabulka').innerHTML='<div class="empty">Data se nepodařilo načíst.</div>'; return; }
+ const P=(d.polozky||[]).slice().sort((a,b)=>(a.konec_aukce<b.konec_aukce?1:-1));
+ if(!P.length){
+  document.getElementById('tabulka').innerHTML='<div class="empty">Zatím žádný vyhodnocený lot. První přibude po skončení aukce prvního vypsaného vozu.</div>';
+  ['s-celkem','s-trefa','s-mimo','s-neprodano','s-presnost'].forEach(i=>document.getElementById(i).textContent='0');
+  document.getElementById('s-presnost').textContent='—';
+  return;}
+ let trefa=0,mimo=0,nepr=0,odch=[];
+ let t='<table><tr><th>dražba</th><th>vůz</th><th class="r">cíl prodejce</th><th class="r">náš strop</th><th class="r">skončilo na</th><th class="r">odchylka</th><th>výsledek</th></tr>';
+ for(const v of P){
+  let tag,cls;
+  if(!v.final_eur||v.prodano===false){ tag='neprodáno'; cls='t-warn'; nepr++; }
+  else if(v.final_eur<=v.strop_eur){ tag='trefa'; cls='t-ok'; trefa++; }
+  else { tag='mimo'; cls='t-bad'; mimo++; }
+  if(v.odchylka_pct!==undefined&&v.final_eur) odch.push(Math.abs(v.odchylka_pct));
+  t+='<tr><td><a href="'+(v.url||'#')+'">'+v.ref+'</a><br><span style="font-size:.72rem;color:#888">'+(v.konec_aukce||'').slice(0,10)+'</span></td>'
+   +'<td>'+(v.vuz||'—')+'</td>'
+   +'<td class="r">'+eur(v.cil_eur)+'</td>'
+   +'<td class="r"><b>'+eur(v.strop_eur)+'</b></td>'
+   +'<td class="r">'+(v.final_eur?'<b>'+eur(v.final_eur)+'</b>':'—')+'</td>'
+   +'<td class="r">'+(v.odchylka_pct!==undefined&&v.final_eur?((v.odchylka_pct>=0?'+':'')+v.odchylka_pct.toFixed(1)+' %'):'—')+'</td>'
+   +'<td><span class="tag '+cls+'">'+tag+'</span></td></tr>';
+ }
+ t+='</table>';
+ document.getElementById('tabulka').innerHTML=t;
+ document.getElementById('s-celkem').textContent=P.length;
+ document.getElementById('s-trefa').textContent=trefa;
+ document.getElementById('s-mimo').textContent=mimo;
+ document.getElementById('s-neprodano').textContent=nepr;
+ if(odch.length>=3){ odch.sort((a,b)=>a-b);
+  document.getElementById('s-presnost').textContent=odch[Math.floor(odch.length/2)].toFixed(1)+' %'; }
+ else document.getElementById('s-presnost').textContent='—';
+})();
+</script>
+</body></html>

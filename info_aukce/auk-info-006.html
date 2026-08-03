@@ -147,6 +147,54 @@ Stav motoru, DPF a převodovky z inspekce zjistit nelze — vůz nikdo nenastart
 <div class="guarantee"><strong>Když lot mezitím zmizí, nikdo nic neplatí.</strong> Dražba se zamkne, příhozivší dostanou přednostní pozvánku na další kolo.</div>
 </div>
 
+
+<div class="card" id="vysledekCard" style="display:none;border:2px solid #2a7a4f">
+<h2>Jak to dopadlo <span class="em">— výsledek aukce vozu</span></h2>
+<div id="vysledekBody"></div>
+<div class="info-box" style="margin-top:12px"><strong>Proč to zveřejňujeme</strong>
+Každou vypsanou dražbu vyhodnocujeme po skončení aukce vozu — včetně těch, kde jsme se netrefili. Bez zveřejněných neúspěchů je track record jen reklama. Kompletní přehled všech vyhodnocených lotů: <a href="track-record.html" style="color:#b06000">track record</a>.</div>
+</div>
+
+<script>
+(async function(){
+ try{
+  const REFV = (typeof REF!=='undefined') ? REF : document.title.match(/AUK-INFO-\d+/)?.[0];
+  if(!REFV) return;
+  const r = await fetch('vysledky.json?cb='+Date.now(), {cache:'no-store'});
+  if(!r.ok) return;
+  const d = await r.json();
+  const v = (d.polozky||[]).find(x=>x.ref===REFV);
+  if(!v) return;
+  const kc = n => (n===null||n===undefined) ? '—' : Math.round(n).toLocaleString('cs-CZ');
+  const eur = n => (n===null||n===undefined) ? '—' : '€'+Math.round(n).toLocaleString('cs-CZ');
+  let verdikt, barva, veta;
+  if(v.final_eur===0 || v.prodano===false){
+   verdikt='VŮZ SE NEPRODAL'; barva='#b06000';
+   veta='Aukce skončila bez prodeje — poslední příhoz '+eur(v.posledni_prihoz)+' nedosáhl ceny prodejce '+eur(v.cil_eur)+'. Náš strop byl '+eur(v.strop_eur)+'.';
+  } else if(v.final_eur <= v.strop_eur){
+   verdikt='TREFA — vůz šel koupit se ziskem'; barva='#2a7a4f';
+   veta='Aukce skončila na '+eur(v.final_eur)+', náš strop byl '+eur(v.strop_eur)+'. Rozdíl '+eur(v.strop_eur-v.final_eur)+' je rezerva, o kterou by byl obchod ziskovější, než jsme počítali.';
+  } else {
+   verdikt='MIMO — cena přerostla náš strop'; barva='#c0392b';
+   veta='Aukce skončila na '+eur(v.final_eur)+', náš strop byl '+eur(v.strop_eur)+'. Vůz se vydražil o '+eur(v.final_eur-v.strop_eur)+' výš, než dávalo smysl zaplatit. Kdo by šel nad strop, koupil by pod naši laťku ziskovosti.';
+  }
+  let t = '<div style="font-size:1.15rem;font-weight:800;color:'+barva+';margin-bottom:10px">'+verdikt+'</div>';
+  t += '<p style="font-size:.9rem;margin-bottom:12px">'+veta+'</p>';
+  t += '<table><tr><th>Ukazatel</th><th style="text-align:right">Hodnota</th></tr>';
+  t += '<tr><td>Cena prodejce (cíl aukce)</td><td class="r">'+eur(v.cil_eur)+' · '+kc(v.cil_eur*v.kurz)+' Kč</td></tr>';
+  t += '<tr><td>Náš maximální příhoz (strop)</td><td class="r"><b>'+eur(v.strop_eur)+' · '+kc(v.strop_eur*v.kurz)+' Kč</b></td></tr>';
+  t += '<tr><td>Skutečná koncová cena aukce</td><td class="r"><b>'+(v.final_eur? eur(v.final_eur)+' · '+kc(v.final_eur*v.kurz)+' Kč' : 'neprodáno')+'</b></td></tr>';
+  if(v.zisk_pri_finalni!==undefined && v.final_eur) t += '<tr><td>Zisk při koupi za koncovou cenu <span class="dim">(konzervativní scénář p25 −7 %)</span></td><td class="r '+(v.zisk_pri_finalni>=0?'ok':'bad')+'">'+(v.zisk_pri_finalni>=0?'+':'')+kc(v.zisk_pri_finalni)+' Kč</td></tr>';
+  if(v.odchylka_pct!==undefined) t += '<tr><td>Odchylka koncové ceny od našeho stropu</td><td class="r">'+(v.odchylka_pct>=0?'+':'')+v.odchylka_pct.toFixed(1)+' %</td></tr>';
+  t += '<tr><td>Vyhodnoceno</td><td class="r dim">'+v.datum_vyhodnoceni+'</td></tr>';
+  t += '</table>';
+  if(v.poznamka) t += '<div class="info-box" style="margin-top:10px"><strong>Poznámka</strong>'+v.poznamka+'</div>';
+  document.getElementById('vysledekBody').innerHTML = t;
+  document.getElementById('vysledekCard').style.display = 'block';
+ }catch(e){}
+})();
+</script>
+
 </div>
 
 <div class="footer">

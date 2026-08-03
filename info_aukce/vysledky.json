@@ -1,0 +1,6 @@
+{
+ "_popis": "Verejny track record predikci BATKO.DIGITAL.AI. Plni se automaticky po skonceni aukce vozu. Zapisuji se VSECHNY vyhodnocene lot, i ty, kde jsme se netrefili.",
+ "_metodika": "strop_eur = nas maximalni prihoz pri D=30 a prahu 0,40 %/den, spocteny pred koncem aukce z percentilu sauto.cz. final_eur = skutecna koncova cena aukce (FinalPrice z API, 0 = neprodano). Trefa = aukce skoncila pod nasim stropem, tedy vuz sel koupit se ziskem.",
+ "aktualizovano": "2026-08-03T11:00:00+02:00",
+ "polozky": []
+}
