@@ -1,8 +1,8 @@
 {
  "_popis": "Verejny track record predikci BATKO.DIGITAL.AI. Zapisuji se VSECHNY vyhodnocene loty, i ty, kde jsme se netrefili, i ty, kde jsme drazbu zamerne nevypsali.",
  "_metodika": "strop_eur = nas maximalni prihoz pri D=30 a prahu 0,40 %/den, spocteny PRED koncem aukce z percentilu sauto.cz. posledni_prihoz = posledni verejne viditelna cena v aukci (CurrentPrice). final_eur = skutecna prodejni cena — platforma ji u cizich transakci NEZVEREJNUJE, proto zustava null.",
- "_omezeni": "Nevime, zda se vuz nakonec prodal. OPENLANE u cizich lotu neukazuje FinalPrice ani IsSold jinak nez 0/false. Vyhodnocujeme tedy POSLEDNI PRIHOZ proti nasemu stropu, ne prodejni cenu.",
- "aktualizovano": "2026-08-03T12:45:00+02:00",
+ "_omezeni": "Nevime, zda se vuz nakonec prodal. OPENLANE u cizich lotu neukazuje FinalPrice ani IsSold jinak nez 0/false. Vyhodnocujeme tedy POSLEDNI PRIHOZ proti nasemu stropu, ne prodejni cenu. AKTUALIZACE 4. 8. 2026: u lotu AUK-INFO-004 platforma poprve vratila nenulovou FinalPrice (10 000 EUR) pri IsSold = false. Tam, kde FinalPrice prijde, ji zapisujeme jako final_eur; kde je 0, zustava vyhodnoceni na poslednim prihozu. Zda se vuz nakonec prodal, platforma i tak nepotvrzuje.",
+ "aktualizovano": "2026-08-04T16:20:00+02:00",
  "polozky": [
   {
    "ref": "AUK-INFO-001",
@@ -212,6 +212,56 @@
    "rozklad": null,
    "scenare": null,
    "scenare_duvod": "Pro tenhle model nemá český trh dost srovnatelných inzerátů (méně než 20), takže cenu neodhadujeme — a bez ceny nejde spočítat, kolik by se vydělalo."
+  },
+  {
+   "ref": "AUK-INFO-004",
+   "typ": "drazba",
+   "vuz": "Kombi nižší střední třídy · 2021 · nafta · automat · 110 kW · Belgie",
+   "url": "auk-info-004.html",
+   "konec_aukce": "2026-08-04T09:00",
+   "cil_eur": 9400,
+   "strop_eur": 9823,
+   "final_eur": 10000,
+   "posledni_prihoz": 10000,
+   "prodano": false,
+   "kurz": 24.345,
+   "zisk_pri_finalni": 31153,
+   "odchylka_pct": 1.8,
+   "datum_vyhodnoceni": "4. 8. 2026",
+   "vysledek": "mimo",
+   "poznamka": "Netrefili jsme se. Aukce skončila na €10 000, tedy 177 € nad naším stropem €9 823 — vůz jsme za svou cenu nekoupili. Při ceně €10 000 by konzervativní scénář (p25 −7 %) dal +31 153 Kč, jenže laťka KUP je při vázaném kapitálu 276 285 Kč rovných 33 154 Kč. Přesně o těch 2 tis. Kč strop nepustil dál — a aukce ho o 177 € přelezla. Platforma vrátila FinalPrice €10 000, ale IsSold = false; jestli se vůz nakonec prodal, nezveřejňuje.",
+   "rozklad": {
+    "vuz_kc": 243450,
+    "poplatky_kc": 12051,
+    "doprava_kc": 10834,
+    "papiry_kc": 3950,
+    "druhy_klic_kc": 6000,
+    "kapital_kc": 276285,
+    "vzorek_n": 133
+   },
+   "scenare": null,
+   "scenare_duvod": "Zveřejněná čísla scénářů zůstávají na stránce dražby (medián trhu 444 999 Kč, n=133, měřeno 2. 8.). Zde uvádíme jen zisk při skutečné konečné ceně."
+  },
+  {
+   "ref": "AUK-INFO-005",
+   "typ": "drazba",
+   "vuz": "Kombi nižší střední třídy · 2023 · nafta · automat · 110 kW · Německo",
+   "url": "auk-info-005.html",
+   "konec_aukce": "2026-08-04T09:45",
+   "cil_eur": 15400,
+   "strop_eur": 16817,
+   "final_eur": 0,
+   "posledni_prihoz": 15000,
+   "prodano": false,
+   "kurz": 24.345,
+   "zisk_pri_finalni": null,
+   "odchylka_pct": -10.8,
+   "datum_vyhodnoceni": "4. 8. 2026",
+   "vysledek": "neprodano",
+   "poznamka": "Neprodáno — FinalPrice 0, IsSold false. Aukce doběhla na €15 000, tedy 400 € POD cenou prodejce a 1 817 € pod naším stropem €16 817. Vůz šel v celém průběhu koupit v našem rozpětí a nikdo ho na cíl prodejce nedotlačil. Náš strop byl tedy správně nad trhem, ale obchod z toho není — trefa se počítá jen tam, kde se vůz skutečně prodal.",
+   "rozklad": null,
+   "scenare": null,
+   "scenare_duvod": "Vůz se neprodal, takže není konečná cena, ke které by se zisk počítal. Scénáře k cíli prodejce zůstávají na stránce dražby (medián trhu 679 900 Kč, n=92, měřeno 2. 8.)."
   }
  ]
 }
