@@ -2,7 +2,7 @@
  "_popis": "Verejny track record predikci BATKO.DIGITAL.AI. Zapisuji se VSECHNY vyhodnocene loty, i ty, kde jsme se netrefili, i ty, kde jsme drazbu zamerne nevypsali.",
  "_metodika": "strop_eur = nas maximalni prihoz pri D=30 a prahu 0,40 %/den, spocteny PRED koncem aukce z percentilu sauto.cz. posledni_prihoz = posledni verejne viditelna cena v aukci (CurrentPrice). final_eur = skutecna prodejni cena — platforma ji u cizich transakci NEZVEREJNUJE, proto zustava null.",
  "_omezeni": "Nevime, zda se vuz nakonec prodal. OPENLANE u cizich lotu neukazuje FinalPrice ani IsSold jinak nez 0/false. Vyhodnocujeme tedy POSLEDNI PRIHOZ proti nasemu stropu, ne prodejni cenu. AKTUALIZACE 4. 8. 2026: u lotu AUK-INFO-004 platforma poprve vratila nenulovou FinalPrice (10 000 EUR) pri IsSold = false. Tam, kde FinalPrice prijde, ji zapisujeme jako final_eur; kde je 0, zustava vyhodnoceni na poslednim prihozu. Zda se vuz nakonec prodal, platforma i tak nepotvrzuje.",
- "aktualizovano": "2026-08-04T16:20:00+02:00",
+ "aktualizovano": "2026-08-04T19:15:00+02:00",
  "polozky": [
   {
    "ref": "AUK-INFO-001",
@@ -262,6 +262,35 @@
    "rozklad": null,
    "scenare": null,
    "scenare_duvod": "Vůz se neprodal, takže není konečná cena, ke které by se zisk počítal. Scénáře k cíli prodejce zůstávají na stránce dražby (medián trhu 679 900 Kč, n=92, měřeno 2. 8.)."
+  },
+  {
+   "ref": "AUK-INFO-006",
+   "typ": "drazba",
+   "vuz": "Kombi střední třídy · 2023 · nafta · automat · 110 kW · Německo",
+   "url": "auk-info-006.html",
+   "konec_aukce": "2026-08-04T16:22",
+   "cil_eur": 17900,
+   "strop_eur": 19654,
+   "final_eur": 19900,
+   "posledni_prihoz": 19900,
+   "prodano": false,
+   "kurz": 24.345,
+   "zisk_pri_finalni": 61762,
+   "odchylka_pct": 1.2,
+   "datum_vyhodnoceni": "4. 8. 2026",
+   "vysledek": "mimo",
+   "poznamka": "Netrefili jsme se — potřetí týž vzorec. Aukce skončila na €19 900, tedy 246 € nad naším stropem €19 654 (+1,2 %). Při ceně €19 900 by konzervativní scénář (p25 760 000 Kč, −7 %) dal +61 762 Kč, jenže laťka KUP je při vázaném kapitálu 522 370 Kč rovných 62 684 Kč — chybělo 922 Kč. Rezerva 7 000 Kč na přední pneumatiky (dezén 3,0 mm) v kapitálu není, s ní je propad větší. Platforma vrátila FinalPrice €19 900 při IsSold = false a StatusId 4; zda se vůz prodal, nepotvrzuje. Konec aukce se během dražby posunul z 15:50 na 16:22 — příhozy na poslední chvíli prodlužují uzávěrku.",
+   "rozklad": {
+    "vuz_kc": 484466,
+    "poplatky_kc": 16798,
+    "doprava_kc": 11156,
+    "papiry_kc": 3950,
+    "druhy_klic_kc": 6000,
+    "kapital_kc": 522370,
+    "vzorek_n": 74
+   },
+   "scenare": null,
+   "scenare_duvod": "Zveřejněná čísla scénářů zůstávají na stránce dražby (medián trhu 817 000 Kč, n=74, měřeno 2. 8.). Zde uvádíme jen zisk při skutečné konečné ceně."
   }
  ]
 }
