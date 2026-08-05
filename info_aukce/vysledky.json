@@ -1,8 +1,8 @@
 {
  "_popis": "Verejny track record predikci BATKO.DIGITAL.AI. Zapisuji se VSECHNY vyhodnocene loty, i ty, kde jsme se netrefili, i ty, kde jsme drazbu zamerne nevypsali.",
- "_metodika": "strop_eur = nas maximalni prihoz pri D=30 a prahu 0,40 %/den, spocteny PRED koncem aukce z percentilu sauto.cz. posledni_prihoz = posledni verejne viditelna cena v aukci (CurrentPrice). final_eur = skutecna prodejni cena — platforma ji u cizich transakci NEZVEREJNUJE, proto zustava null.",
+ "_metodika": "strop_eur = nas maximalni prihoz pri D=30 a prahu 0,40 %/den, spocteny PRED koncem aukce z percentilu sauto.cz. posledni_prihoz = posledni verejne viditelna cena v aukci (CurrentPrice). final_eur = skutecna prodejni cena — platforma ji u cizich transakci NEZVEREJNUJE, proto zustava null. POZNÁMKA K PŘESNOSTI: aukční poplatek je pásmový; hranice pásem byly 4. 8. 2026 doměřeny na devíti živých lotech (€245 do €10 000 · €300 do €20 000 · €395 nad) a opravují starší interní odhad.",
  "_omezeni": "Nevime, zda se vuz nakonec prodal. OPENLANE u cizich lotu neukazuje FinalPrice ani IsSold jinak nez 0/false. Vyhodnocujeme tedy POSLEDNI PRIHOZ proti nasemu stropu, ne prodejni cenu. AKTUALIZACE 4. 8. 2026: u lotu AUK-INFO-004 platforma poprve vratila nenulovou FinalPrice (10 000 EUR) pri IsSold = false. Tam, kde FinalPrice prijde, ji zapisujeme jako final_eur; kde je 0, zustava vyhodnoceni na poslednim prihozu. Zda se vuz nakonec prodal, platforma i tak nepotvrzuje.",
- "aktualizovano": "2026-08-04T19:15:00+02:00",
+ "aktualizovano": "2026-08-04T19:45:00+02:00",
  "polozky": [
   {
    "ref": "AUK-INFO-001",
@@ -229,7 +229,7 @@
    "odchylka_pct": 1.8,
    "datum_vyhodnoceni": "4. 8. 2026",
    "vysledek": "mimo",
-   "poznamka": "Netrefili jsme se. Aukce skončila na €10 000, tedy 177 € nad naším stropem €9 823 — vůz jsme za svou cenu nekoupili. Při ceně €10 000 by konzervativní scénář (p25 −7 %) dal +31 153 Kč, jenže laťka KUP je při vázaném kapitálu 276 285 Kč rovných 33 154 Kč. Přesně o těch 2 tis. Kč strop nepustil dál — a aukce ho o 177 € přelezla. Platforma vrátila FinalPrice €10 000, ale IsSold = false; jestli se vůz nakonec prodal, nezveřejňuje.",
+   "poznamka": "Netrefili jsme se. Aukce skončila na €10 000, tedy 177 € nad naším stropem €9 823 — vůz jsme za svou cenu nekoupili. Při ceně €10 000 by konzervativní scénář (p25 −7 %) dal +31 153 Kč, jenže laťka KUP je při vázaném kapitálu 276 285 Kč rovných 33 154 Kč. Přesně o těch 2 tis. Kč strop nepustil dál — a aukce ho o 177 € přelezla. Poznámka k poplatku: hranice pásma €245/€300 leží (doměřeno 4. 8.) na €10 000, tedy přesně na konečné ceně tohoto lotu — použili jsme konzervativnější pásmo €300. S pásmem €245 by zisk byl 32 492 Kč a dROI 0,39 %/den, tedy pod prahem KUP tak jako tak. Platforma vrátila FinalPrice €10 000, ale IsSold = false; jestli se vůz nakonec prodal, nezveřejňuje.",
    "rozklad": {
     "vuz_kc": 243450,
     "poplatky_kc": 12051,
@@ -275,22 +275,23 @@
    "posledni_prihoz": 19900,
    "prodano": false,
    "kurz": 24.345,
-   "zisk_pri_finalni": 61762,
+   "zisk_pri_finalni": 64074,
    "odchylka_pct": 1.2,
    "datum_vyhodnoceni": "4. 8. 2026",
    "vysledek": "mimo",
-   "poznamka": "Netrefili jsme se — potřetí týž vzorec. Aukce skončila na €19 900, tedy 246 € nad naším stropem €19 654 (+1,2 %). Při ceně €19 900 by konzervativní scénář (p25 760 000 Kč, −7 %) dal +61 762 Kč, jenže laťka KUP je při vázaném kapitálu 522 370 Kč rovných 62 684 Kč — chybělo 922 Kč. Rezerva 7 000 Kč na přední pneumatiky (dezén 3,0 mm) v kapitálu není, s ní je propad větší. Platforma vrátila FinalPrice €19 900 při IsSold = false a StatusId 4; zda se vůz prodal, nepotvrzuje. Konec aukce se během dražby posunul z 15:50 na 16:22 — příhozy na poslední chvíli prodlužují uzávěrku.",
+   "poznamka": "Netrefili jsme se: aukce skončila na €19 900, tedy 246 € nad naším stropem €19 654 (+1,2 %). Při ceně €19 900 by konzervativní scénář (p25 760 000 Kč, −7 %) dal +64 074 Kč při vázaném kapitálu 520 058 Kč, což je denní ROI 0,41 %/den při D=30 — těsně NAD naším prahem KUP 0,40 %/den. Jinými slovy: vůz aukci přerostl náš zveřejněný strop, ale za konečnou cenu by podle našeho vlastního prahu ještě šel koupit. Rozdíl vzniká uvnitř naší metodiky, ne na trhu — vzorec pro max. příhoz je o 1,6 % konzervativnější než práh dROI, na který se odvolává. Zveřejňujeme to takhle otevřeně, protože track record má ukazovat i chyby v naší vlastní metodě. Rezerva 7 000 Kč na přední pneumatiky (dezén 3,0 mm) v kapitálu není. Platforma vrátila FinalPrice €19 900 při IsSold = false a StatusId 4; zda se vůz prodal, nepotvrzuje. Konec aukce se posunul z 15:50 na 16:22 — příhozy na poslední chvíli prodlužují uzávěrku.",
    "rozklad": {
     "vuz_kc": 484466,
-    "poplatky_kc": 16798,
+    "poplatky_kc": 14486,
     "doprava_kc": 11156,
     "papiry_kc": 3950,
     "druhy_klic_kc": 6000,
-    "kapital_kc": 522370,
+    "kapital_kc": 520058,
     "vzorek_n": 74
    },
    "scenare": null,
-   "scenare_duvod": "Zveřejněná čísla scénářů zůstávají na stránce dražby (medián trhu 817 000 Kč, n=74, měřeno 2. 8.). Zde uvádíme jen zisk při skutečné konečné ceně."
+   "scenare_duvod": "Zveřejněná čísla scénářů zůstávají na stránce dražby (medián trhu 817 000 Kč, n=74, měřeno 2. 8.). Zde uvádíme jen zisk při skutečné konečné ceně.",
+   "oprava": "4. 8. 2026 večer opraveno: v prvním zápisu byl použit aukční poplatek €395 (pásmo „nad 18 k\" dle interní báze). Doměřením devíti živých lotů se ukázalo, že hranice pásma leží až na €20 000, ne na €18 000 — při €19 900 je poplatek €300. Vázaný kapitál se tím snížil z 522 370 na 520 058 Kč a zisk vzrostl z 61 762 na 64 074 Kč. Původní poznámka tvrdila, že k prahu KUP chybělo 922 Kč; ve skutečnosti byl práh o 0,01 procentního bodu překročen. Verdikt „mimo\" i strop €19 654 zůstávají beze změny — strop byl zveřejněn před aukcí a zpětně se needituje."
   }
  ]
 }
