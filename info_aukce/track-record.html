@@ -27,6 +27,7 @@ td.r{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
 .t-ok{background:#eaf7ef;color:#1a6b3a;border:1px solid #2a7a4f}
 .t-bad{background:#fdecea;color:#a3271c;border:1px solid #c0392b}
 .t-warn{background:#fff5e6;color:#8a5000;border:1px solid #b06000}
+.t-nic{background:#f3f5f9;color:#4a5568;border:1px solid #b9c2d0}
 .vysvetleni{background:linear-gradient(180deg,#f8fafd,#eef3fa);border:1px solid #d5e0f0;border-radius:12px;padding:20px 24px;margin:18px 0}
 .krok{display:flex;gap:14px;margin:14px 0;align-items:flex-start}
 .krok-c{flex:0 0 32px;height:32px;background:#0d1f3c;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.9rem}
@@ -64,9 +65,9 @@ td.r{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
 
 <div class="stats">
 <div class="stat"><b id="s-celkem">—</b><span>vyhodnocených aut</span></div>
-<div class="stat ok"><b id="s-trefa">—</b><span>šlo koupit v našem rozpětí</span></div>
+<div class="stat ok"><b id="s-trefa">—</b><span>trefa · vůz se prodal</span></div>
 <div class="stat bad"><b id="s-mimo">—</b><span>vydražilo se dráž</span></div>
-<div class="stat warn"><b id="s-nedosahlo">—</b><span>nedosáhlo ceny prodejce</span></div>
+<div class="stat warn"><b id="s-nedosahlo">—</b><span>neprodáno</span></div>
 <div class="stat"><b id="s-presnost">—</b><span>medián odchylky</span></div>
 </div>
 
@@ -85,7 +86,7 @@ td.r{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
 <b>U těch zbylých spočítáme jedno číslo: náš strop.</b> To je nejvyšší částka, kterou má smysl v aukci nabídnout. Ne cena, za kterou se auto prodá — ale hranice, za kterou už na tom neušetříte dost, aby se vám vyplatilo podstupovat riziko.</div></div>
 
 <div class="krok"><div class="krok-c">4</div><div class="krok-t">
-<b>Pak sledujeme, kde aukce doopravdy skončila.</b> Skončila pod naším stropem? Auto se dalo koupit v našem rozpětí — příležitost byla reálná. Skončila nad stropem? Někdo zaplatil víc, než dávalo smysl.</div></div>
+<b>Pak sledujeme, kde aukce doopravdy skončila.</b> Skončila pod naším stropem? Auto se dalo koupit v našem rozpětí — příležitost byla reálná. Skončila nad stropem? Někdo zaplatil víc, než dávalo smysl. A hlídáme ještě jednu věc: jestli se vůz vůbec prodal. Když poslední příhoz nepřelezl cenu prodejce, obchod neproběhl — a to za trefu nepočítáme, i kdyby strop seděl.</div></div>
 </div>
 
 <div class="priklad">
@@ -101,11 +102,12 @@ Pokud kupujete auto pro sebe, spíš ne — jednorázový dovoz jednoho vozu se 
 
 <h2>Všechna vyhodnocená auta</h2>
 <p class="dim" style="font-size:.86rem">U každého auta rozklikněte <b>„Kolik by se na tom dalo vydělat"</b> — uvidíte celý rozpočet a výdělek podle toho, za kolik a jak rychle byste auto prodali.</p>
+<p class="dim" style="font-size:.86rem">Čísla v hlavičce sčítají jen auta, u kterých jsme prodej dohledali. Starší položky označené <b>„prodej nepotvrzen"</b> zůstávají v seznamu, ale do skóre se nepočítají.</p>
 <div id="tabulka"><div class="empty">Načítám…</div></div>
 
 <h2>Čemu tahle čísla <span class="em">nerozumí</span></h2>
-<div class="info-box"><strong>1. Nevíme, jestli se auto nakonec prodalo</strong>
-Aukční platforma u cizích aut nezveřejňuje konečnou prodejní cenu ani to, jestli obchod proběhl. Vidíme jen poslední veřejnou nabídku. Proto neříkáme „prodalo se za tolik", ale „aukce skončila na tolika" — to je rozdíl, na kterém záleží.</div>
+<div class="info-box"><strong>1. Prodej platforma nepotvrzuje — ověřujeme ho oklikou</strong>
+Aukční platforma u cizích aut nikdy neřekne „prodáno". Vidíme jen poslední veřejnou nabídku, a i když u ní vrátí konečnou cenu, prodej to neznamená. Pomáháme si proto druhou stopou: neprodaný vůz se na platformu vrací pod novým číslem lotu. Když se stejná specifikace se stejným nájezdem objeví znovu, vůz se neprodal — a to je jistota. Když se neobjeví, je to silná indicie, že se prodal, ale ne důkaz. <b>Trefu proto počítáme jen tam, kde poslední příhoz zároveň přelezl cenu prodejce a vůz se v nabídce znovu neobjevil.</b></div>
 
 <div class="info-box"><strong>2. Ceny v Česku bereme z inzerátů, ne z uzavřených prodejů</strong>
 Za kolik se auta v Česku skutečně prodávají, veřejně neví nikdo. Pracujeme proto s inzerátovými cenami, a to ještě opatrně: bereme spodní čtvrtinu trhu a odečítáme dalších 7 % na smlouvání. Skutečná prodejní cena může být níž.</div>
@@ -135,17 +137,24 @@ Až projde první dokončený obchod, přidáme sem skutečnou prodejní cenu a 
  const P=(d.polozky||[]).slice().sort((a,b)=>(a.konec_aukce<b.konec_aukce?1:-1));
  if(!P.length){ document.getElementById('tabulka').innerHTML='<div class="empty">Zatím žádné vyhodnocené auto.</div>'; return; }
 
- let pod=0,nad=0,neds=0,odch=[],html='';
- for(const v of P){
-  let tag,cls,shrn;
-  if(!v.strop_eur){ tag='nelze vyhodnotit'; cls='t-warn';
-   shrn='U tohohle auta jsme si strop tehdy nezapsali, takže nemůžeme poctivě říct, jestli jsme se trefili.'; }
-  else if(v.posledni_prihoz<=v.strop_eur){ tag='šlo koupit v našem rozpětí'; cls='t-ok'; pod++;
-   shrn='Aukce skončila '+eur(v.strop_eur-v.posledni_prihoz)+' <b>pod</b> naším stropem — auto se dalo koupit za cenu, která podle našeho propočtu dávala smysl.'; }
-  else { tag='vydražilo se dráž'; cls='t-bad'; nad++;
-   shrn='Aukce skončila '+eur(v.posledni_prihoz-v.strop_eur)+' <b>nad</b> naším stropem. Kdo šel výš, zaplatil víc, než podle nás dávalo smysl.'; }
-  if(v.posledni_prihoz<v.cil_eur) neds++;
-  if(v.odchylka_pct!==null&&v.odchylka_pct!==undefined) odch.push(Math.abs(v.odchylka_pct));
+ let ntrefa=0,nmimo=0,nneprodano=0,nvyh=0,odch=[],html='';
+for(const v of P){
+let tag,cls,shrn;
+const vys=v.vysledek||null;
+if(vys) nvyh++;
+if(vys==='trefa'){ tag='trefa · vůz se prodal'; cls='t-ok'; ntrefa++;
+shrn='Aukce skončila '+eur(v.strop_eur-v.posledni_prihoz)+' <b>pod</b> naším stropem a zároveň '+eur(v.posledni_prihoz-v.cil_eur)+' <b>nad</b> cenou prodejce. Prodejce tedy svoje dostal a vůz se v pozdější nabídce už neobjevil — to je nejsilnější doklad prodeje, jaký platforma dovolí.'; }
+else if(vys==='mimo'){ tag='vydražilo se dráž'; cls='t-bad'; nmimo++;
+shrn='Netrefili jsme se. Aukce skončila '+eur(v.posledni_prihoz-v.strop_eur)+' <b>nad</b> naším stropem. Kdo šel výš, zaplatil víc, než podle nás dávalo smysl.'; }
+else if(vys==='neprodano'){ tag='neprodáno'; cls='t-warn'; nneprodano++;
+shrn='Vůz se <b>neprodal</b>. Aukce sice skončila pod naším stropem, ale zároveň '+eur(v.cil_eur-v.posledni_prihoz)+' <b>pod cenou prodejce</b> — ten poslední příhoz nepřijal. Náš strop tedy ležel nad trhem, jenže obchod z toho není. Trefu počítáme jen tam, kde se vůz skutečně prodal.'; }
+else if(!v.strop_eur){ tag='nelze vyhodnotit'; cls='t-warn';
+shrn='U tohohle auta jsme si strop tehdy nezapsali, takže nemůžeme poctivě říct, jestli jsme se trefili.'; }
+else if(v.posledni_prihoz<=v.strop_eur){ tag='pod naším stropem · prodej nepotvrzen'; cls='t-nic';
+shrn='Aukce skončila '+eur(v.strop_eur-v.posledni_prihoz)+' <b>pod</b> naším stropem. Jestli se vůz nakonec prodal, jsme u téhle položky neověřovali — do skóre se proto nepočítá.'; }
+else { tag='nad naším stropem · prodej nepotvrzen'; cls='t-nic';
+shrn='Aukce skončila '+eur(v.posledni_prihoz-v.strop_eur)+' <b>nad</b> naším stropem. Jestli se vůz nakonec prodal, jsme u téhle položky neověřovali — do skóre se proto nepočítá.'; }
+if(vys&&v.odchylka_pct!==null&&v.odchylka_pct!==undefined) odch.push(Math.abs(v.odchylka_pct));
 
   html+='<div style="border:1px solid #e2e6ee;border-radius:10px;padding:16px 18px;margin-bottom:14px">';
   html+='<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap">';
@@ -194,10 +203,10 @@ Až projde první dokončený obchod, přidáme sem skutečnou prodejní cenu a 
   html+='</div>';
  }
  document.getElementById('tabulka').innerHTML=html;
- document.getElementById('s-celkem').textContent=P.length;
- document.getElementById('s-trefa').textContent=pod;
- document.getElementById('s-mimo').textContent=nad;
- document.getElementById('s-nedosahlo').textContent=neds;
+ document.getElementById('s-celkem').textContent=nvyh;
+document.getElementById('s-trefa').textContent=ntrefa;
+document.getElementById('s-mimo').textContent=nmimo;
+document.getElementById('s-nedosahlo').textContent=nneprodano;
  if(odch.length>=3){ odch.sort((a,b)=>a-b);
   document.getElementById('s-presnost').textContent=odch[Math.floor(odch.length/2)].toFixed(1)+' %'; }
  else document.getElementById('s-presnost').textContent='—';
