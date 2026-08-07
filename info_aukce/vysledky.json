@@ -2,7 +2,7 @@
  "_popis": "Verejny track record predikci BATKO.DIGITAL.AI. Zapisuji se VSECHNY vyhodnocene loty, i ty, kde jsme se netrefili, i ty, kde jsme drazbu zamerne nevypsali.",
  "_metodika": "strop_eur = nas maximalni prihoz pri D=30 a prahu 0,40 %/den, spocteny PRED koncem aukce z percentilu sauto.cz. posledni_prihoz = posledni verejne viditelna cena v aukci (CurrentPrice). final_eur = skutecna prodejni cena — platforma ji u cizich transakci NEZVEREJNUJE, proto zustava null. POZNÁMKA K PŘESNOSTI: aukční poplatek je pásmový; hranice pásem byly 4. 8. 2026 doměřeny na devíti živých lotech (€245 do €10 000 · €300 do €20 000 · €395 nad) a opravují starší interní odhad.",
  "_omezeni": "Nevime, zda se vuz nakonec prodal. OPENLANE u cizich lotu neukazuje FinalPrice ani IsSold jinak nez 0/false. Vyhodnocujeme tedy POSLEDNI PRIHOZ proti nasemu stropu, ne prodejni cenu. AKTUALIZACE 4. 8. 2026: u lotu AUK-INFO-004 platforma poprve vratila nenulovou FinalPrice (10 000 EUR) pri IsSold = false. Tam, kde FinalPrice prijde, ji zapisujeme jako final_eur; kde je 0, zustava vyhodnoceni na poslednim prihozu. Zda se vuz nakonec prodal, platforma i tak nepotvrzuje.",
- "aktualizovano": "2026-08-06T21:35:00+02:00",
+ "aktualizovano": "2026-08-07T20:50:00+02:00",
  "polozky": [
   {
    "ref": "AUK-INFO-001",
@@ -353,6 +353,28 @@
    },
    "scenare": null,
    "scenare_duvod": "Zveřejněná čísla scénářů zůstávají na stránce dražby (p25 759 999 Kč, medián trhu 866 950 Kč). Zde uvádíme jen zisk při konečné ceně, které aukce dosáhla.",
+   "zisk_ciji": "kupujícího, hypoteticky — ne náš, vozy nekupujeme"
+  },
+  {
+   "ref": "AUK-INFO-009",
+   "typ": "drazba",
+   "vuz": "Kombi nižší střední třídy · 2022 · nafta · automat · 85 kW · Belgie",
+   "url": "auk-info-009.html",
+   "konec_aukce": "2026-08-07T10:30",
+   "cil_eur": 10500,
+   "strop_eur": 11122,
+   "final_eur": 9800,
+   "posledni_prihoz": 9800,
+   "prodano": false,
+   "kurz": 24.2897,
+   "zisk_pri_finalni": null,
+   "odchylka_pct": -11.9,
+   "datum_vyhodnoceni": "7. 8. 2026",
+   "vysledek": "neprodano",
+   "poznamka": "Neprodáno. Aukce skončila na €9 800, tedy 1 322 € pod naším stropem €11 122, ale zároveň 700 € POD cenou prodejce €10 500 — prodejce poslední příhoz nepřijal. Platforma vrátila FinalPrice €9 800 při IsSold = false a StatusId 6. Mechanicky by naše pravidlo (konečná cena ≤ strop) řeklo „trefa“ — nepočítáme ji. Trefa se počítá jen tam, kde se vůz skutečně prodal, stejně jako u AUK-INFO-005 a 008. Náš verdikt před aukcí byl 105,9 %, tedy nad laťkou 95 % i nad cenou prodejce; přesto se vůz neprodal. To je první případ, kdy poměr nad 100 % k prodeji nestačil — dosavadní čtyři pozorování naznačovala opak a tohle je proti nim. Vzorek je pořád příliš malý na to, abychom z něj měnili laťku.",
+   "rozklad": null,
+   "scenare": null,
+   "scenare_duvod": "Vůz se neprodal, takže není konečná cena, ke které by se zisk počítal. Scénáře k cíli prodejce zůstávají na stránce dražby.",
    "zisk_ciji": "kupujícího, hypoteticky — ne náš, vozy nekupujeme"
   }
  ],
