@@ -2,7 +2,7 @@
  "_popis": "Verejny track record predikci BATKO.DIGITAL.AI. Zapisuji se VSECHNY vyhodnocene loty, i ty, kde jsme se netrefili, i ty, kde jsme drazbu zamerne nevypsali.",
  "_metodika": "strop_eur = nas maximalni prihoz pri D=30 a prahu 0,40 %/den, spocteny PRED koncem aukce z percentilu sauto.cz. posledni_prihoz = posledni verejne viditelna cena v aukci (CurrentPrice). final_eur = skutecna prodejni cena — platforma ji u cizich transakci NEZVEREJNUJE, proto zustava null. POZNÁMKA K PŘESNOSTI: aukční poplatek je pásmový; hranice pásem byly 4. 8. 2026 doměřeny na devíti živých lotech (€245 do €10 000 · €300 do €20 000 · €395 nad) a opravují starší interní odhad.",
  "_omezeni": "Nevime, zda se vuz nakonec prodal. OPENLANE u cizich lotu neukazuje FinalPrice ani IsSold jinak nez 0/false. Vyhodnocujeme tedy POSLEDNI PRIHOZ proti nasemu stropu, ne prodejni cenu. AKTUALIZACE 4. 8. 2026: u lotu AUK-INFO-004 platforma poprve vratila nenulovou FinalPrice (10 000 EUR) pri IsSold = false. Tam, kde FinalPrice prijde, ji zapisujeme jako final_eur; kde je 0, zustava vyhodnoceni na poslednim prihozu. Zda se vuz nakonec prodal, platforma i tak nepotvrzuje.",
- "aktualizovano": "2026-08-07T21:20:00+02:00",
+ "aktualizovano": "2026-08-10T21:15:00+02:00",
  "polozky": [
   {
    "ref": "AUK-INFO-001",
@@ -377,6 +377,36 @@
    "scenare_duvod": "Vůz se neprodal, takže není konečná cena, ke které by se zisk počítal. Scénáře k cíli prodejce zůstávají na stránce dražby.",
    "zisk_ciji": "kupujícího, hypoteticky — ne náš, vozy nekupujeme",
    "oprava": "7. 8. 2026 ve 21:20 doplněn test na relist, který v zápisu z 20:50 chyběl. Výsledek testu je uveden v poznámce. Verdikt, strop ani žádné číslo se nemění — doplňuje se pouze chybějící ověření."
+  },
+  {
+   "ref": "AUK-INFO-010",
+   "typ": "drazba",
+   "vuz": "SUV vyšší střední třídy · 2022 · nafta · automat · 110 kW · Německo",
+   "url": "auk-info-010.html",
+   "konec_aukce": "2026-08-10T07:45",
+   "cil_eur": 18900,
+   "strop_eur": 20378,
+   "final_eur": 18900,
+   "posledni_prihoz": 18900,
+   "prodano": true,
+   "kurz": 24.3144,
+   "zisk_pri_finalni": 108678,
+   "odchylka_pct": -7.25,
+   "datum_vyhodnoceni": "10. 8. 2026",
+   "vysledek": "trefa",
+   "poznamka": "Trefa — a poprvé nám prodej potvrdila přímo platforma. Vůz byl v pondělí 10. 8. v 7:45 koupen okamžitým odkupem (Buy Now) za €18 900, tedy přesně za cenu, kterou prodejce žádal. Platforma vrátila IsSold = true, StatusId 5 a příznak okamžitého odkupu; u všech dosavadních dražeb bylo IsSold vždy false a prodej jsme museli dovozovat nepřímo. StatusId 5 jsme přitom viděli poprvé — dosud jsme znali jen 2 (běží), 4 (uzavřena, čeká na prodejce), 6 (skončila) a 50 (pozastavena). Náš strop byl €20 378, konečná cena €18 900 — kupující tedy zaplatil o €1 478 (−7,25 %) méně, než kam podle našeho výpočtu ještě mělo smysl jít. Ta částka není zisk, je to rezerva, kterou by měl kupující navíc. Kontrolní test na relist (10. 8. ve 21:00): projeli jsme celý náš segment na OPENLANE — 2 362 lotů nafta + automat, což přesně sedí na počet, který platforma hlásí — a žádný vůz téhož modelu se shodným nájezdem 44 873 km v nabídce není. To s IsSold = true souhlasí. Tenhle vůz má navíc historii: je to relist lotu z AUK-INFO-008, který se 6. 8. neprodal, když poslední příhoz €18 800 zůstal €1 400 pod tehdejší cenou prodejce €20 200. Prodejce pak slevil na €18 900 a v druhém kole vůz odešel za plnou požadovanou cenu. Druhé kolo tedy prodalo to, co první nedokázalo. Nákladový model jsme zkontrolovali proti publikované stránce a sedí do koruny: 497 551 Kč vázaného kapitálu při ceně €18 900 (poplatek aukci €300 v pásmu do €20 000, country cost Německo €295, seller fee €0, doprava 13 592 Kč na adresu — u téhle dražby, na rozdíl od AUK-INFO-007 a 008, se počítala doprava až na místo, ne do hubu — papíry 3 950 Kč, druhý klíč 6 000 Kč). Zisk kupujícího při prodeji na p25 českého trhu mínus 7 % by byl 108 678 Kč, což je denní ROI 0,73 % při předpokládané době držby 30 dní; práh KUP máme 0,40 %. Pro pořádek: publikovaný strop je o zhruba 1,6 % konzervativnější než ten, který by odpovídal prahu denního ROI (dROI-konzistentní strop by vyšel na €20 705). Rozhodli jsme se 9. 8. držet ten konzervativnější, protože riziko nese kapitál kupujícího. Verdikt se počítá vždy proti publikovanému stropu, tedy €20 378. A jedno omezení, které z tohohle zápisu nesmí zmizet: zisk je hypotetický a patřil by kupujícímu. My vozy nekupujeme a žádný obchod jsme zatím nedokončili — měříme přesnost odhadu, ne realizovaný výdělek.",
+   "rozklad": {
+    "vuz_kc": 459542,
+    "poplatky_kc": 14467,
+    "doprava_kc": 13592,
+    "papiry_kc": 3950,
+    "druhy_klic_kc": 6000,
+    "kapital_kc": 497551,
+    "vzorek_n": 80
+   },
+   "scenare": null,
+   "scenare_duvod": "Vůz se prodal přesně za cenu prodejce, takže scénář ke stropu i k cíli splývá do jednoho čísla. Rozpad kalkulace zůstává na stránce dražby.",
+   "zisk_ciji": "kupujícího, hypoteticky — ne náš, vozy nekupujeme"
   }
  ],
  "_co_prodavame": "BATKO.DIGITAL.AI NEOBCHODUJE S VOZY. Nekupujeme, neskladujeme ani neprodáváme auta — nemáme na to kapitál a nemáme investory. Prodáváme jednu věc: předem spočítanou informaci, za kolik má smysl na konkrétní lot přihodit. Vůz kupuje a prodává zákazník, na svůj kapitál a své riziko.",
