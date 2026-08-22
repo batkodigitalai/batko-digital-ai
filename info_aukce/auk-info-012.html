@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="cs"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AUK-INFO-012 — dražba informace | BATKO.DIGITAL.AI</title>
+<meta name="robots" content="noindex">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font:16px/1.6 -apple-system,"Segoe UI",Roboto,sans-serif;background:linear-gradient(160deg,#0d1f3c,#2c4a7c);color:#eaf0f8;min-height:100vh;padding:20px}
+.wrap{max-width:760px;margin:0 auto}
+.card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:22px;margin-bottom:16px}
+h1{font-size:26px;margin-bottom:6px}h2{font-size:15px;color:#f39c12;text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px}
+.sub{color:#a9bdd8;font-size:15px}
+.h-ref{color:#8fa6c4;font-size:12px;margin-top:10px;letter-spacing:.03em}
+.badge{display:inline-block;background:#f39c12;color:#0d1f3c;font-weight:700;font-size:12px;padding:5px 11px;border-radius:20px;letter-spacing:.05em}
+.badge-end{background:#c0392b;color:#fff}
+.warn{background:rgba(192,57,43,.18);border:2px solid #e05a49;border-radius:12px;padding:16px;margin-bottom:16px}
+.warn b{color:#ffb3a7}
+.urg{background:rgba(243,156,18,.12);border-left:4px solid #f39c12;border-radius:10px;padding:16px;margin-bottom:16px}
+.urg-l{font-size:12px;color:#f3c07a;text-transform:uppercase;letter-spacing:.07em}
+.urg-h{font-size:24px;font-weight:700;margin:4px 0 8px}
+.cd{display:flex;gap:10px;margin:12px 0}
+.cd div{background:rgba(0,0,0,.28);border-radius:8px;padding:9px 14px;text-align:center;min-width:66px}
+.cd b{display:block;font-size:24px}.cd span{font-size:10px;color:#a9bdd8;text-transform:uppercase}
+.calb a{display:inline-block;background:rgba(255,255,255,.12);color:#eaf0f8;text-decoration:none;padding:8px 13px;border-radius:8px;font-size:13px;margin:3px 6px 3px 0}
+.calb a:hover{background:rgba(255,255,255,.2)}
+.hero{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:center;background:rgba(0,0,0,.22);border-radius:12px;padding:18px;margin-bottom:16px}
+.hl{font-size:11px;color:#a9bdd8;text-transform:uppercase;letter-spacing:.07em}
+.ha{font-size:30px;font-weight:700;color:#f39c12}.ha small{font-size:13px;color:#a9bdd8;font-weight:400}
+table{width:100%;border-collapse:collapse}
+td{padding:9px 4px;border-bottom:1px solid rgba(255,255,255,.09);vertical-align:top;font-size:14px}
+td:first-child{color:#a9bdd8;width:42%}
+.ok{color:#5fd39b}.bad{color:#ff8a75}
+input{width:100%;padding:11px;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:rgba(0,0,0,.25);color:#eaf0f8;font:inherit;margin-bottom:9px}
+button{width:100%;padding:14px;border:0;border-radius:9px;background:#f39c12;color:#0d1f3c;font-weight:700;font-size:16px;cursor:pointer}
+button:disabled{background:#6b7d95;color:#c3cede;cursor:not-allowed}
+.msg{margin-top:10px;font-size:14px;min-height:20px}
+.bids{margin-top:14px;font-size:13px;color:#a9bdd8}
+.bids div{padding:5px 0;border-bottom:1px solid rgba(255,255,255,.07)}
+ul{margin:8px 0 0 18px}li{margin:5px 0;font-size:14px}
+.foot{color:#8fa6c4;font-size:12px;text-align:center;padding:14px 0 30px;line-height:1.7}
+.lock{display:none;background:rgba(0,0,0,.55);border:2px solid #c0392b;border-radius:12px;padding:20px;text-align:center;font-size:17px;font-weight:700;margin-bottom:16px}
+</style></head><body><div class="wrap">
+
+<div class="card">
+<div style="display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:flex-start">
+<div>
+<h1>Kombi nižší střední třídy · 2023 · nafta · automat</h1>
+<div class="sub">Právo první ruky. Kompletní kokpit k jednomu vozu: značka, model, fotografie, lokalita, přesný strop příhozu a kalkulace do poslední koruny. Exkluzivně pro jednoho.</div>
+<div class="h-ref">AUK-INFO-012 · BATKO.DIGITAL.AI · batkoai.cz · měřeno 22. 8. 2026</div>
+</div>
+<div><span class="badge" id="stateBadge">ŽIVÁ DRAŽBA</span></div>
+</div></div>
+
+<div class="lock" id="lock">Dražba je uzavřená. Příhozy už nelze přijímat.</div>
+
+<div class="warn">
+<div style="font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:#ffb3a7;margin-bottom:6px">Čtěte dřív než přihodíte — tenhle vůz podle mého výpočtu NEVYCHÁZÍ</div>
+<b>Můj strop leží POD cenou, na které aukce právě je.</b> Poměr 95,7 % znamená, že na ceně, kterou prodejce žádá, prodělávám. A aukce už je nad mým stropem zhruba o 500 € — v okamžiku měření o 210 až 500 € podle toho, kolik bude stát oprava kapoty.<br><br>
+<b>Nekupujete si tedy tip na obchod. Kupujete si kompletní podklady k vozu a doložený důvod, proč do něj za dnešní cenu nejít</b> — plus přesnou hranici, pod kterou by dával smysl, kdyby cena spadla.<br><br>
+Vůz má <b>doloženou havarijní minulost</b>. Inspekční zpráva ji označuje za <b>odborně opravenou</b>, tloušťka laku je 5–12 µm nad tovární vrstvou (tedy velmi mírně) a zpráva neuvádí ani jednu vyčíslenou pojistnou událost. Přesto platí: srážku za havarijní minulost jsem nikdy neměřil, takže <b>můj odhad ceny je o neznámou částku nadhodnocený</b> — skutečný strop je pravděpodobně ještě níž, než uvádím.<br><br>
+Vůz je v nabídce <b>počtvrté</b>. Prodejce držel původní cenu tři kola a pak spadl o 17,9 % naráz — víc, než je u opakovaných nabídek v mém vzorku obvyklé. Zpráva část toho propadu vysvětluje, celý ne.</div>
+
+<div class="urg">
+<div class="urg-l">Dražba informace končí</div>
+<div class="urg-h">v neděli 23. 8. v 19:00</div>
+<div class="sub">Aukce vozu končí <b>v pondělí 24. 8. pozdě večer</b> — vítěz má zhruba 29 hodin na rozhodnutí, zálohu i vlastní příhoz.</div>
+<div class="cd" id="cd"><div><b>--</b><span>hod</span></div><div><b>--</b><span>min</span></div><div><b>--</b><span>sek</span></div></div>
+<div class="calb"><a id="calG" target="_blank" rel="noopener">Google Kalendář</a><a id="calI" download="AUK-INFO-012.ics">ICS (Outlook/Apple)</a></div>
+</div>
+
+<div class="hero">
+<div><div class="hl">Aktuální nejvyšší nabídka</div>
+<div class="ha" id="top">1 500 Kč <small>+ DPH · vyvolávací</small></div></div>
+<div><div class="hl">Minimální příhoz</div>
+<div class="ha">+500 Kč</div></div>
+</div>
+
+<div class="card"><h2>Co o voze vím</h2>
+<table><tbody>
+<tr><td>Poměr k ceně prodejce</td><td><b class="bad">95,7 % — na ceně prodejce prodělávám</b> (95,7 až 97,8 % podle ceny opravy kapoty)</td></tr>
+<tr><td>Kde je aukce teď</td><td><b class="bad">nad mým stropem</b> — měřeno 22. 8. v 6:06</td></tr>
+<tr><td>Vázaný kapitál na mém stropu</td><td><b>363 495 Kč · €14 949</b> (vč. změřené dopravy 9 046 Kč a papírů)</td></tr>
+<tr><td>Čtvrtina českého trhu (p25)</td><td><b>537 425 Kč · €22 101 — 56 srovnatelných inzerátů, měřeno 22. 8.</b></td></tr>
+<tr><td>Medián českého trhu</td><td><b>582 400 Kč · €23 951</b></td></tr>
+<tr><td>Zisk při prodeji na p25 mínus 7 %</td><td><b>+49 567 Kč · €2 039 · denní ROI 0,45 %</b> — a to jen tehdy, když se koupí na stropu, ne za dnešní cenu</td></tr>
+<tr><td>Dokdy se vyplatí držet</td><td><b>34 dní</b></td></tr>
+<tr><td>Nájezd · země · klíče</td><td><b>65–70 tis. km · Německo · 2 klíče</b> (potvrzeno inspekční zprávou, rezerva na druhý klíč z kalkulace vypuštěna)</td></tr>
+<tr><td>Inspekční zpráva</td><td><b class="bad">havarijní minulost ANO</b> · přelak <b>odborně provedený</b> · lak 155–162 µm proti tovární vrstvě 100–150 · <b>žádná vyčíslená škoda</b> · kapota k vyrovnání a lakování</td></tr>
+<tr><td>Servisní historie</td><td><b class="ok">digitální servisní kniha, kompletní</b> — veřejný výpis platformy přitom tvrdí, že záznam o údržbě není k dispozici</td></tr>
+<tr><td>Kolikáté kolo</td><td><b class="bad">čtvrté</b> · cena prodejce klesla o 17,9 % proti prvnímu kolu</td></tr>
+<tr><td>Odhad hodnoty od platformy</td><td>souhlasí s mým výpočtem, rozdíl 3,2 % (měřeno 21. 8.) — beru ho jako semafor, ne jako zdroj ceny</td></tr>
+</tbody></table>
+<div class="sub" style="margin-top:12px;font-size:13px">Značku, model, výbavu, fotografie, lokalitu a přesné číslo stropu dostane pouze vítěz, automaticky v okamžiku uzavření dražby.</div>
+</div>
+
+<div class="card"><h2>Co v ceně NENÍ</h2>
+<ul>
+<li><b>Doporučení k nákupu.</b> U tohoto vozu je můj závěr opačný: za dnešní cenu nekupovat.</li>
+<li><b>Záruka zisku.</b> Stav motoru, DPF a převodovky je z dražby nezjistitelný — nevidí ho nikdo, ani já.</li>
+<li><b>Fyzická prohlídka.</b> Pracuji s inspekční zprávou platformy, ne s vlastním ohledáním.</li>
+<li><b>Jistota, že vůz vyhrajete.</b> Kupujete si informaci o tom, kam až se vyplatí jít, ne výsledek aukce.</li>
+<li><b>Ocenění havarijní minulosti.</b> Srážku za ni jsem nikdy neměřil — v kalkulaci zohledněná NENÍ a odhad ceny je o ni nadhodnocený.</li>
+<li><b>Cena opravy kapoty.</b> Počítám s 8 000 až 15 000 Kč, ale je to odhad, ne nabídka lakovny.</li>
+<li><b>Srážka za kosmetické vady.</b> Nikdy jsem ji neměřil.</li>
+</ul></div>
+
+<div class="card"><h2>Jak si stojím — celý track record, včetně neúspěchů</h2>
+<div class="sub" style="font-size:14px">Sedm vyhodnocených dražeb: <b>2 trefy · 2 mimo · 3 neprodáno.</b> Jedna z neprodaných měla poměr 105,9 %, tedy pohodlně nad mou laťkou, a vůz se stejně neprodal — v pěti po sobě jdoucích kolech. <b>Poměr o tom, jestli obchod proběhne, nerozhoduje.</b> Track record měří kvalitu mého odhadu ceny, ne realizovaný zisk: <b>žádný vlastní obchod tímto postupem jsem zatím nedokončil.</b><br><br>
+Celý track record je veřejně na <a href="track-record.html" style="color:#f39c12">track-record.html</a>.</div></div>
+
+<div class="card"><h2>Jak to funguje</h2>
+<ul>
+<li>Vyvolávací <b>1 500 Kč + DPH</b>, minimální příhoz <b>+500 Kč</b>. Příhoz je závazný.</li>
+<li>Dražba končí <b>23. 8. v 19:00</b>. Vítěz dostane balíček automaticky, splatnost <b>2 hodiny</b>.</li>
+<li>Cena informace je po předání <b>nevratná</b>.</li>
+<li>Když vítěz nezaplatí do 2 hodin, právo přechází na druhého v pořadí.</li>
+<li>Osobní údaje zpracovávám výhradně pro vedení dražby (GDPR).</li>
+</ul></div>
+
+<div class="card"><h2>Přihodit</h2>
+<input id="jmeno" placeholder="Jméno a příjmení" autocomplete="name">
+<input id="ico" placeholder="IČO" inputmode="numeric" autocomplete="off">
+<input id="castka" type="number" step="500" min="2000" value="2000">
+<button id="btn">Přihodit</button>
+<div class="msg" id="msg"></div>
+<div class="bids" id="bids"></div>
+</div>
+
+<div class="foot">
+Ing. Jaroslav Batko - LINET · IČO 14600153 · DIČ CZ5912280418 · plátce DPH<br>
+Lískovec 170, 273 51 Velké Přítočno · batkoai.cz<br>
+Zisk není garantován. Jde o prodej analytické informace, ne o zprostředkování vozu.<br>
+Tento dokument není investiční poradenství. Rozhodnutí i riziko nese kupující.
+</div>
+</div>
+
+<script>
+var REF='AUK-INFO-012';
+var DB='https://batko-aukce-default-rtdb.europe-west1.firebasedatabase.app';
+var END=new Date('2026-08-23T19:00:00+02:00').getTime();
+var CENA=1500, KROK=500;
+var top_=CENA, active=true;
+
+function fmt(n){return n.toLocaleString('cs-CZ').replace(/ /g,' ');}
+function el(i){return document.getElementById(i);}
+
+function tick(){
+ var d=END-Date.now();
+ var box=el('cd').children;
+ if(d<0){d=0;}
+ var h=Math.floor(d/3600000), m=Math.floor(d%3600000/60000), s=Math.floor(d%60000/1000);
+ box[0].children[0].textContent=h; box[1].children[0].textContent=('0'+m).slice(-2); box[2].children[0].textContent=('0'+s).slice(-2);
+ if(d===0) lock('Dražba skončila.');
+}
+
+function lock(t){
+ active=false;
+ el('lock').style.display='block';
+ el('lock').textContent=t;
+ el('btn').disabled=true;
+ el('stateBadge').textContent='UZAVŘENO';
+ el('stateBadge').className='badge badge-end';
+}
+
+function paint(){
+ el('top').innerHTML=fmt(top_)+' Kč <small>+ DPH'+(top_===CENA?' · vyvolávací':'')+'</small>';
+ el('castka').min=top_+KROK; el('castka').value=top_+KROK;
+}
+
+function poll(){
+ fetch(DB+'/auctions/'+REF.toLowerCase()+'.json').then(function(r){return r.json();}).then(function(j){
+ if(!j) return;
+ if(j.endTime){ var e=new Date(j.endTime).getTime(); if(e) END=e; }
+ if(j.status && j.status!=='active'){ lock('Dražba je uzavřená. Příhozy už nelze přijímat.'); }
+ var b=j.bids||{}, ks=Object.keys(b), mx=CENA, list=[];
+ ks.forEach(function(k){ var x=b[k]; if(x&&x.castka>mx) mx=x.castka;
+ list.push({c:x.castka,t:x.cas,j:(x.jmeno||'').slice(0,2)+'***'}); });
+ top_=mx; paint();
+ list.sort(function(a,b2){return b2.c-a.c;});
+ el('bids').innerHTML=list.length? list.slice(0,6).map(function(x){
+ return '<div>'+fmt(x.c)+' Kč · '+x.j+' · '+(x.t||'').replace('T',' ').slice(0,16)+'</div>';}).join('')
+ : '<div>Zatím bez příhozu.</div>';
+ }).catch(function(){});
+}
+
+el('btn').addEventListener('click',function(){
+ if(!active){el('msg').textContent='Dražba je uzavřená.';return;}
+ var jm=el('jmeno').value.trim(), ic=el('ico').value.trim(), ca=parseInt(el('castka').value,10);
+ if(jm.length<3){el('msg').innerHTML='<span class="bad">Vyplňte jméno.</span>';return;}
+ if(!/^\d{7,8}$/.test(ic)){el('msg').innerHTML='<span class="bad">IČO má 7 nebo 8 číslic.</span>';return;}
+ if(!(ca>=top_+KROK)){el('msg').innerHTML='<span class="bad">Minimálně '+fmt(top_+KROK)+' Kč.</span>';return;}
+ try{localStorage.setItem('auk_info_contact',JSON.stringify({jmeno:jm,ico:ic}));}catch(e){}
+ el('btn').disabled=true; el('msg').textContent='Odesílám…';
+ fetch(DB+'/auctions/'+REF.toLowerCase()+'/bids.json',{method:'POST',
+ body:JSON.stringify({jmeno:jm,ico:ic,castka:ca,cas:new Date().toISOString()})})
+ .then(function(r){ if(!r.ok) throw 0;
+ el('msg').innerHTML='<span class="ok">Příhoz '+fmt(ca)+' Kč přijat. Příhoz je závazný.</span>';
+ el('btn').disabled=false; poll(); })
+ .catch(function(){ el('msg').innerHTML='<span class="bad">Nepodařilo se odeslat. Zkuste to znovu.</span>'; el('btn').disabled=false; });
+});
+
+(function initCal(){
+ var s='20260823T170000Z', e='20260823T171500Z';
+ var t=encodeURIComponent(REF+' — konec dražby informace');
+ el('calG').href='https://calendar.google.com/calendar/render?action=TEMPLATE&text='+t+'&dates='+s+'/'+e;
+ var ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//BATKO.DIGITAL.AI//CS','BEGIN:VEVENT',
+ 'UID:'+REF+'@batkoai.cz','DTSTAMP:'+s,'DTSTART:'+s,'DTEND:'+e,
+ 'SUMMARY:'+REF+' — konec dražby informace','BEGIN:VALARM','TRIGGER:-PT10M','ACTION:DISPLAY',
+ 'DESCRIPTION:Konec dražby za 10 minut','END:VALARM','END:VEVENT','END:VCALENDAR'].join('\r\n');
+ el('calI').href='data:text/calendar;charset=utf-8,'+encodeURIComponent(ics);
+})();
+
+(function initForm(){
+ try{var c=JSON.parse(localStorage.getItem('auk_info_contact')||'null');
+ if(c){el('jmeno').value=c.jmeno||'';el('ico').value=c.ico||'';}}catch(e){}
+})();
+
+paint(); tick(); poll();
+setInterval(tick,1000); setInterval(poll,8000);
+</script>
+
+</body></html>
