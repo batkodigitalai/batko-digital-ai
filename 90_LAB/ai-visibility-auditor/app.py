@@ -1131,6 +1131,23 @@ def generate_html_download(report_text: str, probe: dict, description: str, scor
 </html>"""
 
 
+def provenance_block(probe: dict) -> str:
+    """Transparentní původ automatického placeného reportu bez tvrzení o neprovedené kontrole."""
+    audited_url = probe.get("url", "neuvedeno")
+    base_url = probe.get("base", "")
+    robots_url = urljoin(base_url + "/", "robots.txt") if base_url else "neuvedeno"
+    return f"""## PŮVOD A ODPOVĚDNOST VÝSTUPU
+
+- **Vytvořeno:** {_now_cz()}
+- **Metodika:** BATKO AI Visibility Technical Audit v1.1
+- **Použité zdroje:** veřejná homepage `{audited_url}` a soubor `{robots_url}` ve stavu dostupném v okamžiku měření
+- **Použití AI:** jazykový model pomáhal formulovat vysvětlení a návrh opravného kódu; technická zjištění vznikla deterministickým stažením a vyhodnocením webu
+- **Ověření:** aplikace automaticky ověřila dostupnost zdrojů a měřené technické signály; základní automatický report nezahrnuje osobní kontrolu každého řádku Ing. Jaroslavem Batkem
+- **Odpovědný poskytovatel:** {COMPANY_PERSON}, {COMPANY_NAME}, IČO {COMPANY_ICO}
+- **Omezení:** výsledek zachycuje stav v okamžiku měření. Před nasazením kódu vytvořte zálohu a ověřte výsledek v testovacím prostředí. Technická připravenost negarantuje zmínku, citaci ani pozici v odpovědích AI systémů.
+"""
+
+
 def generate_checklist_html() -> str:
     return """<!DOCTYPE html>
 <html lang="cs">
@@ -1390,10 +1407,11 @@ def render_report(report_text: str, probe: dict, description: str, score: int):
                    "digitálního obsahu ihned a s tím, že vám zaniká právo na odstoupení "
                    "od smlouvy do 14 dnů. Dobrovolná garance vrácení peněz do 14 dnů platí dál.")
     st.markdown("---")
-    st.markdown(report_text)
+    full_report_text = report_text.rstrip() + "\n\n" + provenance_block(probe)
+    st.markdown(full_report_text)
     st.markdown("---")
 
-    html_report = generate_html_download(report_text, probe, description, score)
+    html_report = generate_html_download(full_report_text, probe, description, score)
     html_checklist = generate_checklist_html()
 
     col1, col2 = st.columns(2)
