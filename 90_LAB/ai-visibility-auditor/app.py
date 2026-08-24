@@ -10,9 +10,12 @@ from urllib.parse import urlparse, urljoin
 from datetime import datetime, timedelta, timezone
 
 # ─── CONFIG ────────────────────────────────────────────────────────────────────
-APP_TITLE    = "AI Visibility Auditor"
-APP_LABEL    = "BEZPLATNÝ AI VISIBILITY AUDIT"
-APP_SUBTITLE = "Zjistěte za 30 sekund, zda ChatGPT a Gemini doporučují vás — nebo vaši konkurenci."
+APP_TITLE    = "AI Visibility Technical Audit"
+APP_LABEL    = "BEZPLATNÝ TECHNICKÝ AUDIT PŘIPRAVENOSTI PRO AI"
+APP_SUBTITLE = (
+    "Za 30 sekund ověříme přístup AI crawlerů, sitemapu a strukturovaná data. "
+    "Skutečná doporučení ChatGPT, Gemini, Claude a Perplexity měří samostatný ruční audit."
+)
 
 DEFAULT_ACCESS_CODE          = ""
 DEFAULT_PAYMENT_LINK         = "https://buy.stripe.com/YOUR_LINK_HERE"
@@ -361,8 +364,9 @@ def compute_score(probe: dict) -> int:
             score -= 30
         if r.get("ai_blocked"):
             score -= 25
-        elif not r.get("ai_mentioned"):
-            score -= 15
+        # Neuvedení konkrétního AI agenta není samo o sobě blokace. Robots Exclusion
+        # Protocol dovoluje crawling, pokud odpovídající Disallow neexistuje. Body proto
+        # odečítáme jen za skutečné blokování, ne za absenci explicitního Allow.
         if not r.get("has_sitemap"):
             score -= 5
 
@@ -604,15 +608,8 @@ def _fallback_teaser(probe: dict) -> dict:
         return {
             "main_barrier": "Váš robots.txt výslovně blokuje tyto AI agenty: "
                             + ", ".join(r["ai_blocked"]) + ".",
-            "consequence": "Zablokovaný agent obsah nenačte, takže vás jeho model nemůže citovat.",
+            "consequence": "Zablokovaný agent nemůže tuto stránku načíst přímo. Model vás však může znát nebo citovat z jiných zdrojů.",
             "barrier_category": "Blokované AI roboty",
-        }
-    if r is not None and not r["ai_mentioned"]:
-        return {
-            "main_barrier": "Váš robots.txt o moderních AI agentech (GPTBot, ClaudeBot, PerplexityBot) "
-                            "vůbec nemluví — nemají explicitní povolení.",
-            "consequence": "Část agentů bez explicitního Allow obsah radši nenačte.",
-            "barrier_category": "Neinstruované AI roboty",
         }
     if h is not None and h["jsonld_blocks"] == 0:
         return {
@@ -810,21 +807,20 @@ def _local_report(probe: dict) -> str:
 
     if r is None:
         diag.append("- **robots.txt: nenalezen nebo nedostupný** (" + str(probe.get("robots_error"))
-                    + "). Bez něj nemají crawlery žádné instrukce.")
+                    + "). Samotná absence souboru běžně znamená, že crawling není tímto mechanismem omezen; stav ale nelze v auditu ověřit.")
     else:
         if r["wildcard_blocked_all"]:
             diag.append("- **KRITICKÉ: robots.txt obsahuje `User-agent: *` + `Disallow: /`** — "
                         "web blokuje všechny roboty. Tohle je nejzávažnější zjištění tohoto auditu.")
         if r["ai_blocked"]:
             diag.append("- **Blokovaní AI agenti: " + ", ".join(r["ai_blocked"])
-                        + ".** Zablokovaný agent obsah nenačte, takže vás jeho model nemůže citovat.")
+                        + ".** Zablokovaný agent nemůže stránku načíst přímo; model vás stále může znát z jiných zdrojů.")
         if r["ai_allowed"]:
             diag.append("- **Výslovně povolení AI agenti: " + ", ".join(r["ai_allowed"])
                         + ".** To máte správně.")
         if not r["ai_mentioned"]:
-            diag.append("- **AI agenti v robots.txt: neuvedeni.** Soubor o GPTBot, ClaudeBot ani "
-                        "PerplexityBot vůbec nemluví. Mlčení není souhlas — část agentů bez "
-                        "explicitního `Allow` obsah radši nenačte.")
+            diag.append("- **AI agenti v robots.txt: neuvedeni.** To samo o sobě není blokace. "
+                        "Pokud pro ně neplatí odpovídající `Disallow`, mohou web podle standardních pravidel načíst.")
         if not r["has_sitemap"]:
             diag.append("- **Odkaz na sitemap v robots.txt: NE.** Crawler pak najde jen to, "
                         "na co vede odkaz z homepage.")
@@ -1019,11 +1015,11 @@ Nahraďte hodnoty v uvozovkách svými skutečnými údaji:
    *„Kdo v [vaše město] nabízí [vaše hlavní služba] a jaké má ceny?"*
    Test opakujte po 7, 21 a 45 dnech.
 
-**Realistický horizont:** robots.txt se propaguje za 1–7 dní. Strukturovaná data se v AI
-odpovědích začínají projevovat typicky za 3–8 týdnů — indexy generativních vyhledávačů
-se neaktualizují v reálném čase. Kdo tvrdí, že vás dostane do ChatGPT „do 48 hodin",
-není poctivý. Konkrétní pozici ani zmínku vám nemůže garantovat nikdo, protože o ní
-rozhodují algoritmy třetích stran."""
+**Realistický horizont:** správné nasazení robots.txt a JSON-LD lze technicky ověřit okamžitě.
+Kdy změnu znovu načtou konkrétní crawlery, vyhledávače a AI systémy, závisí na jejich
+vlastním harmonogramu a nelze to garantovat. Proto test opakujte po 7, 21 a 45 dnech.
+Konkrétní pozici ani zmínku nemůže garantovat nikdo, protože o ní rozhodují algoritmy
+třetích stran."""
 
 
 # ─── HTML EXPORT ───────────────────────────────────────────────────────────────
@@ -1066,7 +1062,7 @@ def score_color(score: int) -> str:
 def score_label(score: int) -> str:
     if score < 0:
         return "NELZE ZMĚŘIT"
-    return "NEVIDITELNÝ ⚠️" if score < 40 else "ČÁSTEČNĚ VIDITELNÝ" if score < 65 else "DOBŘE VIDITELNÝ ✓"
+    return "NEPŘIPRAVENÝ ⚠️" if score < 40 else "ČÁSTEČNĚ PŘIPRAVENÝ" if score < 65 else "TECHNICKY PŘIPRAVENÝ ✓"
 
 
 def generate_html_download(report_text: str, probe: dict, description: str, score: int) -> str:
@@ -1111,7 +1107,7 @@ def generate_html_download(report_text: str, probe: dict, description: str, scor
 
 <div style="margin-bottom:1.5rem;">
   <span class="score-box">{score_txt}</span>
-  <span class="score-label">AI Visibility Score (0–100)<br><strong>{label}</strong></span>
+  <span class="score-label">Skóre technické připravenosti (0–100)<br><strong>{label}</strong></span>
 </div>
 
 <div class="input-box">
@@ -1158,7 +1154,7 @@ def generate_checklist_html() -> str:
 
 <div class="item"><div class="num">1</div><div class="content"><strong>Máte na webu konkrétní čísla, ne fráze</strong><span>AI cituje "od 12 000 Kč, dodání 14 dní". Necituje "individuální kalkulace" ani "špičková kvalita".</span></div></div>
 <div class="item"><div class="num">2</div><div class="content"><strong>Vaše firma je strojově identifikovatelná entita</strong><span>Organization / LocalBusiness schéma s IČO, adresou, telefonem. Bez toho jste pro AI jen text.</span></div></div>
-<div class="item"><div class="num">3</div><div class="content"><strong>robots.txt explicitně jmenuje GPTBot a ClaudeBot</strong><span>Mlčení není souhlas. Část agentů bez explicitního Allow raději obsah nenačte.</span></div></div>
+<div class="item"><div class="num">3</div><div class="content"><strong>robots.txt neblokuje důležité AI crawlery</strong><span>Rozhodující je skutečný Disallow. Samostatný Allow není podmínkou přístupu; může však zpřehlednit záměr provozovatele.</span></div></div>
 <div class="item"><div class="num">4</div><div class="content"><strong>Odpovídáte na otázky, které lidé reálně píší do AI</strong><span>Ne "Naše služby", ale "Kolik stojí X v Praze?" — přesně tou formulací jako nadpis H2.</span></div></div>
 <div class="item"><div class="num">5</div><div class="content"><strong>Klíčový obsah není schovaný v JavaScriptu</strong><span>Většina AI crawlerů nespouští JS. Co se načte až po kliknutí, pro ně neexistuje.</span></div></div>
 <div class="item"><div class="num">6</div><div class="content"><strong>Máte FAQPage schéma se 3–8 reálnými otázkami</strong><span>Nejrychlejší cesta k citaci v přímé odpovědi. Otázky berte z e-mailů od zákazníků.</span></div></div>
@@ -1232,7 +1228,7 @@ def render_input(unlocked: bool = False):
                 "consent_at", _now_cz()
             )
 
-    label = "📄 Vygenerovat můj Fix Report" if unlocked else "🔍 Zkontrolovat mou viditelnost v AI"
+    label = "📄 Vygenerovat můj Fix Report" if unlocked else "🔍 Zkontrolovat technickou připravenost"
     if st.button(label, type="primary", use_container_width=True):
         if not url.strip():
             st.warning("Zadejte prosím adresu svého webu.")
@@ -1278,7 +1274,7 @@ def render_teaser(t: dict, probe: dict, score: int):
           {score_txt}
         </div>
         <div>
-          <div style="font-size:0.8rem;color:#888;text-transform:uppercase;font-weight:600;letter-spacing:.05em;">AI Visibility Score (0–100)</div>
+          <div style="font-size:0.8rem;color:#888;text-transform:uppercase;font-weight:600;letter-spacing:.05em;">Skóre technické připravenosti (0–100)</div>
           <div style="font-size:1.35rem;font-weight:700;color:{color};">{label}</div>
           <div style="font-size:0.88rem;color:#999;">Hlavní bariéra: {cat}</div>
         </div>
@@ -1302,6 +1298,12 @@ def render_teaser(t: dict, probe: dict, score: int):
         st.caption("Stáhli jsme váš robots.txt a HTML homepage a vyhodnotili je. "
                    "Nic z výše uvedeného není odhad — vše si můžete zkontrolovat "
                    "ve zdrojovém kódu svého webu.")
+
+    st.info(
+        "Tento výsledek měří technické předpoklady webu. Neověřuje, zda vás konkrétní "
+        "AI asistent skutečně doporučuje. To vyžaduje opakované testování reálných dotazů, "
+        "konkurence a citovaných zdrojů."
+    )
 
 
 def render_paywall():
@@ -1441,21 +1443,21 @@ def render_report(report_text: str, probe: dict, description: str, score: int):
     st.markdown("---")
     st.markdown(f"""
 <div style="background:linear-gradient(135deg,#0a2850,#1a4a8a);border-radius:12px;padding:1.8rem;color:white;text-align:center;margin-top:1rem;">
-  <div style="font-size:1.5rem;font-weight:700;margin-bottom:0.5rem;">🚀 Nechcete se hrabat v kódu?</div>
+  <div style="font-size:1.5rem;font-weight:700;margin-bottom:0.5rem;">🔎 Co o vás AI skutečně říká?</div>
   <div style="color:#a0c4ff;margin-bottom:1.2rem;max-width:520px;margin-left:auto;margin-right:auto;">
-    Víte přesně, co nahrát. Nahrát to ale musíte. Pokud na to není čas ani chuť, uděláme to za vás.
+    Technická připravenost je první krok. Ruční AI Recommendation Audit změří skutečné odpovědi, konkurenci a zdroje.
   </div>
   <div style="background:rgba(255,255,255,.1);border-radius:8px;padding:1rem 1.5rem;margin-bottom:1.2rem;text-align:left;max-width:480px;margin-left:auto;margin-right:auto;">
-    <strong>Balíček „AI Visibility na klíč":</strong><br>
-    ✅ Nahrajeme robots.txt i JSON-LD přímo na váš web<br>
-    ✅ Rozšíříme schémata na všechny podstatné podstránky<br>
-    ✅ Přepíšeme 5 klíčových odstavců do citovatelné podoby<br>
-    ✅ Kontrolní měření po 30 dnech se stejnou metodikou
+    <strong>AI Recommendation Audit:</strong><br>
+    ✅ 20 zákaznických dotazů ve 4 AI systémech<br>
+    ✅ Porovnání se 3 konkurenty a analýza citovaných zdrojů<br>
+    ✅ Přesné odpovědi, chybné informace a obsahové mezery<br>
+    ✅ 10 prioritních úprav, konzultace a kontrolní přeměření
   </div>
   <div style="font-size:2rem;font-weight:900;color:#ffd700;margin-bottom:1rem;">{upsell_price}</div>
-  <a href="mailto:{UPSELL_EMAIL}?subject=Z%C3%A1jem%20o%20AI%20Visibility%20na%20kl%C3%AD%C4%8D&body=Dobr%C3%BD%20den%2C%20m%C3%A1m%20z%C3%A1jem%20o%20bal%C3%AD%C4%8Dek%20AI%20Visibility%20na%20kl%C3%AD%C4%8D.%20URL%20m%C3%A9ho%20webu%3A%20"
+  <a href="mailto:{UPSELL_EMAIL}?subject=Objedn%C3%A1vka%20AI%20Recommendation%20Auditu&body=Dobr%C3%BD%20den%2C%20m%C3%A1m%20z%C3%A1jem%20o%20AI%20Recommendation%20Audit.%0A%0AURL%20webu%3A%20%0AHlavn%C3%AD%20slu%C5%BEba%3A%20%0AT%C5%99i%20konkurenti%3A%20%0AC%C3%ADlov%C3%BD%20z%C3%A1kazn%C3%ADk%3A%20"
      style="background:#ffd700;color:#0a2850;text-decoration:none;padding:0.8rem 2rem;border-radius:8px;font-weight:700;font-size:1rem;display:inline-block;">
-    📩 Chci to nechat na vás
+    📩 Objednat ruční audit
   </a>
 </div>
     """, unsafe_allow_html=True)
