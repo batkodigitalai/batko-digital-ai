@@ -2,7 +2,7 @@
  "_popis": "Verejny track record predikci BATKO.DIGITAL.AI. Zapisuji se VSECHNY vyhodnocene loty, i ty, kde jsme se netrefili, i ty, kde jsme drazbu zamerne nevypsali.",
  "_metodika": "strop_eur = nas maximalni prihoz pri D=30 a prahu 0,40 %/den, spocteny PRED koncem aukce z percentilu sauto.cz. posledni_prihoz = posledni verejne viditelna cena v aukci (CurrentPrice). final_eur = skutecna prodejni cena — platforma ji u cizich transakci NEZVEREJNUJE, proto zustava null. POZNÁMKA K PŘESNOSTI: aukční poplatek je pásmový; hranice pásem byly 4. 8. 2026 doměřeny na devíti živých lotech (€245 do €10 000 · €300 do €20 000 · €395 nad) a opravují starší interní odhad.",
  "_omezeni": "Nevime, zda se vuz nakonec prodal. OPENLANE u cizich lotu neukazuje FinalPrice ani IsSold jinak nez 0/false. Vyhodnocujeme tedy POSLEDNI PRIHOZ proti nasemu stropu, ne prodejni cenu. AKTUALIZACE 4. 8. 2026: u lotu AUK-INFO-004 platforma poprve vratila nenulovou FinalPrice (10 000 EUR) pri IsSold = false. Tam, kde FinalPrice prijde, ji zapisujeme jako final_eur; kde je 0, zustava vyhodnoceni na poslednim prihozu. Zda se vuz nakonec prodal, platforma i tak nepotvrzuje.",
- "aktualizovano": "2026-08-10T21:15:00+02:00",
+ "aktualizovano": "2026-08-25T21:15:00+02:00",
  "polozky": [
   {
    "ref": "AUK-INFO-001",
@@ -406,6 +406,28 @@
    },
    "scenare": null,
    "scenare_duvod": "Vůz se prodal přesně za cenu prodejce, takže scénář ke stropu i k cíli splývá do jednoho čísla. Rozpad kalkulace zůstává na stránce dražby.",
+   "zisk_ciji": "kupujícího, hypoteticky — ne náš, vozy nekupujeme"
+  },
+  {
+   "ref": "AUK-INFO-012",
+   "typ": "drazba",
+   "vuz": "Kombi nižší střední třídy · 2023 · nafta · automat · 110 kW · Německo",
+   "url": "auk-info-012.html",
+   "konec_aukce": "2026-08-24T23:59",
+   "cil_eur": 13800,
+   "strop_eur": 13202,
+   "final_eur": 0,
+   "posledni_prihoz": 13700,
+   "prodano": false,
+   "kurz": 24.3166,
+   "zisk_pri_finalni": null,
+   "odchylka_pct": 3.8,
+   "datum_vyhodnoceni": "25. 8. 2026",
+   "vysledek": "neprodano",
+   "poznamka": "Neprodáno. Aukce vozu skončila 24. 8. 2026 v 23:59 bez posunu uzávěrky. Platforma vrátila FinalPrice €0 při IsSold = false a StatusId 6. Poslední příhoz zůstal na €13 700, tedy €100 POD cenou prodejce €13 800 — prodejce ho nepřijal. TEST NA RELIST NAŠEL PÁTÉ KOLO: 25. 8. 2026 ve 21:0x jsme prošli celý modelový segment v aktuální nabídce (207 lotů, platforma hlásila Count 207, počty sedí přesně) a našli lot se shodným nájezdem na kilometr přesně, shodnou výbavou, palivem, převodovkou i zemí a se shodným datem první registrace. Je to týž vůz, nabízený popáté. Řetězec cílů prodejce: 1. kolo €16 800, 2. kolo €16 800, 3. kolo €16 800, 4. kolo (tato dražba) €13 800, 5. kolo €14 200 s koncem 27. 8. 2026 v 15:00. Cíl prodejce tedy v pátém kole POPRVÉ VZROSTL, o €400 proti kolu čtvrtému, a vyvolávací cena je nastavená přesně na poslední příhoz €13 700. Zdražení mezi koly vidíme jen u 4–8 % relistů a neumíme vysvětlit, jestli jde o změnu strategie prodejce, nebo o jiný vůz s náhodně shodnými parametry. Shoda na sedmi polích plus datum první registrace je silná, ale identifikační číslo vozu jsme u tohoto lotu nezapsali, takže párování je NEOVĚŘENÉ tím nejsilnějším způsobem, jaký máme. Náš strop €13 202 byl 95,7 % ceny prodejce a už při vypsání 22. 8. ležel POD tehdejší aukční cenou €13 700. Dražbu jsme vypsali vědomě a s touto výhradou napsanou přímo na stránce, protože poctivější než mlčet je ukázat, na čem vůz padá. Vůz na naší ceně nešlo koupit ani teoreticky a aukce to potvrdila. Odchylka posledního příhozu od našeho stropu je +3,8 %. Kdyby prodejce příhoz €13 700 přijal, vázaný kapitál by byl 375 602 Kč, tržba netto při p25 mínus 7 % 413 062 Kč, zisk kupujícího 37 461 Kč a denní ROI 0,33 % — tedy POD naším vlastním prahem nákupu 0,40 % za den. I v nejlepším možném scénáři by ten obchod naši laťku nesplnil. Nákladový model jsme zrekonstruovali proti publikované stránce na 363 492 Kč proti uvedeným 363 495 Kč (rozdíl 3 Kč = zaokrouhlení kurzu): poplatek aukci €300, country cost Německo €295, doprava do hubu Hulín 9 046 Kč změřená z platformy, papíry v ČR 3 950 Kč, druhý klíč 0 Kč (dva klíče potvrzeny inspekční zprávou) a 15 000 Kč na opravu kapoty, tedy horní hranice odhadu. Tahle dražba je zároveň první v projektu, která dostala příhoz — jeden, 2 000 Kč, podaný 22. 8. 2026 v 10:04. Devět předchozích dražeb informace skončilo bez jediného příhozu. CO NEVÍME: srážka za havarijní minulost je NEZMĚŘENÁ. Vůz má podle inspekční zprávy odbornou opravu a přelak, ale čtvrtina českého trhu p25 se počítá z inzerátů bez hlášené havárie, takže odhad tržby je nadhodnocený o neznámou částku. Dále: doba do prodeje 30 dní, na které stojí celý výpočet stropu, je vyvrácená naším vlastním měřením obrátky z 22. 8. 2026 — střední doba vyšla asi 50 dní. Při 50 dnech by strop spadl ještě níž a poměr k ceně prodejce také.",
+   "rozklad": null,
+   "scenare": null,
+   "scenare_duvod": "Vůz se neprodal, takže neexistuje konečná cena, ke které by se zisk počítal. Hypotetický výpočet při posledním příhozu €13 700 je uvedený v poznámce a vychází pod naším prahem nákupu. Scénáře k ceně prodejce zůstávají na stránce dražby.",
    "zisk_ciji": "kupujícího, hypoteticky — ne náš, vozy nekupujeme"
   }
  ],
