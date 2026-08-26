@@ -1,0 +1,2 @@
+"""Output validator module skeleton."""
+
