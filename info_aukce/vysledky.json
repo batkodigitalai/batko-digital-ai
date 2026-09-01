@@ -2,7 +2,7 @@
  "_popis": "Verejny track record predikci BATKO.DIGITAL.AI. Zapisuji se VSECHNY vyhodnocene loty, i ty, kde jsme se netrefili, i ty, kde jsme drazbu zamerne nevypsali.",
  "_metodika": "strop_eur = nas maximalni prihoz pri D=30 a prahu 0,40 %/den, spocteny PRED koncem aukce z percentilu sauto.cz. posledni_prihoz = posledni verejne viditelna cena v aukci (CurrentPrice). final_eur = skutecna prodejni cena — platforma ji u cizich transakci NEZVEREJNUJE, proto zustava null. POZNÁMKA K PŘESNOSTI: aukční poplatek je pásmový; hranice pásem byly 4. 8. 2026 doměřeny na devíti živých lotech (€245 do €10 000 · €300 do €20 000 · €395 nad) a opravují starší interní odhad.",
  "_omezeni": "Nevime, zda se vuz nakonec prodal. OPENLANE u cizich lotu neukazuje FinalPrice ani IsSold jinak nez 0/false. Vyhodnocujeme tedy POSLEDNI PRIHOZ proti nasemu stropu, ne prodejni cenu. AKTUALIZACE 4. 8. 2026: u lotu AUK-INFO-004 platforma poprve vratila nenulovou FinalPrice (10 000 EUR) pri IsSold = false. Tam, kde FinalPrice prijde, ji zapisujeme jako final_eur; kde je 0, zustava vyhodnoceni na poslednim prihozu. Zda se vuz nakonec prodal, platforma i tak nepotvrzuje.",
- "aktualizovano": "2026-08-27T23:00:00+02:00",
+ "aktualizovano": "2026-09-01T23:05:00+02:00",
  "polozky": [
   {
    "ref": "AUK-INFO-001",
@@ -430,6 +430,36 @@
    "scenare_duvod": "Vůz se neprodal, takže neexistuje konečná cena, ke které by se zisk počítal. Hypotetický výpočet při posledním příhozu €13 700 je uvedený v poznámce a vychází pod naším prahem nákupu. Scénáře k ceně prodejce zůstávají na stránce dražby.",
    "zisk_ciji": "kupujícího, hypoteticky — ne náš, vozy nekupujeme",
    "oprava": "27. 8. 2026 ve 23:00 opravena faktická chyba v poznámce. Původní znění tvrdilo, že jde o „první dražbu v projektu, která dostala příhoz“, a čtenář to mohl číst jako doklad zájmu trhu. Příhoz 2 000 Kč z 22. 8. podal provozovatel projektu sám — záznam ve Firebase nese jeho vlastní IČO 14600153 a testovací jméno. Kontrola všech příhozů v aukčním systému ukázala, že žádný z nich nebyl spontánní: pět je z e-mailu nebo telefonu provozovatele a dva jsou testy podané na jeho vyžádání. Počet externích zájemců je tedy 0, ne 1. Verdikt „neprodano“, strop 13 202 EUR, cíl prodejce, konečná cena ani žádné jiné číslo se nemění — opravuje se pouze tvrzení o příhozu. Zveřejňujeme to proto, že chyba nafukovala track record, a to je přesně ten druh chyby, kvůli kterému do něj zapisujeme i neúspěchy."
+  },
+  {
+   "ref": "AUK-INFO-013",
+   "typ": "drazba",
+   "vuz": "SUV vyšší střední třídy · 2025 · nafta · automat · 145 kW · Německo",
+   "url": "auk-info-013.html",
+   "konec_aukce": "2026-09-01T16:44",
+   "cil_eur": 34900,
+   "strop_eur": 39195,
+   "final_eur": 38000,
+   "posledni_prihoz": 38000,
+   "prodano": false,
+   "kurz": 24.1878,
+   "zisk_pri_finalni": 163033,
+   "odchylka_pct": -3.05,
+   "datum_vyhodnoceni": "1. 9. 2026",
+   "vysledek": "trefa",
+   "rozklad": {
+    "vuz_kc": 919136,
+    "poplatky_kc": 16690,
+    "doprava_kc": 10885,
+    "papiry_kc": 3950,
+    "druhy_klic_kc": 0,
+    "kapital_kc": 950661,
+    "vzorek_n": 29
+   },
+   "scenare": null,
+   "zisk_ciji": "kupujícího, hypoteticky — ne náš, vozy nekupujeme",
+   "poznamka": "Třetí trefa. Aukce skončila na €38 000, tedy €1 195 POD naším stropem €39 195 (−3,05 %) a zároveň €3 100 NAD cenou prodejce €34 900. Vůz šel koupit uvnitř našeho rozpětí a poslední příhoz zároveň pohodlně přelezl laťku prodejce, takže obchod se s velkou pravděpodobností uskutečnil. Platforma vrátila FinalPrice €38 000 a StatusId 4 (uzavřeno, čeká na prodejce), ale IsSold = false — prodej formálně nepotvrzuje, stejně jako u našich předchozích dražeb. KONEC AUKCE SE POSUNUL O 2 HODINY A 44 MINUT: plánovaná uzávěrka byla 1. 9. ve 14:00, skutečný konec platforma hlásí v 16:44:23. Příhozy na poslední chvíli uzávěrku prodlužují a tenhle posun je nejdelší, jaký jsme kdy zaznamenali — dosud jsme viděli desítky minut. Do track recordu píšeme skutečný čas. TEST NA RELIST: neprodaný vůz se na platformu vrací pod novým číslem, takže jsme 1. 9. ve 21:4x prošli celý segment nafta plus automat v aktuální nabídce — 2 968 lotů, platforma hlásila Count 2 968, počty sedí přesně a nájezd se podařilo přečíst u všech 2 968 záznamů. Žádný lot s nájezdem 20 075 km. Nejbližší vůz téže modelové řady z Německa má 19 294 km, jiný motor a vyšší výkon — a nižší nájezd relist vylučuje, protože nájezd nikdy neklesá. Stopa po neprodání tedy chybí. Je to nepřímý důkaz prodeje, ne důkaz. EKONOMIKA PŘI KONEČNÉ CENĚ: vázaný kapitál 950 661 Kč (vůz 919 136 Kč, poplatek aukci €395 a country cost Německo €295 dohromady 16 690 Kč, doprava do hubu Hulín 10 885 Kč změřená z platformy, papíry v ČR 3 950 Kč, druhý klíč 0 Kč — tři klíče potvrzeny inspekční zprávou). Tržba netto při čtvrtině českého trhu 1 449 000 Kč mínus 7 % a bez DPH je 1 113 694 Kč, zisk kupujícího tedy 163 033 Kč. POZOR NA DENNÍ ROI, TOHLE PATŘÍ K ČÍSLU, NE POD ČÁRU: 0,57 % za den platí jen při předpokladu 30 dní do prodeje. Naše vlastní měření obrátky z 22. 8. 2026 ale dává střední dobu asi 50 dní, a při 50 dnech vychází 0,34 % za den, tedy POD naším prahem nákupu 0,40 %. Strop, proti kterému tuhle trefu měříme, je počítaný s třiceti dny. Kdybychom počítali s padesáti, ležel by níž a tenhle vůz by naši laťku nesplnil. CO NEVÍME: inspekční zpráva u tohoto vozu uvádí přelak jednoho dílu o síle 250 µm, ale NEUVÁDÍ, jestli byl proveden odborně — slova o odbornosti provedení v dokumentu nejsou ani jednou. Žádná havárie ani vyčíslená škoda ve zprávě není. Srážka za přelak je u nás NEZMĚŘENÁ, takže odhad tržby je nadhodnocený o neznámou částku. Ve vázaném kapitálu také nejsou dvě položky, které jsme otevřeně uvedli už na stránce dražby: chybějící zimní sada kol (prodejce slíbil dodat, písemně to nepotvrdil, odhad 45 000 Kč) a pneumatiky se 4 až 5 mm na ročním voze (odhad 28 000 Kč). S nimi by zisk klesl zhruba o 73 000 Kč. Dražbu informace k tomuto lotu nikdo nekoupil — skončila 29. 8. bez jediného příhozu. Z trefy nám tedy neplyne žádný příjem; je to doklad, že strop seděl, nic víc. Externí, nevyžádaný zájemce se za celou dobu existence projektu nepřihlásil ani jednou. Uvedený zisk není náš — vozy nekupujeme ani neprodáváme, prodáváme jen tuhle informaci; je to zisk, kterého by dosáhl kupující s vlastním kapitálem. Tohle je zároveň PRVNÍ VYHODNOCENÝ VŮZ MIMO ŠEST MODELŮ, na kterých máme kalibrovanou regresi — oceňovali jsme ho čistě z percentilů českého trhu na vzorku 29 srovnatelných inzerátů, jejichž okno jsme ručně překontrolovali. Jeden úspěšný případ metodu nepotvrzuje, ale je to první datový bod. Vyhodnocení proběhlo se zpožděním: v 21:00 byla platforma v plánované údržbě a na 22 pokusů ve třech sériích vracela HTTP 200 s HTML stránkou Scheduled Maintenance místo dat. Kontrola na známém lotu z dřívější dražby vrátila totéž, takže nešlo o naši relaci. Data se podařilo přečíst ve 21:3x, tedy 4 hodiny a 50 minut po skutečném konci aukce — nad naší čtyřhodinovou lhůtou na vypořádání.",
+   "scenare_duvod": "Scénáře k ceně prodejce zůstávají na stránce dražby. Zde uvádíme jediný scénář, který dává smysl zpětně: co by obchod vynesl při konečné ceně, za kterou vůz skutečně padl."
   }
  ],
  "_co_prodavame": "BATKO.DIGITAL.AI NEOBCHODUJE S VOZY. Nekupujeme, neskladujeme ani neprodáváme auta — nemáme na to kapitál a nemáme investory. Prodáváme jednu věc: předem spočítanou informaci, za kolik má smysl na konkrétní lot přihodit. Vůz kupuje a prodává zákazník, na svůj kapitál a své riziko.",
