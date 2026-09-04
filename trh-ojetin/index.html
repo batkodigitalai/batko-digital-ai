@@ -1,0 +1,234 @@
+<!doctype html>
+  <html lang="cs">
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Pět měřených čísel z českého trhu ojetin: jak dlouho se auta prodávají, kolik prodejců slevilo a co dělá ročník s cenou.">
+  <meta property="og:title" content="Pět čísel z trhu ojetin">
+  <meta property="og:description" content="2 561 sledovaných inzerátů, 451 zaznamenaných prodejů. Zaškrtni, co se týká tebe.">
+  <meta property="og:type" content="website">
+  <title>Pět čísel z trhu ojetin</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap">
+  <style>
+  :root{
+  --ground:#0a0a0a; --panel:#121211; --panel-2:#171715; --line:#262421;
+--ink:#f5f3f0; --ink-2:#a8a29a; --ink-3:#6e6963;
+  --akcent:#ff6200; --akcent-tlum:#c14c06; --akcent-svetla:#ffb066;
+  --ok:#4a9d6e;
+--sirka:clamp(320px,94vw,880px);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);
+font:16px/1.6 Inter,-apple-system,"Segoe UI",Roboto,sans-serif;
+-webkit-font-smoothing:antialiased}
+.pas{height:5px;background:var(--akcent)}
+.obal{width:var(--sirka);margin:0 auto;padding:0 22px 90px}
+header{padding:46px 0 8px}
+.znacka{font-family:'Bebas Neue',Impact,sans-serif;font-size:23px;letter-spacing:.15em;color:var(--ink-3)}
+.znacka b{color:var(--akcent);font-weight:400}
+h1{font-family:'Bebas Neue',Impact,sans-serif;font-weight:400;
+font-size:clamp(42px,7.4vw,74px);line-height:1.0;letter-spacing:.01em;
+margin:20px 0 0;text-wrap:balance}
+h1 em{font-style:normal;color:var(--akcent)}
+.perex{color:var(--ink-2);font-size:clamp(16px,2.1vw,19px);margin:20px 0 0;max-width:60ch}
+.zdroj{margin-top:26px;padding:14px 18px;background:var(--panel);border:1px solid var(--line);
+border-radius:6px;font-size:14.5px;color:var(--ink-2);display:flex;flex-wrap:wrap;gap:6px 22px}
+.zdroj span{white-space:nowrap}
+.zdroj b{color:var(--ink);font-variant-numeric:tabular-nums}
+h2{font-family:'Bebas Neue',Impact,sans-serif;font-weight:400;font-size:30px;
+letter-spacing:.06em;margin:56px 0 6px;color:var(--ink)}
+.h2pod{color:var(--ink-3);font-size:15px;margin:0 0 20px}
+.karty{display:flex;flex-direction:column;gap:14px}
+.karta{background:var(--panel);border:1px solid var(--line);border-radius:8px;
+display:grid;grid-template-columns:auto 1fr;gap:0;overflow:hidden;
+  transition:border-color .16s,background .16s}
+.karta:has(input:checked){border-color:var(--akcent);background:var(--panel-2)}
+.cislo{background:var(--panel-2);padding:24px 20px;display:flex;flex-direction:column;
+align-items:center;justify-content:center;min-width:150px;border-right:1px solid var(--line)}
+.cislo .v{font-family:'Bebas Neue',Impact,sans-serif;font-size:54px;line-height:.9;
+color:var(--akcent);font-variant-numeric:tabular-nums}
+.cislo .j{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-top:8px;text-align:center}
+.telo{padding:22px 24px;display:flex;flex-direction:column;gap:10px}
+.tvrzeni{font-size:19px;font-weight:700;line-height:1.35;text-wrap:balance}
+.vysvetl{font-size:15px;color:var(--ink-2);line-height:1.58}
+.volba{display:flex;align-items:flex-start;gap:11px;margin-top:4px;cursor:pointer;
+font-size:15px;font-weight:600;color:var(--ink-2);user-select:none;
+padding:9px 12px;border:1px dashed var(--line);border-radius:6px;align-self:flex-start}
+.volba:hover{border-color:var(--akcent-tlum);color:var(--ink)}
+.volba input{appearance:none;width:19px;height:19px;flex:0 0 19px;margin:1px 0 0;
+border:2px solid var(--ink-3);border-radius:4px;cursor:pointer;position:relative;background:transparent}
+.volba input:checked{background:var(--akcent);border-color:var(--akcent)}
+.volba input:checked::after{content:"";position:absolute;left:4.5px;top:1px;width:5px;height:10px;
+border:solid var(--ground);border-width:0 2.5px 2.5px 0;transform:rotate(42deg)}
+.volba input:focus-visible{outline:2px solid var(--akcent-svetla);outline-offset:2px}
+.karta:has(input:checked) .volba{border-style:solid;border-color:var(--akcent);color:var(--ink)}
+.vysledek{margin-top:44px;border:1px solid var(--line);border-radius:8px;background:var(--panel);overflow:hidden}
+.vysledek .hlava{padding:20px 24px;border-bottom:1px solid var(--line);
+display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap}
+.vysledek .hlava h3{font-family:'Bebas Neue',Impact,sans-serif;font-weight:400;font-size:26px;
+letter-spacing:.05em;margin:0}
+.pocet{font-size:14px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.vysledek .telo2{padding:22px 24px;display:flex;flex-direction:column;gap:16px}
+.prazdno{color:var(--ink-3);font-size:15px}
+.seznam{margin:0;padding-left:20px;color:var(--ink-2);font-size:15.5px;display:flex;flex-direction:column;gap:7px}
+.seznam li::marker{color:var(--akcent)}
+.akce{display:flex;flex-wrap:wrap;gap:12px;margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:9px;font:inherit;font-weight:700;font-size:16px;
+padding:13px 22px;border-radius:6px;border:1px solid transparent;cursor:pointer;text-decoration:none}
+.btn.prim{background:var(--akcent);color:#140800}
+.btn.prim:hover{background:#ff7a26}
+.btn.sek{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.sek:hover{border-color:var(--ink-3)}
+  .btn:focus-visible{outline:2px solid var(--akcent-svetla);outline-offset:2px}
+.btn[aria-disabled="true"]{opacity:.4;pointer-events:none}
+.stav{font-size:14px;color:var(--ok);min-height:20px}
+footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);
+color:var(--ink-3);font-size:13.5px;line-height:1.65}
+footer b{color:var(--ink-2)}
+@media (max-width:640px){
+.karta{grid-template-columns:1fr}
+  .cislo{flex-direction:row;gap:14px;justify-content:flex-start;padding:16px 20px;
+border-right:none;border-bottom:1px solid var(--line);min-width:0}
+.cislo .j{margin-top:0;text-align:left}
+        }
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+  </head>
+  <body>
+  <div class="pas"></div>
+  <div class="obal">
+  <header>
+  <div class="znacka">BATKO<b>.</b>DIGITAL<b>.</b>AI</div>
+  <h1>Pět čísel, která<br>o trhu ojetin <em>nikdo neměří</em></h1>
+<p class="perex">Kolik prodejce za auto chce, vidí každý. Kolik dnů trvalo, než se prodalo,
+nevidí nikdo — protože to nikdo nezapisuje. Já ano, každý den. Tohle z toho zatím vyšlo.</p>
+<div class="zdroj">
+<span>Sledovaných inzerátů <b>2 561</b></span>
+  <span>Zaznamenaných prodejů <b>451</b></span>
+<span>Skupin vozů <b>17</b></span>
+<span>Měřeno <b>18. 8. – 4. 9. 2026</b></span>
+  </div>
+  </header>
+  <h2>ZAŠKRTNI, CO SE TÝKÁ TEBE</h2>
+<p class="h2pod">Podle toho poznám, co ti mám poslat. Nic se nikam neodesílá, dokud sám neklikneš.</p>
+  <div class="karty" id="karty">
+<article class="karta">
+  <div class="cislo"><div class="v">87 %</div><div class="j">prodejců<br>neslevilo</div></div>
+  <div class="telo">
+<div class="tvrzeni">Z 451 prodaných aut jich 392 šlo z trhu za tu cenu, se kterou přišly do inzerce.</div>
+  <div class="vysvetl">Zbylých 58 zlevnilo, v průměru o 3,5 %. „Dám vyšší cenu a pak slevím" je strategie, kterou skoro nikdo nedotáhne. Cenu rozhoduješ v den, kdy dáváš inzerát.</div>
+  <label class="volba"><input type="checkbox" data-tema="Prodávám auto a chci vědět, kde je jeho cena vůči trhu">
+  <span>Prodávám auto a chci vědět, kde je jeho cena vůči trhu</span></label>
+</div>
+</article>
+<article class="karta">
+<div class="cislo"><div class="v">2×</div><div class="j">delší doba<br>prodeje</div></div>
+<div class="telo">
+<div class="tvrzeni">Auto nabídnuté pod mediánem své třídy se prodalo za 22–27 dnů. Nad mediánem za 45–50.</div>
+  <div class="vysvetl">Stejná auta, stejné pásmo nájezdu. Jediné, čím se liší, je cena v inzerátu. U vozu za půl milionu stojí ty dva měsíce navíc zhruba 13 000 Kč na úrocích, parkovném a stárnutí — peníze, které nikdo neúčtuje, protože je nikdo nevidí.</div>
+<label class="volba"><input type="checkbox" data-tema="Mám auta na skladě a chci spočítat, co mě stojí ležení">
+<span>Mám auta na skladě a chci spočítat, co mě stojí ležení</span></label>
+</div>
+</article>
+<article class="karta">
+<div class="cislo"><div class="v">52 %</div><div class="j">rozdíl<br>za tři roky</div></div>
+<div class="telo">
+<div class="tvrzeni">Octavia Combi z roku 2021 stojí 0,90 mediánu své třídy. Ta z roku 2024 stojí 1,37.</div>
+  <div class="vysvetl">Ročník je nejdražší parametr, za který kupující platí — dražší než výbava, dražší než nájezd. Tentýž tvar sedí ve všech 17 skupinách vozů, které sleduju.</div>
+<label class="volba"><input type="checkbox" data-tema="Vybírám si auto a chci vědět, kde je v té křivce zlom">
+  <span>Vybírám si auto a chci vědět, kde je v té křivce zlom</span></label>
+</div>
+</article>
+<article class="karta">
+<div class="cislo"><div class="v">4</div><div class="j">z 10 054<br>obstojí</div></div>
+<div class="telo">
+<div class="tvrzeni">Z aut, která šla dnes v evropské aukci, jich mým sítem prošly čtyři.</div>
+  <div class="vysvetl">322 z nich má v Česku srovnatelný trh. 42 padne do skupin, kde znám i dobu prodeje. A po přečtení protokolu o prohlídce zbydou asi čtyři. Dnes měly dva ze tří nejlepších vozů dne v protokolu záznam o poškození, který v aukčních datech vůbec není.</div>
+<label class="volba"><input type="checkbox" data-tema="Zvažuju koupit auto na dovoz jako investici">
+<span>Zvažuju koupit auto na dovoz jako investici</span></label>
+</div>
+  </article>
+  <article class="karta">
+  <div class="cislo"><div class="v">17 d</div><div class="j">okno<br>měření</div></div>
+<div class="telo">
+<div class="tvrzeni">Doba prodeje se zpětně dopočítat nedá. Buď ji člověk měřil, nebo nemá nic.</div>
+<div class="vysvetl">Když inzerát zmizí, mám datum — z toho je doba prodeje. Zatím měřím 17 dnů, takže doby delší než měsíc jsou dopočtené, ne pozorované. Píšu to sem proto, že u čísel má být vidět, co je změřené a co odhad.</div>
+<label class="volba"><input type="checkbox" data-tema="Zajímá mě metodika — jak se to měří a co je odhad">
+<span>Zajímá mě metodika — jak se to měří a co je odhad</span></label>
+  </div>
+  </article>
+</div>
+  <section class="vysledek" id="vysledek">
+  <div class="hlava">
+  <h3>CO TI MÁM POSLAT</h3>
+<div class="pocet" id="pocet">nevybráno nic</div>
+</div>
+<div class="telo2">
+<div id="prazdno" class="prazdno">Zaškrtni výš aspoň jednu možnost. Tady se pak složí zpráva, kterou mi jedním klikem pošleš.</div>
+  <ul class="seznam" id="seznam" hidden></ul>
+  <div class="akce" id="akce" hidden>
+  <a class="btn prim" id="odeslat" href="#" target="_blank" rel="noopener">Odeslat</a>
+  <button class="btn sek" id="kopie" type="button">Zkopírovat text</button>
+</div>
+<div class="stav" id="stav" role="status"></div>
+  </div>
+  </section>
+  <footer>
+  <b>Ing. Jaroslav Batko-Linet</b> · BATKO.DIGITAL.AI · IČO 14600153 · DIČ CZ5912280418<br>
+  Lískovec 170, 273 51 Velké Přítočno · +420 725 360 151 · batko.digital.ai@gmail.com<br>
+  Čísla vycházejí z vlastního denního sledování inzerce ojetých vozů na českém trhu. Jsou to měření a odborné odhady, ne investiční doporučení ani nabídka ve smyslu zákona o podnikání na kapitálovém trhu. Nejsem investiční poradce.<br>
+  Zaškrtnutí zůstává ve tvém prohlížeči. Tlačítko Odeslat otevře krátký formulář s už předvyplněnými tématy — kontakt je v něm nepovinný.
+  </footer>
+  </div>
+  <script>
+  (function(){
+  var FORMULAR = "https://docs.google.com/forms/d/e/1FAIpQLSeq28BJ79vlRCB5eXjHj5e6MdWoKg8VUaVOX8KqldegGY6JIg/viewform";
+var POLE_TEMA = "entry.886326970";
+var POLE_ZDROJ = "entry.1446606335";
+var boxy = Array.prototype.slice.call(document.querySelectorAll('.volba input'));
+var seznam = document.getElementById('seznam');
+var prazdno = document.getElementById('prazdno');
+var akce = document.getElementById('akce');
+var pocet = document.getElementById('pocet');
+var stav = document.getElementById('stav');
+var KLIC = 'bda_volby_v1';
+try {
+var ulozeno = JSON.parse(localStorage.getItem(KLIC) || '[]');
+boxy.forEach(function(b){ if (ulozeno.indexOf(b.dataset.tema) > -1) b.checked = true; });
+} catch(e){}
+function zprava(vybrane){
+  return 'Zajima me tohle:' + String.fromCharCode(10) + vybrane.join(String.fromCharCode(10));
+}
+function odkazFormulare(vybrane){
+  var u = FORMULAR + '?usp=pp_url';
+vybrane.forEach(function(t){ u += '&' + POLE_TEMA + '=' + encodeURIComponent(t); });
+var z = (new URLSearchParams(location.search)).get('z');
+if (z) u += '&' + POLE_ZDROJ + '=' + encodeURIComponent(z);
+return u;
+}
+function prekresli(){
+  var vybrane = boxy.filter(function(b){ return b.checked; }).map(function(b){ return b.dataset.tema; });
+try { localStorage.setItem(KLIC, JSON.stringify(vybrane)); } catch(e){}
+pocet.textContent = vybrane.length === 0 ? 'nevybrano nic' : vybrane.length === 1 ? '1 vybrana oblast' : vybrane.length + ' vybranych oblasti';
+prazdno.hidden = vybrane.length > 0;
+seznam.hidden = vybrane.length === 0;
+akce.hidden = vybrane.length === 0;
+seznam.textContent = '';
+  vybrane.forEach(function(t){ var li = document.createElement('li'); li.textContent = t; seznam.appendChild(li); });
+document.getElementById('odeslat').href = odkazFormulare(vybrane);
+stav.textContent = '';
+}
+boxy.forEach(function(b){ b.addEventListener('change', prekresli); });
+document.getElementById('kopie').addEventListener('click', function(){
+  var vybrane = boxy.filter(function(b){ return b.checked; }).map(function(b){ return b.dataset.tema; });
+var text = zprava(vybrane);
+if (navigator.clipboard && navigator.clipboard.writeText){
+navigator.clipboard.writeText(text).then(function(){ stav.textContent = 'Text zkopirovan.'; });
+}
+});
+prekresli();
+})();
+</script>
+  </body>
+  </html>
+  
