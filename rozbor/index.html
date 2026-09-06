@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Denní rozbory aukcí — BATKO.DIGITAL.AI</title>
+<meta name="description" content="Každý den projdeme nabídku evropských B2B aukcí ojetých vozů a zveřejníme, co z ní prošlo a co ne — včetně toho, co nevíme.">
+<style>
+:root{--t:#16181c;--m:#5a6068;--l:#dee1e4;--bg:#fff;--ground:#fbfbf9;--acc:#0b4f6c;--ok:#1d6b3f}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--t);
+     font:16.5px/1.62 -apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+.page{max-width:720px;margin:0 auto;background:var(--bg);min-height:100vh;
+      padding:48px clamp(20px,5vw,48px) 64px;border-left:1px solid var(--l);border-right:1px solid var(--l)}
+h1{font-size:clamp(24px,4vw,30px);line-height:1.25;margin:0 0 10px;letter-spacing:-.02em}
+h2{font-size:17px;margin:40px 0 12px;padding-top:18px;border-top:1px solid var(--l)}
+p{margin:11px 0}
+.lead{color:var(--m);font-size:15.5px;margin-bottom:6px}
+a{color:var(--acc)}
+ul.dny{list-style:none;padding:0;margin:16px 0}
+ul.dny li{border-bottom:1px solid var(--l)}
+ul.dny a{display:flex;justify-content:space-between;align-items:baseline;gap:14px;
+         padding:14px 2px;text-decoration:none;color:var(--t)}
+ul.dny a:hover{background:var(--ground)}
+ul.dny .den{font-weight:600}
+ul.dny .sip{color:var(--acc);font-size:14px}
+.box{border:1px solid var(--l);background:var(--ground);padding:16px 18px;margin:20px 0;border-radius:3px}
+.box>:first-child{margin-top:0}.box>:last-child{margin-bottom:0}
+.stav{color:var(--m);font-size:14.5px;padding:14px 0}
+.foot{margin-top:44px;padding-top:18px;border-top:2px solid var(--t);font-size:12.5px;color:var(--m);line-height:1.65}
+</style>
+</head>
+<body>
+<div class="page">
+
+<h1>Denní rozbory aukcí</h1>
+<p class="lead">Každý den projdeme celou nabídku evropských B2B aukcí ojetých vozů a zveřejníme,
+co z ní prošlo, co ne a proč. Včetně toho, co nevíme.</p>
+
+<div class="box">
+<p><strong>Proč je tahle stránka veřejná.</strong> Ceny počítáme z inzerátů srovnatelných vozů
+na českém trhu, náklady odečítáme pro každý vůz zvlášť a u každého finalisty čteme celou
+inspekční zprávu. Co je odhad, je označené jako odhad. Kdo si to chce ověřit, má to tady.</p>
+</div>
+
+<h2>Rozbory po dnech</h2>
+<ul class="dny" id="seznam"></ul>
+<div class="stav" id="stav">Načítám seznam…</div>
+
+<h2>Track record</h2>
+<p>Výsledky všech vyhodnocených dražeb <strong>včetně neúspěchů</strong> — trefy, minutí
+i vozy, které se neprodaly:<br>
+<a href="../info_aukce/track-record.html">Otevřít track record</a></p>
+
+<h2>Když hledáte konkrétní vůz</h2>
+<p>Předvýběr z aukcí, kontrola inspekčních zpráv a strop, do kterého má smysl přihazovat.</p>
+<p><a href="mailto:batko.digital.ai@gmail.com">batko.digital.ai@gmail.com</a> ·
+<a href="tel:+420725360151">+420 725 360 151</a> ·
+<a href="https://batkoai.cz">batkoai.cz</a></p>
+
+<div class="foot">
+<strong>Ing. Jaroslav Batko-Linet · BATKO.DIGITAL.AI</strong><br>
+IČO 14600153 · DIČ CZ5912280418 · Lískovec 170, 273 51 Velké Přítočno<br>
+Není to investiční poradenství ani doporučení k nákupu. Rozhodnutí i riziko nese investor.
+</div>
+
+</div>
+<script>
+// Seznam se cte ZIVE z GitHub API, aby se tahle stranka nikdy nemusela rucne
+// upravovat. Kazdy novy soubor rozbor/RRRRMMDD.html se objevi sam.
+(async function(){
+  var UL=document.getElementById('seznam'), ST=document.getElementById('stav');
+  var MES=['ledna','února','března','dubna','května','června','července','srpna',
+           'září','října','listopadu','prosince'];
+  var DEN=['neděle','pondělí','úterý','středa','čtvrtek','pátek','sobota'];
+  function popis(s){
+    var r=+s.slice(0,4), m=+s.slice(4,6), d=+s.slice(6,8);
+    var dt=new Date(Date.UTC(r,m-1,d));
+    return DEN[dt.getUTCDay()]+' '+d+'. '+MES[m-1]+' '+r;
+  }
+  try{
+    var r=await fetch('https://api.github.com/repos/batkodigitalai/batko-digital-ai/contents/rozbor');
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    var data=await r.json();
+    var dny=data.filter(function(f){return /^\d{8}\.html$/.test(f.name);})
+                .map(function(f){return f.name.slice(0,8);})
+                .sort().reverse();
+    if(!dny.length){ ST.textContent='Zatím tu není žádný rozbor.'; return; }
+    UL.innerHTML=dny.map(function(s){
+      return '<li><a href="'+s+'.html"><span class="den">'+popis(s)+
+             '</span><span class="sip">otevřít →</span></a></li>';}).join('');
+    ST.textContent = dny.length===1 ? '1 rozbor' : dny.length+' rozborů';
+  }catch(e){
+    // Nezmizi tim posledni znamy rozbor - odkaz na nej zustane funkcni.
+    ST.innerHTML='Seznam se teď nepodařilo načíst. '+
+      'Poslední rozbor: <a href="20260905.html">sobota 5. září 2026</a>.';
+  }
+})();
+</script>
+</body>
+</html>
