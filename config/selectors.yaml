@@ -1,0 +1,79 @@
+{
+  "versions": {
+    "v1": {
+      "urlPatterns": [
+        "openlane"
+      ],
+      "auctionMarkers": [
+        "[data-openlane-auction-id]",
+        "[data-auction-id]",
+        "meta[name='auction-id']",
+        "meta[name='openlane-auction-id']",
+        "[data-openlane-field='auction_id']"
+      ],
+      "fields": {
+        "title": [
+          "[data-openlane-field='title']",
+          "h1"
+        ],
+        "auction_id": [
+          "[data-openlane-field='auction_id']",
+          "[data-openlane-auction-id]",
+          "[data-auction-id]",
+          "meta[name='auction-id']",
+          "meta[name='openlane-auction-id']"
+        ],
+        "reference": [
+          "[data-openlane-field='reference']",
+          "[data-reference]",
+          "[data-auction-reference]"
+        ]
+      }
+    },
+    "v2": {
+      "urlPatterns": [
+        "openlane"
+      ],
+      "auctionMarkers": [
+        "[data-testid='auction-detail']",
+        "[data-testid='vehicle-detail']"
+      ],
+      "fields": {
+        "title": [
+          "[data-testid='vehicle-title']",
+          "h1"
+        ],
+        "auction_id": [
+          "[data-testid='auction-id']",
+          "[data-item-id]"
+        ],
+        "reference": [
+          "[data-testid='reference']",
+          "[data-reference]"
+        ]
+      }
+    },
+    "v3": {
+      "urlPatterns": [
+        "openlane"
+      ],
+      "auctionMarkers": [
+        "[data-cy='auction-page']",
+        "[data-cy='vehicle-page']"
+      ],
+      "fields": {
+        "title": [
+          "[data-cy='vehicle-title']",
+          "h1"
+        ],
+        "auction_id": [
+          "[data-cy='auction-id']",
+          "[data-cy='item-id']"
+        ],
+        "reference": [
+          "[data-cy='reference']"
+        ]
+      }
+    }
+  }
+}

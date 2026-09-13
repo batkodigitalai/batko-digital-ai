@@ -1,0 +1,2 @@
+"""Config registry module skeleton."""
+

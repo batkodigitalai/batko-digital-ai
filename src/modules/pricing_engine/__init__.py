@@ -1,0 +1,2 @@
+"""Pricing engine module skeleton."""
+

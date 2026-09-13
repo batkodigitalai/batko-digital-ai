@@ -1,0 +1,2 @@
+"""Publisher module skeleton."""
+

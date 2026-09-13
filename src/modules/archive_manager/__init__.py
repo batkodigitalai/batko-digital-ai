@@ -1,0 +1,2 @@
+"""Archive manager module skeleton."""
+
