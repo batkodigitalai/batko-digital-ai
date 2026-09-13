@@ -1,0 +1,352 @@
+<!doctype html><html lang=cs><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'></head><body><style>
+:root{--bg:#12100e;--panel:#1b1815;--panel-2:#221e1a;--line:#332c26;
+--acc:#d97757;--ok:#5fa87a;--warn:#d9a05b;--bad:#c25b52;--unk:#b8474a;
+--ink:#ece5dc;--ink-2:#b5a99c;--ink-3:#87796c;
+--display:"Archivo","Segoe UI",system-ui,sans-serif;
+--body:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+--data:"IBM Plex Mono","Consolas",monospace}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.55;
+padding-block:28px;padding-left:20px;padding-right:20px;max-width:1080px;margin:0 auto}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0}
+.num{font-family:var(--data);font-variant-numeric:tabular-nums}
+.eyebrow{font-family:var(--data);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.head{display:flex;flex-wrap:wrap;gap:18px;align-items:flex-start;justify-content:space-between;
+padding-bottom:20px;border-bottom:2px solid var(--acc)}
+.head h1{font-size:clamp(23px,4vw,33px);font-weight:700;letter-spacing:-.015em}
+.head .sub{color:var(--ink-2);font-size:14px;margin-top:6px}
+.verdict{display:flex;flex-direction:column;align-items:flex-end}
+.stamp{font-family:var(--display);font-weight:700;font-size:21px;letter-spacing:.04em;
+padding:8px 16px;border:2px solid var(--ok);color:var(--ok);border-radius:2px;text-align:right}
+.stamp.bad{border-color:var(--bad);color:var(--bad)}
+.stamp.warn{border-color:var(--warn);color:var(--warn)}
+.stamp .why{display:block;font-family:var(--body);font-weight:500;font-size:12px;
+letter-spacing:0;color:var(--ink-2);margin-top:2px}
+section{margin-top:34px}
+section>h2{font-size:15px;font-weight:600;margin-bottom:14px;display:flex;align-items:baseline;gap:10px}
+section>h2::after{content:"";flex:1;height:1px;background:var(--line)}
+.unknown{background:linear-gradient(180deg,#241a17,#1d1613);border:1px solid var(--unk);
+border-left:5px solid var(--unk);border-radius:3px;padding:18px 20px}
+.unknown h2{font-size:14px;font-weight:700;color:#e2867f;letter-spacing:.06em;
+text-transform:uppercase;margin-bottom:10px}
+.unknown ul{margin:0;padding-left:18px;color:var(--ink-2);font-size:14px}
+.unknown li{margin-bottom:6px}.unknown li b{color:var(--ink);font-weight:600}
+.axis{position:relative;margin:0 6px;min-height:150px}
+.track{position:absolute;left:0;right:0;border-radius:3px;overflow:hidden;display:flex}
+.track .zone{height:100%}
+.mark{position:absolute;width:2px;opacity:.85}
+.lbl{position:absolute;width:auto;white-space:nowrap;font-size:12px;line-height:1.35;height:44px}
+.lbl .t{font-family:var(--data);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+color:var(--ink-3);display:block}
+.lbl .v{font-family:var(--data);font-size:15px;font-weight:600;display:block}
+.lbl .v small{font-size:11px;color:var(--ink-2);font-weight:400}
+.legend{display:flex;flex-wrap:wrap;gap:6px 20px;margin-top:14px;padding-top:12px;
+border-top:1px solid var(--line);font-size:12px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:7px}
+.legend i{width:14px;height:14px;border-radius:2px;display:inline-block;flex:none}
+.axis-foot{display:flex;justify-content:space-between;font-family:var(--data);font-size:11px;
+color:var(--ink-3);padding-top:10px;margin-top:6px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:2px;
+background:var(--line);border:1px solid var(--line);border-radius:3px;overflow:hidden}
+.card{background:var(--panel);padding:16px 18px}
+.card .k{font-family:var(--data);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+.card .v{font-family:var(--data);font-size:25px;font-weight:600;margin-top:6px}
+.card .v.bad{color:var(--bad)}.card .v.ok{color:var(--ok)}.card .v.warn{color:var(--warn)}
+.card .n{font-size:12px;color:var(--ink-2);margin-top:4px}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:3px}
+table{width:100%;border-collapse:collapse;font-size:14px;background:var(--panel)}
+th,td{padding:9px 14px;text-align:right;border-bottom:1px solid var(--line)}
+th{font-family:var(--data);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+color:var(--ink-3);font-weight:500;background:var(--panel-2)}
+th:first-child,td:first-child{text-align:left}
+tbody tr:last-child td{border-bottom:none}
+td.n{font-family:var(--data);font-variant-numeric:tabular-nums}
+tr.total td{background:var(--panel-2);font-weight:600}
+tr.hi td{background:#1e2a20}
+td small{color:var(--ink-3);font-size:11px;display:block}
+.badge{font-family:var(--data);font-size:9px;letter-spacing:.1em;padding:2px 6px;border-radius:2px;
+border:1px solid;white-space:nowrap}
+.b-m{color:var(--ok);border-color:#37624a}.b-z{color:#8fa8c4;border-color:#3b4c5e}
+.b-o{color:var(--warn);border-color:#6b5335}.b-n{color:var(--unk);border-color:#6e3336}
+.wf{display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line);
+border-radius:3px;overflow:hidden}
+.wf-row{background:var(--panel);display:grid;grid-template-columns:minmax(150px,1.3fr) 3fr minmax(120px,auto);
+gap:14px;align-items:center;padding:10px 16px}
+.wf-row .lab{font-size:13px}.wf-row .lab small{display:block;color:var(--ink-3);font-size:11px}
+.wf-bar{height:14px;border-radius:1px;min-width:2px}
+.wf-row .amt{font-family:var(--data);font-size:14px;text-align:right;font-variant-numeric:tabular-nums}
+.wf-row .amt small{display:block;color:var(--ink-3);font-size:11px}
+.wf-row.res{background:#1e2a20}
+.note{font-size:13px;color:var(--ink-2);margin-top:12px}.note b{color:var(--ink)}
+.foot{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);font-size:12px;
+color:var(--ink-3);display:flex;flex-wrap:wrap;gap:6px 22px}
+.vozy{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+a.vuz{display:block;text-decoration:none;color:inherit;background:var(--panel);
+border:1px solid var(--line);border-left:5px solid var(--line);border-radius:3px;padding:18px 20px}
+a.vuz:hover,a.vuz:focus-visible{background:var(--panel-2);outline:none}
+a.vuz:focus-visible{border-color:var(--acc)}
+a.vuz.ano{border-left-color:var(--ok)}a.vuz.ne{border-left-color:var(--bad)}
+a.vuz.snad{border-left-color:var(--warn)}
+.vuz .stav{font-family:var(--data);font-size:10px;letter-spacing:.12em;text-transform:uppercase}
+.vuz.ano .stav{color:var(--ok)}.vuz.ne .stav{color:var(--bad)}.vuz.snad .stav{color:var(--warn)}
+.vuz h3{font-size:17px;font-weight:600;margin:7px 0 4px}
+.vuz .meta{font-size:12px;color:var(--ink-3);font-family:var(--data)}
+.vuz .duvod{font-size:13px;color:var(--ink-2);margin-top:10px}
+.vuz .ceny{margin-top:12px;display:flex;flex-direction:column;gap:1px;
+background:var(--line);border:1px solid var(--line);border-radius:3px;overflow:hidden}
+.vuz .ceny div{background:var(--panel-2);display:flex;justify-content:space-between;
+align-items:baseline;gap:12px;padding:7px 11px}
+.vuz .ceny .p{font-family:var(--data);font-size:9px;letter-spacing:.1em;
+text-transform:uppercase;color:var(--ink-3);flex:none}
+.vuz .ceny .p b{color:var(--ink-2);font-weight:600}
+.vuz .ceny .c{font-family:var(--data);font-size:13px;font-weight:600;text-align:right}
+.vuz .ceny .c small{font-weight:400;color:var(--ink-2);font-size:11px}
+.vuz .otevri{font-size:12px;color:var(--acc);margin-top:12px;font-weight:500}
+.trychtyr{display:flex;flex-wrap:wrap;gap:2px;background:var(--line);border:1px solid var(--line);
+border-radius:3px;overflow:hidden}
+.trychtyr div{background:var(--panel);padding:13px 16px;flex:1 1 130px}
+.trychtyr .c{font-family:var(--data);font-size:22px;font-weight:600}
+.trychtyr .p{font-family:var(--data);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+color:var(--ink-3);margin-top:3px}
+a.zpet{display:inline-flex;align-items:center;gap:8px;text-decoration:none;
+font-family:var(--data);font-size:12px;letter-spacing:.06em;text-transform:uppercase;
+color:var(--acc);border:1px solid var(--line);border-radius:3px;padding:8px 14px;
+margin-bottom:20px;background:var(--panel)}
+a.zpet:hover,a.zpet:focus-visible{background:var(--panel-2);border-color:var(--acc);outline:none}
+a.zpet.dole{margin:34px 0 0}
+@media (max-width:560px){.lbl{font-size:11px}.lbl .v{font-size:13px}
+.wf-row{grid-template-columns:1fr auto}.wf-bar{display:none}}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<title>Měření 13. 9. 2026 — BATKO.DIGITAL.AI</title>
+<div class="head">
+  <div>
+    <div class="eyebrow">BATKO.DIGITAL.AI · veřejné měření trhu</div>
+    <h1>Co prošlo sítem neděle 13. září 2026</h1>
+    <div class="sub">Z 12 388 lotů na evropské aukci zbyly
+      2 vozy, u kterých dává nákup do Česka smysl. U zbytku je napsáno proč ne.</div>
+  </div>
+  <div class="verdict"><div class="stamp">2 z 12 388
+    <span class="why">k dražení</span></div></div>
+</div>
+
+<section><h2>Trychtýř dne</h2>
+<div class="trychtyr">
+  <div><div class="c">12 388</div><div class="p">lotů dne</div></div>
+  <div><div class="c">1 470</div><div class="p">po sítu</div></div>
+  <div><div class="c">206</div><div class="p">oceněno</div></div>
+  <div><div class="c">17</div><div class="p">nad cenovou laťkou</div></div>
+  <div><div class="c" style="color:var(--ok)">2</div><div class="p">k dražení</div></div>
+</div></section>
+
+<section><h2>Doba prodeje, kterou si měříme sami</h2>
+<p class="note" style="margin-top:0">Cebia uvádí za 1. pololetí 2026 průměr
+<b>70 dní</b>. Průměr je ale k rozhodování nepoužitelný — rozdíl mezi modely je
+trojnásobný. Měříme denně, kdy inzerát zmizí ze sauto.cz. Rozsah 30–93 dní.</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>skupina</th><th>dní na place</th></tr></thead>
+<tbody><tr><td>Octavia Combi</td><td class='n'>30</td></tr><tr><td>BMW X5</td><td class='n'>42</td></tr><tr><td>BMW řada 5</td><td class='n'>50</td></tr><tr><td>Kodiaq 4x4 (50-85 tis.)</td><td class='n'>53</td></tr><tr><td>Karoq</td><td class='n'>54</td></tr><tr><td>Superb Combi</td><td class='n'>55</td></tr><tr><td>Passat</td><td class='n'>57</td></tr><tr><td>VW Tiguan</td><td class='n'>60</td></tr><tr><td>Octavia Liftback</td><td class='n'>65</td></tr><tr><td>Kodiaq 4x4 (20-50 tis.)</td><td class='n'>93</td></tr></tbody></table></div>
+<p class="note"><b>Co to číslo NEznamená.</b> Měříme zmizení inzerátu, ne potvrzený
+prodej — vůz mohl být stažen z jiného důvodu. Je to tedy <b>horní mez</b> rychlosti.
+V tabulce jsou jen skupiny s nejméně 20 událostmi; sedm dalších sledujeme, ale
+mají 3 až 15 událostí a nezveřejňujeme je.</p></section>
+
+<section><h2>Poškození — 17 zkontrolovaných vozů</h2>
+<div class="cards">
+  <div class="card"><div class="k">havarijní minulost</div>
+    <div class="v bad">9</div><div class="n">IsHarmedBefore</div></div>
+  <div class="card"><div class="k">poškození v detailu</div>
+    <div class="v bad">1</div><div class="n">DamageCategory</div></div>
+  <div class="card"><div class="k">vlajka poškození</div>
+    <div class="v warn">5</div><div class="n">HasDamages / HasReportDamage</div></div>
+  <div class="card"><div class="k">čistých</div>
+    <div class="v ok">2</div><div class="n">bez jediného příznaku</div></div>
+</div>
+<p class="note">Ta čtyři pole aukce nabízí <b>zdarma</b>. Nejsou ale v seznamu —
+tam vypadají všechna auta stejně. Jsou až v detailu jednotlivého lotu.
+<br><b>Opačně to neplatí:</b> chybějící vlajka neznamená, že je vůz v pořádku.
+Znamená jen, že o vadě nic nevíme. Inspekční zpráva bývá přísnější než stránka lotu.</p>
+</section>
+
+<section><h2>Vozy dne</h2>
+<div class="vozy"><article class="vuz ano">
+      <div class="stav">DRAŽIT DO STROPU</div>
+      <h3>Skoda Octavia Combi 2.0 TDI Style</h3>
+      <div class="meta">lot 11525660 · 2023 · 45 940 km ·
+        110 kW · DE ·
+        konec 2026-09-14 13:00</div>
+      <div class="ceny"><div><span class="p">Dnešní cena <b>bez DPH</b></span><span class="c">€14 000 <small>· 338 730 Kč</small></span></div><div><span class="p">Můj strop</span><span class="c" style="color:var(--ink-3)">zveřejníme <small>· po skončení aukce</small></span></div><div><span class="p">Prodej v ČR <b>s DPH</b></span><span class="c">€23 793 <small>· 575 670 Kč</small></span></div></div>
+      <div class="duvod">všechny podmínky splněny. Poměr k cíli prodejce 99.0 %,
+        doba prodeje 30 dní.</div>
+    </article><article class="vuz ano">
+      <div class="stav">DRAŽIT DO STROPU</div>
+      <h3>Skoda Octavia Combi 2.0 TDI Style</h3>
+      <div class="meta">lot 11521284 · 2021 · 107 605 km ·
+        85 kW · DE ·
+        konec 2026-09-15 14:00</div>
+      <div class="ceny"><div><span class="p">Dnešní cena <b>bez DPH</b></span><span class="c">€10 100 <small>· 244 370 Kč</small></span></div><div><span class="p">Můj strop</span><span class="c" style="color:var(--ink-3)">zveřejníme <small>· po skončení aukce</small></span></div><div><span class="p">Prodej v ČR <b>s DPH</b></span><span class="c">€16 100 <small>· 389 530 Kč</small></span></div></div>
+      <div class="duvod">všechny podmínky splněny. Poměr k cíli prodejce 95.3 %,
+        doba prodeje 30 dní.</div>
+    </article><article class="vuz snad">
+      <div class="stav">JEN SLEDOVAT</div>
+      <h3>Volkswagen Passat Variant 2.0 TDI</h3>
+      <div class="meta">lot 11536696 · 2022 · 36 392 km ·
+        90 kW · BE ·
+        konec 2026-09-14 10:00</div>
+      <div class="ceny"><div><span class="p">Dnešní cena <b>bez DPH</b></span><span class="c">€15 800 <small>· 382 281 Kč</small></span></div><div><span class="p">Můj strop <b>bez DPH</b></span><span class="c" style="color:var(--warn)">€16 568 <small>· 400 856 Kč</small></span></div><div><span class="p">Prodej v ČR <b>s DPH</b></span><span class="c">€25 028 <small>· 605 561 Kč</small></span></div></div>
+      <div class="duvod">vlajka HasReportDamage — přečíst dokumentaci. Poměr k cíli prodejce 99.2 %,
+        doba prodeje 73 dní.</div>
+    </article><article class="vuz snad">
+      <div class="stav">JEN SLEDOVAT</div>
+      <h3>Volkswagen Passat Variant 2.0 TDI Style Business</h3>
+      <div class="meta">lot 11537129 · 2021 · 153 823 km ·
+        90 kW · BE ·
+        konec 2026-09-14 09:15</div>
+      <div class="ceny"><div><span class="p">Dnešní cena <b>bez DPH</b></span><span class="c">€9 900 <small>· 239 530 Kč</small></span></div><div><span class="p">Můj strop <b>bez DPH</b></span><span class="c" style="color:var(--warn)">€9 660 <small>· 233 727 Kč</small></span></div><div><span class="p">Prodej v ČR <b>s DPH</b></span><span class="c">€15 298 <small>· 370 140 Kč</small></span></div></div>
+      <div class="duvod">vlajka HasReportDamage — přečíst dokumentaci. Poměr k cíli prodejce 96.6 %,
+        doba prodeje 73 dní.</div>
+    </article><article class="vuz snad">
+      <div class="stav">JEN SLEDOVAT</div>
+      <h3>Skoda Superb Combi 2.0 TDI Clever</h3>
+      <div class="meta">lot 11537258 · 2021 · 112 646 km ·
+        90 kW · BE ·
+        konec 2026-09-14 09:15</div>
+      <div class="ceny"><div><span class="p">Dnešní cena <b>bez DPH</b></span><span class="c">€13 000 <small>· 314 535 Kč</small></span></div><div><span class="p">Můj strop <b>bez DPH</b></span><span class="c" style="color:var(--warn)">€12 570 <small>· 304 124 Kč</small></span></div><div><span class="p">Prodej v ČR <b>s DPH</b></span><span class="c">€18 806 <small>· 455 000 Kč</small></span></div></div>
+      <div class="duvod">vlajka HasReportDamage — přečíst dokumentaci. Poměr k cíli prodejce 96.0 %,
+        doba prodeje 55 dní.</div>
+    </article><article class="vuz ne">
+      <div class="stav">NEDRAŽIT</div>
+      <h3>Skoda Octavia Combi 2.0 TDI Ambition</h3>
+      <div class="meta">lot 11531391 · 2023 · 53 894 km ·
+        85 kW · DE ·
+        konec 2026-09-14 11:25</div>
+      <div class="ceny"><div><span class="p">Dnešní cena <b>bez DPH</b></span><span class="c">€13 500 <small>· 326 632 Kč</small></span></div><div><span class="p">Můj strop <b>bez DPH</b></span><span class="c" style="color:var(--bad)">€15 393 <small>· 372 445 Kč</small></span></div><div><span class="p">Prodej v ČR <b>s DPH</b></span><span class="c">€21 906 <small>· 530 007 Kč</small></span></div></div>
+      <div class="duvod">havarijní minulost (IsHarmedBefore). Poměr k cíli prodejce 101.9 %,
+        doba prodeje 30 dní.</div>
+    </article><article class="vuz ne">
+      <div class="stav">NEDRAŽIT</div>
+      <h3>Skoda Kodiaq 2.0 TDI Tour</h3>
+      <div class="meta">lot 11526523 · 2022 · 145 155 km ·
+        147 kW · DE ·
+        konec 2026-09-14 12:30</div>
+      <div class="ceny"><div><span class="p">Dnešní cena <b>bez DPH</b></span><span class="c">€16 500 <small>· 399 218 Kč</small></span></div><div><span class="p">Můj strop <b>bez DPH</b></span><span class="c" style="color:var(--bad)">€17 122 <small>· 414 274 Kč</small></span></div><div><span class="p">Prodej v ČR <b>s DPH</b></span><span class="c">€25 109 <small>· 607 508 Kč</small></span></div></div>
+      <div class="duvod">havarijní minulost (IsHarmedBefore). Poměr k cíli prodejce 100.7 %,
+        doba prodeje 53 dní.</div>
+    </article><article class="vuz ne">
+      <div class="stav">NEDRAŽIT</div>
+      <h3>Skoda Superb Combi 2.0 TDI Style</h3>
+      <div class="meta">lot 11518384 · 2023 · 92 522 km ·
+        147 kW · DE ·
+        konec 2026-09-14 23:59</div>
+      <div class="ceny"><div><span class="p">Dnešní cena <b>bez DPH</b></span><span class="c">€14 800 <small>· 358 086 Kč</small></span></div><div><span class="p">Můj strop <b>bez DPH</b></span><span class="c" style="color:var(--bad)">€14 900 <small>· 360 513 Kč</small></span></div><div><span class="p">Prodej v ČR <b>s DPH</b></span><span class="c">€22 159 <small>· 536 145 Kč</small></span></div></div>
+      <div class="duvod">havarijní minulost (IsHarmedBefore). Poměr k cíli prodejce 100.0 %,
+        doba prodeje 55 dní.</div>
+    </article><article class="vuz ne">
+      <div class="stav">NEDRAŽIT</div>
+      <h3>Skoda Octavia Combi 2.0 TDI Style</h3>
+      <div class="meta">lot 11525602 · 2022 · 87 315 km ·
+        110 kW · DE ·
+        konec 2026-09-14 13:00</div>
+      <div class="ceny"><div><span class="p">Dnešní cena <b>bez DPH</b></span><span class="c">€11 600 <small>· 280 662 Kč</small></span></div><div><span class="p">Můj strop <b>bez DPH</b></span><span class="c" style="color:var(--bad)">€12 140 <small>· 293 728 Kč</small></span></div><div><span class="p">Prodej v ČR <b>s DPH</b></span><span class="c">€17 643 <small>· 426 870 Kč</small></span></div></div>
+      <div class="duvod">poškození v detailu lotu: hail Damage. Poměr k cíli prodejce 99.5 %,
+        doba prodeje 30 dní.</div>
+    </article><article class="vuz ne">
+      <div class="stav">NEDRAŽIT</div>
+      <h3>Volkswagen Passat Variant 2.0 TDI Business</h3>
+      <div class="meta">lot 11531132 · 2022 · 115 622 km ·
+        147 kW · DE ·
+        konec 2026-09-14 13:30</div>
+      <div class="ceny"><div><span class="p">Dnešní cena <b>bez DPH</b></span><span class="c">€12 400 <small>· 300 018 Kč</small></span></div><div><span class="p">Můj strop <b>bez DPH</b></span><span class="c" style="color:var(--bad)">€12 713 <small>· 307 603 Kč</small></span></div><div><span class="p">Prodej v ČR <b>s DPH</b></span><span class="c">€19 775 <small>· 478 466 Kč</small></span></div></div>
+      <div class="duvod">havarijní minulost (IsHarmedBefore). Poměr k cíli prodejce 99.3 %,
+        doba prodeje 73 dní.</div>
+    </article><article class="vuz ne">
+      <div class="stav">NEDRAŽIT</div>
+      <h3>BMW 5 Series Touring 530d Luxury</h3>
+      <div class="meta">lot 11526528 · 2023 · 52 906 km ·
+        210 kW · DE ·
+        konec 2026-09-14 12:30</div>
+      <div class="ceny"><div><span class="p">Dnešní cena <b>bez DPH</b></span><span class="c">€28 300 <small>· 684 718 Kč</small></span></div><div><span class="p">Můj strop <b>bez DPH</b></span><span class="c" style="color:var(--bad)">€28 452 <small>· 688 405 Kč</small></span></div><div><span class="p">Prodej v ČR <b>s DPH</b></span><span class="c">€40 455 <small>· 978 797 Kč</small></span></div></div>
+      <div class="duvod">havarijní minulost (IsHarmedBefore). Poměr k cíli prodejce 98.8 %,
+        doba prodeje 50 dní.</div>
+    </article><article class="vuz ne">
+      <div class="stav">NEDRAŽIT</div>
+      <h3>Skoda Superb Combi 2.0 TDI Sportline</h3>
+      <div class="meta">lot 11525643 · 2023 · 87 608 km ·
+        147 kW · DE ·
+        konec 2026-09-14 13:00</div>
+      <div class="ceny"><div><span class="p">Dnešní cena <b>bez DPH</b></span><span class="c">€15 500 <small>· 375 022 Kč</small></span></div><div><span class="p">Můj strop <b>bez DPH</b></span><span class="c" style="color:var(--bad)">€14 971 <small>· 362 216 Kč</small></span></div><div><span class="p">Prodej v ČR <b>s DPH</b></span><span class="c">€22 255 <small>· 538 470 Kč</small></span></div></div>
+      <div class="duvod">havarijní minulost (IsHarmedBefore). Poměr k cíli prodejce 96.6 %,
+        doba prodeje 55 dní.</div>
+    </article><article class="vuz ne">
+      <div class="stav">NEDRAŽIT</div>
+      <h3>Skoda Octavia Combi 2.0 TDI Style</h3>
+      <div class="meta">lot 11531408 · 2024 · 49 430 km ·
+        85 kW · DE ·
+        konec 2026-09-14 11:25</div>
+      <div class="ceny"><div><span class="p">Dnešní cena <b>bez DPH</b></span><span class="c">€15 200 <small>· 367 764 Kč</small></span></div><div><span class="p">Můj strop <b>bez DPH</b></span><span class="c" style="color:var(--bad)">€16 100 <small>· 389 551 Kč</small></span></div><div><span class="p">Prodej v ČR <b>s DPH</b></span><span class="c">€22 832 <small>· 552 420 Kč</small></span></div></div>
+      <div class="duvod">hlášené poškození (HasDamages). Poměr k cíli prodejce 95.8 %,
+        doba prodeje 30 dní.</div>
+    </article><article class="vuz ne">
+      <div class="stav">NEDRAŽIT</div>
+      <h3>Skoda Kodiaq 2.0 TDI Tour</h3>
+      <div class="meta">lot 11526490 · 2022 · 66 706 km ·
+        110 kW · DE ·
+        konec 2026-09-14 12:30</div>
+      <div class="ceny"><div><span class="p">Dnešní cena <b>bez DPH</b></span><span class="c">€20 100 <small>· 486 320 Kč</small></span></div><div><span class="p">Můj strop <b>bez DPH</b></span><span class="c" style="color:var(--bad)">€19 732 <small>· 477 410 Kč</small></span></div><div><span class="p">Prodej v ČR <b>s DPH</b></span><span class="c">€28 790 <small>· 696 570 Kč</small></span></div></div>
+      <div class="duvod">havarijní minulost (IsHarmedBefore). Poměr k cíli prodejce 95.8 %,
+        doba prodeje 53 dní.</div>
+    </article><article class="vuz ne">
+      <div class="stav">NEDRAŽIT</div>
+      <h3>Skoda Superb Combi 2.0 TDI Ambition</h3>
+      <div class="meta">lot 11531768 · 2023 · 56 434 km ·
+        110 kW · DE ·
+        konec 2026-09-14 11:35</div>
+      <div class="ceny"><div><span class="p">Dnešní cena <b>bez DPH</b></span><span class="c">€17 700 <small>· 428 252 Kč</small></span></div><div><span class="p">Můj strop <b>bez DPH</b></span><span class="c" style="color:var(--bad)">€18 373 <small>· 444 546 Kč</small></span></div><div><span class="p">Prodej v ČR <b>s DPH</b></span><span class="c">€26 903 <small>· 650 907 Kč</small></span></div></div>
+      <div class="duvod">havarijní minulost (IsHarmedBefore). Poměr k cíli prodejce 95.2 %,
+        doba prodeje 55 dní.</div>
+    </article><article class="vuz ne">
+      <div class="stav">NEDRAŽIT</div>
+      <h3>Skoda Karoq 2.0 TDI Ambition</h3>
+      <div class="meta">lot 11531253 · 2023 · 64 782 km ·
+        85 kW · DE ·
+        konec 2026-09-14 11:25</div>
+      <div class="ceny"><div><span class="p">Dnešní cena <b>bez DPH</b></span><span class="c">€11 000 <small>· 266 145 Kč</small></span></div><div><span class="p">Můj strop <b>bez DPH</b></span><span class="c" style="color:var(--bad)">€13 574 <small>· 328 419 Kč</small></span></div><div><span class="p">Prodej v ČR <b>s DPH</b></span><span class="c">€20 313 <small>· 491 482 Kč</small></span></div></div>
+      <div class="duvod">hlášené poškození (HasDamages). Poměr k cíli prodejce 94.9 %,
+        doba prodeje 54 dní.</div>
+    </article><article class="vuz ne">
+      <div class="stav">NEDRAŽIT</div>
+      <h3>Skoda Octavia Combi 2.0 TDI Ambition</h3>
+      <div class="meta">lot 11531759 · 2023 · 104 856 km ·
+        85 kW · DE ·
+        konec 2026-09-14 11:35</div>
+      <div class="ceny"><div><span class="p">Dnešní cena <b>bez DPH</b></span><span class="c">€11 200 <small>· 270 984 Kč</small></span></div><div><span class="p">Můj strop <b>bez DPH</b></span><span class="c" style="color:var(--bad)">€11 561 <small>· 279 710 Kč</small></span></div><div><span class="p">Prodej v ČR <b>s DPH</b></span><span class="c">€16 884 <small>· 408 502 Kč</small></span></div></div>
+      <div class="duvod">havarijní minulost (IsHarmedBefore). Poměr k cíli prodejce 94.8 %,
+        doba prodeje 30 dní.</div>
+    </article></div>
+<p class="note"><b>Proč u běžících aukcí nevidíte strop.</b> Strop je nejvyšší cena,
+kterou jsme ochotni dát. Kdo ho zná před koncem aukce, přihodí o euro víc.
+Odkryje se po skončení aukce — a tím vzniká veřejný track record.</p>
+</section>
+
+<section><h2>Jak se to počítá</h2>
+<p class="note" style="margin-top:0"><b>Obráceně, než je zvykem.</b> Nejdřív
+požadovaný výnos 0.15 % z kapitálu za den. Z doby prodeje té konkrétní
+skupiny plus 21 dní logistiky se odvodí potřebná marže. Z ní vyjde strop.
+Pomalý vůz si sám vyžádá větší slevu — proto se Kodiaq a Octavia neposuzují stejně.
+<br><br><b>Cena na českém trhu</b> jde z 25. percentilu inzerátů na sauto.cz
+v okně nájezd ±28 % a ročník ±1, s minimem 20 srovnatelných vozů. Ne z odhadu.
+<br><br><b>Co změřené není, je označené.</b> Doprava je odhad ze středu naměřeného
+pásma. Sleva z inzerátu na realizaci 7 % je předpoklad projektu, ne měření.
+Oprava vad se neoceňuje vůbec.
+<br><br><b>Track record:</b> 3 trefy, 2 mimo, 4 neprodáno,
+<b>nula dokončených vlastních obchodů</b>. Píšeme to sem schválně — systém zatím
+předpovídá, nechlubí se výsledky, které nemá.</p>
+</section>
+<div class="foot">
+  <span>Ing. Jaroslav Batko — LINET</span>
+  <span>IČO 14600153 · DIČ CZ5912280418</span>
+  <span>Lískovec 170, 273 51 Velké Přítočno</span>
+  <span>batkoai.cz</span>
+  <span>Čísla platí k 20260913. Aukce končí v následujících dnech — před příhozem přeměřit.</span>
+  <span>Track record: 3 trefy · 2 mimo · 4 neprodáno · nula dokončených vlastních obchodů.</span>
+</div></body></html>
