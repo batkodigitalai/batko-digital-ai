@@ -1,0 +1,255 @@
+<!doctype html><html lang=cs><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'></head><body><style>
+:root{--bg:#12100e;--panel:#1b1815;--panel-2:#221e1a;--line:#332c26;
+--acc:#d97757;--ok:#5fa87a;--warn:#d9a05b;--bad:#c25b52;--unk:#b8474a;
+--ink:#ece5dc;--ink-2:#b5a99c;--ink-3:#87796c;
+--display:"Archivo","Segoe UI",system-ui,sans-serif;
+--body:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+--data:"IBM Plex Mono","Consolas",monospace}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.55;
+padding-block:28px;padding-left:20px;padding-right:20px;max-width:1080px;margin:0 auto}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0}
+.num{font-family:var(--data);font-variant-numeric:tabular-nums}
+.eyebrow{font-family:var(--data);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.head{display:flex;flex-wrap:wrap;gap:18px;align-items:flex-start;justify-content:space-between;
+padding-bottom:20px;border-bottom:2px solid var(--acc)}
+.head h1{font-size:clamp(23px,4vw,33px);font-weight:700;letter-spacing:-.015em}
+.head .sub{color:var(--ink-2);font-size:14px;margin-top:6px}
+.verdict{display:flex;flex-direction:column;align-items:flex-end}
+.stamp{font-family:var(--display);font-weight:700;font-size:21px;letter-spacing:.04em;
+padding:8px 16px;border:2px solid var(--ok);color:var(--ok);border-radius:2px;text-align:right}
+.stamp.bad{border-color:var(--bad);color:var(--bad)}
+.stamp.warn{border-color:var(--warn);color:var(--warn)}
+.stamp .why{display:block;font-family:var(--body);font-weight:500;font-size:12px;
+letter-spacing:0;color:var(--ink-2);margin-top:2px}
+section{margin-top:34px}
+section>h2{font-size:15px;font-weight:600;margin-bottom:14px;display:flex;align-items:baseline;gap:10px}
+section>h2::after{content:"";flex:1;height:1px;background:var(--line)}
+.unknown{background:linear-gradient(180deg,#241a17,#1d1613);border:1px solid var(--unk);
+border-left:5px solid var(--unk);border-radius:3px;padding:18px 20px}
+.unknown h2{font-size:14px;font-weight:700;color:#e2867f;letter-spacing:.06em;
+text-transform:uppercase;margin-bottom:10px}
+.unknown ul{margin:0;padding-left:18px;color:var(--ink-2);font-size:14px}
+.unknown li{margin-bottom:6px}.unknown li b{color:var(--ink);font-weight:600}
+.axis{position:relative;margin:0 6px;min-height:150px}
+.track{position:absolute;left:0;right:0;border-radius:3px;overflow:hidden;display:flex}
+.track .zone{height:100%}
+.mark{position:absolute;width:2px;opacity:.85}
+.lbl{position:absolute;width:auto;white-space:nowrap;font-size:12px;line-height:1.35;height:44px}
+.lbl .t{font-family:var(--data);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+color:var(--ink-3);display:block}
+.lbl .v{font-family:var(--data);font-size:15px;font-weight:600;display:block}
+.lbl .v small{font-size:11px;color:var(--ink-2);font-weight:400}
+.legend{display:flex;flex-wrap:wrap;gap:6px 20px;margin-top:14px;padding-top:12px;
+border-top:1px solid var(--line);font-size:12px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:7px}
+.legend i{width:14px;height:14px;border-radius:2px;display:inline-block;flex:none}
+.axis-foot{display:flex;justify-content:space-between;font-family:var(--data);font-size:11px;
+color:var(--ink-3);padding-top:10px;margin-top:6px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:2px;
+background:var(--line);border:1px solid var(--line);border-radius:3px;overflow:hidden}
+.card{background:var(--panel);padding:16px 18px}
+.card .k{font-family:var(--data);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+.card .v{font-family:var(--data);font-size:25px;font-weight:600;margin-top:6px}
+.card .v.bad{color:var(--bad)}.card .v.ok{color:var(--ok)}.card .v.warn{color:var(--warn)}
+.card .n{font-size:12px;color:var(--ink-2);margin-top:4px}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:3px}
+table{width:100%;border-collapse:collapse;font-size:14px;background:var(--panel)}
+th,td{padding:9px 14px;text-align:right;border-bottom:1px solid var(--line)}
+th{font-family:var(--data);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+color:var(--ink-3);font-weight:500;background:var(--panel-2)}
+th:first-child,td:first-child{text-align:left}
+tbody tr:last-child td{border-bottom:none}
+td.n{font-family:var(--data);font-variant-numeric:tabular-nums}
+tr.total td{background:var(--panel-2);font-weight:600}
+tr.hi td{background:#1e2a20}
+td small{color:var(--ink-3);font-size:11px;display:block}
+.badge{font-family:var(--data);font-size:9px;letter-spacing:.1em;padding:2px 6px;border-radius:2px;
+border:1px solid;white-space:nowrap}
+.b-m{color:var(--ok);border-color:#37624a}.b-z{color:#8fa8c4;border-color:#3b4c5e}
+.b-o{color:var(--warn);border-color:#6b5335}.b-n{color:var(--unk);border-color:#6e3336}
+.wf{display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line);
+border-radius:3px;overflow:hidden}
+.wf-row{background:var(--panel);display:grid;grid-template-columns:minmax(150px,1.3fr) 3fr minmax(120px,auto);
+gap:14px;align-items:center;padding:10px 16px}
+.wf-row .lab{font-size:13px}.wf-row .lab small{display:block;color:var(--ink-3);font-size:11px}
+.wf-bar{height:14px;border-radius:1px;min-width:2px}
+.wf-row .amt{font-family:var(--data);font-size:14px;text-align:right;font-variant-numeric:tabular-nums}
+.wf-row .amt small{display:block;color:var(--ink-3);font-size:11px}
+.wf-row.res{background:#1e2a20}
+.note{font-size:13px;color:var(--ink-2);margin-top:12px}.note b{color:var(--ink)}
+.foot{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);font-size:12px;
+color:var(--ink-3);display:flex;flex-wrap:wrap;gap:6px 22px}
+.vozy{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+a.vuz{display:block;text-decoration:none;color:inherit;background:var(--panel);
+border:1px solid var(--line);border-left:5px solid var(--line);border-radius:3px;padding:18px 20px}
+a.vuz:hover,a.vuz:focus-visible{background:var(--panel-2);outline:none}
+a.vuz:focus-visible{border-color:var(--acc)}
+a.vuz.ano{border-left-color:var(--ok)}a.vuz.ne{border-left-color:var(--bad)}
+a.vuz.snad{border-left-color:var(--warn)}
+.vuz .stav{font-family:var(--data);font-size:10px;letter-spacing:.12em;text-transform:uppercase}
+.vuz.ano .stav{color:var(--ok)}.vuz.ne .stav{color:var(--bad)}.vuz.snad .stav{color:var(--warn)}
+.vuz h3{font-size:17px;font-weight:600;margin:7px 0 4px}
+.vuz .meta{font-size:12px;color:var(--ink-3);font-family:var(--data)}
+.vuz .duvod{font-size:13px;color:var(--ink-2);margin-top:10px}
+.vuz .ceny{margin-top:12px;display:flex;flex-direction:column;gap:1px;
+background:var(--line);border:1px solid var(--line);border-radius:3px;overflow:hidden}
+.vuz .ceny div{background:var(--panel-2);display:flex;justify-content:space-between;
+align-items:baseline;gap:12px;padding:7px 11px}
+.vuz .ceny .p{font-family:var(--data);font-size:9px;letter-spacing:.1em;
+text-transform:uppercase;color:var(--ink-3);flex:none}
+.vuz .ceny .p b{color:var(--ink-2);font-weight:600}
+.vuz .ceny .c{font-family:var(--data);font-size:13px;font-weight:600;text-align:right}
+.vuz .ceny .c small{font-weight:400;color:var(--ink-2);font-size:11px}
+.vuz .otevri{font-size:12px;color:var(--acc);margin-top:12px;font-weight:500}
+.trychtyr{display:flex;flex-wrap:wrap;gap:2px;background:var(--line);border:1px solid var(--line);
+border-radius:3px;overflow:hidden}
+.trychtyr div{background:var(--panel);padding:13px 16px;flex:1 1 130px}
+.trychtyr .c{font-family:var(--data);font-size:22px;font-weight:600}
+.trychtyr .p{font-family:var(--data);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+color:var(--ink-3);margin-top:3px}
+a.zpet{display:inline-flex;align-items:center;gap:8px;text-decoration:none;
+font-family:var(--data);font-size:12px;letter-spacing:.06em;text-transform:uppercase;
+color:var(--acc);border:1px solid var(--line);border-radius:3px;padding:8px 14px;
+margin-bottom:20px;background:var(--panel)}
+a.zpet:hover,a.zpet:focus-visible{background:var(--panel-2);border-color:var(--acc);outline:none}
+a.zpet.dole{margin:34px 0 0}
+@media (max-width:560px){.lbl{font-size:11px}.lbl .v{font-size:13px}
+.wf-row{grid-template-columns:1fr auto}.wf-bar{display:none}}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<meta charset="utf-8"><title>Kokpit lotu 11537258</title>
+<a class="zpet" href="index.html">&larr; Zpět na přehled vozů dne</a>
+<div class="head">
+  <div>
+    <div class="eyebrow">Dražební kokpit · BATKO.DIGITAL.AI · 20260913</div>
+    <h1>Skoda Superb Combi 2.0 TDI Clever</h1>
+    <div class="sub">lot <span class="num">11537258</span> · 2021 ·
+      <span class="num">112 646</span> km · <span class="num">90</span> kW ·
+      BE · konec aukce 2026-09-14 09:15</div>
+  </div>
+  <div class="verdict"><div class="stamp warn">JEN SLEDOVAT
+    <span class="why">vlajka HasReportDamage — přečíst dokumentaci</span></div></div>
+</div>
+
+<section class="unknown"><h2>Co o tomhle voze nevíme</h2>
+<ul><li><b>Nezávislá inspekční zpráva nečtena.</b> Zkontrolována byla čtyři pole v detailu lotu a ta hlásí čisto. Absence nálezu ale není důkaz čistoty — projekt má osm případů, kdy API mlčelo a nezávislá zpráva mluvila.</li><li><b>Doprava je odhad</b> — střed měřeného pásma pro danou zemi, ne dotaz na <span class='num'>transportoptions</span>. Naměřený rozptyl 7 680 až 10 971 Kč.</li><li><b>Percentily jsou stupeň 2</b> — vzorek nejde filtrovat podle výkonu, sledovač trhu kW neukládá. U skupin, kde se pod jedním jménem schovávají různé motorizace (BMW řada 3 a 5, Audi A6, Mercedes E), je to <b>vážné riziko</b> — 13. 9. tím jedno BMW vyšlo o 105 775 Kč dráž.</li><li><b>Kurz je konstanta ČNB 24.195</b>, ne kurz OPENLANE čtený u tohoto lotu.</li></ul></section>
+
+<section><h2>Rozhodnutí v číslech</h2>
+<div class="cards">
+  <div class="card"><div class="k">Náš strop</div><div class="v bad">€12 570</div>
+    <div class="n">304 124 Kč · nad tím nepřihazovat</div></div>
+  <div class="card"><div class="k">Prostor k příhozu</div>
+    <div class="v bad">-10 411 Kč</div>
+    <div class="n">proti dnešní ceně €13 000</div></div>
+  <div class="card"><div class="k">Poměr k cíli prodejce</div>
+    <div class="v warn">96.0 %</div>
+    <div class="n">laťka 95 %</div></div>
+  <div class="card"><div class="k">Dní vázání kapitálu</div><div class="v warn">76</div>
+    <div class="n">55 dní prodeje (zmereno) + 21 logistika</div></div>
+</div></section>
+
+<section><h2>Kde leží náš strop proti trhu</h2>
+<div class="axis" data-lo="12067" data-hi="14915" data-marks='[{"v":13000,"t":"Aktuální příhoz","e":"€13 000","k":"314 535 Kč","c":"var(--ok)"},{"v":12570,"t":"Náš strop","e":"€12 570","k":"304 124 Kč","c":"var(--acc)"},{"v":13100,"t":"Cíl prodejce","e":"€13 100","k":"316 954 Kč","c":"var(--ink-2)"},{"v":14341,"t":"Nulový bod","e":"€14 341","k":"346 992 Kč","c":"var(--bad)"}]'>
+  <div class="track"><div class="zone" style="width:17.65%;background:var(--ok)"></div>
+  <div class="zone" style="width:62.21%;background:var(--warn)"></div>
+  <div class="zone" style="width:20.14%;background:var(--bad)"></div></div>
+</div>
+<div class="axis-foot"><span>€12 067</span><span>€12 779</span><span>€13 491</span><span>€14 203</span><span>€14 915</span></div>
+<div class="legend">
+  <span><i style="background:var(--ok)"></i> vydělá 0.15 % z kapitálu denně a víc</span>
+  <span><i style="background:var(--warn)"></i> vydělá, ale míň než chceme</span>
+  <span><i style="background:var(--bad)"></i> ztráta</span>
+</div></section>
+
+<section><h2>Kde aukce může skončit</h2>
+<div class="tbl-wrap"><table><thead><tr><th>Konečná cena</th><th>Vázaný kapitál</th>
+<th>Čistý zisk</th><th>Denní ROI</th></tr></thead><tbody><tr><td class='n'>€13 000<small>dnešní příhoz</small></td><td class='n'>343 577 Kč</td><td class='n' style='color:var(--warn)'>32 457 Kč</td><td class='n' style='color:var(--warn)'>0.124 %</td></tr><tr><td class='n'>€12 570<small>náš strop</small></td><td class='n'>333 165 Kč</td><td class='n' style='color:var(--ok)'>42 868 Kč</td><td class='n' style='color:var(--ok)'>0.169 %</td></tr><tr><td class='n'>€13 100<small>cíl prodejce</small></td><td class='n'>345 996 Kč</td><td class='n' style='color:var(--warn)'>30 037 Kč</td><td class='n' style='color:var(--warn)'>0.114 %</td></tr></tbody></table></div>
+<p class="note">Cenové dno prodeje při nákupu na stropu: <b>403 130 Kč</b> s DPH.
+Laťka je 0.15 % z kapitálu denně, tedy 55 % ročně na nasazeném kapitálu.</p>
+</section>
+
+<section><h2>Za kolik se to v Česku prodává</h2>
+<div class="tbl-wrap"><table><thead><tr><th>Okno srovnání</th><th>vozů</th><th>p25</th></tr></thead><tbody><tr><td>široké · nájezd ±28 %, rok ±1</td><td class='n'>72</td><td class='n'>489 248 Kč</td></tr><tr><td>úzké · nájezd ±12 %, rok ±1</td><td class='n'>26</td><td class='n'>—</td></tr><tr class='total'><td>použito — nižší z obou p25</td><td class='n'>superb_combi</td><td class='n'>489 248 Kč</td></tr></tbody></table></div>
+<p class="note">Metoda: <b>percentily superb_combi n=72/26 (siroke okno, stupen 2)</b>. Realizační cena = p25 mínus sleva 7 %
+= <b>455 000 Kč</b>. Doba prodeje skupiny je <b>55 dní</b> (zmereno),
+měřeno na zmizelých inzerátech sauto.cz.</p></section>
+
+<section><h2>Od prodejní ceny k zisku</h2>
+<div class="wf">
+<div class="wf-row"><div class="lab">Realizační cena v ČR</div>
+  <div class="wf-bar" style="width:100%;background:var(--acc)"></div>
+  <div class="amt">455 000 Kč<small>€18 806</small></div></div>
+<div class="wf-row"><div class="lab">DPH 21 %</div>
+  <div class="wf-bar" style="width:17.4%;background:var(--unk)"></div>
+  <div class="amt">−78 967 Kč</div></div>
+<div class="wf-row"><div class="lab">Tržba netto</div>
+  <div class="wf-bar" style="width:82.6%;background:#6b5f54"></div>
+  <div class="amt">376 033 Kč</div></div>
+<div class="wf-row"><div class="lab">Náklady<small>poplatky, doprava, papíry, klíč — bez DPH (odpočet), doprava neověřena</small></div>
+  <div class="wf-bar" style="width:6.4%;background:var(--unk)"></div>
+  <div class="amt">−29 042 Kč</div></div>
+<div class="wf-row"><div class="lab">Nákup vozu při stropu</div>
+  <div class="wf-bar" style="width:66.8%;background:var(--unk)"></div>
+  <div class="amt">−304 124 Kč<small>−€12 570</small></div></div>
+<div class="wf-row res"><div class="lab"><b>Čistý zisk</b><small>za 76 dní vázání kapitálu</small></div>
+  <div class="wf-bar" style="width:9.4%;background:var(--ok)"></div>
+  <div class="amt" style="color:var(--ok)">42 868 Kč</div></div>
+</div></section>
+
+<section><h2>Kontrola poškození</h2>
+<div class="tbl-wrap"><table><thead><tr><th>Pole</th><th style="text-align:left">Hodnota</th>
+<th style="text-align:left">Stav</th></tr></thead><tbody>
+<tr><td>IsBroken / HasTechnicalDamage / IsMargin</td><td style="text-align:left">false</td>
+  <td style="text-align:left"><span class="badge b-m">ZMĚŘENO</span> ze snímku dne</td></tr>
+<tr><td>IsHarmedBefore</td><td style="text-align:left">ne</td>
+  <td style="text-align:left"><span class='badge b-m'>ZKONTROLOVÁNO</span></td></tr>
+<tr><td>HasDamages</td><td style="text-align:left">ne</td>
+  <td style="text-align:left"><span class='badge b-m'>ZKONTROLOVÁNO</span></td></tr>
+<tr><td>HasReportDamage</td><td style="text-align:left">ANO</td>
+  <td style="text-align:left"><span class='badge b-m'>ZKONTROLOVÁNO</span></td></tr>
+<tr><td>DamageComment</td><td style="text-align:left">prázdný</td>
+  <td style="text-align:left"><span class='badge b-m'>ZKONTROLOVÁNO</span></td></tr>
+<tr><td>Počet klíčů</td><td style="text-align:left">1</td>
+  <td style="text-align:left"><span class='badge b-m'>ZKONTROLOVÁNO</span></td></tr>
+</tbody></table></div></section>
+
+<section><h2>Jak jsme se k němu dostali</h2>
+<p class="note" style="margin-top:0">Z <b>12 388</b> lotů dne prošlo sítem
+1 470, runwayí 1 363, ocenit z českého trhu šlo
+119 percentily a 87 regresí.
+Vyřazeno pro poškození 366, z blocklistu 2.</p>
+</section>
+<a class="zpet dole" href="index.html">&larr; Zpět na přehled vozů dne</a>
+<div class="foot">
+  <span>Ing. Jaroslav Batko — LINET</span>
+  <span>IČO 14600153 · DIČ CZ5912280418</span>
+  <span>Lískovec 170, 273 51 Velké Přítočno</span>
+  <span>batkoai.cz</span>
+  <span>Čísla platí k 20260913. Ceny aukce se u konce hýbou — před rozhodnutím přeměřit.</span>
+  <span>Track record: 3 trefy · 2 mimo · 4 neprodáno · nula dokončených vlastních obchodů.</span>
+</div><script>
+(function(){var LH=44,STEP=50,GA=14,GB=16,BH=16;
+function draw(ax){var lo=+ax.dataset.lo,hi=+ax.dataset.hi,W=ax.clientWidth;if(!W)return;
+var ms=JSON.parse(ax.dataset.marks);ax.querySelectorAll('.lbl,.mark').forEach(function(n){n.remove();});
+ms.forEach(function(m){m.pos=(m.v-lo)/(hi-lo);});ms.sort(function(a,b){return a.pos-b.pos;});
+var pl=[];ms.forEach(function(m){var el=document.createElement('div');el.className='lbl';
+el.style.color=m.c;el.innerHTML='<span class="t">'+m.t+'</span><span class="v">'+m.e+' <small>'+m.k+'</small></span>';
+ax.appendChild(el);m.el=el;var w=el.offsetWidth,cx=m.pos*W,left=Math.max(0,Math.min(W-w,cx-w/2)),l=0;
+while(pl.some(function(p){return p.level===l&&!(left>=p.right+12||left+w<=p.left-12);}))l++;
+pl.push({level:l,left:left,right:left+w});m.level=l;m.left=left;});
+var A=0,B=0;ms.forEach(function(m){if(m.level%2===0)A=Math.max(A,m.level/2+1);else B=Math.max(B,(m.level-1)/2+1);});
+var bt=A>0?(A-1)*STEP+LH+GA:0,tot=bt+BH+(B>0?GB+(B-1)*STEP+LH:0);
+ax.style.height=tot+'px';var tr=ax.querySelector('.track');tr.style.top=bt+'px';tr.style.height=BH+'px';
+ms.forEach(function(m){var cx=m.pos*W,mk=document.createElement('div');mk.className='mark';
+mk.style.left=cx+'px';mk.style.background=m.c;
+if(m.level%2===0){var a=m.level/2,t=bt-GA-LH-STEP*a;m.el.style.top=t+'px';
+mk.style.top=(t+LH)+'px';mk.style.height=(bt-t-LH+BH)+'px';}
+else{var b=(m.level-1)/2,tp=bt+BH+GB+STEP*b;m.el.style.top=tp+'px';
+mk.style.top=bt+'px';mk.style.height=(tp-bt)+'px';}
+m.el.style.left=m.left+'px';ax.appendChild(mk);});}
+function all(){document.querySelectorAll('.axis').forEach(draw);}
+all();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(all);
+var t;addEventListener('resize',function(){clearTimeout(t);t=setTimeout(all,120);});})();
+</script>
+</body></html>
