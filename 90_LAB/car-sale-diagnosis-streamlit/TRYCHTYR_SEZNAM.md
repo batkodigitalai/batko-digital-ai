@@ -34,7 +34,7 @@
 
 ## Aktuální napojení
 
-- Soubor `C:\Users\tomas\OneDrive\Dokumenty\Claude\Projects\auto1\docs\20260617 1048 osloveni vlna 012.html` má doplněné tlačítko `Diagnóza auta`.
+- Soubor `C:\Users\Admin\OneDrive\Dokumenty\Claude\Projects\auto1\docs\20260617 1048 osloveni vlna 012.html` má doplněné tlačítko `Diagnóza auta`.
 - Odkaz se skládá automaticky z karty auta.
 - Konstanta `DIAGNOSIS_APP_URL` je v aktuální vlně nastavena na veřejnou Streamlit URL.
 - Nikdy ji nevracet na `http://localhost:8501/` u souboru určeného k reálnému oslovování.

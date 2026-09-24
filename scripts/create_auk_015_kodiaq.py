@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 
-BASE = Path(r"C:\Users\tomas\OneDrive\Dokumenty\Claude\Projects\auto1")
+BASE = Path(r"C:\Users\Admin\OneDrive\Dokumenty\Claude\Projects\auto1")
 TEMPLATE = BASE / "aukce_system" / "aukce_TEMPLATE.html"
 OUT_DIR = BASE / "aukce_system" / "20260710_AUK-015_Skoda_Kodiaq_2022_Tour_4x4_200hp"
 OUT_HTML = OUT_DIR / "index.html"

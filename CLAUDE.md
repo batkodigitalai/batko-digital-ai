@@ -572,7 +572,7 @@ Stripe Payment Link:
 `https://buy.stripe.com/9B6cN61bIcyH7l95sv3VC03`
 
 Aktuální klikací HTML vlna:
-`C:\Users\tomas\OneDrive\Dokumenty\Claude\Projects\auto1\docs\20260617 1048 osloveni vlna 012.html`
+`C:\Users\Admin\OneDrive\Dokumenty\Claude\Projects\auto1\docs\20260617 1048 osloveni vlna 012.html`
 
 Správný obchodní postup:
 1. Otevřít původní inzerát a ověřit, že je stále živý.
@@ -596,10 +596,10 @@ Nikdy neříkat hotovo, dokud neprojde anonymní smoke test:
 ## Cenové srovnání podobných aut v Sauto vlně (funkční od 2026-06-17)
 
 Skript:
-`C:\Users\tomas\OneDrive\Dokumenty\Claude\Projects\auto1\scripts\sauto_price_comps_for_wave.py`
+`C:\Users\Admin\OneDrive\Dokumenty\Claude\Projects\auto1\scripts\sauto_price_comps_for_wave.py`
 
 Aktuální ověřený příkaz pro vlnu 012:
-`python "C:\Users\tomas\OneDrive\Dokumenty\Claude\Projects\auto1\scripts\sauto_price_comps_for_wave.py" "C:\Users\tomas\OneDrive\Dokumenty\Claude\Projects\auto1\docs\20260617 1048 osloveni vlna 012.html" --limit 20`
+`python "C:\Users\Admin\OneDrive\Dokumenty\Claude\Projects\auto1\scripts\sauto_price_comps_for_wave.py" "C:\Users\Admin\OneDrive\Dokumenty\Claude\Projects\auto1\docs\20260617 1048 osloveni vlna 012.html" --limit 20`
 
 Co to dělá:
 - vezme Sauto ID z HTML karet,

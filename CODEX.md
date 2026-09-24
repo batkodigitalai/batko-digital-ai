@@ -270,7 +270,7 @@ Postup pro zrychleni:
 5. Po stazeni fotek overit, ze soubory nejsou jen chybova odpoved 100-500 B a ze `photos[]` odpovida skutecnemu poctu fotek.
 6. Ceske texty/diakritiku nevkladat pres PowerShell 5 here-string bez jisteho UTF-8. Pri spatnem zapisu vznikne mojibake (`Ä`, `Ĺ`, `Ă`, `Å`). Pouzit `apply_patch`, UTF-8 aware editor nebo explicitni UTF-8 zapis a po ulozeni vizualne zkontrolovat stranku.
 7. In-app Browser nemusi otevrit `file://`. Pro kontrolu spustit lokalni server z korene `auto1`:
-   `python -m http.server 8766 --bind 127.0.0.1 --directory "C:\Users\tomas\OneDrive\Dokumenty\Claude\Projects\auto1"`
+   `python -m http.server 8766 --bind 127.0.0.1 --directory "C:\Users\Admin\OneDrive\Dokumenty\Claude\Projects\auto1"`
    a otevrit `http://127.0.0.1:8766/aukce_system/SLOZKA/index.html`.
 8. Kdyz lokalni URL vraci 404, skoro vzdy bezi server na spatnem portu nebo ze spatneho rootu. Overit `curl.exe -I` a pripadne pouzit jiny port.
 9. Po uploadu na GitHub Pages muze byt kratce 404. Pockat 10-20 s, pridat cache-busting `?v=YYYYMMDD-HHMM` a overit HTML i prvni JPG pres `curl.exe -I`.
@@ -442,7 +442,7 @@ Role: jsi technický asistent pro přípravu podkladů nového auta.
 Úkol: stáhni fotky auta ID [X] z přihlášeného Chrome.
 Postup:
 1. Nkoušet nepřihlášený in-app browser — pokud nemá sdílenou session, přejít na krok 2
-2. Číst Chrome cache: C:\Users\tomas\AppData\Local\Google\Chrome\User Data\Default\Cache\Cache_Data
+2. Číst Chrome cache: C:\Users\Admin\AppData\Local\Google\Chrome\User Data\Default\Cache\Cache_Data
 3. Hledat URL tvaru: https://images.openlane.eu/carimgs/*/general/*.jpg
 4. Vybrat nejnovější skupinu podle času otevření stránky a počtu fotek
 5. Pokud je skupin více, vytvořit contact sheet pro vizuální ověření správného auta
@@ -562,7 +562,7 @@ pro Claude i Codex i jakehokoliv dalsiho agenta.
 
 Hlavni projektova slozka:
 
-`C:\Users\tomas\OneDrive\Dokumenty\Claude\Projects\auto1\`
+`C:\Users\Admin\OneDrive\Dokumenty\Claude\Projects\auto1\`
 
 Aktualni workflow pro nabidky aut je popsany hlavne v:
 
@@ -769,7 +769,7 @@ v opravach, generovani ani uploadu bez vyslovneho aktualniho pokynu uzivatele.
 Kdyz uzivatel doda URL auta a ma auto otevrene v prihlasenem Chrome, nejrychlejsi vychozi postup je:
 
 1. Nezkouset zbytecne neprihlaseny in-app browser, pokud nema sdilenou session.
-2. Cist Chrome cache ve slozce `C:\Users\tomas\AppData\Local\Google\Chrome\User Data\Default\Cache\Cache_Data`.
+2. Cist Chrome cache ve slozce `C:\Users\Admin\AppData\Local\Google\Chrome\User Data\Default\Cache\Cache_Data`.
 3. Hledat URL tvaru `https://images.openlane.eu/carimgs/*/general/*.jpg`.
 4. Vybrat nejnovejsi skupinu podle casu otevreni stranky, poctu fotek a vizualni shody s autem.
 5. Zkopirovat skutecne JPEG soubory z cache do `img\foto_01.jpg`, `img\foto_02.jpg`, ...
@@ -1096,7 +1096,7 @@ Stripe Payment Link:
 `https://buy.stripe.com/9B6cN61bIcyH7l95sv3VC03`
 
 Aktuální interní HTML vlna:
-`C:\Users\tomas\OneDrive\Dokumenty\Claude\Projects\auto1\docs\20260617 1048 osloveni vlna 012.html`
+`C:\Users\Admin\OneDrive\Dokumenty\Claude\Projects\auto1\docs\20260617 1048 osloveni vlna 012.html`
 
 Provozní pravidla:
 1. Nejprve otevřít původní Sauto inzerát a ověřit, že stále existuje, cena/nájezd sedí a nejde o nevhodný kontakt.
@@ -1119,10 +1119,10 @@ Povinné kontroly před tvrzením „hotovo“:
 ## Cenové srovnání podobných aut v Sauto vlně (funkční od 2026-06-17)
 
 Skript:
-`C:\Users\tomas\OneDrive\Dokumenty\Claude\Projects\auto1\scripts\sauto_price_comps_for_wave.py`
+`C:\Users\Admin\OneDrive\Dokumenty\Claude\Projects\auto1\scripts\sauto_price_comps_for_wave.py`
 
 Aktuální ověřený příkaz pro vlnu 012:
-`python "C:\Users\tomas\OneDrive\Dokumenty\Claude\Projects\auto1\scripts\sauto_price_comps_for_wave.py" "C:\Users\tomas\OneDrive\Dokumenty\Claude\Projects\auto1\docs\20260617 1048 osloveni vlna 012.html" --limit 20`
+`python "C:\Users\Admin\OneDrive\Dokumenty\Claude\Projects\auto1\scripts\sauto_price_comps_for_wave.py" "C:\Users\Admin\OneDrive\Dokumenty\Claude\Projects\auto1\docs\20260617 1048 osloveni vlna 012.html" --limit 20`
 
 Co to dělá:
 - vezme Sauto ID z HTML karet,

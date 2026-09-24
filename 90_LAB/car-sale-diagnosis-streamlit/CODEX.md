@@ -4,8 +4,8 @@ Tato složka je pracovní kopie zlatého Streamlit vzoru pro trychtýř kolem st
 
 ## Stav
 
-- lokální app: `C:\Users\tomas\OneDrive\Dokumenty\Claude\Projects\car_sale_diagnosis_app`
-- výchozí vzor: `C:\Users\tomas\OneDrive\Dokumenty\Claude\Projects\sunk_cost_decision_app`
+- lokální app: `C:\Users\Admin\OneDrive\Dokumenty\Claude\Projects\car_sale_diagnosis_app`
+- výchozí vzor: `C:\Users\Admin\OneDrive\Dokumenty\Claude\Projects\sunk_cost_decision_app`
 - účel: převést oslovené prodávající na zájemce o placené služby kolem prodeje auta
 
 ## Produkt
@@ -50,7 +50,7 @@ Stripe Payment Link:
 `https://buy.stripe.com/9B6cN61bIcyH7l95sv3VC03`
 
 Aktuální HTML vlna s tlačítkem `Diagnóza auta`:
-`C:\Users\tomas\OneDrive\Dokumenty\Claude\Projects\auto1\docs\20260617 1048 osloveni vlna 012.html`
+`C:\Users\Admin\OneDrive\Dokumenty\Claude\Projects\auto1\docs\20260617 1048 osloveni vlna 012.html`
 
 Aktuální funkční funnel:
 1. Interní HTML seznam otevře konkrétní Sauto inzerát a veřejnou diagnózu.

@@ -1,5 +1,5 @@
 @echo off
-cd /d "C:\Users\tomas\OneDrive\Dokumenty\Claude\Projects\auto1\aukce_system\20260614_AUK-010_Toyota_Corolla_TS_2020_Executive\img"
+cd /d "C:\Users\Admin\OneDrive\Dokumenty\Claude\Projects\auto1\aukce_system\20260614_AUK-010_Toyota_Corolla_TS_2020_Executive\img"
 echo Stahuji 20 fotek Toyota Corolla AUK-010 z OPENLANE CDN...
 echo.
 

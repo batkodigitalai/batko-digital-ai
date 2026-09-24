@@ -97,7 +97,7 @@ Kdyz vstupem je Sauto detail URL, neprepisovat data rucne:
 6. Po stazeni zkontrolovat velikost fotek a shodu `photos[]` se soubory. Soubor o velikosti par stovek bajtu je typicky CDN chyba.
 7. Diakritiku nezapisovat pres PowerShell 5 here-string bez garantovaneho UTF-8. Po ulozeni otevrit stranku a zkontrolovat, ze text neni rozbity (`Ä`, `Ĺ`, `Ă`, `Å`).
 8. Pro kontrolu v in-app Browseru nepouzivat `file://`, ale lokalni HTTP server:
-   `python -m http.server 8766 --bind 127.0.0.1 --directory "C:\Users\tomas\OneDrive\Dokumenty\Claude\Projects\auto1"`
+   `python -m http.server 8766 --bind 127.0.0.1 --directory "C:\Users\Admin\OneDrive\Dokumenty\Claude\Projects\auto1"`
 9. Pokud lokalni URL vraci 404, zkontrolovat port/root pres `curl.exe -I`; casto bezi stary server na jinem rootu.
 10. Po uploadu na GitHub Pages cekat kratkou propagaci, overit `index.html` i prvni JPG pres `curl.exe -I` a pridat `?v=YYYYMMDD-HHMM`.
 
