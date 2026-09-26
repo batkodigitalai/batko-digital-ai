@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rozbor dne 26. 9. 2026 — BATKO.DIGITAL.AI</title>
+<style>
+:root{--bg:#0a0a0a;--or:#FF6B00;--zl:#FFD700;--wh:#fff;--mu:#9a9a9a;--ln:#2a2a2a;--ok:#5dc88c;--red:#e06060}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--wh);font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;padding:0 0 80px}
+.wrap{max-width:900px;margin:0 auto;padding:0 20px}
+header{border-left:8px solid var(--or);padding:36px 0 28px 22px;margin-bottom:8px}
+.kick{color:var(--or);font-weight:700;font-size:14px;letter-spacing:.08em;text-transform:uppercase}
+h1{font-size:clamp(28px,5vw,44px);margin:10px 0 6px;line-height:1.15}
+h1 span{color:var(--mu);font-weight:400;display:block;font-size:.55em;margin-bottom:6px}
+h2{font-size:22px;margin:44px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--ln)}
+p{margin:12px 0}
+.lead{color:var(--mu);font-size:17px}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:15px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--ln);vertical-align:top}
+th{color:var(--mu);font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:.04em}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.ok{color:var(--ok);font-weight:700}.bad{color:var(--red);font-weight:700}.warn{color:var(--zl);font-weight:700}
+.funnel{list-style:none;padding:0;margin:18px 0}
+.funnel li{display:flex;gap:18px;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--ln)}
+.funnel b{font-size:26px;min-width:110px;font-variant-numeric:tabular-nums}
+.funnel span{color:var(--mu);font-size:15px}
+.funnel li:last-child b{color:var(--ok)}
+.box{border-left:4px solid var(--zl);background:#141414;padding:14px 18px;margin:20px 0;border-radius:0 6px 6px 0}
+.box.err{border-left-color:var(--red)}.box.ok{border-left-color:var(--ok)}
+.box h4{margin:0 0 8px;font-size:16px;color:var(--zl)}.box.err h4{color:var(--red)}.box.ok h4{color:var(--ok)}
+/* souhrnné karty — klikací */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin:18px 0}
+.card{display:block;text-decoration:none;color:var(--wh);border:1px solid #2f5e42;border-radius:10px;padding:16px 18px;background:#0f1411}
+.card:hover{border-color:var(--ok)}
+.card .big{font-size:30px;font-weight:800;color:var(--ok);font-variant-numeric:tabular-nums;line-height:1.1}
+.card .sm{color:var(--mu);font-size:14px}
+.card .go{color:var(--or);font-weight:700;font-size:14px;margin-top:8px}
+details.car{border:1px solid var(--ln);border-radius:8px;margin:14px 0;background:#101010}
+details.car.pass{border-color:#2f5e42}
+details.car>summary{cursor:pointer;list-style:none;padding:16px 18px;display:flex;flex-wrap:wrap;gap:8px 14px;align-items:baseline}
+details.car>summary::-webkit-details-marker{display:none}
+details.car>summary::after{content:"▸ rozkliknout";margin-left:auto;color:var(--or);font-size:13px;font-weight:700}
+details.car[open]>summary::after{content:"▾ sbalit"}
+details.car .in{padding:0 18px 16px}
+.nm{font-size:18px;font-weight:700;color:var(--zl)}
+.tag{display:inline-block;font-size:12px;font-weight:700;padding:3px 9px;border-radius:99px;letter-spacing:.03em}
+.t-ok{background:#1d3d2a;color:var(--ok)}.t-bad{background:#3d1d1d;color:var(--red)}.t-warn{background:#3d341d;color:var(--zl)}
+.spec{color:var(--mu);font-size:14px;width:100%}
+footer{margin-top:60px;border-top:1px solid var(--ln);padding-top:22px;color:var(--mu);font-size:14px}
+footer b{color:var(--wh)}
+.anon{background:#141414;border:1px dashed var(--ln);padding:12px 16px;border-radius:6px;color:var(--mu);font-size:14px;margin:20px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="kick">Rozbor dne · sobota 26. září 2026</div>
+  <h1><span>Nejvyšší marže dne měly</span>skoro vždycky havárii.</h1>
+  <p class="lead">Z 11 147 vozů v evropské aukci jsme prověřili 32 s nejvyšším výnosem. Kde jsme četli
+  inspekční zprávu, tam byla u 9 vozů z 12 havárie. Zbyly dva čisté vozy. Oba jsou níž — rozklikněte je.</p>
+</header>
+
+<h2>Dva vozy dne</h2>
+<div class="cards">
+  <a class="card" href="#vuz-a">
+    <div class="sm">Vůz A · kombi · 2024 · 40–45 tis. km</div>
+    <div class="big">+97 900 Kč</div>
+    <div class="sm">odhad zisku na voze · nabídka kolem 15 000 €</div>
+    <div class="go">Rozkliknout detail →</div>
+  </a>
+  <a class="card" href="#vuz-b">
+    <div class="sm">Vůz B · sedan · 2025 · 30–35 tis. km</div>
+    <div class="big">+197 700 Kč</div>
+    <div class="sm">odhad zisku na voze · nabídka kolem 26 000 €</div>
+    <div class="go">Rozkliknout detail →</div>
+  </a>
+</div>
+<p class="lead" style="font-size:14px">Zisk = prodej na českém trhu (45. percentil inzerátů − 7 % sleva, bez DPH) minus nákup, doprava,
+poplatky, papíry a odhad oprav. Není to slib. Je to výpočet, který rozebíráme níž.</p>
+
+<h2>Trychtýř</h2>
+<ul class="funnel">
+  <li><b>11 147</b><span>vozů v evropské aukci (snímek nabídky 26. 9.)</span></li>
+  <li><b>1 252</b><span>po sítu: nafta, automat, bez hlášeného poškození, Německo / Belgie / Nizozemsko, ročník 2019+</span></li>
+  <li><b>952</b><span>umíme přiřadit k modelu na českém trhu</span></li>
+  <li><b>301</b><span>mají aspoň 8 srovnatelných inzerátů v Česku — dají se ocenit</span></li>
+  <li><b>32</b><span>s nejvyšším denním výnosem jsme prověřili ručně</span></li>
+  <li><b>12</b><span>přečtených inspekčních zpráv — 9× havárie, 1× historie nezjištěna</span></li>
+  <li><b>2</b><span>čisté vozy s rezervou pod stropem</span></li>
+</ul>
+
+<div class="box err">
+  <h4>Čím větší marže, tím podezřelejší vůz</h4>
+  <p style="margin:0">Prodejce, který o havárii ví, dá nižší cenu. Náš strop se ale počítá z cen
+  <b>nehavarovaných</b> vozů v Česku. Takže nejlepší čísla v tabulce vycházejí právě u vozů, které
+  mají vypadnout. Pole v aukčním systému to neprozradí — u všech devíti havarovaných hlásila „bez poškození".
+  Prozradila to až inspekční zpráva, u dvou vozů až <b>poznámka prodejce na první straně</b> nebo
+  <b>příčina u jedné vady</b> („škoda z nehody").</p>
+</div>
+
+<div class="anon">
+Vozy jsou označené písmeny. Dokud dražba běží, neuvádíme značku, model, číslo lotu ani jméno aukční
+platformy a technické organizace. Ročník, karoserie, palivo, převodovka, pásmo nájezdu, země
+a cena prodejce ±500 € veřejné jsou.
+</div>
+
+<details class="car pass" id="vuz-a">
+  <summary>
+    <span class="nm">Vůz A</span><span class="tag t-ok">ČISTÁ ZPRÁVA · REZERVA</span>
+    <span class="spec">kombi · 05/2024 · nafta · automat · 40–45 tis. km · Německo · nabídka kolem 15 000 € · konec v pondělí 28. 9. večer</span>
+  </summary>
+  <div class="in">
+    <table>
+      <tr><th>nákup (cena prodejce)</th><td class="num">kolem 15 000 € · nákladů celkem 424 700 Kč</td></tr>
+      <tr><th>prodej v Česku</th><td class="num">632 300 Kč (45. percentil − 7 %) · 99 srovnatelných inzerátů</td></tr>
+      <tr><th>odhad zisku</th><td class="num ok">97 900 Kč · 23,0 % · 0,45 % z kapitálu za den</td></tr>
+      <tr><th>kdyby se prodal jen za 25. percentil</th><td class="num">74 800 Kč · 17,6 % · 0,35 % za den</td></tr>
+      <tr><th>strop, do kterého má smysl jít</th><td class="num">17 676 €</td></tr>
+      <tr><th>doprava</th><td class="num">9 123 Kč — změřeno, ne odhad</td></tr>
+      <tr><th>inspekční zpráva</th><td>předchozí škody známé <b>ne</b> · zjištěné <b>ne</b> · přelak <b>ne</b> · lakoměr bez odchylek · 2 klíče · technická do 05/2027 · servis digitální, kompletní</td></tr>
+      <tr><th>druhý zdroj ceny</th><td>aukční platforma sama oceňuje vůz pro český trh na 26 560 €</td></tr>
+    </table>
+    <p><b>Co to relativizuje:</b></p>
+    <p>1. Zpráva uvádí sedm vad a <b>neocení ani jednu</b> — čelní sklo k výměně, lakování tří dílů, dvakrát smart repair.
+    Počítáme s opravou 30 000 Kč. To je náš odhad, ne faktura.</p>
+    <p>2. Tentýž vůz jsme rozebírali <b>18. září</b> jako „vůz A". Tehdy chtěl prodejce kolem 17 000 € a nikdo tolik nedal —
+    příhozy skončily na 13 700 €. Teď je to čtvrté kolo a prodejce slevil o 2 000 €.
+    <b>Proč obchodníci z EU nedali víc, nevíme.</b> To je hlavní otevřená otázka tohohle vozu.</p>
+  </div>
+</details>
+
+<details class="car pass" id="vuz-b">
+  <summary>
+    <span class="nm">Vůz B</span><span class="tag t-ok">ČISTÁ ZPRÁVA · REZERVA</span>
+    <span class="spec">sedan · 01/2025 · nafta · automat · 30–35 tis. km · Německo · nabídka kolem 26 000 € · konec v pondělí 28. 9. odpoledne</span>
+  </summary>
+  <div class="in">
+    <table>
+      <tr><th>realistický nákup</th><td class="num">kolem 26 500 € · nákladů celkem 695 900 Kč</td></tr>
+      <tr><th>prodej v Česku</th><td class="num">1 081 300 Kč (45. percentil − 7 %) · 24 srovnatelných inzerátů</td></tr>
+      <tr><th>odhad zisku</th><td class="num ok">197 700 Kč · 28,4 % · 0,42 % z kapitálu za den</td></tr>
+      <tr><th>kdyby se prodal jen za 25. percentil</th><td class="num">72 400 Kč · 10,4 % · 0,155 % za den</td></tr>
+      <tr><th>strop, do kterého má smysl jít</th><td class="num">31 233 € (při 25. percentilu 26 590 €)</td></tr>
+      <tr><th>doprava</th><td class="num">9 132 Kč — změřeno, ne odhad</td></tr>
+      <tr><th>inspekční zpráva</th><td>opravené předchozí škody <b>nezjištěny</b> · 2 z 2 klíčů · servis 10/2025 · vady: prasklé čelní sklo, škrábanec na konzoli</td></tr>
+      <tr><th>druhý zdroj ceny</th><td>aukční platforma oceňuje vůz pro český trh na 49 744 €; souběžný inzerát téhož vozu u německého prodejce: „škoda nezjištěna", 25 714 €</td></tr>
+    </table>
+    <p><b>Co to relativizuje:</b></p>
+    <p>1. Vůz je v aukci zhruba <b>potřinácté od 3. srpna</b>. Příhozy vždycky skončily těsně pod přáním prodejce —
+    28 600 € proti 29 000, pak kolem 26 000–27 800. Poptávka tedy je, prodejce chtěl víc. Teď poprvé žádá cenu
+    na úrovni dosavadních příhozů. Proto počítáme s nákupem kolem 26 500 €, ne s vyvolávací cenou.</p>
+    <p>2. Rozdíl mezi 25. a 45. percentilem je tady 125 000 Kč. Za kolik vůz v Česku opravdu prodáte, rozhoduje o všem.
+    Doba prodeje 46 dní stojí jen na 11 měřeních.</p>
+    <p>3. Oprava skla je odhad 20 000 Kč, zpráva cenu „dodá dodatečně".</p>
+  </div>
+</details>
+
+<h2>Dva z vyřazených — proč</h2>
+<details class="car">
+  <summary><span class="nm">Vůz C</span><span class="tag t-bad">NEDRAŽIT — havárie</span>
+  <span class="spec">hatchback · 2023 · nafta · automat · 55–60 tis. km · Německo · cena prodejce kolem 25 000 €</span></summary>
+  <div class="in"><p>Všechna pole v aukci „bez poškození". Ve zprávě přední nárazník k výměně a spoiler s promáčklinou,
+  u obou jako příčina <b>„škoda z nehody č. 1"</b>. Naše automatická kontrola to pustila jako čisté — ten řetězec
+  neměla v seznamu. Našlo to až ruční čtení.</p></div>
+</details>
+<details class="car">
+  <summary><span class="nm">Vůz D</span><span class="tag t-bad">NEDRAŽIT — dvě nehody</span>
+  <span class="spec">kombi · 2022 · nafta · automat · 150 tis. km · Německo · cena prodejce kolem 15 000 €</span></summary>
+  <div class="in"><p>Hlavní zpráva: přelak <b>ne</b>, lakoměr bez nálezu. Na první straně ale poznámka prodejce:
+  <b>opravená nehoda vpředu vlevo</b> (nárazník, blatník, světlo) a <b>vzadu vlevo</b> (bočnice). K tomu zadní nárazník
+  deformovaný po další nehodě. Kvalitní opravu lakoměr nenajde. Přiznal ji až prodejce.</p></div>
+</details>
+
+<h2>Co jsme v tomhle výpočtu změnili — a proč</h2>
+<table>
+  <tr><th>položka</th><th>dosud</th><th>teď</th><th>proč</th></tr>
+  <tr><td>prodejní cena</td><td>25. percentil − 7 %</td><td class="num">45. percentil − 7 %</td><td>Sledujeme 2 588 inzerátů v 17 modelech. Prodaná auta měla v mediánu cenu na 44. percentilu. Auta v pásmu 25–50 % se prodávají stejně často jako nejlevnější čtvrtina (19 % proti 21 %).</td></tr>
+  <tr><td>srovnatelných vozů</td><td>aspoň 20</td><td class="num">aspoň 8</td><td>Stejná brána jako u našich kampaní. Vzorek je menší, proto u každého vozu uvádíme jeho velikost.</td></tr>
+  <tr><td>doba prodeje</td><td colspan="2">beze změny — změřená po modelech, jinde 60 dní</td><td>Průměr jen z prodaných aut by dobu podhodnotil: nezapočítá ta, která stojí.</td></tr>
+  <tr><td>požadovaný výnos</td><td colspan="2">0,15 % z kapitálu za den</td><td>Naše volba, ne výpočet.</td></tr>
+</table>
+<p class="lead">Strop je cena, do které má smysl přihazovat. <b>Neříká, že obchod proběhne.</b>
+Z devíti dražeb, které jsme dosud vypsali: tři trefy, dvě mimo, čtyři neprodáno.</p>
+
+<footer>
+  <p><b>BATKO.DIGITAL.AI</b> · Ing. Jaroslav Batko-Linet · IČO 14600153 · dovoz vozů z evropských aukcí</p>
+  <p>Předvýběr z aukcí, kontrola inspekčních zpráv a strop, do kterého má smysl přihazovat.<br>
+  batko.digital.ai@gmail.com · +420 725 360 151 · batkoai.cz</p>
+  <p style="color:#5a5a5a">Rozbor popisuje vlastní postup a vlastní měření. Není to nabídka ani doporučení ke koupi
+  konkrétního vozu. Čísla platí k 26. 9. 2026.</p>
+</footer>
+
+</div>
+<script>
+// karta nahoře otevře a posune na detail vozu
+document.querySelectorAll('a.card').forEach(a=>a.addEventListener('click',e=>{
+  const d=document.querySelector(a.getAttribute('href')); if(d){d.open=true;}
+}));
+if(location.hash){const d=document.querySelector(location.hash); if(d&&d.tagName==='DETAILS')d.open=true;}
+</script>
+</body>
+</html>
