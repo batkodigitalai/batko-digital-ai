@@ -2,7 +2,7 @@
  "_popis": "Verejny track record predikci BATKO.DIGITAL.AI. Zapisuji se VSECHNY vyhodnocene loty, i ty, kde jsme se netrefili, i ty, kde jsme drazbu zamerne nevypsali.",
  "_metodika": "strop_eur = nas maximalni prihoz pri D=30 a prahu 0,40 %/den, spocteny PRED koncem aukce z percentilu sauto.cz. posledni_prihoz = posledni verejne viditelna cena v aukci (CurrentPrice). final_eur = skutecna prodejni cena — platforma ji u cizich transakci NEZVEREJNUJE, proto zustava null. POZNÁMKA K PŘESNOSTI: aukční poplatek je pásmový; hranice pásem byly 4. 8. 2026 doměřeny na devíti živých lotech (€245 do €10 000 · €300 do €20 000 · €395 nad) a opravují starší interní odhad.",
  "_omezeni": "Nevime, zda se vuz nakonec prodal. OPENLANE u cizich lotu neukazuje FinalPrice ani IsSold jinak nez 0/false. Vyhodnocujeme tedy POSLEDNI PRIHOZ proti nasemu stropu, ne prodejni cenu. AKTUALIZACE 4. 8. 2026: u lotu AUK-INFO-004 platforma poprve vratila nenulovou FinalPrice (10 000 EUR) pri IsSold = false. Tam, kde FinalPrice prijde, ji zapisujeme jako final_eur; kde je 0, zustava vyhodnoceni na poslednim prihozu. Zda se vuz nakonec prodal, platforma i tak nepotvrzuje.",
- "aktualizovano": "2026-09-21T21:10:00+02:00",
+ "aktualizovano": "2026-09-30T21:10:00+02:00",
  "polozky": [
   {
    "ref": "AUK-INFO-001",
@@ -489,6 +489,35 @@
    "scenare": null,
    "zisk_ciji": "kupujícího, hypoteticky — ne náš, vozy nekupujeme",
    "poznamka": "Čtvrtá neprodaná dražba z deseti. Verdikt stojí na třech nezávislých důkazech současně. (1) RELIST: vůz se 21. 9. v 16:00, tedy 4,5 hodiny po konci vlastní aukce, vrátil do nabídky pod novým AuctionId 11576119 se shodnou cenou prodejce €17 200 — nájezd 41 838 km sedí na kilometr přesně, DateFirstRegistration 2024-05-08 sedí NA DEN a párování je 1:1 v živém skenu 2 353 lotů segmentu nafta+automat (Count seděl přesně, kontrola na známé pravdě prošla). (2) NULA PŘÍHOZŮ: cena zůstala od vypsání 18. 9. až do konce 21. 9. na vyvolávacích €13 700 beze změny ve všech třech archivech, takže €13 700 není příhoz, ale nedotčená vyvolávací cena. (3) POSLEDNÍ CENA POD CÍLEM PRODEJCE: €13 700 je o €3 500 pod cílem €17 200. Mechanické pravidlo final ≤ strop by přitom řeklo trefa, protože €13 700 leží pod stropem €17 794 — proto se neuplatňuje, trefa se počítá jen tam, kde se vůz skutečně prodal. FinalPrice se odečíst nepodařilo: detail lotu vrátil HTTP 404 s prázdným tělem ve dvou měřeních s odstupem, zatímco běžící lot v témže běhu vrátil HTTP 200 a 36 934 B, takže nešlo o výpadek API. Do final_eur je proto zapsána nula odpovídající nule příhozů, nikoli odečtená hodnota. Konec 2026-09-21T11:35 je plánovaný BatchEndDate shodně ve třech archivech; případné prodloužení x-Time nešlo kvůli 404 ověřit. AUK-INFO-014 byla sama druhým kolem (první kolo 11568414 navazovalo na 11555511 s touž cenou prodejce), vůz tedy jde do třetího kola a cena prodejce se ani jednou nepohnula. U třetího kola prodejce zrušil Buy Now, které obě předchozí kola měla nastavené na cenu prodejce. Dražba informace skončila 20. 9. ve 14:00 bez jediného příhozu, takže z této dražby neplyne žádný příjem. Zisk 138 191 Kč a dROI 0,750 %/den jsou hypotetické, pro kupujícího při koupi za €13 700; na našem stropu by to bylo 38 150 Kč a 0,162 %/den při změřeném D = 51 dne pro skupinu octavia_combi. Nákladový model zrekonstruoval publikovanou investici 461 354 Kč s odchylkou 6 Kč. Index relistů zaostával o 2 dny (poslední datum_relist_sken 19. 9.), proto test na relist proběhl ŽIVĚ přes search API, ne z indexu."
+  },
+  {
+   "ref": "AUK-INFO-016",
+   "typ": "drazba",
+   "vuz": "kombi vyšší střední třídy · 2019 · nafta · automat · 143 kW · Belgie",
+   "url": "auk-info-016.html",
+   "konec_aukce": "2026-09-30T13:40",
+   "cil_eur": 9500,
+   "strop_eur": 9449,
+   "final_eur": 0,
+   "posledni_prihoz": 8600,
+   "prodano": false,
+   "kurz": 24.35,
+   "zisk_pri_finalni": 74524,
+   "odchylka_pct": -8.99,
+   "datum_vyhodnoceni": "30. 9. 2026",
+   "vysledek": "neprodano",
+   "rozklad": {
+    "vuz_kc": 209410,
+    "poplatky_kc": 10714,
+    "doprava_kc": 8772,
+    "papiry_kc": 3403,
+    "druhy_klic_kc": 0,
+    "kapital_kc": 232299,
+    "vzorek_n": 17
+   },
+   "scenare": null,
+   "zisk_ciji": "kupujícího, hypoteticky — ne náš, vozy nekupujeme",
+   "poznamka": "Neprodáno. Verdikt stojí na relistu: vůz se po konci aukce 30. 9. 2026 (plánovaný BatchEndDate 13:40) vrátil do nabídky pod novým AuctionId 11625226 — nájezd 211 179 km sedí na kilometr přesně, stejný model, země Belgie, tentýž kmen času konce 13:40, cena prodejce klesla z €9 500 na €9 200. Párování 1:1 v živém skenu 2 949 lotů segmentu nafta+automat (Count seděl přesně). Datum první registrace relistu 21. 2. 2019 nešlo porovnat s originálem (v podkladech NEOVĚŘENO), identitu proto nese nájezd na kilometr + model + země + čas konce. FinalPrice se odečíst nepodařilo: detail lotu vrátil HTTP 404 s prázdným tělem ve třech měřeních, zatímco běžící lot v témže běhu vrátil HTTP 200. Do final_eur je proto zapsána nula, nikoli odečtená hodnota. Poslední příhoz €8 600 je ODVOZEN z vyvolávací ceny relistu (vyvolávací cena relistu = poslední příhoz předchozího kola, potvrzeno dvakrát u AUK-INFO-012) a je pod cílem prodejce €9 500 i pod naším stropem €9 449. Mechanické pravidlo final ≤ strop by řeklo trefa; neuplatňuje se, trefa se počítá jen tam, kde se vůz skutečně prodal. Index relistů sahá k 28. 9. 2026, verdikt ale stojí na živém skenu, ne na indexu. Zisk a odchylka jsou hypotetické, při nákupu za odvozených €8 600, náklady dle modelu (kurz modelu 24,35, poplatek €245, BE €195, doprava na hub 8 772 Kč, 2 klíče). Dražba informace skončila 29. 9. 2026 v 19:00 bez příhozu, z této dražby neplyne žádný příjem."
   }
  ],
  "_co_prodavame": "BATKO.DIGITAL.AI NEOBCHODUJE S VOZY. Nekupujeme, neskladujeme ani neprodáváme auta — nemáme na to kapitál a nemáme investory. Prodáváme jednu věc: předem spočítanou informaci, za kolik má smysl na konkrétní lot přihodit. Vůz kupuje a prodává zákazník, na svůj kapitál a své riziko.",
