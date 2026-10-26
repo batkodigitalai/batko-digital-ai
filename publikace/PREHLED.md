@@ -10,7 +10,8 @@ Pravidla (platí od 26. 10. 2026):
 
 | Datum | Vzor | Soubor | Použito v | Poznámka |
 | --- | --- | --- | --- | --- |
-| 2026-10-26 | A1 | [20261026/20261026_1150_po_03_A1_karoq_aukce.jpg](https://batkodigitalai.github.io/batko-digital-ai/publikace/20261026/20261026_1150_po_03_A1_karoq_aukce.jpg) | VYSTUPY řádek 3 | první ostrý rozbor — Karoq 1.5 TSI 2019 z evropské aukce |
+| 2026-10-26 | A1 | [20261026/20261026_1210_po_04_A1_karoq_aukce_oprava.jpg](https://batkodigitalai.github.io/batko-digital-ai/publikace/20261026/20261026_1210_po_04_A1_karoq_aukce_oprava.jpg) | VYSTUPY řádek 4 | první ostrý rozbor — Karoq 1.5 TSI 2019 z evropské aukce, opravená karta |
+| 2026-10-26 | A1 | [20261026/20261026_1150_po_03_A1_karoq_aukce.jpg](https://batkodigitalai.github.io/batko-digital-ai/publikace/20261026/20261026_1150_po_03_A1_karoq_aukce.jpg) | VYSTUPY řádek 3 | NEPOUŽÍVAT — nahrazeno kartou 04 (špatné srovnání cen a kurz) |
 | 2026-10-26 | A1 | [20261026/20261026_1004_po_01_A1_octavia_demo.jpg](https://batkodigitalai.github.io/batko-digital-ai/publikace/20261026/20261026_1004_po_01_A1_octavia_demo.jpg) | VYSTUPY řádek 1 | DEMO, smyšlený inzerát |
 | 2026-10-26 | B4 | [20261026/20261026_1004_po_02_B4_shadow_ai.jpg](https://batkodigitalai.github.io/batko-digital-ai/publikace/20261026/20261026_1004_po_02_B4_shadow_ai.jpg) | VYSTUPY řádek 2 | DEMO |
 | 2026-10-25 | Auto pod lupou | [20261025/20261025_2300_ne_Auto_pod_lupou_Instagram.mp4](https://batkodigitalai.github.io/batko-digital-ai/publikace/20261025/20261025_2300_ne_Auto_pod_lupou_Instagram.mp4) + titulní jpg | Instagram Reel | před zavedením přehledu |
