@@ -1,0 +1,12 @@
+{
+  "name": "ukazka_generator",
+  "brand": "Auto pod lupou",
+  "watermark": "UKÁZKA",
+  "scenes": [
+    "Cena v inzerátu není *cena auta*.",
+    "Po dovozu a poplatcích je to *o desítky tisíc* víc.",
+    "Proto počítáme *celé pořízení*, ne jen příklep.",
+    "Rozbor z evropské aukce: *do 24 hodin*."
+  ],
+  "cta": ["Chcete rozbor konkrétního auta?", "Napište mi", "+420 725 360 151", "batko.digital.ai@gmail.com"]
+}

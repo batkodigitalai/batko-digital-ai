@@ -20,3 +20,6 @@ Pravidla (platí od 26. 10. 2026):
 | 2026-09-27 | — | složka 20260927 | — | před zavedením přehledu |
 | 2026-09-26 | — | 20260926_vecer.html | — | před zavedením přehledu |
 | 2026-09-06 | — | 20260906.html | — | před zavedením přehledu |
+
+## 26. 10. 2026 – generátor videí
+- publikace/video_generator/ (README, ukazka_spec.json, ukázková videa 16:9 a 9:16 – jen UKÁZKA, NEPUBLIKOVAT) + scripts/publikace_video.js, scripts/publikace_hudba.py
