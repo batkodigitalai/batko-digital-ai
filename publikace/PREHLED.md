@@ -23,3 +23,4 @@ Pravidla (platí od 26. 10. 2026):
 
 ## 26. 10. 2026 – generátor videí
 - publikace/video_generator/ (README, ukazka_spec.json, ukázková videa 16:9 a 9:16 – jen UKÁZKA, NEPUBLIKOVAT) + scripts/publikace_video.js, scripts/publikace_hudba.py
+| 2026-10-26 | A1 | [20261026/20261026_1340_po_05_A1_karoq_hormozi.jpg](https://batkodigitalai.github.io/batko-digital-ai/publikace/20261026/20261026_1340_po_05_A1_karoq_hormozi.jpg) + videa 20261026_1340_po_05_karoq_169.mp4 / _916.mp4 | VYSTUPY řádek 4 | Karoq v Hormoziho stylu, nahrazuje kartu 04 (04 zůstává platná, ale text je starší) |
